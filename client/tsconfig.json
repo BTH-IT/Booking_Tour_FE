@@ -21,13 +21,10 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*", "node_modules/*"],
-      "@/components/*": ["src/components/*"],
-      "@/containers/*": ["src/containers/*"],
-      "@/pages/*": ["src/constants/*"],
-      "@/store/*": ["src/store/*"],
-      "@/types/*": ["src/types/*"],
-    }
+      "*": ["node_modules/*", "src/types/*"],
+      "@/*": ["src/*"]
+    },
+    "esModuleInterop": true
   },
   "include": ["src/**/*", "*"],
   "references": [{ "path": "./tsconfig.node.json" }],
