@@ -4,9 +4,12 @@ export const CardWrapper = styled.div`
   width: 100%;
   max-width: 380px;
   height: 250px;
+  display: inline-block;
   position: relative;
   cursor: pointer;
-  margin: 10px;
+  border-radius: 20px;
+  margin-left: 50px;
+  padding: 20px 0;
   overflow: hidden;
 
   &:hover {
@@ -52,7 +55,7 @@ export const CardInfo = styled.div`
   flex-direction: column;
   color: white;
   font-weight: 700;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 `;
 
 export const subTitle = styled.h4`
@@ -73,14 +76,19 @@ export const img = styled.img`
   filter: brightness(0.6);
   transition: all 0.3s linear;
 `;
+
 export const View = styled.h2`
   color: #5c98f2;
   font-weight: 700;
+  
+  &:hover{
+    text-decoration: underline;
+  }
 `;
 
 export const Tours = styled.button`
   position: absolute;
-  top: 20px;
+  top: 30px;
   right: 20px;
   background-color: #5c98f2;
   padding: 10px 15px;
