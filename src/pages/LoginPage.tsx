@@ -1,10 +1,10 @@
-import { useForm } from "react-hook-form";
-    
+import { useForm } from 'react-hook-form';
+
 export default function Login() {
   const {
     handleSubmit,
     formState: { isDirty, isValidating },
-  } = useForm{
+  } = useForm({
     defaultValues: {
       email: '',
       password: '',
@@ -13,7 +13,7 @@ export default function Login() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit((values) => console.log(values))>
+      <form onSubmit={handleSubmit((values) => console.log(values))}>
         <div>
           <label htmlFor="">Email</label>
           <input type="text" />
@@ -24,7 +24,9 @@ export default function Login() {
           <input type="text" />
         </div>
 
-        <button type="submit" disabled={isDirty}>Login</button>
+        <button type="submit" disabled={isDirty}>
+          Login
+        </button>
       </form>
     </div>
   );
