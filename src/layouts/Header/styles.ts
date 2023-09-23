@@ -1,18 +1,34 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const HeaderWrapper = styled.header`
+interface IHeaderWrapperProps {
+  isscroll?: 1 | 0;
+}
+
+export const HeaderWrapper = styled.header<IHeaderWrapperProps>`
   position: sticky;
+  top: 0;
   width: 100%;
   padding: 0 26px;
+  transition: all 0.2s linear;
+  background-color: ${({ isscroll }) =>
+    isscroll ? 'rgba(255, 255, 255, 0.7)' : 'transparent'};
+  ${({ isscroll }) =>
+    isscroll &&
+    css`
+      box-shadow:
+        rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+        rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    `}
 `;
 
-export const HeaderContainer = styled.div`
+export const HeaderContainer = styled.div<IHeaderWrapperProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0 20px;
-  padding-top: 50px;
+  transition: all 0.2s linear;
+  padding: ${({ isscroll }) =>
+    isscroll ? '20px 20px 10px 20px' : '50px 20px 0 20px'};
 `;
 
 export const HeaderResponsive = styled.div`

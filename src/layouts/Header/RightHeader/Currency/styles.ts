@@ -1,13 +1,21 @@
 import styled from 'styled-components';
 
-export const CurrencyWrapper = styled.div`
+interface ICurrencyProps {
+  color?: string;
+}
+
+interface ICurrencyDropdownProps {
+  bgcolor?: string;
+}
+
+export const CurrencyWrapper = styled.div<ICurrencyProps>`
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
   padding: 0 20px;
-  color: black;
+  color: ${({ color }) => (color ? color : 'black')};
   cursor: pointer;
 `;
 
@@ -18,6 +26,7 @@ export const CurrencyTitle = styled.div`
   gap: 5px;
   font-size: 1.2rem;
   font-weight: 500;
+
   span {
     font-size: 1.3rem;
     font-weight: 600;
@@ -25,7 +34,7 @@ export const CurrencyTitle = styled.div`
   }
 `;
 
-export const CurrencyDropdown = styled.ul`
+export const CurrencyDropdown = styled.ul<ICurrencyDropdownProps>`
   position: absolute;
   top: calc(100%);
   left: 50%;
@@ -34,6 +43,8 @@ export const CurrencyDropdown = styled.ul`
   padding: 15px 25px;
   margin: 0px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: ${({ bgcolor }) => (bgcolor ? bgcolor : 'white')};
+  color: black;
 
   &::before {
     content: '';
