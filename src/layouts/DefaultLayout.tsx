@@ -7,11 +7,11 @@ import Footer from './Footer';
 import Sidebar from './Sidebar';
 import Overlay from './Overlay';
 
-interface IMainLayoutStyledProps {
+interface IDefaultStyledProps {
   isshow: 1 | 0;
 }
 
-const MainLayoutStyled = styled.div<IMainLayoutStyledProps>`
+const DefaultStyled = styled.div<IDefaultStyledProps>`
   position: relative;
   transition: all 0.3s ease;
   transform: ${({ isshow }) =>
@@ -20,12 +20,12 @@ const MainLayoutStyled = styled.div<IMainLayoutStyledProps>`
   z-index: 2;
 `;
 
-const MainLayout = () => {
+const DefaultLayout = () => {
   const [showSidebar, setShowSidebar] = useState(false);
 
   return (
     <>
-      <MainLayoutStyled isshow={showSidebar ? 1 : 0}>
+      <DefaultStyled isshow={showSidebar ? 1 : 0}>
         <Header
           isShowSidebar={showSidebar}
           onClick={() => setShowSidebar((prev) => !prev)}
@@ -36,10 +36,10 @@ const MainLayout = () => {
           isShow={showSidebar}
           onClose={() => setShowSidebar(false)}
         ></Overlay>
-      </MainLayoutStyled>
+      </DefaultStyled>
       {showSidebar && <Sidebar onClose={() => setShowSidebar(false)}></Sidebar>}
     </>
   );
 };
 
-export default MainLayout;
+export default DefaultLayout;

@@ -45,16 +45,6 @@ export const CurrencyDropdown = styled.ul<ICurrencyDropdownProps>`
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   background-color: ${({ bgcolor }) => (bgcolor ? bgcolor : 'white')};
   color: black;
-
-  &::before {
-    content: '';
-    position: absolute;
-    bottom: 100%;
-    left: 0;
-    width: 100%;
-    height: 25px;
-    background-color: transparent;
-  }
 `;
 
 export const CurrencyDropdownItem = styled.li`

@@ -1,14 +1,19 @@
 import { Button } from 'antd';
 import styled from 'styled-components';
 
-export const CustomButtonStyled = styled(Button)`
-  padding: 7px 25px;
-  border-radius: 10px;
-  height: 100%;
+interface IButonProps {
+  width?: string;
+}
+
+export const CustomButtonStyled = styled(Button)<IButonProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 190px;
+  height: 100%;
+  width: 100%;
+  max-width: ${(props) => props.width ?? '190px'};
+  border-radius: 10px;
+  padding: 7px 25px;
 
   span {
     font-size: 1.2rem !important;
