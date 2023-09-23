@@ -6,6 +6,7 @@ export const LanguageWrapper = styled.div`
   width: 60px;
   height: 60px;
   border-radius: 10px;
+  flex-shrink: 0;
 
   &:hover {
     background-color: #f1f5f9;
