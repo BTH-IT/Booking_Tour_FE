@@ -1,7 +1,11 @@
-import React from 'react';
+import * as Styles from './styles';
 
 const Language = () => {
-  return <div>Language</div>;
+  return (
+    <Styles.LanguageWrapper>
+      <Styles.LanguageImage src="/usa.png" />
+    </Styles.LanguageWrapper>
+  );
 };
 
 export default Language;

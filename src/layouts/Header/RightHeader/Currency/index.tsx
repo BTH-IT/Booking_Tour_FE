@@ -1,7 +1,37 @@
-import React from 'react';
+import { useState } from 'react';
+import { AiFillCaretDown } from 'react-icons/ai';
+import * as Styles from './styles';
+const currencyList = ['USD', 'EUR', 'CHF'];
 
 const Currency = () => {
-  return <div>Currency</div>;
+  const [value, setValue] = useState(currencyList[0]);
+  const [show, setShow] = useState(false);
+
+  return (
+    <Styles.CurrencyWrapper
+      onMouseEnter={() => setShow(true)}
+      onMouseLeave={() => setShow(false)}
+    >
+      <Styles.CurrencyTitle>
+        <span>{value}</span>
+        <AiFillCaretDown></AiFillCaretDown>
+      </Styles.CurrencyTitle>
+      {show && (
+        <Styles.CurrencyDropdown onClick={() => setShow(false)}>
+          {currencyList
+            .filter((currency) => currency != value)
+            .map((currency) => (
+              <Styles.CurrencyDropdownItem
+                onClick={() => setValue(currency)}
+                key={currency}
+              >
+                {currency}
+              </Styles.CurrencyDropdownItem>
+            ))}
+        </Styles.CurrencyDropdown>
+      )}
+    </Styles.CurrencyWrapper>
+  );
 };
 
 export default Currency;
