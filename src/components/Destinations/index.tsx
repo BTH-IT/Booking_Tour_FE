@@ -1,6 +1,12 @@
-import Card from '../Card';
+import Card from '../Card/Destination';
 
-export interface ICards {
+import * as Styles from './styles';
+import ButtonLink from '../ButtonLink';
+import { Col } from 'antd';
+import Destination from '../Card/Destination';
+import { Container } from '@/constants';
+
+export interface ICard {
   img: string;
   title: string;
   subtitle: string;
@@ -8,7 +14,7 @@ export interface ICards {
   view: string;
 }
 
-const cards: ICards[] = [
+const cards: ICard[] = [
   {
     img: 'https://dulichvietnam.com.vn/kinh-nghiem/wp-content/uploads/2019/07/kinh-nghiem-du-lich-buenos-aires-1.jpg',
     title: 'Western Europe',
@@ -59,12 +65,38 @@ const cards: ICards[] = [
   },
 ];
 
-export const Destinations: React.FC<ICards> = () => {
+export const Destinations = () => {
   return (
-    <div>
-      {cards.map((item) => (
-        <Card {...item} />
-      ))}
-    </div>
+    <Container>
+      <Styles.DestinationsContainer>
+        <Styles.DestinationsTop>
+          <Styles.DestinationsTopTitle>
+            Top <span>Destinations</span>
+          </Styles.DestinationsTopTitle>
+          <Styles.DestinationsTopDesc>
+            Explore our top destinations voted by more than 100,000+ customers
+            around the world.
+          </Styles.DestinationsTopDesc>
+          <ButtonLink
+            href="/"
+            icon={true}
+            font_size="1.4rem"
+            border_bottom={1}
+            hover_color_bottom="#5c98f2"
+            color="black"
+            hover_color="black"
+          >
+            All Destinations
+          </ButtonLink>
+        </Styles.DestinationsTop>
+        <Styles.DestinationsBottom gutter={[30, 30]}>
+          {cards.map((card) => (
+            <Col xs={24} sm={12} xl={8}>
+              <Destination {...card} key={card.title}></Destination>
+            </Col>
+          ))}
+        </Styles.DestinationsBottom>
+      </Styles.DestinationsContainer>
+    </Container>
   );
 };

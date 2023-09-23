@@ -2,14 +2,10 @@ import { styled } from 'styled-components';
 
 export const CardWrapper = styled.div`
   width: 100%;
-  max-width: 380px;
-  height: 250px;
+  height: auto;
   display: inline-block;
   position: relative;
-  cursor: pointer;
   border-radius: 20px;
-  margin-left: 50px;
-  padding: 20px 0;
   overflow: hidden;
 
   &:hover {
@@ -27,6 +23,10 @@ export const CardWrapper = styled.div`
 
     div {
       transform: translateY(20px);
+
+      h3 {
+        margin-bottom: 0px;
+      }
     }
   }
 `;
@@ -39,6 +39,8 @@ export const Title = styled.h3`
   color: white;
   font-weight: 700;
   font-size: 2rem;
+  margin-bottom: 30px;
+  transition: all 0.2s ease;
 `;
 
 export const CardInfo = styled.div`
@@ -47,7 +49,7 @@ export const CardInfo = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  transform: translateY(155px);
+  transform: translateY(50%);
   gap: 10px;
   display: flex;
   justify-content: center;
@@ -60,7 +62,6 @@ export const CardInfo = styled.div`
 
 export const subTitle = styled.h4`
   text-align: center;
-  width: 300px;
   color: white;
   font-weight: 300;
   font-size: 1.2rem;
@@ -68,8 +69,8 @@ export const subTitle = styled.h4`
 `;
 
 export const img = styled.img`
-  width: 380px;
-  height: 250px;
+  width: 100%;
+  height: 280px;
   background-size: cover;
   background-position: center;
   border-radius: 20px;
@@ -80,13 +81,13 @@ export const img = styled.img`
 export const View = styled.h2`
   color: #5c98f2;
   font-weight: 700;
-  
-  &:hover{
+
+  &:hover {
     text-decoration: underline;
   }
 `;
 
-export const Tours = styled.button`
+export const Tours = styled.span`
   position: absolute;
   top: 30px;
   right: 20px;

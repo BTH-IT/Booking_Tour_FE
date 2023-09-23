@@ -11,14 +11,16 @@ export const HeaderWrapper = styled.header<IHeaderWrapperProps>`
   padding: 0 26px;
   transition: all 0.2s linear;
   background-color: ${({ isscroll }) =>
-    isscroll ? 'rgba(255, 255, 255, 0.7)' : 'transparent'};
+    isscroll ? 'rgba(255, 255, 255, 0.97)' : 'transparent'};
   ${({ isscroll }) =>
-    isscroll &&
-    css`
-      box-shadow:
-        rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-        rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-    `}
+    isscroll
+      ? css`
+          box-shadow:
+            rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+            rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+        `
+      : ''}
+  z-index: 2;
 `;
 
 export const HeaderContainer = styled.div<IHeaderWrapperProps>`
