@@ -1,18 +1,8 @@
 import './App.css';
-import { Destinations } from './components/Destination/renderCard';
-import { Popular } from './components/Popular/renderCard';
-import { Added } from './components/Added/renderCard';
-import { HotelRoom } from './components/HotelRoom/renderCard';
+import AppRouter from './AppRouter';
 
 function App() {
-  return (
-    <div>
-      {/* <Destinations />
-      <Popular />
-      <Added /> */}
-      <HotelRoom />
-    </div>
-  );
+  return <AppRouter></AppRouter>;
 }
 
 export default App;
