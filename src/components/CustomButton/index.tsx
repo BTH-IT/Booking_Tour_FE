@@ -6,7 +6,7 @@ import React from 'react';
 interface CustomButtonProps extends BaseButtonProps {
   width?: string;
   height?: string;
-  borderRadius?: string;
+  border_radius?: string;
   onClick?: () => void;
 }
 

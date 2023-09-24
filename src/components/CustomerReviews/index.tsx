@@ -43,9 +43,34 @@ const settings = {
   centerMode: true,
   dots: true,
   infinite: true,
-  centerPadding: '60px',
-  slidesToShow: 3,
   speed: 500,
+  slidesToShow: 2,
+  slidesToScroll: 3,
+  initialSlide: 0,
+  variableWidth: true,
+  responsive: [
+    {
+      breakpoint: 1600,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
 };
 
 const CustomerReviews = () => {
@@ -55,7 +80,7 @@ const CustomerReviews = () => {
         What our customers are saying about us
       </Styles.CustomerReviewsTitle>
 
-      <Styles.SliderStyled {...settings}>
+      <Slider {...settings}>
         {customerReviews.map((customerReview) => (
           <CustomerReview
             key={customerReview.fullname}
@@ -65,7 +90,7 @@ const CustomerReviews = () => {
             avatar={customerReview.avatar}
           ></CustomerReview>
         ))}
-      </Styles.SliderStyled>
+      </Slider>
     </Styles.CustomerReviewsWrapper>
   );
 };

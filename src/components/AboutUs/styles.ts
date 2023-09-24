@@ -7,6 +7,11 @@ export const AboutUsContainer = styled.div`
   padding: 0 50px;
   padding-top: 100px;
   background-color: white;
+
+  @media screen and (max-width: 767px) {
+    padding: 0 25px;
+    padding-top: 50px;
+  }
 `;
 
 export const AboutUsCard = styled.div`
@@ -21,6 +26,11 @@ export const AboutUsCardImage = styled.div`
   width: 60px;
   height: 60px;
   overflow: hidden;
+
+  @media screen and (max-width: 767px) {
+    width: 40px;
+    height: 40px;
+  }
 `;
 
 export const AboutUsCardImg = styled.img`
@@ -39,6 +49,10 @@ export const AboutUsCardRight = styled.div`
 export const AboutUsCardTitle = styled.h3`
   font-size: 2rem;
   font-weight: 700;
+
+  @media screen and (max-width: 767px) {
+    font-size: 1.2rem;
+  }
 `;
 
 export const AboutUsCardDesc = styled.div`
@@ -46,4 +60,8 @@ export const AboutUsCardDesc = styled.div`
   font-weight: 400;
   line-height: 2;
   color: #8c8c8c;
+
+  @media screen and (max-width: 767px) {
+    font-size: 1rem;
+  }
 `;

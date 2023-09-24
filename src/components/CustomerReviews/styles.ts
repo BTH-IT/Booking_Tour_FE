@@ -12,6 +12,39 @@ export const CustomerReviewsWrapper = styled.section`
   & .slick-arrow {
     display: none !important;
   }
+
+  & .center .slick-center .reviews {
+    transition: all 400ms ease-in-out;
+    transform: scale(1.1);
+    z-index: 3;
+    opacity: 1;
+  }
+
+  & .slick-slide,
+  .slick-track,
+  .slick-lick {
+    padding: 10px;
+  }
+
+  & .slick-slide > div {
+    padding: 20px;
+  }
+
+  & .center .reviews {
+    opacity: 0.6;
+  }
+
+  @media screen and (max-width: 767px) {
+    & .slick-slide > div {
+      padding: 10px;
+    }
+  }
+
+  @media screen and (max-width: 567px) {
+    & .slick-slide > div {
+      padding: 0px;
+    }
+  }
 `;
 
 export const CustomerReviewsTitle = styled.h3`
@@ -22,6 +55,8 @@ export const CustomerReviewsTitle = styled.h3`
   margin: 0 auto;
   text-align: center;
   margin-bottom: 60px;
-`;
 
-export const SliderStyled = styled(Slider)``;
+  @media screen and (max-width: 767px) {
+    max-width: 100%;
+  }
+`;

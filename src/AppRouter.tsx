@@ -2,12 +2,14 @@ import { Routes, Route } from 'react-router-dom';
 import DefaultLayout from './layouts/DefaultLayout';
 import { router } from './constants/router';
 import Homepage from './pages/HomePage';
+import SearchPage from './pages/SearchPage';
 
 export default function AppRouter() {
   return (
     <Routes>
       <Route element={<DefaultLayout />}>
         <Route path={router.home} element={<Homepage />} />
+        <Route path={router.search} element={<SearchPage />} />
       </Route>
     </Routes>
   );
