@@ -1,6 +1,23 @@
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import { SliderStyled } from './styles';
 
+const responsive = [
+  {
+    breakpoint: 1500,
+    settings: {
+      slidesToShow: 2,
+      slidesToScroll: 2,
+    },
+  },
+  {
+    breakpoint: 1000,
+    settings: {
+      slidesToShow: 1,
+      slidesToScroll: 1,
+    },
+  },
+];
+
 const settings = {
   dots: false,
   infinite: true,
@@ -21,6 +38,9 @@ const settings = {
       </div>
     </div>
   ),
+  responsive,
+  autoplay: true,
+  autoplaySpeed: 5000,
 };
 
 const SliderBase = ({ children }: { children: React.ReactNode }) => {

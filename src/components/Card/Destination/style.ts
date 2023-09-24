@@ -58,6 +58,10 @@ export const CardInfo = styled.div`
   color: white;
   font-weight: 700;
   transition: all 0.2s ease;
+
+  @media screen and (max-width: 767px) {
+    transform: translateY(60%);
+  }
 `;
 
 export const subTitle = styled.h4`

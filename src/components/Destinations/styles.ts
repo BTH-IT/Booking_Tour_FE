@@ -5,6 +5,7 @@ export const DestinationsContainer = styled.div`
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;
+  padding: 0 20px;
   padding-top: 100px;
 `;
 
@@ -27,6 +28,10 @@ export const DestinationsTopTitle = styled.h3`
     font-family: inherit;
     color: #5c98f2;
   }
+
+  @media screen and (max-width: 480px) {
+    font-size: 3.2rem;
+  }
 `;
 
 export const DestinationsTopDesc = styled.p`
@@ -35,6 +40,10 @@ export const DestinationsTopDesc = styled.p`
   font-size: 1.4rem;
   line-height: 1.5;
   text-align: center;
+
+  @media screen and (max-width: 480px) {
+    max-width: 100%;
+  }
 `;
 
 export const DestinationsBottom = styled(Row)`

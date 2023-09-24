@@ -22,6 +22,10 @@ export const SearchFormWrapper = styled(Form)`
   select {
     font-size: 1.3rem !important;
   }
+
+  @media screen and (max-width: 767px) {
+    max-width: 100%;
+  }
 `;
 
 export const SearchFormButton = styled(Button)`

@@ -21,26 +21,26 @@ const SearchForm = () => {
       autoComplete="off"
     >
       <Row gutter={20}>
-        <Col xs={20}>
+        <Col xs={24} md={20}>
           <Styles.SearchFormContent gutter={20}>
-            <Col xs={8}>
+            <Col xs={24} md={8}>
               <Form.Item name="keyword" label="Keyword">
                 <Input placeholder="Enter your keyword..." bordered={false} />
               </Form.Item>
             </Col>
-            <Col xs={8}>
+            <Col xs={24} md={8}>
               <Form.Item name="destination" label="Destination">
                 <Select size="middle" options={[]} bordered={false} />
               </Form.Item>
             </Col>
-            <Col xs={8}>
+            <Col xs={24} md={8}>
               <Form.Item name="duration" label="Duration">
                 <Select size="middle" options={[]} bordered={false} />
               </Form.Item>
             </Col>
           </Styles.SearchFormContent>
         </Col>
-        <Col xs={4}>
+        <Col xs={24} md={4}>
           <Styles.SearchFormButton
             type="primary"
             htmlType="submit"

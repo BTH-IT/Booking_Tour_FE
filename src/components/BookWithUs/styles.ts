@@ -12,6 +12,11 @@ export const BookWithUsContent = styled.div`
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;
+  padding: 0 20px;
+
+  @media screen and (max-width: 767px) {
+    max-width: 500px;
+  }
 `;
 
 export const BookWithUsTag = styled.section`
@@ -23,7 +28,11 @@ export const BookWithUsTag = styled.section`
   color: #41ddb8;
   background-color: white;
   font-size: 1.4rem;
-  font-weight: 500;
+  font-weight: 700;
+
+  @media screen and (max-width: 767px) {
+    padding: 12px 24px;
+  }
 `;
 
 export const BookWithUsTitle = styled.h3`
@@ -39,12 +48,21 @@ export const BookWithUsTitle = styled.h3`
     font-family: inherit;
     color: #5c98f2;
   }
+
+  @media screen and (max-width: 767px) {
+    font-size: 5.4rem;
+  }
 `;
 
 export const BookWithUsDesc = styled.p`
   line-height: 1.5;
   font-size: 2rem;
   margin-bottom: 75px;
+
+  @media screen and (max-width: 767px) {
+    font-size: 1.8rem;
+    margin-bottom: 50px;
+  }
 `;
 
 export const BookWithUsBackground = styled.img`
@@ -59,10 +77,14 @@ export const BookWithUsBackground = styled.img`
 export const BookWithUsImage = styled.img`
   position: absolute;
   width: 100%;
-  max-width: 600px;
-  height: auto;
+  max-width: 500px;
+  height: 700px;
   z-index: -1;
   border-radius: 24px;
-  top: -50px;
-  left: 60%;
+  top: -30px;
+  left: 55%;
+
+  @media screen and (max-width: 1200px) {
+    display: none;
+  }
 `;

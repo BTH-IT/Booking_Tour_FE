@@ -5,6 +5,9 @@ export const SliderStyled = styled(Slider)`
   .slick-prev {
     left: -52px !important;
   }
+  width: 100%;
+  max-width: 1300px !important;
+  margin: 0 auto !important;
 
   .slick-next:before,
   .slick-prev:before {
@@ -32,6 +35,48 @@ export const SliderStyled = styled(Slider)`
     height: 48px;
     border-radius: 50%;
     padding: 10px;
+  }
+
+  @media screen and (max-width: 1500px) {
+    max-width: 1000px !important;
+
+    .slick-arrow.slick-prev {
+    }
+
+    .slick-arrow.slick-next {
+    }
+  }
+
+  @media screen and (max-width: 1150px) {
+    max-width: 800px !important;
+
+    .slick-arrow.slick-prev {
+    }
+
+    .slick-arrow.slick-next {
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    max-width: 500px !important;
+
+    .slick-arrow.slick-prev {
+    }
+
+    .slick-arrow.slick-next {
+    }
+  }
+
+  @media screen and (max-width: 657px) {
+    max-width: 100% !important;
+
+    .slick-arrow.slick-prev {
+      display: none !important;
+    }
+
+    .slick-arrow.slick-next {
+      display: none !important;
+    }
   }
 `;
 

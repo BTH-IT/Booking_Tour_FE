@@ -20,4 +20,8 @@ export const PopularToursTitle = styled.h3`
     font-family: inherit;
     color: #5c98f2;
   }
+
+  @media screen and (max-width: 480px) {
+    font-size: 3.2rem;
+  }
 `;
