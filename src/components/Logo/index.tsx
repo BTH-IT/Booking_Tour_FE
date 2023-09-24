@@ -1,11 +1,9 @@
 import * as Styles from './styles';
 
-const Logo = () => {
+const Logo = ({ src = './logo.png' }: { src?: string }) => {
   return (
-    <Styles.LogoWrapper>
-      <Styles.LogoLink href="/">
-        <Styles.LogoImage src="./logo.png" />
-      </Styles.LogoLink>
+    <Styles.LogoWrapper href="/">
+      <Styles.LogoImage src={src} />
     </Styles.LogoWrapper>
   );
 };
