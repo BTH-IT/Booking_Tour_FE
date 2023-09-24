@@ -27,6 +27,12 @@ export const Title = styled.a`
   transition: all 0.2s ease;
   width: 100%;
   padding: 0 20px;
+
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 export const CardInfo = styled.div`
