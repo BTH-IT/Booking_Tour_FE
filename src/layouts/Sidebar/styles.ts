@@ -43,6 +43,8 @@ export const SidebarNavItemLink = styled.a<{ isactive?: 1 | 0 }>`
   text-transform: uppercase;
   padding: 18px 0;
   border-bottom: 1px solid #626262;
+  color: #979797;
+  text-decoration: none;
 
   ${({ isactive }) =>
     isactive &&

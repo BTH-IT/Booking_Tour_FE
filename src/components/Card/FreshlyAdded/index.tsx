@@ -9,6 +9,7 @@ interface IFreshlyAddedProps {
   price: number;
   reviews: number;
   rate: number;
+  max_width?: string;
 }
 
 const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({
@@ -18,10 +19,11 @@ const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({
   price,
   reviews,
   rate,
+  max_width,
 }) => {
   return (
-    <Styles.CardWrapper>
-      <a href="">
+    <Styles.CardWrapper max_width={max_width}>
+      <a href="/">
         <Styles.img src={img} alt={title} />
       </a>
       {salePercent > 0 && <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>}

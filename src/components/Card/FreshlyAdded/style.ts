@@ -1,8 +1,12 @@
 import { styled } from 'styled-components';
 
-export const CardWrapper = styled.div`
+interface IFreshlyAddedProps {
+  max_width?: string;
+}
+
+export const CardWrapper = styled.div<IFreshlyAddedProps>`
   width: 100%;
-  max-width: 275px;
+  max-width: ${({ max_width }) => max_width || '275px'};
   height: 450px;
   display: inline-block;
   position: relative;

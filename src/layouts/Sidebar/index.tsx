@@ -8,24 +8,28 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
   return (
     <Styles.SidebarWrapper>
       <Styles.SidebarCloseIcon onClick={onClose}>
-        <AiOutlineClose></AiOutlineClose>
+        <AiOutlineClose />
       </Styles.SidebarCloseIcon>
       <Styles.SidebarNav>
         <Styles.SidebarNavItem>
-          <Styles.SidebarNavItemLink isactive={1}>
+          <Styles.SidebarNavItemLink isactive={1} href="/">
             Home
           </Styles.SidebarNavItemLink>
         </Styles.SidebarNavItem>
         <Styles.SidebarNavItem>
-          <Styles.SidebarNavItemLink>Tour List</Styles.SidebarNavItemLink>
+          <Styles.SidebarNavItemLink href="/tour-list">
+            Tour List
+          </Styles.SidebarNavItemLink>
         </Styles.SidebarNavItem>
         <Styles.SidebarNavItem>
-          <Styles.SidebarNavItemLink>Tour Search</Styles.SidebarNavItemLink>
+          <Styles.SidebarNavItemLink href="/search">
+            Tour Search
+          </Styles.SidebarNavItemLink>
         </Styles.SidebarNavItem>
       </Styles.SidebarNav>
       <Styles.SidebarTranferAction>
-        <Currency color="white" bgColor="white"></Currency>
-        <Language></Language>
+        <Currency color="white" bgColor="white" />
+        <Language />
       </Styles.SidebarTranferAction>
     </Styles.SidebarWrapper>
   );
