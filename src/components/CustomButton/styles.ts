@@ -16,9 +16,22 @@ export const CustomButtonStyled = styled(Button)<IButonProps>`
   max-width: ${(props) => props.width ?? '190px'};
   border-radius: ${(props) => props.borderRadius ?? '10px'};
   padding: 7px 25px;
+  background-color: #5c98f2;
+  color: white;
+  transition: all 0.2s ease;
+  border: none;
 
   span {
     font-size: 1.2rem !important;
     font-weight: 600;
+    color: inherit;
+  }
+
+  &:hover,
+  &:focus {
+    span {
+      background-color: #5c98f2 !important;
+      color: white !important;
+    }
   }
 `;
