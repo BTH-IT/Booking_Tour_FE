@@ -1,11 +1,11 @@
-import PopularTour from '../Card/PopularTour';
-import { Container } from '@/constants';
+import ButtonLink from '../ButtonLink';
+import FreshlyAdded from '../Card/FreshlyAdded';
 import SliderBase from '../Slider/SliderBase';
+import { Container } from '@/constants';
 
 import * as Styles from './styles';
-import ButtonLink from '../ButtonLink';
 
-const popularTours = [
+const freshlyAddeds = [
   {
     price: 2400,
     rate: 3,
@@ -62,16 +62,46 @@ const popularTours = [
   },
 ];
 
-const PopularTours = () => {
+const FreshlyAddeds = () => {
   return (
     <Container>
-      <Styles.PopularToursContainer>
-        <Styles.PopularToursTitle>
-          Popular <span>Tours</span>
-        </Styles.PopularToursTitle>
-        <SliderBase>
-          {popularTours.map((popularTour) => (
-            <PopularTour {...popularTour} key={popularTour.img}></PopularTour>
+      <Styles.FreshlyAddedContainer>
+        <Styles.FreshlyAddedTitle>
+          Freshly <span>Added</span>
+        </Styles.FreshlyAddedTitle>
+        <SliderBase
+          config={{
+            slidesToShow: 4,
+          }}
+          configResponsive={[
+            {
+              breakpoint: 1500,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+              },
+            },
+            {
+              breakpoint: 1150,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+              },
+            },
+            {
+              breakpoint: 1000,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+              },
+            },
+          ]}
+        >
+          {freshlyAddeds.map((freshlyAdded) => (
+            <FreshlyAdded
+              {...freshlyAdded}
+              key={freshlyAdded.img}
+            ></FreshlyAdded>
           ))}
         </SliderBase>
         <ButtonLink
@@ -83,11 +113,11 @@ const PopularTours = () => {
           color="black"
           hover_color="black"
         >
-          See More
+          View All Tours
         </ButtonLink>
-      </Styles.PopularToursContainer>
+      </Styles.FreshlyAddedContainer>
     </Container>
   );
 };
 
-export default PopularTours;
+export default FreshlyAddeds;

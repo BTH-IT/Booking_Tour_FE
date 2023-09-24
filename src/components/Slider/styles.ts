@@ -15,6 +15,8 @@ export const SliderStyled = styled(Slider)`
   }
 
   .slick-list {
+    padding-bottom: 30px;
+
     .slick-track {
       .slick-slide > div {
         display: flex;

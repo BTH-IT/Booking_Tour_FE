@@ -43,8 +43,21 @@ const settings = {
   autoplaySpeed: 5000,
 };
 
-const SliderBase = ({ children }: { children: React.ReactNode }) => {
-  return <SliderStyled {...settings}>{children}</SliderStyled>;
+const SliderBase = ({
+  children,
+  config = {},
+  configResponsive = [],
+}: {
+  children: React.ReactNode;
+  config?: any;
+  configResponsive?: any[];
+}) => {
+  const newConfig = {
+    ...settings,
+    ...config,
+    responsive: configResponsive.length > 0 ? configResponsive : responsive,
+  };
+  return <SliderStyled {...newConfig}>{children}</SliderStyled>;
 };
 
 export default SliderBase;

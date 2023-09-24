@@ -2,40 +2,37 @@ import * as Styles from './style';
 import React from 'react';
 import { Rate } from 'antd';
 
-interface IPopularTourProps {
+interface IFreshlyAddedProps {
   title: string;
   img: string;
   salePercent: number;
   price: number;
   reviews: number;
   rate: number;
-  time: string;
 }
 
-const PopularTour: React.FC<IPopularTourProps> = ({
+const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({
   title,
   img,
   salePercent,
   price,
   reviews,
   rate,
-  time,
 }) => {
   return (
     <Styles.CardWrapper>
-      <Styles.img src={img} alt={title} />
+      <a href="">
+        <Styles.img src={img} alt={title} />
+      </a>
       {salePercent > 0 && <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>}
       <Styles.CardInfo>
         <Styles.Title>{title}</Styles.Title>
-        <Styles.CardInfoContent className="card-info-content">
-          <Styles.CardInfoContentLeft>
-            <Styles.CardInfoContentDays>{time}</Styles.CardInfoContentDays>
-            <Styles.CardInfoContentReviews>
-              <Rate disabled defaultValue={rate} />
-              <span>({reviews} Reviews)</span>
-            </Styles.CardInfoContentReviews>
-          </Styles.CardInfoContentLeft>
-          <Styles.CardInfoContentRight>
+        <Styles.CardInfoContent>
+          <Styles.CardInfoContentReviews>
+            <Rate disabled defaultValue={rate} />
+            <span>({reviews} Reviews)</span>
+          </Styles.CardInfoContentReviews>
+          <Styles.CardInfoContentBottom>
             {salePercent > 0 ? (
               <>
                 <Styles.CardInfoContentSalePrice>
@@ -47,17 +44,16 @@ const PopularTour: React.FC<IPopularTourProps> = ({
               </>
             ) : (
               <>
-                <p> </p>
-                <Styles.CardInfoContentPrice>
-                  ${price}
-                </Styles.CardInfoContentPrice>
+                <Styles.CardInfoContentPriceWithoutSale>
+                  From <span>${price}</span>
+                </Styles.CardInfoContentPriceWithoutSale>
               </>
             )}
-          </Styles.CardInfoContentRight>
+          </Styles.CardInfoContentBottom>
         </Styles.CardInfoContent>
       </Styles.CardInfo>
     </Styles.CardWrapper>
   );
 };
 
-export default PopularTour;
+export default FreshlyAdded;

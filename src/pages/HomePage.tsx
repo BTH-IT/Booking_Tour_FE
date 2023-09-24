@@ -3,7 +3,7 @@ import BookWithUs from '@/components/BookWithUs';
 import ContactUs from '@/components/ContactUs';
 import CustomerReviews from '@/components/CustomerReviews';
 import { Destinations } from '@/components/Destinations';
-import FreshlyAdded from '@/components/FreshlyAdded';
+import FreshlyAddeds from '@/components/FreshlyAddeds';
 import PopularTours from '@/components/PopularTours';
 
 const Homepage = () => {
@@ -12,7 +12,7 @@ const Homepage = () => {
       <BookWithUs></BookWithUs>
       <Destinations></Destinations>
       <PopularTours></PopularTours>
-      <FreshlyAdded></FreshlyAdded>
+      <FreshlyAddeds></FreshlyAddeds>
       <ContactUs></ContactUs>
       <CustomerReviews></CustomerReviews>
       <AboutUs></AboutUs>

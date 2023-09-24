@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const PopularToursContainer = styled.div`
+export const FreshlyAddedContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,7 +12,7 @@ export const PopularToursContainer = styled.div`
   padding-top: 100px;
 `;
 
-export const PopularToursTitle = styled.h3`
+export const FreshlyAddedTitle = styled.h3`
   color: black;
   font-size: 5rem;
   font-family: 'DM Serif Display', sans-serif;

@@ -91,8 +91,8 @@ export const Destinations = () => {
         </Styles.DestinationsTop>
         <Styles.DestinationsBottom gutter={[30, 30]}>
           {cards.map((card) => (
-            <Col xs={24} sm={12} xl={8}>
-              <Destination {...card} key={card.title}></Destination>
+            <Col xs={24} sm={12} xl={8} key={card.title}>
+              <Destination {...card}></Destination>
             </Col>
           ))}
         </Styles.DestinationsBottom>
