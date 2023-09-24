@@ -19,31 +19,16 @@ export const ButtonLinkWrapper = styled.a<IButtonLinkWrapperProps>`
   font-size: ${({ font_size }) => (font_size ? font_size : '1rem')};
   border-bottom: 2px solid
     ${({ border_bottom, color_bottom }) =>
-      border_bottom
-        ? color_bottom
-          ? color_bottom
-          : '#cecece'
-        : 'transparent'};
+      border_bottom ? color_bottom || '#cecece' : 'transparent'};
 
-  font-weight: ${({ font_weight }) => (font_weight ? font_weight : '400')};
-  color: ${({ color }) => (color ? color : 'black')};
+  font-weight: ${({ font_weight }) => font_weight || '400'};
+  color: ${({ color }) => color || 'black'};
   transition: all 0.2s linear;
 
   &:hover {
-    ${({ hover_color }) =>
-      hover_color
-        ? `color: ${hover_color};`
-        : css`
-            color: #cecece;
-          `};
+    color: ${({ hover_color }) => hover_color || '#cecece'};
 
-    ${({ hover_color_bottom, border_bottom }) =>
-      border_bottom
-        ? hover_color_bottom
-          ? `border-color: ${hover_color_bottom};`
-          : css`
-              border-color: #cecece;
-            `
-        : ''};
+    border-color: ${({ hover_color_bottom, border_bottom }) =>
+      border_bottom ? hover_color_bottom || '#cecece' : ''};
   }
 `;

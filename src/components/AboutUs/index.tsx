@@ -12,7 +12,7 @@ const AboutUs = () => {
             <Styles.AboutUsCard>
               <Styles.AboutUsCardLeft>
                 <Styles.AboutUsCardImage>
-                  <Styles.AboutUsCardImg src="./icon-earth.png"></Styles.AboutUsCardImg>
+                  <Styles.AboutUsCardImg src="./icon-earth.png" />
                 </Styles.AboutUsCardImage>
               </Styles.AboutUsCardLeft>
               <Styles.AboutUsCardRight>
@@ -29,7 +29,7 @@ const AboutUs = () => {
             <Styles.AboutUsCard>
               <Styles.AboutUsCardLeft>
                 <Styles.AboutUsCardImage>
-                  <Styles.AboutUsCardImg src="./logo-02.png"></Styles.AboutUsCardImg>
+                  <Styles.AboutUsCardImg src="./logo-02.png" />
                 </Styles.AboutUsCardImage>
               </Styles.AboutUsCardLeft>
               <Styles.AboutUsCardRight>
@@ -46,7 +46,7 @@ const AboutUs = () => {
             <Styles.AboutUsCard>
               <Styles.AboutUsCardLeft>
                 <Styles.AboutUsCardImage>
-                  <Styles.AboutUsCardImg src="./logo-03.png"></Styles.AboutUsCardImg>
+                  <Styles.AboutUsCardImg src="./logo-03.png" />
                 </Styles.AboutUsCardImage>
               </Styles.AboutUsCardLeft>
               <Styles.AboutUsCardRight>

@@ -10,17 +10,19 @@ export const HeaderWrapper = styled.header<IHeaderWrapperProps>`
   width: 100%;
   padding: 0 26px;
   transition: all 0.2s linear;
-  background-color: ${({ isscroll }) =>
-    isscroll ? 'rgba(255, 255, 255, 0.97)' : 'transparent'};
+  z-index: 2;
+
   ${({ isscroll }) =>
     isscroll
       ? css`
           box-shadow:
             rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
             rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+          background-color: rgba(255, 255, 255, 0.97);
         `
-      : ''}
-  z-index: 2;
+      : css`
+          background-color: transparent;
+        `}
 `;
 
 export const HeaderContainer = styled.div<IHeaderWrapperProps>`

@@ -19,9 +19,7 @@ const CustomerReview: React.FC<ICustomerReviewProps> = ({
     <Styles.CustomerReviewWrapper>
       <Styles.CustomerReviewLeft>
         <Styles.CustomerReviewAvatar>
-          <Styles.CustomerReviewAvatarImg
-            src={avatar}
-          ></Styles.CustomerReviewAvatarImg>
+          <Styles.CustomerReviewAvatarImg src={avatar} />
         </Styles.CustomerReviewAvatar>
       </Styles.CustomerReviewLeft>
       <Styles.CustomerReviewRight>
