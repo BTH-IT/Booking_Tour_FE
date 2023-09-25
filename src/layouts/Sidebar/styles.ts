@@ -12,7 +12,12 @@ export const SidebarWrapper = styled.div`
   background-color: #1f1f1f;
   padding: 0 35px;
   padding-top: 80px;
-  z-index: 1;
+  z-index: 3;
+  transition: all 0.2s ease;
+
+  @media screen and (max-width: 576px) {
+    width: 200px;
+  }
 `;
 
 export const SidebarCloseIcon = styled.div`

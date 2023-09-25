@@ -1,6 +1,7 @@
 import * as Styles from './style';
 import React from 'react';
 import { Rate } from 'antd';
+import CustomButton from '@/components/CustomButton';
 
 interface IFreshlyAddedProps {
   title: string;
@@ -12,7 +13,7 @@ interface IFreshlyAddedProps {
   max_width?: string;
 }
 
-const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({
+const FreshlyAddedV2: React.FC<IFreshlyAddedProps> = ({
   title,
   img,
   salePercent,
@@ -24,21 +25,17 @@ const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({
   return (
     <Styles.CardWrapper max_width={max_width}>
       <a href="/">
-        <Styles.img src={img} alt={title} />
+        <Styles.CardImg src={img} alt={title} />
       </a>
       {salePercent > 0 && <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>}
       <Styles.CardInfo>
         <Styles.Title>{title}</Styles.Title>
         <Styles.CardInfoContent>
-          <Styles.CardInfoContentReviews>
-            <Rate allowHalf disabled defaultValue={rate} />
-            <span>({reviews} Reviews)</span>
-          </Styles.CardInfoContentReviews>
-          <Styles.CardInfoContentBottom>
+          <Styles.CardInfoContentTop>
             {salePercent > 0 ? (
               <>
                 <Styles.CardInfoContentSalePrice>
-                  ${price}
+                  From <span> ${price}</span>
                 </Styles.CardInfoContentSalePrice>
                 <Styles.CardInfoContentPrice>
                   ${price - price * (salePercent / 100)}
@@ -51,11 +48,23 @@ const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({
                 </Styles.CardInfoContentPriceWithoutSale>
               </>
             )}
-          </Styles.CardInfoContentBottom>
+          </Styles.CardInfoContentTop>
+          <Styles.CardInfoContentReviews>
+            <Rate allowHalf disabled defaultValue={rate} />
+            <span>({reviews} Reviews)</span>
+          </Styles.CardInfoContentReviews>
+          <CustomButton
+            type="primary"
+            width="100%"
+            border_radius="0"
+            height="50px"
+          >
+            View Detail
+          </CustomButton>
         </Styles.CardInfoContent>
       </Styles.CardInfo>
     </Styles.CardWrapper>
   );
 };
 
-export default FreshlyAdded;
+export default FreshlyAddedV2;

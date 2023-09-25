@@ -4,6 +4,8 @@ import { Col, Pagination, Row } from 'antd';
 import SearchContentForm from './SearchContentForm';
 import SearchContentSort from './SearchContentSort';
 import FreshlyAdded from '../Card/FreshlyAdded';
+import { useState } from 'react';
+import FreshlyAddedV2 from '../Card/FreshlyAddedV2';
 
 const freshlyAddeds = [
   {
@@ -63,10 +65,12 @@ const freshlyAddeds = [
 ];
 
 const SearchContent = () => {
+  const [layout, setLayout] = useState(false);
+
   return (
     <Container>
       <Styles.SearchContentWrapper>
-        <Row gutter={[20, 20]}>
+        <Row gutter={[60, 60]}>
           <Col xs={8}>
             <SearchContentForm />
           </Col>
@@ -75,18 +79,28 @@ const SearchContent = () => {
               <Styles.SearchContentResult>
                 22 Results Found
               </Styles.SearchContentResult>
-              <SearchContentSort />
-              <Row gutter={[20, 20]}>
-                {freshlyAddeds.map((freshlyAdded) => (
-                  <Col xs={12} key={freshlyAdded.img}>
-                    <FreshlyAdded
-                      {...freshlyAdded}
-                      max_width={'100%'}
-                    ></FreshlyAdded>
-                  </Col>
-                ))}
-              </Row>
-              <Pagination></Pagination>
+              <SearchContentSort layout={layout} setLayout={setLayout} />
+              {!layout ? (
+                <Row gutter={[20, 20]}>
+                  {freshlyAddeds.map((freshlyAdded) => (
+                    <Col xs={12} key={freshlyAdded.img}>
+                      <FreshlyAdded
+                        {...freshlyAdded}
+                        max_width={'100%'}
+                      ></FreshlyAdded>
+                    </Col>
+                  ))}
+                </Row>
+              ) : (
+                freshlyAddeds.map((freshlyAdded) => (
+                  <FreshlyAddedV2
+                    {...freshlyAdded}
+                    key={freshlyAdded.img}
+                    max_width={'100%'}
+                  ></FreshlyAddedV2>
+                ))
+              )}
+              <Pagination />
             </Styles.SearchContentRight>
           </Col>
         </Row>

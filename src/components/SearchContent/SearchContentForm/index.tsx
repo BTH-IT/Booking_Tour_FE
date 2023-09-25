@@ -1,11 +1,15 @@
-import { Form, Input } from 'antd';
+import { Form, Slider } from 'antd';
 import * as Styles from './styles';
 import { BsSearch } from 'react-icons/bs';
-
-const { Search } = Input;
+import { useState } from 'react';
+import CalendarInput from '@/components/CalendarInput';
+import { AiOutlineClose } from 'react-icons/ai';
+import Filter from './Filter';
+import CustomButton from '@/components/CustomButton';
 
 const SearchContentForm = () => {
   const [form] = Form.useForm();
+  const [date, setDate] = useState(new Date());
 
   const onFinish = () => {};
 
@@ -40,6 +44,36 @@ const SearchContentForm = () => {
           bordered={false}
         />
       </Styles.SearchContentFormItem>
+      <Styles.SearchContentFormDate name="date" label="Date">
+        <CalendarInput setDate={setDate} date={date} />
+      </Styles.SearchContentFormDate>
+      <Styles.SearchContentFormItem name="month" label="Month">
+        <Styles.SearchContentFormSelect
+          size="middle"
+          options={[]}
+          bordered={false}
+        />
+      </Styles.SearchContentFormItem>
+      <Styles.SearchContentFormItem name="price" label="Price">
+        <Slider range defaultValue={[20, 50]} disabled={false} />
+      </Styles.SearchContentFormItem>
+      <Styles.SearchContentFormItem name="rate" label="Rate">
+        <Styles.SearchContentFormRate allowHalf defaultValue={0} />
+      </Styles.SearchContentFormItem>
+      <Styles.SearchContentFormButton>
+        <AiOutlineClose />
+        <span>Clear Filter</span>
+      </Styles.SearchContentFormButton>
+      <Styles.SearchContentFormLine />
+      <Filter />
+      <CustomButton
+        type="primary"
+        border_radius="0px"
+        width="100%"
+        height="50px"
+      >
+        SEARCH
+      </CustomButton>
     </Styles.SearchContentForm>
   );
 };

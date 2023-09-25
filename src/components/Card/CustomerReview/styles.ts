@@ -20,11 +20,11 @@ export const CustomerReviewWrapper = styled.div`
   }
 
   @media screen and (max-width: 767px) {
-    max-width: 350px;
-    height: 400px;
     flex-direction: column;
     align-items: center;
     justify-content: unset;
+    max-width: 350px;
+    height: 400px;
   }
 
   @media screen and (max-width: 526px) {

@@ -18,6 +18,11 @@ const DefaultStyled = styled.div<IDefaultStyledProps>`
     isshow ? 'translateX(-350px)' : 'translateX(0)'};
   background-color: #f8f8f8;
   z-index: 2;
+
+  @media screen and (max-width: 576px) {
+    transform: ${({ isshow }) =>
+      isshow ? 'translateX(-200px)' : 'translateX(0)'};
+  }
 `;
 
 const DefaultLayout = () => {

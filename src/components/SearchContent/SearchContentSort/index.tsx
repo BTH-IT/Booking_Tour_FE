@@ -4,9 +4,13 @@ import { Form, Select } from 'antd';
 import { AiOutlineUnorderedList } from 'react-icons/ai';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 
-const SearchContentSort = () => {
-  const [layout, setLayout] = useState<boolean>(false);
-
+const SearchContentSort = ({
+  layout,
+  setLayout,
+}: {
+  layout: boolean;
+  setLayout: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   return (
     <Styles.SearchContentSortWrapper>
       <span>Sort by</span>
