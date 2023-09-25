@@ -12,7 +12,6 @@
   "dependencies": {
     "@hookform/resolvers": "^3.3.1",
     "@reduxjs/toolkit": "^1.9.5",
-    "@types/date-fns": "^2.6.0",
     "@types/node": "^20.6.2",
     "@types/react-slick": "^0.23.10",
     "@types/redux-logger": "^3.0.9",
