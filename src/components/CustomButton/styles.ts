@@ -4,7 +4,7 @@ import styled from 'styled-components';
 interface IButonProps {
   width?: string;
   height?: string;
-  borderRadius?: string;
+  border_radius?: string;
 }
 
 export const CustomButtonStyled = styled(Button)<IButonProps>`
@@ -14,7 +14,7 @@ export const CustomButtonStyled = styled(Button)<IButonProps>`
   height: ${(props) => props.height ?? '100%'};
   width: 100%;
   max-width: ${(props) => props.width ?? '190px'};
-  border-radius: ${(props) => props.borderRadius ?? '10px'};
+  border-radius: ${(props) => props.border_radius ?? '10px'};
   padding: 7px 25px;
   background-color: #5c98f2;
   color: white;
@@ -28,7 +28,10 @@ export const CustomButtonStyled = styled(Button)<IButonProps>`
   }
 
   &:hover,
-  &:focus {
+  &:focus,
+  &:active {
+    background-color: #5c98f2 !important;
+    color: white !important;
     span {
       background-color: #5c98f2 !important;
       color: white !important;

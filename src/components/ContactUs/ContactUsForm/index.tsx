@@ -13,7 +13,7 @@ const ContactUsForm = () => {
           placeholder="Your Email Address"
         />
       </Styles.ContactUsFormContent>
-      <CustomButton type="primary" borderRadius="50px">
+      <CustomButton type="primary" border_radius="50px">
         SUBCRIBE
       </CustomButton>
     </Styles.ContactUsForm>

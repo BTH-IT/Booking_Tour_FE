@@ -23,6 +23,10 @@ export const HeaderWrapper = styled.header<IHeaderWrapperProps>`
       : css`
           background-color: transparent;
         `}
+
+  @media screen and (max-width: 767px) {
+    padding: 0;
+  }
 `;
 
 export const HeaderContainer = styled.div<IHeaderWrapperProps>`

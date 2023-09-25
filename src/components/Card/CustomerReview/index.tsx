@@ -1,6 +1,5 @@
 import React from 'react';
 import * as Styles from './styles';
-import { Rate } from 'antd';
 
 interface ICustomerReviewProps {
   avatar: string;
@@ -16,7 +15,7 @@ const CustomerReview: React.FC<ICustomerReviewProps> = ({
   content,
 }) => {
   return (
-    <Styles.CustomerReviewWrapper>
+    <Styles.CustomerReviewWrapper className="reviews">
       <Styles.CustomerReviewLeft>
         <Styles.CustomerReviewAvatar>
           <Styles.CustomerReviewAvatarImg src={avatar} />

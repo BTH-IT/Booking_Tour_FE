@@ -19,6 +19,7 @@ export const FooterTitle = styled.h2`
   font-size: 2.6rem;
   font-weight: 700;
   margin-bottom: 30px;
+  z-index: 1;
 `;
 
 export const FooterContainer = styled.div`
@@ -39,6 +40,10 @@ export const FooterContent = styled.div`
   span {
     font-size: inherit;
     color: #9a9a9a;
+  }
+
+  @media screen and (max-width: 767px) {
+    font-size: 1.2rem;
   }
 `;
 
@@ -100,4 +105,8 @@ export const FooterBottomCopyright = styled.p`
   flex-shrink: 0;
   color: #838383;
   font-size: 1.4rem;
+
+  @media screen and (max-width: 767px) {
+    text-align: center;
+  }
 `;
