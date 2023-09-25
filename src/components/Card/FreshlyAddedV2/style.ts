@@ -13,6 +13,11 @@ export const CardWrapper = styled.div<IFreshlyAddedProps>`
   max-height: 350px;
   border-radius: 12px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+    max-height: 100%;
+  }
 `;
 
 export const Title = styled.a`
@@ -39,16 +44,29 @@ export const CardInfo = styled.div`
   transition: all 0.2s ease;
   width: 100%;
   padding: 32px 30px 40px 40px;
+
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+  }
 `;
 
 export const CardImg = styled.img`
-  width: 270px;
+  width: 100%;
+  max-width: 270px;
   height: 100%;
   background-size: cover;
   background-position: center;
   transition: all 0.3s linear;
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
+
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+    max-width: 100%;
+    max-height: 416px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 12px;
+  }
 `;
 
 export const SaleOff = styled.span`
@@ -85,6 +103,10 @@ export const CardInfoContent = styled.div`
   height: 100%;
   transition: all 0.4s linear;
   border-left: 1px solid #e4e4e7;
+
+  @media screen and (max-width: 767px) {
+    border-color: transparent;
+  }
 `;
 
 export const CardInfoContentTop = styled.div`

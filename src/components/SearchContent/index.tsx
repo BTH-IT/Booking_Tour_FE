@@ -71,10 +71,10 @@ const SearchContent = () => {
     <Container>
       <Styles.SearchContentWrapper>
         <Row gutter={[60, 60]}>
-          <Col xs={8}>
+          <Col xs={24} md={24} xl={8}>
             <SearchContentForm />
           </Col>
-          <Col xs={16}>
+          <Col xs={24} md={24} xl={16}>
             <Styles.SearchContentRight>
               <Styles.SearchContentResult>
                 22 Results Found
@@ -83,7 +83,7 @@ const SearchContent = () => {
               {!layout ? (
                 <Row gutter={[20, 20]}>
                   {freshlyAddeds.map((freshlyAdded) => (
-                    <Col xs={12} key={freshlyAdded.img}>
+                    <Col xs={24} sm={12} key={freshlyAdded.img}>
                       <FreshlyAdded
                         {...freshlyAdded}
                         max_width={'100%'}

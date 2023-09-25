@@ -8,6 +8,7 @@ export const SearchContentWrapper = styled.section`
   margin: 0 auto;
   color: black;
   font-family: 'DM Serif Display', sans-serif;
+  overflow: hidden;
 `;
 
 export const SearchContentRight = styled.div`

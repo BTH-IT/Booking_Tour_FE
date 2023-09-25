@@ -13,6 +13,10 @@ export const SearchContentSortWrapper = styled.div`
     font-size: 1.4rem;
     font-weight: 600;
   }
+
+  @media screen and (max-width: 576px) {
+    flex-direction: column;
+  }
 `;
 
 export const SearchContentSortLayout = styled.div`

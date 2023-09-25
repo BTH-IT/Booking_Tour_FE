@@ -18,31 +18,33 @@ const Filter = () => {
           {show ? <AiOutlineMinus /> : <AiOutlinePlus />}
         </Styles.FilterHeaderIcon>
       </Styles.FilterHeader>
-      <FilterList title={'Tour Age'} checkboxList={['10+', '12+', '15+']} />
-      <FilterList
-        title={'Activities'}
-        checkboxList={[
-          'City Tours',
-          'Cultural & Thematic Tours',
-          'Family Friendly Tours',
-          'Holiday & Seasonal Tours',
-          'Indulgence & Luxury Tours',
-          'Outdoor Activites',
-          'Relaxation Tours',
-          'Wild & Adventure Tours',
-        ]}
-      />
-      <FilterList
-        title={'Destination'}
-        checkboxList={[
-          'America',
-          'Asia',
-          'Egypt',
-          'Scandinavia',
-          'South Africa',
-          'Western Europe',
-        ]}
-      />
+      <Styles.ShowFilterList className={`${show && 'active'}`}>
+        <FilterList title={'Tour Age'} checkboxList={['10+', '12+', '15+']} />
+        <FilterList
+          title={'Activities'}
+          checkboxList={[
+            'City Tours',
+            'Cultural & Thematic Tours',
+            'Family Friendly Tours',
+            'Holiday & Seasonal Tours',
+            'Indulgence & Luxury Tours',
+            'Outdoor Activites',
+            'Relaxation Tours',
+            'Wild & Adventure Tours',
+          ]}
+        />
+        <FilterList
+          title={'Destination'}
+          checkboxList={[
+            'America',
+            'Asia',
+            'Egypt',
+            'Scandinavia',
+            'South Africa',
+            'Western Europe',
+          ]}
+        />
+      </Styles.ShowFilterList>
     </Styles.FilterWrapper>
   );
 };
