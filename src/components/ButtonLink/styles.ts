@@ -1,13 +1,13 @@
 import styled, { css } from 'styled-components';
 
 export interface IButtonLinkWrapperProps {
-  border_bottom?: 1 | 0;
-  color_bottom?: string;
-  hover_color_bottom?: string;
-  font_weight?: number;
+  $borderBottom?: boolean;
+  $colorBottom?: string;
+  $hoverColorBottom?: string;
+  $fontWeight?: number;
   color?: string;
-  hover_color?: string;
-  font_size?: string;
+  $hoverColor?: string;
+  $fontSize?: string;
 }
 
 export const ButtonLinkWrapper = styled.a<IButtonLinkWrapperProps>`
@@ -16,19 +16,19 @@ export const ButtonLinkWrapper = styled.a<IButtonLinkWrapperProps>`
   gap: 10px;
   padding-bottom: 5px;
   text-decoration: none;
-  font-size: ${({ font_size }) => (font_size ? font_size : '1rem')};
+  font-size: ${({ $fontSize }) => $fontSize || '1rem'};
   border-bottom: 2px solid
-    ${({ border_bottom, color_bottom }) =>
-      border_bottom ? color_bottom || '#cecece' : 'transparent'};
+    ${({ $borderBottom, $colorBottom }) =>
+      $borderBottom ? $colorBottom || '#cecece' : 'transparent'};
 
-  font-weight: ${({ font_weight }) => font_weight || '400'};
+  font-weight: ${({ $fontWeight }) => $fontWeight || '400'};
   color: ${({ color }) => color || 'black'};
   transition: all 0.2s linear;
 
   &:hover {
-    color: ${({ hover_color }) => hover_color || '#cecece'};
+    color: ${({ $hoverColor }) => $hoverColor || '#cecece'};
 
-    border-color: ${({ hover_color_bottom, border_bottom }) =>
-      border_bottom ? hover_color_bottom || '#cecece' : ''};
+    border-color: ${({ $hoverColorBottom, $borderBottom }) =>
+      $borderBottom ? $hoverColorBottom || '#cecece' : ''};
   }
 `;

@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 interface IHeaderWrapperProps {
-  isscroll?: 1 | 0;
+  $isScroll?: boolean;
 }
 
 export const HeaderWrapper = styled.header<IHeaderWrapperProps>`
@@ -12,8 +12,8 @@ export const HeaderWrapper = styled.header<IHeaderWrapperProps>`
   transition: all 0.2s linear;
   z-index: 2;
 
-  ${({ isscroll }) =>
-    isscroll
+  ${({ $isScroll }) =>
+    $isScroll
       ? css`
           box-shadow:
             rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
@@ -35,8 +35,8 @@ export const HeaderContainer = styled.div<IHeaderWrapperProps>`
   align-items: center;
   width: 100%;
   transition: all 0.2s linear;
-  padding: ${({ isscroll }) =>
-    isscroll ? '20px 20px 10px 20px' : '50px 20px 0 20px'};
+  padding: ${({ $isScroll }) =>
+    $isScroll ? '20px 20px 10px 20px' : '50px 20px 0 20px'};
 `;
 
 export const HeaderResponsive = styled.div`

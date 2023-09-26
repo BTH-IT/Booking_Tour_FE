@@ -41,7 +41,7 @@ export const SidebarNavItem = styled.li`
   cursor: pointer;
 `;
 
-export const SidebarNavItemLink = styled.a<{ isactive?: 1 | 0 }>`
+export const SidebarNavItemLink = styled.a<{ isactive?: boolean }>`
   display: block;
   font-size: 1.2rem;
   font-weight: 600;

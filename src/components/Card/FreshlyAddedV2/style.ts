@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 
 interface IFreshlyAddedProps {
-  max_width?: string;
+  $maxWidth?: string;
 }
 
 export const CardWrapper = styled.div<IFreshlyAddedProps>`
@@ -9,7 +9,7 @@ export const CardWrapper = styled.div<IFreshlyAddedProps>`
   display: flex;
   width: 100%;
   height: 100%;
-  max-width: ${({ max_width }) => max_width || '275px'};
+  max-width: ${({ $maxWidth }) => $maxWidth || '275px'};
   max-height: 350px;
   border-radius: 12px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;

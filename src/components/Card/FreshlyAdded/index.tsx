@@ -1,6 +1,6 @@
 import * as Styles from './style';
-import React from 'react';
-import { Rate } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
+import { Rate, Skeleton } from 'antd';
 
 interface IFreshlyAddedProps {
   title: string;
@@ -9,7 +9,7 @@ interface IFreshlyAddedProps {
   price: number;
   reviews: number;
   rate: number;
-  max_width?: string;
+  maxWidth?: string;
 }
 
 const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({
@@ -19,13 +19,38 @@ const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({
   price,
   reviews,
   rate,
-  max_width,
+  maxWidth,
 }) => {
+  const [isLazyLoad, setIsLazyLoad] = useState(false);
+  const elementRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !isLazyLoad) {
+          setIsLazyLoad(entry.isIntersecting);
+        }
+      });
+    });
+
+    if (observer && elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => {
+      if (observer) {
+        observer.disconnect();
+      }
+    };
+  }, [elementRef.current]);
+
   return (
-    <Styles.CardWrapper max_width={max_width}>
-      <a href="/">
-        <Styles.img src={img} alt={title} />
-      </a>
+    <Styles.CardWrapper $maxWidth={maxWidth} ref={elementRef}>
+      {isLazyLoad && (
+        <a href="/">
+          <Styles.img src={img} alt={title} />
+        </a>
+      )}
       {salePercent > 0 && <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>}
       <Styles.CardInfo>
         <Styles.Title>{title}</Styles.Title>

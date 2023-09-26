@@ -107,11 +107,11 @@ const FreshlyAddeds = () => {
         <ButtonLink
           href="/"
           icon={true}
-          font_size="1.4rem"
-          border_bottom={1}
-          hover_color_bottom="#5c98f2"
+          $fontSize="1.4rem"
+          $borderBottom={true}
+          $hoverColorBottom="#5c98f2"
           color="black"
-          hover_color="black"
+          $hoverColor="black"
         >
           View All Tours
         </ButtonLink>

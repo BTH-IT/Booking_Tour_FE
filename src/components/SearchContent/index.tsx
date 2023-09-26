@@ -1,10 +1,10 @@
 import * as Styles from './styles';
 import { Container } from '@/constants';
-import { Col, Pagination, Row } from 'antd';
+import { Col, Row } from 'antd';
 import SearchContentForm from './SearchContentForm';
 import SearchContentSort from './SearchContentSort';
 import FreshlyAdded from '../Card/FreshlyAdded';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import FreshlyAddedV2 from '../Card/FreshlyAddedV2';
 
 const freshlyAddeds = [
@@ -66,6 +66,52 @@ const freshlyAddeds = [
 
 const SearchContent = () => {
   const [layout, setLayout] = useState(false);
+  const [tourList, setTourList] = useState<any[]>([]);
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(0);
+
+  const elementRef = useRef<HTMLDivElement | null>(null);
+
+  function onIntersection(entries: IntersectionObserverEntry[]) {
+    const firstEntry = entries[0];
+
+    if (firstEntry.isIntersecting && hasMore) {
+      fetchMoreItems();
+    }
+  }
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(onIntersection);
+
+    if (observer && elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => {
+      if (observer) {
+        observer.disconnect();
+      }
+    };
+  }, [tourList]);
+
+  async function fetchMoreItems() {
+    try {
+      const res = await fetch(
+        `https://dummyjson.com/products?limit=10&skip=${page * 10}`,
+      );
+
+      const data = await res.json();
+
+      if (data.products.length == 0) {
+        setHasMore(false);
+      } else {
+        setTourList((prev) => [...prev, ...data.products]);
+        setPage((prev) => prev + 1);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <Container>
@@ -82,25 +128,39 @@ const SearchContent = () => {
               <SearchContentSort layout={layout} setLayout={setLayout} />
               {!layout ? (
                 <Row gutter={[20, 20]}>
-                  {freshlyAddeds.map((freshlyAdded) => (
+                  {/* {freshlyAddeds.map((freshlyAdded) => (
                     <Col xs={24} sm={12} key={freshlyAdded.img}>
+                      <FreshlyAdded {...freshlyAdded} maxWidth={'100%'} />
+                    </Col>
+                  ))} */}
+                  {tourList.map((item) => (
+                    <Col xs={24} sm={12} key={item.thumbnail}>
                       <FreshlyAdded
-                        {...freshlyAdded}
-                        max_width={'100%'}
-                      ></FreshlyAdded>
+                        {...freshlyAddeds[0]}
+                        img={item.thumbnail}
+                        maxWidth={'100%'}
+                      />
                     </Col>
                   ))}
                 </Row>
               ) : (
-                freshlyAddeds.map((freshlyAdded) => (
+                // freshlyAddeds.map((freshlyAdded) => (
+                //   <FreshlyAddedV2
+                //     {...freshlyAdded}
+                //     key={freshlyAdded.img}
+                //     maxWidth={'100%'}
+                //   ></FreshlyAddedV2>
+                // ))
+                tourList.map((item) => (
                   <FreshlyAddedV2
-                    {...freshlyAdded}
-                    key={freshlyAdded.img}
-                    max_width={'100%'}
-                  ></FreshlyAddedV2>
+                    {...freshlyAddeds[0]}
+                    img={item.thumbnail}
+                    key={item.thumbnail}
+                    maxWidth={'100%'}
+                  />
                 ))
               )}
-              <Pagination />
+              {hasMore && <div ref={elementRef}></div>}
             </Styles.SearchContentRight>
           </Col>
         </Row>

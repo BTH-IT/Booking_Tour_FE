@@ -20,11 +20,11 @@ const Destination: React.FC<ICard> = ({
         <ButtonLink
           href="/"
           icon={false}
-          font_size="1.4rem"
+          $fontSize="1.4rem"
           color="#5c98f2"
-          hover_color="#7cb0fc"
-          font_weight={600}
-          border_bottom={0}
+          $hoverColor="#7cb0fc"
+          $fontWeight={600}
+          $borderBottom={false}
         >
           {view}
         </ButtonLink>

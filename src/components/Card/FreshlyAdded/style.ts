@@ -1,12 +1,12 @@
 import { styled } from 'styled-components';
 
 interface IFreshlyAddedProps {
-  max_width?: string;
+  $maxWidth?: string;
 }
 
 export const CardWrapper = styled.div<IFreshlyAddedProps>`
   width: 100%;
-  max-width: ${({ max_width }) => max_width || '275px'};
+  max-width: ${({ $maxWidth }) => $maxWidth || '275px'};
   height: 450px;
   display: inline-block;
   position: relative;
@@ -46,8 +46,8 @@ export const img = styled.img`
   height: 230px;
   background-size: cover;
   background-position: center;
-  border-top-right-radius: 20px;
-  border-top-left-radius: 20px;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
   transition: all 0.3s linear;
 `;
 

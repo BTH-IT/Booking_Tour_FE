@@ -15,6 +15,7 @@ export const SearchContentRight = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
+  padding-bottom: 60px;
 `;
 
 export const SearchContentResult = styled.h3`
