@@ -5,7 +5,7 @@ import { useState } from 'react';
 import FilterList from './FilterList';
 
 const Filter = () => {
-  const [show, setShow] = useState(true);
+  const [isShow, setIsShow] = useState(true);
 
   return (
     <Styles.FilterWrapper>
@@ -14,11 +14,11 @@ const Filter = () => {
           <BiFilterAlt />
           <span>Filter</span>
         </Styles.FilterTitle>
-        <Styles.FilterHeaderIcon onClick={() => setShow(!show)}>
-          {show ? <AiOutlineMinus /> : <AiOutlinePlus />}
+        <Styles.FilterHeaderIcon onClick={() => setIsShow(!isShow)}>
+          {isShow ? <AiOutlineMinus /> : <AiOutlinePlus />}
         </Styles.FilterHeaderIcon>
       </Styles.FilterHeader>
-      <Styles.ShowFilterList className={`${show && 'active'}`}>
+      <Styles.ShowFilterList className={`${isShow && 'active'}`}>
         <FilterList title={'Tour Age'} checkboxList={['10+', '12+', '15+']} />
         <FilterList
           title={'Activities'}
