@@ -6,6 +6,7 @@ import CalendarInput from '@/components/CalendarInput';
 import { AiOutlineClose } from 'react-icons/ai';
 import Filter from './Filter';
 import CustomButton from '@/components/CustomButton';
+import { CalendarChangeEvent } from 'primereact/calendar';
 
 const SearchContentForm = () => {
   const [form] = Form.useForm();
@@ -45,7 +46,11 @@ const SearchContentForm = () => {
         />
       </Styles.SearchContentFormItem>
       <Styles.SearchContentFormDate name="date" label="Date">
-        <CalendarInput setDate={setDate} date={date} />
+        <CalendarInput
+          value={date}
+          onChange={(e: CalendarChangeEvent) => setDate(e.value as Date)}
+          minDate={new Date()}
+        />
       </Styles.SearchContentFormDate>
       <Styles.SearchContentFormItem name="month" label="Month">
         <Styles.SearchContentFormSelect

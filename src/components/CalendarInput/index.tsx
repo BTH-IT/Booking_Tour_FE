@@ -1,27 +1,16 @@
-import React from 'react';
-import * as Styles from './styles';
+import { Dispatch, SetStateAction } from 'react';
 import { BsCalendar2Date } from 'react-icons/bs';
-import { CalendarChangeEvent } from 'primereact/calendar';
+import { CalendarProps } from 'primereact/calendar';
 
-const CalendarInput = ({
-  date,
-  setDate,
-}: {
-  date: Date;
-  setDate: React.Dispatch<React.SetStateAction<Date>>;
-}) => {
-  function onChange(e: CalendarChangeEvent) {
-    setDate(e.value as Date);
-  }
+import * as Styles from './styles';
 
+interface ICalendarInputProps extends CalendarProps {}
+
+const CalendarInput = (props: ICalendarInputProps) => {
   return (
     <Styles.CalendarInputWrapper>
       <BsCalendar2Date />
-      <Styles.CalendarInput
-        value={date}
-        onChange={onChange}
-        minDate={new Date()}
-      />
+      <Styles.CalendarInput {...props} />
     </Styles.CalendarInputWrapper>
   );
 };

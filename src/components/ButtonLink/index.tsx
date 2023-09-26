@@ -31,7 +31,7 @@ const ButtonLink = ({
       font_size={font_size}
     >
       {children}
-      {icon && <BsArrowRight></BsArrowRight>}
+      {icon && <BsArrowRight />}
     </Styles.ButtonLinkWrapper>
   );
 };
