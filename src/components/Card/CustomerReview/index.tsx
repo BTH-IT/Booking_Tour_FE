@@ -25,6 +25,7 @@ const CustomerReview: React.FC<ICustomerReviewProps> = ({
         <Styles.CustomerReviewHeader>
           <Styles.CustomerReviewName>{fullname}</Styles.CustomerReviewName>
           <Styles.CustomerReviewRate
+            allowHalf
             disabled
             defaultValue={rate}
           ></Styles.CustomerReviewRate>

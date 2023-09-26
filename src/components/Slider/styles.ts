@@ -41,32 +41,14 @@ export const SliderStyled = styled(Slider)`
 
   @media screen and (max-width: 1500px) {
     max-width: 1000px !important;
-
-    .slick-arrow.slick-prev {
-    }
-
-    .slick-arrow.slick-next {
-    }
   }
 
   @media screen and (max-width: 1150px) {
     max-width: 800px !important;
-
-    .slick-arrow.slick-prev {
-    }
-
-    .slick-arrow.slick-next {
-    }
   }
 
   @media screen and (max-width: 1000px) {
     max-width: 500px !important;
-
-    .slick-arrow.slick-prev {
-    }
-
-    .slick-arrow.slick-next {
-    }
   }
 
   @media screen and (max-width: 657px) {

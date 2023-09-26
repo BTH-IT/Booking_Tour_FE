@@ -12,7 +12,12 @@ export const SidebarWrapper = styled.div`
   background-color: #1f1f1f;
   padding: 0 35px;
   padding-top: 80px;
-  z-index: 1;
+  z-index: 3;
+  transition: all 0.2s ease;
+
+  @media screen and (max-width: 576px) {
+    width: 200px;
+  }
 `;
 
 export const SidebarCloseIcon = styled.div`
@@ -36,13 +41,15 @@ export const SidebarNavItem = styled.li`
   cursor: pointer;
 `;
 
-export const SidebarNavItemLink = styled.a<{ isactive?: 1 | 0 }>`
+export const SidebarNavItemLink = styled.a<{ isactive?: boolean }>`
   display: block;
   font-size: 1.2rem;
   font-weight: 600;
   text-transform: uppercase;
   padding: 18px 0;
   border-bottom: 1px solid #626262;
+  color: #979797;
+  text-decoration: none;
 
   ${({ isactive }) =>
     isactive &&

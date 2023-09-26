@@ -7,31 +7,11 @@ interface IButtonLinkProps extends Styles.IButtonLinkWrapperProps {
   icon?: boolean;
 }
 
-const ButtonLink = ({
-  border_bottom,
-  color_bottom,
-  hover_color_bottom,
-  font_weight,
-  color,
-  hover_color,
-  font_size,
-  children,
-  href,
-  icon = false,
-}: IButtonLinkProps) => {
+const ButtonLink = ({ children, icon, ...props }: IButtonLinkProps) => {
   return (
-    <Styles.ButtonLinkWrapper
-      href={href}
-      border_bottom={border_bottom}
-      color_bottom={color_bottom}
-      hover_color_bottom={hover_color_bottom}
-      font_weight={font_weight}
-      color={color}
-      hover_color={hover_color}
-      font_size={font_size}
-    >
+    <Styles.ButtonLinkWrapper {...props}>
       {children}
-      {icon && <BsArrowRight></BsArrowRight>}
+      {icon && <BsArrowRight />}
     </Styles.ButtonLinkWrapper>
   );
 };

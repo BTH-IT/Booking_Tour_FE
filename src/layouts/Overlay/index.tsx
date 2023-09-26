@@ -1,15 +1,15 @@
 import * as Styles from './styles';
 
 const Overlay = ({
-  isShow,
+  $isShow,
   onClose,
 }: {
-  isShow: boolean;
+  $isShow: boolean;
   onClose: () => void;
 }) => {
   return (
     <Styles.OverlayWrapper
-      isshow={isShow ? 1 : 0}
+      $isShow={$isShow}
       onClick={onClose}
     ></Styles.OverlayWrapper>
   );

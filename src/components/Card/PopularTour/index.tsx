@@ -31,7 +31,7 @@ const PopularTour: React.FC<IPopularTourProps> = ({
           <Styles.CardInfoContentLeft>
             <Styles.CardInfoContentDays>{time}</Styles.CardInfoContentDays>
             <Styles.CardInfoContentReviews>
-              <Rate disabled defaultValue={rate} />
+              <Rate allowHalf disabled defaultValue={rate} />
               <span>({reviews} Reviews)</span>
             </Styles.CardInfoContentReviews>
           </Styles.CardInfoContentLeft>
