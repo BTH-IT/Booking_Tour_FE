@@ -27,7 +27,7 @@ const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting && !isLazyLoad) {
+        if (entry.isIntersecting) {
           setIsLazyLoad(entry.isIntersecting);
         }
       });
@@ -44,13 +44,11 @@ const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({
     };
   }, [elementRef.current]);
 
-  return (
+  return isLazyLoad ? (
     <Styles.CardWrapper $maxWidth={maxWidth} ref={elementRef}>
-      {isLazyLoad && (
-        <a href="/">
-          <Styles.img src={img} alt={title} />
-        </a>
-      )}
+      <a href="/">
+        <Styles.img src={img} alt={title} />
+      </a>
       {salePercent > 0 && <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>}
       <Styles.CardInfo>
         <Styles.Title>{title}</Styles.Title>
@@ -78,6 +76,13 @@ const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({
             )}
           </Styles.CardInfoContentBottom>
         </Styles.CardInfoContent>
+      </Styles.CardInfo>
+    </Styles.CardWrapper>
+  ) : (
+    <Styles.CardWrapper $maxWidth={maxWidth} ref={elementRef}>
+      <Styles.SkeletonImg active />
+      <Styles.CardInfo>
+        <Styles.SkeletonTitle active />
       </Styles.CardInfo>
     </Styles.CardWrapper>
   );

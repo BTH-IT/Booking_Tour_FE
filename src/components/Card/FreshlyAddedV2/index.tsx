@@ -43,13 +43,11 @@ const FreshlyAddedV2: React.FC<IFreshlyAddedProps> = ({
     };
   }, [elementRef.current]);
 
-  return (
-    <Styles.CardWrapper $maxWidth={maxWidth}>
-      {isLazyLoad && (
-        <a href="/">
-          <Styles.CardImg src={img} alt={title} />
-        </a>
-      )}
+  return isLazyLoad ? (
+    <Styles.CardWrapper $maxWidth={maxWidth} ref={elementRef}>
+      <a href="/">
+        <Styles.CardImg src={img} alt={title} />
+      </a>
       {salePercent > 0 && <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>}
       <Styles.CardInfo>
         <Styles.Title>{title}</Styles.Title>
@@ -85,6 +83,13 @@ const FreshlyAddedV2: React.FC<IFreshlyAddedProps> = ({
             View Detail
           </CustomButton>
         </Styles.CardInfoContent>
+      </Styles.CardInfo>
+    </Styles.CardWrapper>
+  ) : (
+    <Styles.CardWrapper $maxWidth={maxWidth} ref={elementRef}>
+      <Styles.SkeletonImg active />
+      <Styles.CardInfo>
+        <Styles.SkeletonTitle active />
       </Styles.CardInfo>
     </Styles.CardWrapper>
   );

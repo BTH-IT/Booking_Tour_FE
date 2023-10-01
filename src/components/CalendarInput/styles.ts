@@ -1,11 +1,19 @@
 import { Calendar } from 'primereact/calendar';
 import styled from 'styled-components';
 
-export const CalendarInputWrapper = styled.div`
+interface ICalendarInputProps {
+  $isBordered?: boolean;
+  rounded?: string;
+}
+
+export const CalendarInputWrapper = styled.div<ICalendarInputProps>`
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 2rem;
+  min-height: 48px;
+  border-radius: ${(props) => props.rounded ?? '0px'};
+  border: ${(props) => props.$isBordered && '1px solid #e2e2e2'};
 
   svg {
     flex-shrink: 0;

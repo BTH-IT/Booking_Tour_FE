@@ -7,10 +7,11 @@ import { useCallback, useEffect, useState } from 'react';
 
 interface IHeaderProps {
   onClick: () => void;
+  onShowModal: () => void;
   $isShowSidebar: boolean;
 }
 
-const Header = ({ $isShowSidebar, onClick }: IHeaderProps) => {
+const Header = ({ $isShowSidebar, onClick, onShowModal }: IHeaderProps) => {
   const [$isScroll, set$isScroll] = useState(window.scrollY > 0);
 
   const handleScroll = useCallback(() => {
@@ -31,7 +32,7 @@ const Header = ({ $isShowSidebar, onClick }: IHeaderProps) => {
         <Logo></Logo>
         <Styles.HeaderResponsive>
           <NavHeader></NavHeader>
-          <RightHeader></RightHeader>
+          <RightHeader onShowModal={onShowModal}></RightHeader>
         </Styles.HeaderResponsive>
         <Styles.HeaderResponsiveIcon onClick={onClick}>
           {!$isShowSidebar && <AiOutlineMenu></AiOutlineMenu>}

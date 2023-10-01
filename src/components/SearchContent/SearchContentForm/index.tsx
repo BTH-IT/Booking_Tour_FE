@@ -25,6 +25,14 @@ const SearchContentForm = () => {
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
+      initialValues={{
+        keywords: '',
+        duration: '',
+        date: '',
+        month: '',
+        price: [20, 50],
+        rate: 0,
+      }}
     >
       <Styles.SearchContentTitle>
         <BsSearch />
@@ -60,10 +68,10 @@ const SearchContentForm = () => {
         />
       </Styles.SearchContentFormItem>
       <Styles.SearchContentFormItem name="price" label="Price">
-        <Slider range defaultValue={[20, 50]} disabled={false} />
+        <Slider range disabled={false} />
       </Styles.SearchContentFormItem>
       <Styles.SearchContentFormItem name="rate" label="Rate">
-        <Styles.SearchContentFormRate allowHalf defaultValue={0} />
+        <Styles.SearchContentFormRate allowHalf />
       </Styles.SearchContentFormItem>
       <Styles.SearchContentFormButton>
         <AiOutlineClose />

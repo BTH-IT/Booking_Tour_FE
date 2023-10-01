@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 
-export default function Login() {
+export default function LoginPage() {
   const {
     handleSubmit,
     formState: { isDirty, isValidating },

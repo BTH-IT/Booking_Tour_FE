@@ -1,3 +1,4 @@
+import { Skeleton } from 'antd';
 import { styled } from 'styled-components';
 
 interface IFreshlyAddedProps {
@@ -126,4 +127,13 @@ export const CardInfoContentPriceWithoutSale = styled.div`
     color: #5c98f2;
     opacity: 1;
   }
+`;
+
+export const SkeletonImg = styled(Skeleton.Image)`
+  width: 100% !important;
+  height: 230px !important;
+`;
+
+export const SkeletonTitle = styled(Skeleton)`
+  width: 100%;
 `;
