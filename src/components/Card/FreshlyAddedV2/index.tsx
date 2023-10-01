@@ -27,9 +27,7 @@ const FreshlyAddedV2: React.FC<IFreshlyAddedProps> = ({
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        setIsLazyLoad(entry.isIntersecting);
-      });
+      setIsLazyLoad(entries[0].isIntersecting);
     });
 
     if (observer && elementRef.current) {
