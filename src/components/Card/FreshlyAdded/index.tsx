@@ -26,11 +26,7 @@ const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setIsLazyLoad(entry.isIntersecting);
-        }
-      });
+      setIsLazyLoad(entries[0].isIntersecting);
     });
 
     if (observer && elementRef.current) {
@@ -44,47 +40,53 @@ const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({
     };
   }, [elementRef.current]);
 
-  return isLazyLoad ? (
-    <Styles.CardWrapper $maxWidth={maxWidth} ref={elementRef}>
-      <a href="/">
-        <Styles.img src={img} alt={title} />
-      </a>
-      {salePercent > 0 && <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>}
-      <Styles.CardInfo>
-        <Styles.Title>{title}</Styles.Title>
-        <Styles.CardInfoContent>
-          <Styles.CardInfoContentReviews>
-            <Rate allowHalf disabled defaultValue={rate} />
-            <span>({reviews} Reviews)</span>
-          </Styles.CardInfoContentReviews>
-          <Styles.CardInfoContentBottom>
-            {salePercent > 0 ? (
-              <>
-                <Styles.CardInfoContentSalePrice>
-                  ${price}
-                </Styles.CardInfoContentSalePrice>
-                <Styles.CardInfoContentPrice>
-                  ${price - price * (salePercent / 100)}
-                </Styles.CardInfoContentPrice>
-              </>
-            ) : (
-              <>
-                <Styles.CardInfoContentPriceWithoutSale>
-                  From <span>${price}</span>
-                </Styles.CardInfoContentPriceWithoutSale>
-              </>
-            )}
-          </Styles.CardInfoContentBottom>
-        </Styles.CardInfoContent>
-      </Styles.CardInfo>
-    </Styles.CardWrapper>
-  ) : (
-    <Styles.CardWrapper $maxWidth={maxWidth} ref={elementRef}>
-      <Styles.SkeletonImg active />
-      <Styles.CardInfo>
-        <Styles.SkeletonTitle active />
-      </Styles.CardInfo>
-    </Styles.CardWrapper>
+  return (
+    <div ref={elementRef}>
+      {isLazyLoad ? (
+        <Styles.CardWrapper $maxWidth={maxWidth}>
+          <a href="/">
+            <Styles.img src={img} alt={title} />
+          </a>
+          {salePercent > 0 && (
+            <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>
+          )}
+          <Styles.CardInfo>
+            <Styles.Title>{title}</Styles.Title>
+            <Styles.CardInfoContent>
+              <Styles.CardInfoContentReviews>
+                <Rate allowHalf disabled defaultValue={rate} />
+                <span>({reviews} Reviews)</span>
+              </Styles.CardInfoContentReviews>
+              <Styles.CardInfoContentBottom>
+                {salePercent > 0 ? (
+                  <>
+                    <Styles.CardInfoContentSalePrice>
+                      ${price}
+                    </Styles.CardInfoContentSalePrice>
+                    <Styles.CardInfoContentPrice>
+                      ${price - price * (salePercent / 100)}
+                    </Styles.CardInfoContentPrice>
+                  </>
+                ) : (
+                  <>
+                    <Styles.CardInfoContentPriceWithoutSale>
+                      From <span>${price}</span>
+                    </Styles.CardInfoContentPriceWithoutSale>
+                  </>
+                )}
+              </Styles.CardInfoContentBottom>
+            </Styles.CardInfoContent>
+          </Styles.CardInfo>
+        </Styles.CardWrapper>
+      ) : (
+        <Styles.CardWrapper $maxWidth={maxWidth}>
+          <Styles.SkeletonImg active />
+          <Styles.CardInfo>
+            <Styles.SkeletonTitle active />
+          </Styles.CardInfo>
+        </Styles.CardWrapper>
+      )}
+    </div>
   );
 };
 
