@@ -1,25 +1,11 @@
-import { Form, Input, InputProps, InputRef } from 'antd';
+import { InputProps } from 'antd';
 import * as Styles from './styles';
 
-// type CompoundedComponent = React.ForwardRefExoticComponent<
-//   InputProps & React.RefAttributes<InputRef>
-// > & {
-//   Group: typeof Group;
-//   Search: typeof Search;
-//   TextArea: typeof TextArea;
-//   Password: typeof Password;
-// };
-
-interface IInputFormItemProps {
+type CompoundedComponent = InputProps & {
   label: string;
-  name: string;
-  placeholder?: string;
-  bordered?: boolean;
-  allowClear?: boolean;
-  type?: string;
-}
+};
 
-const InputFormItem = ({ name, label, ...props }: IInputFormItemProps) => {
+const InputFormItem = ({ name, label, ...props }: CompoundedComponent) => {
   return (
     <Styles.InputFormItemStyled name={name} label={label}>
       <Styles.InputStyled {...props} />
