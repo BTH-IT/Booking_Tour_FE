@@ -27,9 +27,7 @@ const FreshlyAddedV2: React.FC<IFreshlyAddedProps> = ({
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        setIsLazyLoad(entry.isIntersecting);
-      });
+      setIsLazyLoad(entries[0].isIntersecting);
     });
 
     if (observer && elementRef.current) {
@@ -44,49 +42,60 @@ const FreshlyAddedV2: React.FC<IFreshlyAddedProps> = ({
   }, [elementRef.current]);
 
   return (
-    <Styles.CardWrapper $maxWidth={maxWidth}>
-      {isLazyLoad && (
-        <a href="/">
-          <Styles.CardImg src={img} alt={title} />
-        </a>
+    <div ref={elementRef}>
+      {isLazyLoad ? (
+        <Styles.CardWrapper $maxWidth={maxWidth}>
+          <a href="/">
+            <Styles.CardImg src={img} alt={title} />
+          </a>
+          {salePercent > 0 && (
+            <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>
+          )}
+          <Styles.CardInfo>
+            <Styles.Title>{title}</Styles.Title>
+            <Styles.CardInfoContent>
+              <Styles.CardInfoContentTop>
+                {salePercent > 0 ? (
+                  <>
+                    <Styles.CardInfoContentSalePrice>
+                      From <span> ${price}</span>
+                    </Styles.CardInfoContentSalePrice>
+                    <Styles.CardInfoContentPrice>
+                      ${price - price * (salePercent / 100)}
+                    </Styles.CardInfoContentPrice>
+                  </>
+                ) : (
+                  <>
+                    <Styles.CardInfoContentPriceWithoutSale>
+                      From <span>${price}</span>
+                    </Styles.CardInfoContentPriceWithoutSale>
+                  </>
+                )}
+              </Styles.CardInfoContentTop>
+              <Styles.CardInfoContentReviews>
+                <Rate allowHalf disabled defaultValue={rate} />
+                <span>({reviews} Reviews)</span>
+              </Styles.CardInfoContentReviews>
+              <CustomButton
+                type="primary"
+                width="100%"
+                border_radius="0"
+                height="50px"
+              >
+                View Detail
+              </CustomButton>
+            </Styles.CardInfoContent>
+          </Styles.CardInfo>
+        </Styles.CardWrapper>
+      ) : (
+        <Styles.CardWrapper $maxWidth={maxWidth}>
+          <Styles.SkeletonImg active />
+          <Styles.CardInfo>
+            <Styles.SkeletonTitle active />
+          </Styles.CardInfo>
+        </Styles.CardWrapper>
       )}
-      {salePercent > 0 && <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>}
-      <Styles.CardInfo>
-        <Styles.Title>{title}</Styles.Title>
-        <Styles.CardInfoContent>
-          <Styles.CardInfoContentTop>
-            {salePercent > 0 ? (
-              <>
-                <Styles.CardInfoContentSalePrice>
-                  From <span> ${price}</span>
-                </Styles.CardInfoContentSalePrice>
-                <Styles.CardInfoContentPrice>
-                  ${price - price * (salePercent / 100)}
-                </Styles.CardInfoContentPrice>
-              </>
-            ) : (
-              <>
-                <Styles.CardInfoContentPriceWithoutSale>
-                  From <span>${price}</span>
-                </Styles.CardInfoContentPriceWithoutSale>
-              </>
-            )}
-          </Styles.CardInfoContentTop>
-          <Styles.CardInfoContentReviews>
-            <Rate allowHalf disabled defaultValue={rate} />
-            <span>({reviews} Reviews)</span>
-          </Styles.CardInfoContentReviews>
-          <CustomButton
-            type="primary"
-            width="100%"
-            border_radius="0"
-            height="50px"
-          >
-            View Detail
-          </CustomButton>
-        </Styles.CardInfoContent>
-      </Styles.CardInfo>
-    </Styles.CardWrapper>
+    </div>
   );
 };
 

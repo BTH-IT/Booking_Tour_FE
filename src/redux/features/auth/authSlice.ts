@@ -1,20 +1,90 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { LoginFormType } from './authSaga';
+import { toast } from 'react-toastify';
+import { KEY_LOCALSTORAGE } from '@/utils/constants';
 export interface AuthState {
   isLoggedIn: boolean;
-  logging?: boolean;
-  currentUser?: any;
+  loggedIn?: boolean;
+  account?: any;
+  user?: any;
+  accessToken: string;
+  refreshToken: string;
 }
 
 const initialState: AuthState = {
-  isLoggedIn: Boolean(localStorage.getItem('access_token')),
-  logging: false,
-  currentUser: JSON.parse(localStorage.getItem('current_user') || '{}'),
+  isLoggedIn: Boolean(localStorage.getItem(KEY_LOCALSTORAGE.ACCESS_TOKEN)),
+  account: JSON.parse(
+    localStorage.getItem(KEY_LOCALSTORAGE.CURRENT_ACCOUNT) || '{}',
+  ),
+  user: JSON.parse(localStorage.getItem(KEY_LOCALSTORAGE.CURRENT_USER) || '{}'),
+  accessToken: localStorage.getItem(KEY_LOCALSTORAGE.ACCESS_TOKEN) || '',
+  refreshToken: localStorage.getItem(KEY_LOCALSTORAGE.REFRESH_TOKEN) || '',
+  loggedIn: false,
 };
 
 const authSlide = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    login: (
+      state,
+      payload: PayloadAction<
+        LoginFormType & {
+          actionSuccess: () => void;
+        }
+      >,
+    ) => {},
+    refreshToken: (
+      state,
+      payload: PayloadAction<{ refreshToken: string }>,
+    ) => {},
+    updateAccessToken: (
+      state,
+      { payload }: PayloadAction<{ accessToken: string }>,
+    ) => {
+      state.accessToken = payload.accessToken;
+    },
+    updateAccount: (state, { payload }: PayloadAction<{ account: any }>) => {
+      state.account = payload.account;
+    },
+    updateUser: (state, { payload }: PayloadAction<{ user: any }>) => {
+      state.user = payload.user;
+    },
+    loginSuccess: (
+      state,
+      {
+        payload,
+      }: PayloadAction<
+        AuthState & {
+          actionSuccess: () => void;
+        }
+      >,
+    ) => {
+      const { actionSuccess, ...rest } = payload;
+      actionSuccess();
+
+      return {
+        ...state,
+        ...rest,
+      };
+    },
+    logout: (state) => {
+      toast.success('Logout Success!!');
+      state.accessToken = '';
+      state.refreshToken = '';
+      state.account = {};
+      state.user = {};
+      state.loggedIn = false;
+    },
+    loginFailed: (state) => {
+      toast.error('Login Failure!!');
+      state.accessToken = '';
+      state.refreshToken = '';
+      state.account = {};
+      state.user = {};
+      state.loggedIn = false;
+    },
+  },
 });
 
 // Actions

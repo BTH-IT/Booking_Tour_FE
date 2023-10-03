@@ -7,14 +7,15 @@ import { useCallback, useEffect, useState } from 'react';
 
 interface IHeaderProps {
   onClick: () => void;
-  $isShowSidebar: boolean;
+  handleShowModal: () => void;
+  isShowSidebar: boolean;
 }
 
-const Header = ({ $isShowSidebar, onClick }: IHeaderProps) => {
-  const [$isScroll, set$isScroll] = useState(window.scrollY > 0);
+const Header = ({ isShowSidebar, onClick, handleShowModal }: IHeaderProps) => {
+  const [isScroll, setIsScroll] = useState(window.scrollY > 0);
 
   const handleScroll = useCallback(() => {
-    set$isScroll(window.scrollY > 0);
+    setIsScroll(window.scrollY > 0);
   }, []);
 
   useEffect(() => {
@@ -26,16 +27,15 @@ const Header = ({ $isShowSidebar, onClick }: IHeaderProps) => {
   }, []);
 
   return (
-    <Styles.HeaderWrapper $isScroll={$isScroll}>
-      <Styles.HeaderContainer $isScroll={$isScroll}>
-        <Logo></Logo>
+    <Styles.HeaderWrapper $isScroll={isScroll}>
+      <Styles.HeaderContainer $isScroll={isScroll}>
+        <Logo />
         <Styles.HeaderResponsive>
-          <NavHeader></NavHeader>
-          <RightHeader></RightHeader>
+          <NavHeader />
+          <RightHeader handleShowModal={handleShowModal} />
         </Styles.HeaderResponsive>
         <Styles.HeaderResponsiveIcon onClick={onClick}>
-          {!$isShowSidebar && <AiOutlineMenu></AiOutlineMenu>}
-          {$isShowSidebar && <AiOutlineClose></AiOutlineClose>}
+          {isShowSidebar ? <AiOutlineClose /> : <AiOutlineMenu />}
         </Styles.HeaderResponsiveIcon>
       </Styles.HeaderContainer>
     </Styles.HeaderWrapper>

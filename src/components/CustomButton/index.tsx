@@ -1,9 +1,9 @@
-import { BaseButtonProps } from 'antd/es/button/button';
+import { BaseButtonProps, ButtonProps } from 'antd/es/button/button';
 import * as Styles from './styles';
 
 import React from 'react';
 
-interface CustomButtonProps extends BaseButtonProps {
+interface CustomButtonProps extends ButtonProps {
   width?: string;
   height?: string;
   border_radius?: string;
