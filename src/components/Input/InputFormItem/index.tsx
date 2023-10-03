@@ -3,11 +3,17 @@ import * as Styles from './styles';
 
 type CompoundedComponent = InputProps & {
   label: string;
+  rules?: any;
 };
 
-const InputFormItem = ({ name, label, ...props }: CompoundedComponent) => {
+const InputFormItem = ({
+  name,
+  label,
+  rules,
+  ...props
+}: CompoundedComponent) => {
   return (
-    <Styles.InputFormItemStyled name={name} label={label}>
+    <Styles.InputFormItemStyled name={name} label={label} rules={rules}>
       <Styles.InputStyled {...props} />
     </Styles.InputFormItemStyled>
   );

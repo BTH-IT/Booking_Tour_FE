@@ -45,7 +45,21 @@ const RegisterPage = () => {
     <>
       <SearchTitle>Register</SearchTitle>
       <RegisterStyled>
-        <Form form={form} layout="vertical">
+        <Form
+          form={form}
+          layout="vertical"
+          initialValues={{
+            email: '',
+            fullname: '',
+            password: '',
+            passwordConfirm: '',
+            phone: '',
+            country: '',
+            gender: '',
+            birthDate: '',
+            term: false,
+          }}
+        >
           <Row gutter={[20, 20]}>
             <Col xs={12}>
               <InputFormItem
@@ -54,6 +68,16 @@ const RegisterPage = () => {
                 placeholder="email"
                 bordered
                 allowClear
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your E-mail!',
+                  },
+                  {
+                    type: 'email',
+                    message: 'The input is not valid E-mail!',
+                  },
+                ]}
               />
             </Col>
             <Col xs={12}>
@@ -63,6 +87,7 @@ const RegisterPage = () => {
                 placeholder="fullname"
                 bordered
                 allowClear
+                rules={[{ required: true }]}
               />
             </Col>
             <Col xs={12}>
@@ -73,6 +98,7 @@ const RegisterPage = () => {
                 type="password"
                 bordered
                 allowClear
+                rules={[{ required: true }]}
               />
             </Col>
             <Col xs={12}>
@@ -83,6 +109,7 @@ const RegisterPage = () => {
                 type="password"
                 bordered
                 allowClear
+                rules={[{ required: true }]}
               />
             </Col>
             <Col xs={12}>
@@ -92,6 +119,13 @@ const RegisterPage = () => {
                 placeholder="phone"
                 bordered
                 allowClear
+                rules={[
+                  {
+                    required: true,
+                    message: 'This field is a phone number',
+                    pattern: new RegExp(/(84|0[3|5|7|8|9])+([0-9]{8})\b/),
+                  },
+                ]}
               />
             </Col>
             <Col xs={12}>
@@ -101,6 +135,7 @@ const RegisterPage = () => {
                 size="large"
                 options={[]}
                 bordered={true}
+                rules={[{ required: true }]}
               />
             </Col>
             <Col xs={12}>
@@ -108,33 +143,54 @@ const RegisterPage = () => {
                 name="gender"
                 label="Gender"
                 size="large"
-                options={[]}
+                options={[
+                  {
+                    value: '',
+                    label: 'Chọn giới tính',
+                  },
+                  {
+                    value: '1',
+                    label: 'Nam',
+                  },
+                  {
+                    value: '0',
+                    label: 'Nữ',
+                  },
+                ]}
                 bordered={true}
+                rules={[{ required: true }]}
               />
             </Col>
             <Col xs={12}>
-              <FormItemStyled name="birthDate" label="Birth Date">
+              <FormItemStyled
+                name="birthDate"
+                label="Birth Date"
+                rules={[{ required: true }]}
+              >
                 <CalendarInput
                   value={date}
-                  onChange={(e: CalendarChangeEvent) =>
-                    setDate(e.value as Date)
-                  }
+                  onChange={(e: CalendarChangeEvent) => {
+                    setDate(e.value as Date);
+                    form.setFieldValue('birthDate', e.value);
+                  }}
                   bordered={true}
                   rounded="8px"
                 />
               </FormItemStyled>
             </Col>
           </Row>
-          <CheckboxStyled
-            onChange={(e: CheckboxChangeEvent) => {
-              console.log(`checked = ${e.target.checked}`);
-            }}
-          >
-            Creating an account means you're okay with our Terms of Service and
-            Privacy Statement.
-          </CheckboxStyled>
-          <CustomButton width="100%" height="50px">
-            Sign In!
+          <Form.Item rules={[{ required: true }]} name="term">
+            <CheckboxStyled
+              onChange={(e: CheckboxChangeEvent) => {
+                form.setFieldValue('term', e.target.checked);
+              }}
+            >
+              Creating an account means you're okay with our Terms of Service
+              and Privacy Statement.
+            </CheckboxStyled>
+          </Form.Item>
+          <CustomButton width="100%" height="50px" htmlType="submit">
+            Sign Up
           </CustomButton>
         </Form>
       </RegisterStyled>
