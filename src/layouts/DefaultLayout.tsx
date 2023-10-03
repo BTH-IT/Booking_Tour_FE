@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Header from './Header';
 import Footer from './Footer';
@@ -14,6 +14,9 @@ import ButtonLink from '@/components/ButtonLink';
 import { useAppDispatch } from '@/redux/hooks';
 import { authActions } from '@/redux/features/auth/authSlice';
 import { LoginFormType } from '@/redux/features/auth/authSaga';
+import { BE_URL, callRefreshToken } from '@/utils/constants';
+import { toast } from 'react-toastify';
+import authService from '@/services/AuthService';
 
 interface IDefaultStyledProps {
   $isShow: boolean;
@@ -93,15 +96,35 @@ const DefaultLayout = () => {
   const { form, Form } = useLoginForm();
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    async function x() {
+      // try {
+      //   await authService.refresh('123123');
+      // } catch (error: any) {
+      //   const isCheckRefresh = await callRefreshToken(
+      //     error.response.status,
+      //     async () => {},
+      //   );
+      //   if (!isCheckRefresh) {
+      //     toast.error(error.response.data);
+      //     dispatch(authActions.logout());
+      //   }
+      // }
+    }
+    x();
+  });
+
   const onFinish = async (data: LoginFormType) => {
     dispatch(
       authActions.login({
         ...data,
+        actionSuccess: () => {
+          setIsModalOpen(false);
+          form.resetFields();
+          toast.success('Login Success!!');
+        },
       }),
     );
-
-    setIsModalOpen(false);
-    form.resetFields();
   };
 
   return (
@@ -179,7 +202,7 @@ const DefaultLayout = () => {
               <p>Or</p>
             </FooterTopStyled>
             <FooterBottomStyled>
-              <FooterBottomLinkStyled href="http">
+              <FooterBottomLinkStyled href={`${BE_URL}/auth/google`}>
                 <img src="./google.png" alt="google" />
               </FooterBottomLinkStyled>
             </FooterBottomStyled>

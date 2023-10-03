@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { LoginFormType } from './authSaga';
 import { toast } from 'react-toastify';
+import { KEY_LOCALSTORAGE } from '@/utils/constants';
 export interface AuthState {
   isLoggedIn: boolean;
   loggedIn?: boolean;
@@ -11,11 +12,13 @@ export interface AuthState {
 }
 
 const initialState: AuthState = {
-  isLoggedIn: Boolean(localStorage.getItem('access_token')),
-  account: JSON.parse(localStorage.getItem('current_account') || '{}'),
-  user: JSON.parse(localStorage.getItem('current_user') || '{}'),
-  accessToken: localStorage.getItem('access_token') || '',
-  refreshToken: localStorage.getItem('refresh_token') || '',
+  isLoggedIn: Boolean(localStorage.getItem(KEY_LOCALSTORAGE.ACCESS_TOKEN)),
+  account: JSON.parse(
+    localStorage.getItem(KEY_LOCALSTORAGE.CURRENT_ACCOUNT) || '{}',
+  ),
+  user: JSON.parse(localStorage.getItem(KEY_LOCALSTORAGE.CURRENT_USER) || '{}'),
+  accessToken: localStorage.getItem(KEY_LOCALSTORAGE.ACCESS_TOKEN) || '',
+  refreshToken: localStorage.getItem(KEY_LOCALSTORAGE.REFRESH_TOKEN) || '',
   loggedIn: false,
 };
 
@@ -23,46 +26,50 @@ const authSlide = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    login: (state, payload: PayloadAction<LoginFormType>) => {},
+    login: (
+      state,
+      payload: PayloadAction<
+        LoginFormType & {
+          actionSuccess: () => void;
+        }
+      >,
+    ) => {},
     refreshToken: (
       state,
       payload: PayloadAction<{ refreshToken: string }>,
     ) => {},
     updateAccessToken: (
       state,
-      payload: PayloadAction<{ accessToken: string }>,
+      { payload }: PayloadAction<{ accessToken: string }>,
     ) => {
-      return {
-        ...state,
-        accessToken: payload.payload.accessToken,
-      };
+      state.accessToken = payload.accessToken;
     },
-    updateAccount: (state, payload: PayloadAction<{ account: any }>) => {
-      return {
-        ...state,
-        account: {
-          ...state.account,
-          ...payload.payload.account,
-        },
-      };
+    updateAccount: (state, { payload }: PayloadAction<{ account: any }>) => {
+      state.account = payload.account;
     },
-    updateUser: (state, payload: PayloadAction<{ user: any }>) => {
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          ...payload.payload.user,
-        },
-      };
+    updateUser: (state, { payload }: PayloadAction<{ user: any }>) => {
+      state.user = payload.user;
     },
-    loginSuccess: (state, payload: PayloadAction<AuthState>) => {
-      toast.success('Login Success!!');
+    loginSuccess: (
+      state,
+      {
+        payload,
+      }: PayloadAction<
+        AuthState & {
+          actionSuccess: () => void;
+        }
+      >,
+    ) => {
+      const { actionSuccess, ...rest } = payload;
+      actionSuccess();
+
       return {
         ...state,
-        ...payload.payload,
+        ...rest,
       };
     },
     logout: (state) => {
+      toast.success('Logout Success!!');
       state.accessToken = '';
       state.refreshToken = '';
       state.account = {};

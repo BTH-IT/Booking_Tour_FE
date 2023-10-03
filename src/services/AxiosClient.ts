@@ -1,8 +1,7 @@
-import { BE_URL } from '@/utils/constants';
 import axios from 'axios';
 
 const axiosClient = axios.create({
-  baseURL: BE_URL,
+  baseURL: 'http://localhost:5000',
 });
 
 // Add a request interceptor
@@ -10,14 +9,15 @@ axiosClient.interceptors.request.use(
   function (config) {
     // Do something before request is sent
 
-    config.headers.Authorization = `Bearer ${
-      localStorage.getItem('access_token') || ' '
-    }`;
+    if (!config.headers.Authorization) {
+      config.headers.Authorization = `Bearer ${
+        localStorage.getItem('access_token') || ' '
+      }`;
+    }
 
     return config;
   },
   function (error) {
-    // Do something with request error
     return Promise.reject(error);
   },
 );
@@ -30,9 +30,7 @@ axiosClient.interceptors.response.use(
 
     return response.data;
   },
-  function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
+  async function (error) {
     return Promise.reject(error);
   },
 );
