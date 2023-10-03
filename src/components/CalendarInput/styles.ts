@@ -1,8 +1,10 @@
+import { theme } from './../../utils/constants';
 import { Calendar } from 'primereact/calendar';
 import styled from 'styled-components';
 
 interface ICalendarInputProps {
   $isBordered?: boolean;
+  $isErrored?: boolean;
   rounded?: string;
 }
 
@@ -13,7 +15,10 @@ export const CalendarInputWrapper = styled.div<ICalendarInputProps>`
   font-size: 2rem;
   min-height: 48px;
   border-radius: ${(props) => props.rounded ?? '0px'};
-  border: ${(props) => props.$isBordered && '1px solid #e2e2e2'};
+  border: ${(props) =>
+    props.$isBordered &&
+    `1px solid ${props.$isErrored ? '#ff4d4f' : '#e2e2e2'}`};
+  transition: all 0.1s linear;
 
   svg {
     flex-shrink: 0;
@@ -22,6 +27,12 @@ export const CalendarInputWrapper = styled.div<ICalendarInputProps>`
     width: 50px;
     height: 40px;
     border-right: 1px solid #d1d5db;
+  }
+
+  &:hover,
+  &:focus-within {
+    border-color: ${(props) =>
+      props.$isBordered && props.$isErrored && theme.colorPrimary};
   }
 `;
 

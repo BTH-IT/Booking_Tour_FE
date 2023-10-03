@@ -11,6 +11,9 @@ import useLoginForm from '@/hooks/useLoginForm';
 import InputFormItem from '@/components/Input/InputFormItem';
 import CustomButton from '@/components/CustomButton';
 import ButtonLink from '@/components/ButtonLink';
+import { useAppDispatch } from '@/redux/hooks';
+import { authActions } from '@/redux/features/auth/authSlice';
+import { LoginFormType } from '@/redux/features/auth/authSaga';
 
 interface IDefaultStyledProps {
   $isShow: boolean;
@@ -68,7 +71,10 @@ const FooterTopStyled = styled.div`
   padding-top: 20px;
 `;
 
-const FooterBottomStyled = styled.div``;
+const FooterBottomStyled = styled.div`
+  width: 50%;
+  margin: 0 auto;
+`;
 
 const FooterBottomLinkStyled = styled.a`
   width: 100%;
@@ -85,51 +91,62 @@ const DefaultLayout = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { form, Form } = useLoginForm();
+  const dispatch = useAppDispatch();
 
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
+  const onFinish = async (data: LoginFormType) => {
+    dispatch(
+      authActions.login({
+        ...data,
+      }),
+    );
 
-  const handleCancel = () => {
     setIsModalOpen(false);
+    form.resetFields();
   };
 
   return (
     <>
       <DefaultStyled $isShow={showSidebar}>
         <Header
-          $isShowSidebar={showSidebar}
+          isShowSidebar={showSidebar}
           onClick={() => setShowSidebar((prev) => !prev)}
-          onShowModal={() => setIsModalOpen((prev) => !prev)}
-        ></Header>
-        <Outlet></Outlet>
-        <Footer></Footer>
-        <Overlay
-          $isShow={showSidebar}
-          onClose={() => setShowSidebar(false)}
-        ></Overlay>
+          handleShowModal={() => setIsModalOpen((prev) => !prev)}
+        />
+        <Outlet />
+        <Footer />
+        <Overlay $isShow={showSidebar} onClose={() => setShowSidebar(false)} />
       </DefaultStyled>
       {showSidebar && <Sidebar onClose={() => setShowSidebar(false)}></Sidebar>}
       <ModalStyled
         footer={null}
         title="Login"
         open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
         centered
+        onCancel={() => setIsModalOpen(false)}
+        width={800}
       >
-        <Form form={form} layout="vertical">
+        <Form form={form} layout="vertical" onFinish={onFinish}>
           <Row gutter={[20, 20]}>
-            <Col xs={12}>
+            <Col xs={24}>
               <InputFormItem
                 name="email"
                 label="Email"
                 placeholder="email"
                 bordered
                 allowClear
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your E-mail!',
+                  },
+                  {
+                    type: 'email',
+                    message: 'The input is not valid E-mail!',
+                  },
+                ]}
               />
             </Col>
-            <Col xs={12}>
+            <Col xs={24}>
               <InputFormItem
                 name="password"
                 label="Password"
@@ -137,10 +154,16 @@ const DefaultLayout = () => {
                 type="password"
                 bordered
                 allowClear
+                isPassword
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
               />
             </Col>
           </Row>
-          <CustomButton width="100%" height="50px">
+          <CustomButton width="100%" height="50px" htmlType="submit">
             Sign In!
           </CustomButton>
           <FooterStyled>
@@ -156,7 +179,7 @@ const DefaultLayout = () => {
               <p>Or</p>
             </FooterTopStyled>
             <FooterBottomStyled>
-              <FooterBottomLinkStyled href="/">
+              <FooterBottomLinkStyled href="http">
                 <img src="./google.png" alt="google" />
               </FooterBottomLinkStyled>
             </FooterBottomStyled>

@@ -10,3 +10,7 @@ export const InputFormItemStyled = styled(Form.Item)`
 export const InputStyled = styled(Input)`
   font-size: 2rem;
 `;
+
+export const InputPasswordStyled = styled(Input.Password)`
+  font-size: 2rem;
+`;

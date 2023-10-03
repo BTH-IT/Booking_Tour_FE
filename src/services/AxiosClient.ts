@@ -1,7 +1,8 @@
+import { BE_URL } from '@/utils/constants';
 import axios from 'axios';
 
 const axiosClient = axios.create({
-  baseURL: process.env.NEST_SERVER_URL || 'http://localhost:5000/api/',
+  baseURL: BE_URL,
 });
 
 // Add a request interceptor

@@ -3,12 +3,17 @@ import CustomButton from '@/components/CustomButton';
 import InputFormItem from '@/components/Input/InputFormItem';
 import SearchTitle from '@/components/SearchTitle';
 import SelectFormItem from '@/components/Select/SelectFormItem';
-import useLoginForm from '@/hooks/useLoginForm';
+import { useAppSelector } from '@/redux/hooks';
+import authService from '@/services/AuthService';
+import { countryList } from '@/utils/constants';
 import { Col, Form, Row } from 'antd';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import Checkbox from 'antd/es/checkbox/Checkbox';
+import { RuleObject } from 'antd/es/form';
 import { CalendarChangeEvent } from 'primereact/calendar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
 const RegisterStyled = styled.div`
@@ -27,6 +32,12 @@ const FormItemStyled = styled(Form.Item)`
     font-size: 1.6rem !important;
   }
 `;
+const CheckboxFormStyled = styled(Form.Item)`
+  .ant-form-item-explain-error {
+    text-align: center;
+  }
+  margin-bottom: 100px !important;
+`;
 
 const CheckboxStyled = styled(Checkbox)`
   width: 100%;
@@ -37,9 +48,71 @@ const CheckboxStyled = styled(Checkbox)`
   }
 `;
 
+export interface RegisterFormType {
+  email: string;
+  fullname: string;
+  password: string;
+  passwordConfirm: string;
+  phone: string;
+  country: string;
+  gender: string;
+  birthDate: string;
+  term: boolean;
+}
+
 const RegisterPage = () => {
-  const { form, Form } = useLoginForm();
-  const [date, setDate] = useState(new Date());
+  const [form] = Form.useForm();
+  const navigate = useNavigate();
+  const [date, setDate] = useState<Date | null>(null);
+  const [checked, setChecked] = useState(false);
+  const loginSuccess = Boolean(
+    useAppSelector((state) => state.auth.accessToken),
+  );
+
+  useEffect(() => {
+    if (loginSuccess) {
+      navigate('/');
+    }
+  }, [loginSuccess]);
+
+  const onCheckboxChange = (e: CheckboxChangeEvent) => {
+    setChecked(e.target.checked);
+    form.setFieldValue('term', e.target.checked);
+  };
+
+  const onFinish = async (values: RegisterFormType) => {
+    try {
+      await authService.register(values);
+
+      toast.success('Register Success!!');
+
+      navigate('/login');
+    } catch (error: any) {
+      toast.error('Register Failure!!');
+    }
+  };
+
+  const validationChecked = (
+    rule: RuleObject,
+    value: any,
+    callback: (error?: string) => void,
+  ) => {
+    if (checked) {
+      return callback();
+    }
+    return callback('Please accept the terms and conditions');
+  };
+
+  const validationDate = (
+    rule: RuleObject,
+    value: any,
+    callback: (error?: string) => void,
+  ) => {
+    if (date != null) {
+      return callback();
+    }
+    return callback('Please select your birth date');
+  };
 
   return (
     <>
@@ -59,6 +132,8 @@ const RegisterPage = () => {
             birthDate: '',
             term: false,
           }}
+          onFinish={onFinish}
+          autoComplete="off"
         >
           <Row gutter={[20, 20]}>
             <Col xs={12}>
@@ -99,6 +174,7 @@ const RegisterPage = () => {
                 bordered
                 allowClear
                 rules={[{ required: true }]}
+                isPassword
               />
             </Col>
             <Col xs={12}>
@@ -109,7 +185,16 @@ const RegisterPage = () => {
                 type="password"
                 bordered
                 allowClear
-                rules={[{ required: true }]}
+                rules={[
+                  {
+                    required: true,
+                  },
+                  {
+                    message: "This field must equal to password's field",
+                    pattern: new RegExp(form.getFieldValue('password')),
+                  },
+                ]}
+                isPassword
               />
             </Col>
             <Col xs={12}>
@@ -133,7 +218,7 @@ const RegisterPage = () => {
                 name="country"
                 label="Country"
                 size="large"
-                options={[]}
+                options={countryList}
                 bordered={true}
                 rules={[{ required: true }]}
               />
@@ -146,7 +231,7 @@ const RegisterPage = () => {
                 options={[
                   {
                     value: '',
-                    label: 'Chọn giới tính',
+                    label: 'Select your gender',
                   },
                   {
                     value: '1',
@@ -165,30 +250,29 @@ const RegisterPage = () => {
               <FormItemStyled
                 name="birthDate"
                 label="Birth Date"
-                rules={[{ required: true }]}
+                rules={[{ validator: validationDate }]}
               >
                 <CalendarInput
                   value={date}
                   onChange={(e: CalendarChangeEvent) => {
                     setDate(e.value as Date);
-                    form.setFieldValue('birthDate', e.value);
                   }}
                   bordered={true}
                   rounded="8px"
+                  errored={date == null && form.isFieldTouched('birthDate')}
                 />
               </FormItemStyled>
             </Col>
           </Row>
-          <Form.Item rules={[{ required: true }]} name="term">
-            <CheckboxStyled
-              onChange={(e: CheckboxChangeEvent) => {
-                form.setFieldValue('term', e.target.checked);
-              }}
-            >
+          <CheckboxFormStyled
+            rules={[{ validator: validationChecked }]}
+            name="term"
+          >
+            <CheckboxStyled onChange={onCheckboxChange} checked={checked}>
               Creating an account means you're okay with our Terms of Service
               and Privacy Statement.
             </CheckboxStyled>
-          </Form.Item>
+          </CheckboxFormStyled>
           <CustomButton width="100%" height="50px" htmlType="submit">
             Sign Up
           </CustomButton>

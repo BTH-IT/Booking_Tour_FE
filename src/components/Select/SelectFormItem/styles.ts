@@ -12,5 +12,7 @@ export const SelectFormItemStyled = styled(Form.Item)`
 `;
 
 export const SelectStyled = styled(Select)`
-  font-size: 2rem;
+  .ant-select-selection-item {
+    font-size: 2rem !important;
+  }
 `;

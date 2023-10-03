@@ -6,16 +6,22 @@ import * as Styles from './styles';
 
 interface ICalendarInputProps extends CalendarProps {
   bordered?: boolean;
+  errored?: boolean;
   rounded?: string;
 }
 
 const CalendarInput = ({
   bordered,
   rounded,
+  errored,
   ...props
 }: ICalendarInputProps) => {
   return (
-    <Styles.CalendarInputWrapper $isBordered={bordered} rounded={rounded}>
+    <Styles.CalendarInputWrapper
+      $isBordered={bordered}
+      rounded={rounded}
+      $isErrored={errored}
+    >
       <BsCalendar2Date />
       <Styles.CalendarInput {...props} />
     </Styles.CalendarInputWrapper>

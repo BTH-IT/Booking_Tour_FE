@@ -8,11 +8,6 @@ const NavHeader = () => {
       </Styles.NavHeaderItem>
       <Styles.NavHeaderItem>
         <Styles.NavHeaderItemLink href="/search">
-          Tour List
-        </Styles.NavHeaderItemLink>
-      </Styles.NavHeaderItem>
-      <Styles.NavHeaderItem>
-        <Styles.NavHeaderItemLink href="/search">
           Tour Search
         </Styles.NavHeaderItemLink>
       </Styles.NavHeaderItem>
