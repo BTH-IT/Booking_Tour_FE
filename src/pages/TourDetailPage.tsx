@@ -1,4 +1,7 @@
+import FreshlyAdded from '@/components/Card/FreshlyAdded';
+import { freshlyAddeds } from '@/components/FreshlyAddeds';
 import SearchTitle from '@/components/SearchTitle';
+import SliderBase from '@/components/Slider/SliderBase';
 import TourDetailGallery from '@/components/TourDetail/TourDetailGallery';
 import TourDetailHeader from '@/components/TourDetail/TourDetailHeader';
 import TourDetailLeft from '@/components/TourDetail/TourDetailLeft';
@@ -18,6 +21,22 @@ const TourDetailContentStyled = styled.div`
   width: 100%;
   max-width: 1300px;
   padding: 20px;
+`;
+
+const TourDetailContent = styled.div`
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 20px;
+`;
+
+const TourDetailTitle = styled.h2`
+  line-height: 1.2;
+  font-size: 2.3rem;
+  color: black;
+  font-family: 'DM Serif Display', sans-serif;
+  font-weight: 500;
+  margin-bottom: 20px;
 `;
 
 const TourDetailPage = () => {
@@ -56,6 +75,44 @@ const TourDetailPage = () => {
               </Col>
             </Row>
           </TourDetailContentStyled>
+          <TourDetailContent>
+            <TourDetailTitle>Related Tours</TourDetailTitle>
+            <SliderBase
+              config={{
+                slidesToShow: 3,
+              }}
+              configResponsive={[
+                {
+                  breakpoint: 1500,
+                  settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                  },
+                },
+                {
+                  breakpoint: 1150,
+                  settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                  },
+                },
+                {
+                  breakpoint: 1000,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                  },
+                },
+              ]}
+            >
+              {freshlyAddeds.map((freshlyAdded) => (
+                <FreshlyAdded
+                  {...freshlyAdded}
+                  key={freshlyAdded.img}
+                ></FreshlyAdded>
+              ))}
+            </SliderBase>
+          </TourDetailContent>
         </Container>
       </>
     )

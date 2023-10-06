@@ -8,7 +8,7 @@ export interface ITour {
   priceExcludes: string[];
   priceIncludes: string[];
   expect: string;
-  activies: string[];
+  activities: string[];
   price: number;
   dateFrom: Date;
   dateTo: Date;
