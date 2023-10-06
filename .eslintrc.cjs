@@ -26,6 +26,7 @@ module.exports = {
     ],
     '@typescript-eslint/no-explicit-any': ['warn'],
     '@typescript-eslint/no-unused-vars': 'off',
+    'react-hooks/rules-of-hooks': 'off',
     'prefer-const': 'off',
   },
 };

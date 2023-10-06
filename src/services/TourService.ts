@@ -1,18 +1,19 @@
+import { ITour } from './../types/tour.d';
 import axiosClient from './AxiosClient';
 
-const tourApi = {
-  getATour(tourId: string) {
-    const url = `/tour/${tourId}`;
+const tourService = {
+  getATour(tourId: string): Promise<ITour> {
+    const url = `/tours/${tourId}`;
     return axiosClient.get(url);
   },
   getAllTour() {
-    return axiosClient.get('/tour/');
+    return axiosClient.get('/tours/');
   },
-  createTour(data: any) {
-    return axiosClient.post('/tour', data);
+  createTour(data: ITour) {
+    return axiosClient.post('/tours', data);
   },
-  updateTour(data: any) {
-    return axiosClient.patch('/tour', data);
+  updateTour(data: ITour) {
+    return axiosClient.patch('/tours', data);
   },
   deleteTour(tourId: string, userId: string) {
     const url = `/tour/${userId}/${tourId}`;
@@ -20,4 +21,4 @@ const tourApi = {
   },
 };
 
-export default tourApi;
+export default tourService;

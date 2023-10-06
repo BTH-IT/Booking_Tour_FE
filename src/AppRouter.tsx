@@ -4,6 +4,7 @@ import { router } from './constants/router';
 import Homepage from './pages/HomePage';
 import SearchPage from './pages/SearchPage';
 import RegisterPage from './pages/RegisterPage';
+import TourDetailPage from './pages/TourDetailPage';
 
 export default function AppRouter() {
   return (
@@ -12,6 +13,7 @@ export default function AppRouter() {
         <Route path={router.home} element={<Homepage />} />
         <Route path={router.search} element={<SearchPage />} />
         <Route path={router.register} element={<RegisterPage />} />
+        <Route path={router.tourDetail} element={<TourDetailPage />} />
       </Route>
     </Routes>
   );

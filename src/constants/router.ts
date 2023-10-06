@@ -2,7 +2,7 @@ export const router = {
   dashboard: '/dashboard',
   home: '/',
   search: '/search',
-  tourDetail: '/tourDetail',
+  tourDetail: '/:tourId',
   profile: '/profile',
   register: '/register',
 };
