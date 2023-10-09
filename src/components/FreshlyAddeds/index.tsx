@@ -5,7 +5,7 @@ import { Container } from '@/constants';
 
 import * as Styles from './styles';
 
-const freshlyAddeds = [
+export const freshlyAddeds = [
   {
     price: 2400,
     rate: 3,

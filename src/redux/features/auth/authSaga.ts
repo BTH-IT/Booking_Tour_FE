@@ -2,7 +2,6 @@ import { call, fork, put, take } from 'redux-saga/effects';
 import { authActions } from './authSlice';
 import { PayloadAction } from '@reduxjs/toolkit';
 import authService from '@/services/AuthService';
-import jwt_decode from 'jwt-decode';
 import { CLEAR_LOCALSTORAGE, SET_LOCALSTORAGE } from '@/utils/constants';
 
 export interface ResponseGenerator {
