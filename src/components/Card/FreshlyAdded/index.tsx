@@ -1,26 +1,13 @@
 import * as Styles from './style';
 import React, { useEffect, useRef, useState } from 'react';
-import { Rate, Skeleton } from 'antd';
+import { Rate } from 'antd';
+import { ITour } from 'tour';
 
-interface IFreshlyAddedProps {
-  title: string;
-  img: string;
-  salePercent: number;
-  price: number;
-  reviews: number;
-  rate: number;
+interface IFreshlyAddedProps extends ITour {
   maxWidth?: string;
 }
 
-const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({
-  title,
-  img,
-  salePercent,
-  price,
-  reviews,
-  rate,
-  maxWidth,
-}) => {
+const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({ maxWidth, ...props }) => {
   const [isLazyLoad, setIsLazyLoad] = useState(false);
   const elementRef = useRef<HTMLDivElement | null>(null);
 
@@ -45,32 +32,32 @@ const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({
       {isLazyLoad ? (
         <Styles.CardWrapper $maxWidth={maxWidth}>
           <a href="/">
-            <Styles.img src={img} alt={title} />
+            <Styles.img src={props.images[0]} alt={props.images[0]} />
           </a>
-          {salePercent > 0 && (
-            <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>
+          {props.salePercent > 0 && (
+            <Styles.SaleOff>{props.salePercent}% Off</Styles.SaleOff>
           )}
           <Styles.CardInfo>
-            <Styles.Title>{title}</Styles.Title>
+            <Styles.Title>{props.name}</Styles.Title>
             <Styles.CardInfoContent>
               <Styles.CardInfoContentReviews>
-                <Rate allowHalf disabled defaultValue={rate} />
-                <span>({reviews} Reviews)</span>
+                <Rate allowHalf disabled defaultValue={props.rate} />
+                <span>({props.reviews.length} Reviews)</span>
               </Styles.CardInfoContentReviews>
               <Styles.CardInfoContentBottom>
-                {salePercent > 0 ? (
+                {props.salePercent > 0 ? (
                   <>
                     <Styles.CardInfoContentSalePrice>
-                      ${price}
+                      ${props.price}
                     </Styles.CardInfoContentSalePrice>
                     <Styles.CardInfoContentPrice>
-                      ${price - price * (salePercent / 100)}
+                      ${props.price - props.price * (props.salePercent / 100)}
                     </Styles.CardInfoContentPrice>
                   </>
                 ) : (
                   <>
                     <Styles.CardInfoContentPriceWithoutSale>
-                      From <span>${price}</span>
+                      From <span>${props.price}</span>
                     </Styles.CardInfoContentPriceWithoutSale>
                   </>
                 )}

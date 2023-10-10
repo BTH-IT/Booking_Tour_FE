@@ -6,69 +6,13 @@ import SearchContentSort from './SearchContentSort';
 import FreshlyAdded from '../Card/FreshlyAdded';
 import { useEffect, useRef, useState } from 'react';
 import FreshlyAddedV2 from '../Card/FreshlyAddedV2';
-
-const freshlyAddeds = [
-  {
-    price: 2400,
-    rate: 3,
-    reviews: 10,
-    time: '9 Days 8 Night',
-    title: 'Austria – 6 Days in Vienna, Hallstatt',
-    salePercent: 10,
-    img: 'https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2017/01/sorasak-9DgwO_ihqL0-unsplash-600x800.jpg',
-  },
-  {
-    price: 2400,
-    rate: 5,
-    reviews: 10,
-    time: '2 Days 1 Night',
-    title: 'Argentina – Great Diving Trip',
-    salePercent: 10,
-    img: 'https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2017/01/brantley-neal-SiPPNnWzD_o-unsplash-600x800.jpg',
-  },
-  {
-    price: 2400,
-    rate: 4,
-    reviews: 10,
-    time: '8 Days 7 Night',
-    title: 'Two Moscow Tour of 7 days',
-    salePercent: 0,
-    img: 'https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2017/01/nikolay-vorobyev-QJ2HGuSSQz0-unsplash-600x800.jpg',
-  },
-  {
-    price: 2400,
-    rate: 4.5,
-    reviews: 10,
-    time: '9 Days 8 Night',
-    title: 'Austria – 6 Days in Vienna, Hallstatt',
-    salePercent: 10,
-    img: 'https://images.unsplash.com/photo-1695134679878-eaac07f1f9f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80',
-  },
-  {
-    price: 2400,
-    rate: 4.5,
-    reviews: 10,
-    time: '5 Days 4 Night',
-    title: 'India – Mumbai, New Delhi',
-    salePercent: 0,
-    img: 'https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2017/01/thais-cordeiro-4TVFPTv_wjE-unsplash-600x800.jpg',
-  },
-  {
-    price: 2400,
-    rate: 5,
-    reviews: 10,
-    time: '9 Days 8 Night',
-    title: 'America – Grand canyon, Golden Gate',
-    salePercent: 10,
-    img: 'https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2017/01/madhu-shesharam-qvO4yjZo-Mc-unsplash-600x800.jpg',
-  },
-];
+import tourService from '@/services/TourService';
 
 const SearchContent = () => {
   const [layout, setLayout] = useState(false);
   const [tourList, setTourList] = useState<any[]>([]);
   const [hasMore, setHasMore] = useState(true);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
 
   const elementRef = useRef<HTMLDivElement | null>(null);
 
@@ -96,16 +40,14 @@ const SearchContent = () => {
 
   async function fetchMoreItems() {
     try {
-      const res = await fetch(
-        `https://dummyjson.com/products?limit=10&skip=${page * 10}`,
-      );
+      const data = await tourService.getAllTour({
+        _page: page,
+      });
 
-      const data = await res.json();
-
-      if (data.products.length == 0) {
+      if (data.length === 0) {
         setHasMore(false);
       } else {
-        setTourList((prev) => [...prev, ...data.products]);
+        setTourList((prev) => [...prev, ...data]);
         setPage((prev) => prev + 1);
       }
     } catch (error) {
@@ -128,34 +70,17 @@ const SearchContent = () => {
               <SearchContentSort layout={layout} setLayout={setLayout} />
               {!layout ? (
                 <Row gutter={[20, 20]}>
-                  {/* {freshlyAddeds.map((freshlyAdded) => (
-                    <Col xs={24} sm={12} key={freshlyAdded.img}>
+                  {tourList.map((freshlyAdded) => (
+                    <Col xs={24} sm={12} key={freshlyAdded.images[0]}>
                       <FreshlyAdded {...freshlyAdded} maxWidth={'100%'} />
-                    </Col>
-                  ))} */}
-                  {tourList.map((item) => (
-                    <Col xs={24} sm={12} key={item.thumbnail}>
-                      <FreshlyAdded
-                        {...freshlyAddeds[0]}
-                        img={item.thumbnail}
-                        maxWidth={'100%'}
-                      />
                     </Col>
                   ))}
                 </Row>
               ) : (
-                // freshlyAddeds.map((freshlyAdded) => (
-                //   <FreshlyAddedV2
-                //     {...freshlyAdded}
-                //     key={freshlyAdded.img}
-                //     maxWidth={'100%'}
-                //   ></FreshlyAddedV2>
-                // ))
-                tourList.map((item) => (
+                tourList.map((freshlyAdded) => (
                   <FreshlyAddedV2
-                    {...freshlyAddeds[0]}
-                    img={item.thumbnail}
-                    key={item.thumbnail}
+                    {...freshlyAdded}
+                    key={freshlyAdded.images[0]}
                     maxWidth={'100%'}
                   />
                 ))

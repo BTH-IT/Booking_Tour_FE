@@ -1,5 +1,5 @@
 import FreshlyAdded from '@/components/Card/FreshlyAdded';
-import { freshlyAddeds } from '@/components/FreshlyAddeds';
+import Reviews from '@/components/Reviews';
 import SearchTitle from '@/components/SearchTitle';
 import SliderBase from '@/components/Slider/SliderBase';
 import TourDetailGallery from '@/components/TourDetail/TourDetailGallery';
@@ -41,6 +41,7 @@ const TourDetailTitle = styled.h2`
 
 const TourDetailPage = () => {
   const [tour, setTour] = useState<ITour | null>(null);
+  const [tourList, setTourList] = useState<ITour[]>([]);
   const { tourId } = useParams();
   const navigate = useNavigate();
 
@@ -54,8 +55,19 @@ const TourDetailPage = () => {
 
     if (!data) return;
 
+    await fetchTourList();
     setTour(data);
   });
+
+  async function fetchTourList() {
+    try {
+      const data = await tourService.getAllTour();
+
+      setTourList(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     tour && (
@@ -105,14 +117,15 @@ const TourDetailPage = () => {
                 },
               ]}
             >
-              {freshlyAddeds.map((freshlyAdded) => (
+              {tourList.map((freshlyAdded) => (
                 <FreshlyAdded
                   {...freshlyAdded}
-                  key={freshlyAdded.img}
+                  key={freshlyAdded.images[0]}
                 ></FreshlyAdded>
               ))}
             </SliderBase>
           </TourDetailContent>
+          <Reviews />
         </Container>
       </>
     )

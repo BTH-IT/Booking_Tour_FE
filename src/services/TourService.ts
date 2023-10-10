@@ -6,8 +6,8 @@ const tourService = {
     const url = `/tours/${tourId}`;
     return axiosClient.get(url);
   },
-  getAllTour() {
-    return axiosClient.get('/tours/');
+  getAllTour(params?: any): Promise<ITour[]> {
+    return axiosClient.get('/tours/', params);
   },
   createTour(data: ITour) {
     return axiosClient.post('/tours', data);
