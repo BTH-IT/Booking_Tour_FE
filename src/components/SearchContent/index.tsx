@@ -7,10 +7,11 @@ import FreshlyAdded from '../Card/FreshlyAdded';
 import { useEffect, useRef, useState } from 'react';
 import FreshlyAddedV2 from '../Card/FreshlyAddedV2';
 import tourService from '@/services/TourService';
+import { ITour } from 'tour';
 
 const SearchContent = () => {
   const [layout, setLayout] = useState(false);
-  const [tourList, setTourList] = useState<any[]>([]);
+  const [tourList, setTourList] = useState<ITour[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
 
@@ -64,23 +65,20 @@ const SearchContent = () => {
           </Col>
           <Col xs={24} md={24} xl={16}>
             <Styles.SearchContentRight>
-              <Styles.SearchContentResult>
-                22 Results Found
-              </Styles.SearchContentResult>
               <SearchContentSort layout={layout} setLayout={setLayout} />
               {!layout ? (
                 <Row gutter={[20, 20]}>
-                  {tourList.map((freshlyAdded) => (
-                    <Col xs={24} sm={12} key={freshlyAdded.images[0]}>
+                  {tourList.map((freshlyAdded, idx) => (
+                    <Col xs={24} sm={12} key={freshlyAdded.images[0] + idx}>
                       <FreshlyAdded {...freshlyAdded} maxWidth={'100%'} />
                     </Col>
                   ))}
                 </Row>
               ) : (
-                tourList.map((freshlyAdded) => (
+                tourList.map((freshlyAdded, idx) => (
                   <FreshlyAddedV2
                     {...freshlyAdded}
-                    key={freshlyAdded.images[0]}
+                    key={freshlyAdded.images[0] + idx}
                     maxWidth={'100%'}
                   />
                 ))

@@ -51,7 +51,7 @@ export const CardInfo = styled.div`
   }
 `;
 
-export const CardImg = styled.img`
+export const CardImg = styled.a`
   width: 100%;
   max-width: 270px;
   height: 100%;
@@ -60,6 +60,8 @@ export const CardImg = styled.img`
   transition: all 0.3s linear;
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
+  overflow: hidden;
+  display: block;
 
   @media screen and (max-width: 767px) {
     flex-direction: column;
@@ -67,6 +69,12 @@ export const CardImg = styled.img`
     max-height: 416px;
     border-bottom-left-radius: 0px;
     border-top-right-radius: 12px;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `;
 

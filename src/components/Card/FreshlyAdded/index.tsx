@@ -31,14 +31,14 @@ const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({ maxWidth, ...props }) => {
     <div ref={elementRef}>
       {isLazyLoad ? (
         <Styles.CardWrapper $maxWidth={maxWidth}>
-          <a href="/">
-            <Styles.img src={props.images[0]} alt={props.images[0]} />
-          </a>
+          <Styles.img href={`/${props._id}`}>
+            <img src={props.images[0]} alt={props.images[0]} />
+          </Styles.img>
           {props.salePercent > 0 && (
             <Styles.SaleOff>{props.salePercent}% Off</Styles.SaleOff>
           )}
           <Styles.CardInfo>
-            <Styles.Title>{props.name}</Styles.Title>
+            <Styles.Title href={`/${props._id}`}>{props.name}</Styles.Title>
             <Styles.CardInfoContent>
               <Styles.CardInfoContentReviews>
                 <Rate allowHalf disabled defaultValue={props.rate} />

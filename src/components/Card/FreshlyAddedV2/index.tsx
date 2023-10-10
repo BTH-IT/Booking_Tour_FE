@@ -37,14 +37,14 @@ const FreshlyAddedV2: React.FC<IFreshlyAddedProps> = ({
     <div ref={elementRef}>
       {isLazyLoad ? (
         <Styles.CardWrapper $maxWidth={maxWidth}>
-          <a href="/">
-            <Styles.CardImg src={props.images[0]} alt={props.images[0]} />
-          </a>
+          <Styles.CardImg href={`/${props._id}`}>
+            <img src={props.images[0]} alt={props.images[0]} />
+          </Styles.CardImg>
           {props.salePercent > 0 && (
             <Styles.SaleOff>{props.salePercent}% Off</Styles.SaleOff>
           )}
           <Styles.CardInfo>
-            <Styles.Title>{props.name}</Styles.Title>
+            <Styles.Title href={`/${props._id}`}>{props.name}</Styles.Title>
             <Styles.CardInfoContent>
               <Styles.CardInfoContentTop>
                 {props.salePercent > 0 ? (

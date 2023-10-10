@@ -51,7 +51,7 @@ const TourDetailPage = () => {
   }
 
   useDidMount(async () => {
-    const data = await tourService.getATour('651e543d213d7221a0ac234a');
+    const data = await tourService.getATour(tourId);
 
     if (!data) return;
 
