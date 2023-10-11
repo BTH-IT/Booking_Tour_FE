@@ -23,7 +23,7 @@ const PopularTour: React.FC<IPopularTourProps> = ({
 }) => {
   return (
     <Styles.CardWrapper>
-      <Styles.img src={img} alt={title} />
+      <Styles.Img src={img} alt={title} />
       {salePercent > 0 && <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>}
       <Styles.CardInfo>
         <Styles.Title>{title}</Styles.Title>

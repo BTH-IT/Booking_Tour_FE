@@ -7,16 +7,36 @@ import { AiOutlineClose } from 'react-icons/ai';
 import Filter from './Filter';
 import CustomButton from '@/components/CustomButton';
 import { CalendarChangeEvent } from 'primereact/calendar';
+import { toast } from 'react-toastify';
+import { debounce } from 'lodash';
+import { useSearchParams } from 'react-router-dom';
 
-const SearchContentForm = () => {
+const SearchContentForm = ({
+  meta,
+  setMeta,
+  defaultValuePriceRange,
+}: {
+  setMeta: (meta: any) => void;
+  meta: any;
+  defaultValuePriceRange: [number, number];
+}) => {
   const [form] = Form.useForm();
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState<Date[]>([]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const onFinish = () => {};
+  const onFinish = async (values: any) => {
+    setMeta({
+      ...meta,
+      search: values.keywords,
+      dateFrom: date[0],
+      dateTo: date[1],
+      _page: 1,
+    });
+  };
 
-  const onFinishFailed = () => {};
-
-  const onFill = () => {};
+  const onFinishFailed = () => {
+    toast.error('Oops!! something is wrong');
+  };
 
   return (
     <Styles.SearchContentForm
@@ -27,11 +47,11 @@ const SearchContentForm = () => {
       autoComplete="off"
       initialValues={{
         keywords: '',
-        duration: '',
-        date: '',
-        month: '',
-        price: [20, 50],
-        rate: 0,
+        date: [],
+        price: [
+          Number(searchParams.get('priceFrom') || 0),
+          Number(searchParams.get('priceTo') || 100000000000000000000000),
+        ],
       }}
     >
       <Styles.SearchContentTitle>
@@ -46,44 +66,45 @@ const SearchContentForm = () => {
           allowClear
         />
       </Styles.SearchContentFormItem>
-      <Styles.SearchContentFormItem name="duration" label="Duration">
-        <Styles.SearchContentFormSelect
-          size="middle"
-          options={[]}
-          bordered={false}
-        />
-      </Styles.SearchContentFormItem>
       <Styles.SearchContentFormDate name="date" label="Date">
         <CalendarInput
           value={date}
-          onChange={(e: CalendarChangeEvent) => setDate(e.value as Date)}
+          onChange={(e: CalendarChangeEvent) => setDate(e.value as Date[])}
           minDate={new Date()}
+          selectionMode="range"
+          numberOfMonths={2}
         />
       </Styles.SearchContentFormDate>
-      <Styles.SearchContentFormItem name="month" label="Month">
-        <Styles.SearchContentFormSelect
-          size="middle"
-          options={[]}
-          bordered={false}
-        />
-      </Styles.SearchContentFormItem>
       <Styles.SearchContentFormItem name="price" label="Price">
-        <Slider range disabled={false} />
-      </Styles.SearchContentFormItem>
-      <Styles.SearchContentFormItem name="rate" label="Rate">
-        <Styles.SearchContentFormRate allowHalf />
+        <Slider
+          range
+          max={defaultValuePriceRange[1]}
+          min={defaultValuePriceRange[0]}
+          step={10}
+          onChange={debounce(
+            (value: [number, number]) =>
+              setMeta({
+                ...meta,
+                priceFrom: value[0],
+                priceTo: value[1],
+                _page: 1,
+              }),
+            500,
+          )}
+        />
       </Styles.SearchContentFormItem>
       <Styles.SearchContentFormButton>
         <AiOutlineClose />
         <span>Clear Filter</span>
       </Styles.SearchContentFormButton>
       <Styles.SearchContentFormLine />
-      <Filter />
+      <Filter meta={meta} setMeta={setMeta} />
       <CustomButton
         type="primary"
         border_radius="0px"
         width="100%"
         height="50px"
+        htmlType="submit"
       >
         SEARCH
       </CustomButton>

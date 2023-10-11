@@ -55,3 +55,21 @@ export const ShowFilterList = styled.div`
     transition: max-height 0.25s ease-in;
   }
 `;
+
+export const FilterListWrapper = styled.div``;
+
+export const FilterListTitle = styled.div`
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+`;
+
+export const FilterListContent = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  & span {
+    font-size: 2.4rem !important;
+  }
+`;

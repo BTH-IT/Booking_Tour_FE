@@ -6,7 +6,11 @@ const tourService = {
     const url = `/tours/${tourId}`;
     return axiosClient.get(url);
   },
-  getAllTour(params?: any): Promise<ITour[]> {
+  getAllTour(params?: any): Promise<{
+    tours: ITour[];
+    maxPrice: number;
+    minPrice: number;
+  }> {
     return axiosClient.get('/tours/', { params: params });
   },
   createTour(data: ITour) {

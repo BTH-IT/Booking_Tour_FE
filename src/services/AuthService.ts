@@ -1,3 +1,4 @@
+import { KEY_LOCALSTORAGE } from '@/utils/constants';
 import { RegisterFormType } from './../pages/RegisterPage';
 import { LoginFormType } from './../redux/features/auth/authSaga';
 import axiosClient from './AxiosClient';
@@ -24,11 +25,13 @@ const authService = {
     const url = `/auth/profile`;
     return axiosClient.get(url);
   },
-  refresh(refreshToken: string) {
+  refresh() {
     const url = `/auth/refresh-token`;
     return axiosClient.get(url, {
       headers: {
-        Authorization: `Bearer ${refreshToken}`,
+        Authorization: `Bearer ${localStorage.getItem(
+          KEY_LOCALSTORAGE.REFRESH_TOKEN,
+        )}`,
       },
     });
   },

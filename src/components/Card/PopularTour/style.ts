@@ -52,7 +52,7 @@ export const CardInfo = styled.div`
   width: 100%;
 `;
 
-export const img = styled.img`
+export const Img = styled.img`
   width: 100%;
   height: 100%;
   background-size: cover;

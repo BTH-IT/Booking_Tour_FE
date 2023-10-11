@@ -8,6 +8,7 @@ interface IFreshlyAddedProps extends ITour {
 }
 
 const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({ maxWidth, ...props }) => {
+  const { _id, images, salePercent, name, rate, reviews, price } = props;
   const [isLazyLoad, setIsLazyLoad] = useState(false);
   const elementRef = useRef<HTMLDivElement | null>(null);
 
@@ -31,33 +32,33 @@ const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({ maxWidth, ...props }) => {
     <div ref={elementRef}>
       {isLazyLoad ? (
         <Styles.CardWrapper $maxWidth={maxWidth}>
-          <Styles.img href={`/${props._id}`}>
-            <img src={props.images[0]} alt={props.images[0]} />
-          </Styles.img>
-          {props.salePercent > 0 && (
-            <Styles.SaleOff>{props.salePercent}% Off</Styles.SaleOff>
+          <Styles.Img href={`/${_id}`}>
+            <img src={images[0]} alt={images[0]} />
+          </Styles.Img>
+          {salePercent > 0 && (
+            <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>
           )}
           <Styles.CardInfo>
-            <Styles.Title href={`/${props._id}`}>{props.name}</Styles.Title>
+            <Styles.Title href={`/${_id}`}>{name}</Styles.Title>
             <Styles.CardInfoContent>
               <Styles.CardInfoContentReviews>
-                <Rate allowHalf disabled defaultValue={props.rate} />
-                <span>({props.reviews.length} Reviews)</span>
+                <Rate allowHalf disabled defaultValue={rate} />
+                <span>({reviews.length} Reviews)</span>
               </Styles.CardInfoContentReviews>
               <Styles.CardInfoContentBottom>
-                {props.salePercent > 0 ? (
+                {salePercent > 0 ? (
                   <>
                     <Styles.CardInfoContentSalePrice>
-                      ${props.price}
+                      ${price}
                     </Styles.CardInfoContentSalePrice>
                     <Styles.CardInfoContentPrice>
-                      ${props.price - props.price * (props.salePercent / 100)}
+                      ${price - price * (salePercent / 100)}
                     </Styles.CardInfoContentPrice>
                   </>
                 ) : (
                   <>
                     <Styles.CardInfoContentPriceWithoutSale>
-                      From <span>${props.price}</span>
+                      From <span>${price}</span>
                     </Styles.CardInfoContentPriceWithoutSale>
                   </>
                 )}

@@ -43,7 +43,7 @@ export const CardInfo = styled.div`
   padding: 32px 30px 40px 40px;
 `;
 
-export const img = styled.a`
+export const Img = styled.a`
   width: 100%;
   height: 230px;
   background-size: cover;

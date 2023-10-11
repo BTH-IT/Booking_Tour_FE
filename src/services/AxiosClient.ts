@@ -1,3 +1,5 @@
+import authService from '@/services/AuthService';
+import { KEY_LOCALSTORAGE } from '@/utils/constants';
 import axios from 'axios';
 
 const axiosClient = axios.create({
@@ -11,7 +13,7 @@ axiosClient.interceptors.request.use(
 
     if (!config.headers.Authorization) {
       config.headers.Authorization = `Bearer ${
-        localStorage.getItem('access_token') || ' '
+        localStorage.getItem(KEY_LOCALSTORAGE.ACCESS_TOKEN) || ' '
       }`;
     }
 
@@ -31,6 +33,13 @@ axiosClient.interceptors.response.use(
     return response.data;
   },
   async function (error) {
+    const originalRequest = error.config;
+    if (error.response.status === 403 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      const access_token = await authService.refresh();
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
+      return axiosClient(originalRequest);
+    }
     return Promise.reject(error);
   },
 );
