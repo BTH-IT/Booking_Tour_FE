@@ -57,7 +57,7 @@ const SearchContent = () => {
   useEffect(() => {
     setTourList([]);
     setPage(1);
-    setHasMore(true);
+    setHasMore(false);
   }, [meta]);
 
   const getSearchItems = async () => {

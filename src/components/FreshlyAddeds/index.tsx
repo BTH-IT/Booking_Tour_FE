@@ -16,7 +16,7 @@ const FreshlyAddeds = () => {
     try {
       const data = await tourService.getAllTour();
 
-      setTourList(data);
+      setTourList(data.tours);
     } catch (error) {
       console.log(error);
     }

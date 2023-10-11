@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { Checkbox } from 'antd';
 import { BsChevronCompactDown, BsChevronCompactUp } from 'react-icons/bs';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
-import { useLocation, useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 
 const FilterList = ({
@@ -21,29 +20,27 @@ const FilterList = ({
 }) => {
   const [showMore, setShowMore] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const location = useLocation();
-  const navigate = useNavigate();
 
   function handleCheckbox(e: CheckboxChangeEvent) {
     const query = searchParams.get(name) || '';
     if (query !== '') {
       let value = query.split('%2').filter((item) => item !== null || item);
-      let isHave = value.findIndex((item) => item === e.target.value);
+      let isHave = value.findIndex((item) => item === e.target.name);
 
-      if (e.target.checked) {
+      if (e.target.checked && e.target.name) {
         if (isHave !== -1) {
-          value = value.filter((item) => item !== e.target.value);
+          value = value.filter((item) => item !== e.target.name);
         } else {
-          value.push(e.target.value);
+          value.push(e.target.name);
         }
         searchParams.set(name, value.join('%2'));
 
         setMeta({
           ...meta,
-          [name]: e.target.value,
+          [name]: e.target.name,
         });
       } else {
-        value = value.filter((item) => item !== e.target.value);
+        value = value.filter((item) => item !== e.target.name);
         if (value.length === 0) {
           searchParams.delete(name);
           setMeta(
@@ -60,11 +57,11 @@ const FilterList = ({
         }
       }
     } else {
-      if (e.target.checked) {
-        searchParams.set(name, e.target.value);
+      if (e.target.checked && e.target.name) {
+        searchParams.set(name, e.target.name);
         setMeta({
           ...meta,
-          [name]: e.target.value,
+          [name]: e.target.name,
         });
       } else {
         searchParams.delete(name);
@@ -86,8 +83,8 @@ const FilterList = ({
           ? checkboxList.map((checkbox) => (
               <Checkbox
                 key={checkbox}
-                value={checkbox}
                 onChange={handleCheckbox}
+                name={checkbox}
               >
                 {checkbox}
               </Checkbox>
@@ -95,7 +92,7 @@ const FilterList = ({
           : checkboxList.slice(0, 5).map((checkbox) => (
               <Checkbox
                 key={checkbox}
-                value={checkbox}
+                name={checkbox}
                 onChange={handleCheckbox}
               >
                 {checkbox}

@@ -4,7 +4,7 @@ import { BiFilterAlt } from 'react-icons/bi';
 import { useRef, useState } from 'react';
 import FilterList from './FilterList';
 import { Checkbox, Rate } from 'antd';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { CheckboxChangeEvent, CheckboxRef } from 'antd/es/checkbox';
 
 const Filter = ({
@@ -17,8 +17,6 @@ const Filter = ({
   const [isShow, setIsShow] = useState(true);
   const [rate, setRate] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
-  const location = useLocation();
-  const navigate = useNavigate();
   const inputRef = useRef<CheckboxRef | null>(null);
   function handleFilterRating(e: CheckboxChangeEvent) {
     if (e.target.checked) {
@@ -58,8 +56,9 @@ const Filter = ({
                 setRate(value);
                 if (inputRef.current && inputRef.current.input?.checked) {
                   searchParams.set('rate', `${value}`);
-                  navigate(location.pathname + '?' + searchParams.toString(), {
-                    replace: true,
+                  setMeta({
+                    ...meta,
+                    rate,
                   });
                 }
               }}
