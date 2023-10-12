@@ -12,7 +12,7 @@ const Destination: React.FC<ICard> = ({
 }) => {
   return (
     <Styles.CardWrapper>
-      <Styles.img src={img} alt="" />
+      <Styles.Img src={img} alt="" />
       <Styles.Tours>{tours}</Styles.Tours>
       <Styles.CardInfo>
         <Styles.Title>{title}</Styles.Title>

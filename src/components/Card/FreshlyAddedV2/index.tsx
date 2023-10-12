@@ -1,27 +1,19 @@
 import * as Styles from './style';
-import React, { useEffect, useRef, useState } from 'react';
-import { Rate, Skeleton } from 'antd';
+import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import { Rate } from 'antd';
 import CustomButton from '@/components/CustomButton';
+import { ITour } from 'tour';
 
-interface IFreshlyAddedProps {
-  title: string;
-  img: string;
-  salePercent: number;
-  price: number;
-  reviews: number;
-  rate: number;
+interface IFreshlyAddedProps extends ITour {
   maxWidth?: string;
 }
 
-const FreshlyAddedV2: React.FC<IFreshlyAddedProps> = ({
-  title,
-  img,
-  salePercent,
-  price,
-  reviews,
-  rate,
-  maxWidth,
-}) => {
+const FreshlyAddedV2 = forwardRef<
+  HTMLDivElement,
+  React.PropsWithChildren<IFreshlyAddedProps>
+>((props, ref) => {
+  const { maxWidth, _id, name, images, salePercent, price, rate, reviews } =
+    props;
   const [isLazyLoad, setIsLazyLoad] = useState(false);
   const elementRef = useRef<HTMLDivElement | null>(null);
 
@@ -42,61 +34,61 @@ const FreshlyAddedV2: React.FC<IFreshlyAddedProps> = ({
   }, [elementRef.current]);
 
   return (
-    <div ref={elementRef}>
-      {isLazyLoad ? (
-        <Styles.CardWrapper $maxWidth={maxWidth}>
-          <a href="/">
-            <Styles.CardImg src={img} alt={title} />
-          </a>
-          {salePercent > 0 && (
-            <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>
-          )}
-          <Styles.CardInfo>
-            <Styles.Title>{title}</Styles.Title>
-            <Styles.CardInfoContent>
-              <Styles.CardInfoContentTop>
-                {salePercent > 0 ? (
-                  <>
-                    <Styles.CardInfoContentSalePrice>
-                      From <span> ${price}</span>
-                    </Styles.CardInfoContentSalePrice>
-                    <Styles.CardInfoContentPrice>
-                      ${price - price * (salePercent / 100)}
-                    </Styles.CardInfoContentPrice>
-                  </>
-                ) : (
-                  <>
+    <div ref={ref}>
+      <div ref={elementRef}>
+        {isLazyLoad ? (
+          <Styles.CardWrapper $maxWidth={maxWidth}>
+            <Styles.CardImg href={`/${_id}`}>
+              <img src={images[0]} alt={images[0]} />
+            </Styles.CardImg>
+            {salePercent > 0 && (
+              <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>
+            )}
+            <Styles.CardInfo>
+              <Styles.Title href={`/${_id}`}>{name}</Styles.Title>
+              <Styles.CardInfoContent>
+                <Styles.CardInfoContentTop>
+                  {salePercent > 0 ? (
+                    <>
+                      <Styles.CardInfoContentSalePrice>
+                        From <span> ${price}</span>
+                      </Styles.CardInfoContentSalePrice>
+                      <Styles.CardInfoContentPrice>
+                        ${price - price * (salePercent / 100)}
+                      </Styles.CardInfoContentPrice>
+                    </>
+                  ) : (
                     <Styles.CardInfoContentPriceWithoutSale>
                       From <span>${price}</span>
                     </Styles.CardInfoContentPriceWithoutSale>
-                  </>
-                )}
-              </Styles.CardInfoContentTop>
-              <Styles.CardInfoContentReviews>
-                <Rate allowHalf disabled defaultValue={rate} />
-                <span>({reviews} Reviews)</span>
-              </Styles.CardInfoContentReviews>
-              <CustomButton
-                type="primary"
-                width="100%"
-                border_radius="0"
-                height="50px"
-              >
-                View Detail
-              </CustomButton>
-            </Styles.CardInfoContent>
-          </Styles.CardInfo>
-        </Styles.CardWrapper>
-      ) : (
-        <Styles.CardWrapper $maxWidth={maxWidth}>
-          <Styles.SkeletonImg active />
-          <Styles.CardInfo>
-            <Styles.SkeletonTitle active />
-          </Styles.CardInfo>
-        </Styles.CardWrapper>
-      )}
+                  )}
+                </Styles.CardInfoContentTop>
+                <Styles.CardInfoContentReviews>
+                  <Rate allowHalf disabled defaultValue={rate} />
+                  <span>({reviews.length} Reviews)</span>
+                </Styles.CardInfoContentReviews>
+                <CustomButton
+                  type="primary"
+                  width="100%"
+                  border_radius="0"
+                  height="50px"
+                >
+                  View Detail
+                </CustomButton>
+              </Styles.CardInfoContent>
+            </Styles.CardInfo>
+          </Styles.CardWrapper>
+        ) : (
+          <Styles.CardWrapper $maxWidth={maxWidth}>
+            <Styles.SkeletonImg active />
+            <Styles.CardInfo>
+              <Styles.SkeletonTitle active />
+            </Styles.CardInfo>
+          </Styles.CardWrapper>
+        )}
+      </div>
     </div>
   );
-};
+});
 
 export default FreshlyAddedV2;

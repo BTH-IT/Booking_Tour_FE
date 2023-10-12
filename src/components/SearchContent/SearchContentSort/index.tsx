@@ -1,64 +1,72 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as Styles from './styles';
-import { Form, Select } from 'antd';
+import { Select } from 'antd';
 import { AiOutlineUnorderedList } from 'react-icons/ai';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 
 const SearchContentSort = ({
   layout,
   setLayout,
+  meta,
+  handleSortBy,
 }: {
   layout: boolean;
   setLayout: React.Dispatch<React.SetStateAction<boolean>>;
+  meta: any;
+  handleSortBy: (meta: any) => void;
 }) => {
   return (
     <Styles.SearchContentSortWrapper>
       <span>Sort by</span>
       <Select
         size="middle"
-        defaultValue="1"
+        defaultValue={meta.type || 'releaseDate'}
+        onChange={(value) => {
+          handleSortBy({
+            ...meta,
+            type: value,
+          });
+        }}
         options={[
           {
-            value: '1',
+            value: 'releaseDate',
             label: 'Release Date',
           },
           {
-            value: '2',
+            value: 'tourDate',
             label: 'Tour Date',
           },
           {
-            value: '3',
-            label: 'Title',
+            value: 'name',
+            label: 'Name',
           },
           {
-            value: '4',
+            value: 'price',
             label: 'Price',
           },
           {
-            value: '5',
-            label: 'Popularity',
-          },
-          {
-            value: '6',
+            value: 'rating',
             label: 'Rating',
-          },
-          {
-            value: '7',
-            label: 'Duration',
           },
         ]}
         bordered={false}
       />
       <Select
         size="middle"
-        defaultValue="1"
+        defaultValue={meta.order || 'desc'}
+        onChange={(value) => {
+          handleSortBy({
+            ...meta,
+            order: value,
+          });
+        }}
         options={[
           {
-            value: '1',
+            value: 'desc',
             label: 'Descending',
           },
           {
-            value: '2',
+            value: 'asc',
             label: 'Ascending',
           },
         ]}

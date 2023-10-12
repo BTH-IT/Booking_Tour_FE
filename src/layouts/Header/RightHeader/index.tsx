@@ -7,9 +7,7 @@ import { BiSolidDownArrow } from 'react-icons/bi';
 import { authActions } from '@/redux/features/auth/authSlice';
 
 const RightHeader = ({ handleShowModal }: { handleShowModal: () => void }) => {
-  const loginSuccess = Boolean(
-    useAppSelector((state) => state.auth.accessToken),
-  );
+  const loginSuccess = useAppSelector((state) => state.auth.isLoggedIn);
   const currentUser = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
 

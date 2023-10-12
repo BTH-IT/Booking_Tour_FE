@@ -1,12 +1,12 @@
 import { Outlet } from 'react-router';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Header from './Header';
 import Footer from './Footer';
 import Sidebar from './Sidebar';
 import Overlay from './Overlay';
-import { Col, Form, Modal, Row } from 'antd';
+import { Col, Modal, Row } from 'antd';
 import useLoginForm from '@/hooks/useLoginForm';
 import InputFormItem from '@/components/Input/InputFormItem';
 import CustomButton from '@/components/CustomButton';
@@ -14,9 +14,8 @@ import ButtonLink from '@/components/ButtonLink';
 import { useAppDispatch } from '@/redux/hooks';
 import { authActions } from '@/redux/features/auth/authSlice';
 import { LoginFormType } from '@/redux/features/auth/authSaga';
-import { BE_URL, callRefreshToken } from '@/utils/constants';
+import { BE_URL } from '@/utils/constants';
 import { toast } from 'react-toastify';
-import authService from '@/services/AuthService';
 
 interface IDefaultStyledProps {
   $isShow: boolean;
@@ -95,24 +94,6 @@ const DefaultLayout = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { form, Form } = useLoginForm();
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    async function x() {
-      // try {
-      //   await authService.refresh('123123');
-      // } catch (error: any) {
-      //   const isCheckRefresh = await callRefreshToken(
-      //     error.response.status,
-      //     async () => {},
-      //   );
-      //   if (!isCheckRefresh) {
-      //     toast.error(error.response.data);
-      //     dispatch(authActions.logout());
-      //   }
-      // }
-    }
-    x();
-  });
 
   const onFinish = async (data: LoginFormType) => {
     dispatch(

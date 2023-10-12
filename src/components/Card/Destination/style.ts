@@ -72,7 +72,7 @@ export const subTitle = styled.h4`
   line-height: 1.5;
 `;
 
-export const img = styled.img`
+export const Img = styled.img`
   width: 100%;
   height: 280px;
   background-size: cover;

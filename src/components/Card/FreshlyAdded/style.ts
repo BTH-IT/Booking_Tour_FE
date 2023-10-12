@@ -22,6 +22,8 @@ export const Title = styled.a`
   font-size: 2rem;
   transition: all 0.2s ease;
   width: 100%;
+  min-height: 50px;
+  text-decoration: none;
 
   overflow: hidden;
   display: -webkit-box;
@@ -42,7 +44,7 @@ export const CardInfo = styled.div`
   padding: 32px 30px 40px 40px;
 `;
 
-export const img = styled.img`
+export const Img = styled.a`
   width: 100%;
   height: 230px;
   background-size: cover;
@@ -50,6 +52,13 @@ export const img = styled.img`
   border-top-right-radius: 12px;
   border-top-left-radius: 12px;
   transition: all 0.3s linear;
+  display: block;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 export const SaleOff = styled.span`

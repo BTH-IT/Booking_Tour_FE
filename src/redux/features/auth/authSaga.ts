@@ -1,8 +1,8 @@
-import { call, fork, put, take } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { authActions } from './authSlice';
-import { PayloadAction } from '@reduxjs/toolkit';
 import authService from '@/services/AuthService';
 import { CLEAR_LOCALSTORAGE, SET_LOCALSTORAGE } from '@/utils/constants';
+import { IUser } from 'user';
 
 export interface ResponseGenerator {
   config?: Record<string, any>;
@@ -18,16 +18,30 @@ export interface LoginFormType {
   password: string;
 }
 
-export function* handleLogin(payload: LoginFormType) {
-  try {
-    const res: ResponseGenerator = yield call(authService.login, payload);
+export interface ActionParams<T> {
+  type: string;
+  payload: T;
+}
 
-    SET_LOCALSTORAGE(res);
+export function* handleLogin(
+  action: ActionParams<LoginFormType & { actionSuccess: () => void }>,
+) {
+  const { actionSuccess, ...rest } = action.payload;
+  try {
+    const data: {
+      accessToken: string;
+      account: any;
+      refreshToken: string;
+      user: IUser;
+    } = yield call(authService.login, rest);
+
+    SET_LOCALSTORAGE(data);
 
     yield put(
       authActions.loginSuccess({
-        ...res.data,
-        loggedIn: true,
+        ...data,
+        isLoggedIn: true,
+        actionSuccess,
       }),
     );
   } catch (error) {
@@ -36,28 +50,10 @@ export function* handleLogin(payload: LoginFormType) {
 }
 
 function* handleLogout() {
-  CLEAR_LOCALSTORAGE();
-  yield put(authActions.logout());
-}
-
-function* watchLoginFlow() {
-  while (true) {
-    let isLoggedIn = false;
-
-    if (!isLoggedIn) {
-      const action: PayloadAction<LoginFormType> = yield take(
-        authActions.login.type,
-      );
-
-      yield fork(handleLogin, action.payload);
-      continue;
-    }
-
-    yield take(authActions.logout.type);
-    yield call(handleLogout);
-  }
+  yield CLEAR_LOCALSTORAGE();
 }
 
 export default function* authSaga() {
-  yield fork(watchLoginFlow);
+  yield takeLatest(authActions.logout.type, handleLogout);
+  yield takeLatest(authActions.login.type, handleLogin);
 }

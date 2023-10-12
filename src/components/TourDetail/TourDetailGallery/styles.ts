@@ -1,3 +1,4 @@
+import { Row } from 'antd';
 import styled from 'styled-components';
 
 export const TourDetailGalleryWrapper = styled.div`
@@ -9,13 +10,15 @@ export const TourDetailGalleryWrapper = styled.div`
   margin-top: 20px;
   padding: 20px;
   gap: 20px;
+  max-height: 450px;
+  margin-bottom: 40px;
 `;
 
 export const TourDetailGalleryImagePrimary = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  max-height: 430px;
+  max-height: 450px;
   border-radius: 12px;
 
   img {
@@ -27,14 +30,17 @@ export const TourDetailGalleryImagePrimary = styled.div`
 `;
 
 export const TourDetailGalleryImageSecondary = styled.div`
-  width: 100%;
-  height: 100%;
-  max-height: 210px;
+  width: calc(50% - 10px);
+  height: calc(50% - 5px);
   border-radius: 12px;
+  max-height: 225px;
+  overflow: hidden;
+
   img {
     border-radius: inherit;
     width: 100%;
     height: 100%;
+    max-height: 225px;
     object-fit: cover;
   }
 `;
@@ -60,4 +66,12 @@ export const TourDetailGalleryButton = styled.button`
   font-weight: 600;
   padding: 12px 14px;
   cursor: pointer;
+`;
+
+export const TourDetailGalleryRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-right: -10px;
+  height: 100%;
 `;

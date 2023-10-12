@@ -1,11 +1,36 @@
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import * as Styles from './styles';
 import { BiFilterAlt } from 'react-icons/bi';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import FilterList from './FilterList';
+import { Checkbox, Rate } from 'antd';
+import { useSearchParams } from 'react-router-dom';
+import { CheckboxChangeEvent, CheckboxRef } from 'antd/es/checkbox';
 
-const Filter = () => {
+const Filter = ({
+  meta,
+  setMeta,
+}: {
+  meta: any;
+  setMeta: (meta: any) => void;
+}) => {
   const [isShow, setIsShow] = useState(true);
+  const [rate, setRate] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const inputRef = useRef<CheckboxRef | null>(null);
+  function handleFilterRating(e: CheckboxChangeEvent) {
+    if (e.target.checked) {
+      searchParams.set('rate', `${rate}`);
+      setMeta({
+        ...meta,
+        rate,
+      });
+    } else {
+      const { rate, ...rest } = meta;
+      searchParams.delete('rate');
+      setMeta(rest);
+    }
+  }
 
   return (
     <Styles.FilterWrapper>
@@ -19,8 +44,31 @@ const Filter = () => {
         </Styles.FilterHeaderIcon>
       </Styles.FilterHeader>
       <Styles.ShowFilterList className={`${isShow && 'active'}`}>
-        <FilterList title={'Tour Age'} checkboxList={['10+', '12+', '15+']} />
+        <Styles.FilterListWrapper>
+          <Styles.FilterListTitle>Rating</Styles.FilterListTitle>
+          <Styles.FilterListContent>
+            <Checkbox name="rate" onChange={handleFilterRating} ref={inputRef}>
+              {''}
+            </Checkbox>
+            <Rate
+              allowHalf
+              onChange={(value) => {
+                setRate(value);
+                if (inputRef.current && inputRef.current.input?.checked) {
+                  searchParams.set('rate', `${value}`);
+                  setMeta({
+                    ...meta,
+                    rate,
+                  });
+                }
+              }}
+            />
+          </Styles.FilterListContent>
+        </Styles.FilterListWrapper>
         <FilterList
+          setMeta={setMeta}
+          meta={meta}
+          name="activities"
           title={'Activities'}
           checkboxList={[
             'City Tours',
@@ -34,6 +82,9 @@ const Filter = () => {
           ]}
         />
         <FilterList
+          setMeta={setMeta}
+          meta={meta}
+          name="destination"
           title={'Destination'}
           checkboxList={[
             'America',

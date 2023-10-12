@@ -1,26 +1,14 @@
 import * as Styles from './style';
 import React, { useEffect, useRef, useState } from 'react';
-import { Rate, Skeleton } from 'antd';
+import { Rate } from 'antd';
+import { ITour } from 'tour';
 
-interface IFreshlyAddedProps {
-  title: string;
-  img: string;
-  salePercent: number;
-  price: number;
-  reviews: number;
-  rate: number;
+interface IFreshlyAddedProps extends ITour {
   maxWidth?: string;
 }
 
-const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({
-  title,
-  img,
-  salePercent,
-  price,
-  reviews,
-  rate,
-  maxWidth,
-}) => {
+const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({ maxWidth, ...props }) => {
+  const { _id, images, salePercent, name, rate, reviews, price } = props;
   const [isLazyLoad, setIsLazyLoad] = useState(false);
   const elementRef = useRef<HTMLDivElement | null>(null);
 
@@ -44,18 +32,18 @@ const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({
     <div ref={elementRef}>
       {isLazyLoad ? (
         <Styles.CardWrapper $maxWidth={maxWidth}>
-          <a href="/">
-            <Styles.img src={img} alt={title} />
-          </a>
+          <Styles.Img href={`/${_id}`}>
+            <img src={images[0]} alt={images[0]} />
+          </Styles.Img>
           {salePercent > 0 && (
             <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>
           )}
           <Styles.CardInfo>
-            <Styles.Title>{title}</Styles.Title>
+            <Styles.Title href={`/${_id}`}>{name}</Styles.Title>
             <Styles.CardInfoContent>
               <Styles.CardInfoContentReviews>
                 <Rate allowHalf disabled defaultValue={rate} />
-                <span>({reviews} Reviews)</span>
+                <span>({reviews.length} Reviews)</span>
               </Styles.CardInfoContentReviews>
               <Styles.CardInfoContentBottom>
                 {salePercent > 0 ? (

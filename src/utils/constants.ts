@@ -1,7 +1,3 @@
-import { ResponseGenerator } from '@/redux/features/auth/authSaga';
-import { authActions } from '@/redux/features/auth/authSlice';
-import authService from '@/services/AuthService';
-
 export const countryList = [
   { label: 'Select your country', value: '' },
   ...[
@@ -286,40 +282,15 @@ export const CLEAR_LOCALSTORAGE = () => {
   localStorage.removeItem(KEY_LOCALSTORAGE.CURRENT_ACCOUNT);
 };
 
-export const SET_LOCALSTORAGE = (res: ResponseGenerator) => {
-  localStorage.setItem(KEY_LOCALSTORAGE.ACCESS_TOKEN, res.data.accessToken);
+export const SET_LOCALSTORAGE = (data: any) => {
+  localStorage.setItem(KEY_LOCALSTORAGE.ACCESS_TOKEN, data.accessToken);
   localStorage.setItem(
     KEY_LOCALSTORAGE.CURRENT_USER,
-    JSON.stringify(res.data.user),
+    JSON.stringify(data.user),
   );
   localStorage.setItem(
     KEY_LOCALSTORAGE.CURRENT_ACCOUNT,
-    JSON.stringify(res.data.account),
+    JSON.stringify(data.account),
   );
-  localStorage.setItem(KEY_LOCALSTORAGE.REFRESH_TOKEN, res.data.refreshToken);
-};
-
-export const callRefreshToken = async (
-  status: number,
-  callback: () => void,
-) => {
-  try {
-    if (status == 401) {
-      const res: any = await authService.refresh(
-        JSON.stringify(localStorage.getItem(KEY_LOCALSTORAGE.REFRESH_TOKEN)),
-      );
-
-      localStorage.setItem(KEY_LOCALSTORAGE.ACCESS_TOKEN, res.accessToken);
-
-      authActions.updateAccessToken({
-        accessToken: res.accessToken,
-      });
-
-      await callback();
-      return true;
-    }
-    return false;
-  } catch (error) {
-    return false;
-  }
+  localStorage.setItem(KEY_LOCALSTORAGE.REFRESH_TOKEN, data.refreshToken);
 };

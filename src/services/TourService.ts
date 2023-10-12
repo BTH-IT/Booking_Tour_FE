@@ -6,17 +6,21 @@ const tourService = {
     const url = `/tours/${tourId}`;
     return axiosClient.get(url);
   },
-  getAllTour() {
-    return axiosClient.get('/tours/');
+  getAllTour(params?: any): Promise<{
+    tours: ITour[];
+    maxPrice: number;
+    minPrice: number;
+  }> {
+    return axiosClient.get('/tours/', { params: params });
   },
   createTour(data: ITour) {
     return axiosClient.post('/tours', data);
   },
   updateTour(data: ITour) {
-    return axiosClient.patch('/tours', data);
+    return axiosClient.patch('/tours/' + data._id, data);
   },
-  deleteTour(tourId: string, userId: string) {
-    const url = `/tour/${userId}/${tourId}`;
+  deleteTour(tourId: string) {
+    const url = `/tours/${tourId}`;
     return axiosClient.delete(url);
   },
 };

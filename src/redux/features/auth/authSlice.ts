@@ -2,9 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { LoginFormType } from './authSaga';
 import { toast } from 'react-toastify';
 import { KEY_LOCALSTORAGE } from '@/utils/constants';
+import { RootState } from '@/redux/store';
 export interface AuthState {
   isLoggedIn: boolean;
-  loggedIn?: boolean;
   account?: any;
   user?: any;
   accessToken: string;
@@ -12,14 +12,13 @@ export interface AuthState {
 }
 
 const initialState: AuthState = {
-  isLoggedIn: Boolean(localStorage.getItem(KEY_LOCALSTORAGE.ACCESS_TOKEN)),
+  isLoggedIn: Boolean(localStorage.getItem(KEY_LOCALSTORAGE.CURRENT_USER)),
   account: JSON.parse(
     localStorage.getItem(KEY_LOCALSTORAGE.CURRENT_ACCOUNT) || '{}',
   ),
   user: JSON.parse(localStorage.getItem(KEY_LOCALSTORAGE.CURRENT_USER) || '{}'),
   accessToken: localStorage.getItem(KEY_LOCALSTORAGE.ACCESS_TOKEN) || '',
   refreshToken: localStorage.getItem(KEY_LOCALSTORAGE.REFRESH_TOKEN) || '',
-  loggedIn: false,
 };
 
 const authSlide = createSlice({
@@ -74,7 +73,7 @@ const authSlide = createSlice({
       state.refreshToken = '';
       state.account = {};
       state.user = {};
-      state.loggedIn = false;
+      state.isLoggedIn = false;
     },
     loginFailed: (state) => {
       toast.error('Login Failure!!');
@@ -82,7 +81,7 @@ const authSlide = createSlice({
       state.refreshToken = '';
       state.account = {};
       state.user = {};
-      state.loggedIn = false;
+      state.isLoggedIn = false;
     },
   },
 });
@@ -91,7 +90,7 @@ const authSlide = createSlice({
 export const authActions = authSlide.actions;
 
 // Selectors
-export const selectAuth = (state: any) => state.auth;
+export const selectAuth = (state: RootState) => state.auth;
 
 // Reducer
 const authReducer = authSlide.reducer;
