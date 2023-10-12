@@ -17,10 +17,10 @@ const tourService = {
     return axiosClient.post('/tours', data);
   },
   updateTour(data: ITour) {
-    return axiosClient.patch('/tours', data);
+    return axiosClient.patch('/tours/' + data._id, data);
   },
-  deleteTour(tourId: string, userId: string) {
-    const url = `/tour/${userId}/${tourId}`;
+  deleteTour(tourId: string) {
+    const url = `/tours/${tourId}`;
     return axiosClient.delete(url);
   },
 };

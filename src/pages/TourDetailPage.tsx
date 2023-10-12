@@ -13,6 +13,7 @@ import tourService from '@/services/TourService';
 import { Col, Row } from 'antd';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { ITour } from 'tour';
 
@@ -65,7 +66,7 @@ const TourDetailPage = () => {
 
       setTourList(data.tours);
     } catch (error) {
-      console.log(error);
+      toast.error('Sever is wrong');
     }
   }
 
@@ -98,14 +99,14 @@ const TourDetailPage = () => {
                   breakpoint: 1500,
                   settings: {
                     slidesToShow: 3,
-                    slidesToScroll: 3,
+                    slidesToScroll: 1,
                   },
                 },
                 {
                   breakpoint: 1150,
                   settings: {
                     slidesToShow: 2,
-                    slidesToScroll: 2,
+                    slidesToScroll: 1,
                   },
                 },
                 {
@@ -120,12 +121,13 @@ const TourDetailPage = () => {
               {tourList.map((freshlyAdded) => (
                 <FreshlyAdded
                   {...freshlyAdded}
+                  maxWidth="325px"
                   key={freshlyAdded.images[0]}
-                ></FreshlyAdded>
+                />
               ))}
             </SliderBase>
           </TourDetailContent>
-          <Reviews />
+          <Reviews {...tour} />
         </Container>
       </>
     )

@@ -28,6 +28,7 @@ export const Title = styled.a`
   transition: all 0.2s ease;
   width: 100%;
   align-self: flex-start;
+  text-decoration: none;
 
   overflow: hidden;
   display: -webkit-box;

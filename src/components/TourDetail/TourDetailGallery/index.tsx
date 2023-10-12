@@ -24,15 +24,13 @@ const TourDetailGallery = (props: ITour) => {
           </Styles.TourDetailGalleryImagePrimary>
         </Col>
         <Col xs={8}>
-          <Row gutter={[10, 10]}>
-            {props.images.slice(1).map((image) => (
-              <Col xs={12} key={image}>
-                <Styles.TourDetailGalleryImageSecondary>
-                  <img src={image} alt="" />
-                </Styles.TourDetailGalleryImageSecondary>
-              </Col>
+          <Styles.TourDetailGalleryRow>
+            {props.images.slice(1).map((image, idx) => (
+              <Styles.TourDetailGalleryImageSecondary key={idx}>
+                <img src={image} alt="image" />
+              </Styles.TourDetailGalleryImageSecondary>
             ))}
-          </Row>
+          </Styles.TourDetailGalleryRow>
         </Col>
       </Row>
     </Styles.TourDetailGalleryWrapper>

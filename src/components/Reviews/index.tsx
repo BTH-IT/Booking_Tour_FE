@@ -1,12 +1,65 @@
-import { Form, Input, Rate, Select } from 'antd';
+import { Col, Form, Rate, Row } from 'antd';
 import * as Styles from './styles';
 import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
+import InputFormItem from '../Input/InputFormItem';
+import CustomButton from '../CustomButton';
+import { ITour } from 'tour';
+import { toast } from 'react-toastify';
+import tourService from '@/services/TourService';
+import { v4 as uuidv4 } from 'uuid';
+import { KEY_LOCALSTORAGE } from '@/utils/constants';
+import { useAppSelector } from '@/redux/hooks';
+import { selectAuth } from '@/redux/features/auth/authSlice';
+import Review from './Review';
+import { useState } from 'react';
 
-const Reviews = () => {
+export interface IReview {
+  id: string;
+  userId: string;
+  rating: number;
+  content: string;
+  createdAt: Date;
+}
+
+const Reviews = (props: ITour) => {
+  const [reviews, setReviews] = useState<IReview[]>(props.reviews);
+  const isLogged = Boolean(localStorage.getItem(KEY_LOCALSTORAGE.CURRENT_USER));
+  const user = useAppSelector(selectAuth).user;
+
+  const onFinish = async (values: { rating: number; content: string }) => {
+    try {
+      await tourService.updateTour({
+        ...props,
+        reviews: [
+          {
+            ...values,
+            id: uuidv4(),
+            userId: user._id,
+            createdAt: new Date(),
+          },
+          ...reviews,
+        ],
+      });
+
+      setReviews([
+        {
+          ...values,
+          id: uuidv4(),
+          userId: user._id,
+          createdAt: new Date(),
+        },
+        ...reviews,
+      ]);
+
+      toast.success('Review Success!!');
+    } catch (error: any) {
+      toast.error('Review Failure!!');
+    }
+  };
   return (
     <Styles.ReviewsWrapper>
       <Styles.ReviewsHeader>
-        <Styles.ReviewsCount>1 Reviews</Styles.ReviewsCount>
+        <Styles.ReviewsCount>{reviews.length} Reviews</Styles.ReviewsCount>
         <Styles.ReviewsHeaderSort>
           <span>Sort By:</span>
           <Styles.ReviewsHeaderSortRating>
@@ -15,42 +68,46 @@ const Reviews = () => {
           <Styles.ReviewsHeaderSortDate>
             Date <BiSolidUpArrow />
           </Styles.ReviewsHeaderSortDate>
-          <Select
-            defaultValue=""
-            options={[
-              {
-                label: 'Filter by',
-                value: '',
-              },
-            ]}
-          />
         </Styles.ReviewsHeaderSort>
       </Styles.ReviewsHeader>
-      <Styles.ReviewsCommentForm>
-        <Form.Item></Form.Item>
-        <Form.Item></Form.Item>
-        <Form.Item></Form.Item>
-      </Styles.ReviewsCommentForm>
+      {isLogged && (
+        <Styles.ReviewsCommentForm
+          initialValues={{
+            rating: 0,
+            content: '',
+          }}
+          onFinish={onFinish}
+        >
+          <Row gutter={[20, 20]}>
+            <Col xs={6}>
+              <Form.Item name="rating" rules={[{ required: true }]}>
+                <Rate allowHalf />
+              </Form.Item>
+            </Col>
+            <Col xs={18}>
+              <InputFormItem
+                label=""
+                name="content"
+                placeholder="Enter your review..."
+                rules={[{ required: true }]}
+              />
+            </Col>
+          </Row>
+          <CustomButton
+            htmlType="submit"
+            type="primary"
+            width="100%"
+            height="60px"
+          >
+            Submit
+          </CustomButton>
+        </Styles.ReviewsCommentForm>
+      )}
+
       <Styles.ReviewsContent>
-        <Styles.ReviewsContentItem>
-          <Styles.ReviewsContentItemImg>
-            <img src="/public/avatar.png" alt="avatar" />
-          </Styles.ReviewsContentItemImg>
-          <Styles.ReviewsContentItemName>
-            Theodore Cook
-          </Styles.ReviewsContentItemName>
-          <Styles.ReviewsContentItemType>
-            Solo <br /> Traveller
-          </Styles.ReviewsContentItemType>
-          <Styles.ReviewsContentItemInfo>
-            <p>
-              I am so happy, my dear friend, so absorbed in the exquisite sense
-              of mere tranquil existence, that I neglect my talents.
-            </p>
-            <Rate allowHalf defaultValue={5} disabled />
-            <p>May 25, 2022</p>
-          </Styles.ReviewsContentItemInfo>
-        </Styles.ReviewsContentItem>
+        {reviews.map((review) => (
+          <Review {...review} key={review.id} />
+        ))}
       </Styles.ReviewsContent>
     </Styles.ReviewsWrapper>
   );

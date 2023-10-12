@@ -23,6 +23,7 @@ export const Title = styled.a`
   transition: all 0.2s ease;
   width: 100%;
   min-height: 50px;
+  text-decoration: none;
 
   overflow: hidden;
   display: -webkit-box;

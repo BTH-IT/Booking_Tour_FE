@@ -15,7 +15,6 @@ import { Form } from 'antd';
 import { CalendarChangeEvent } from 'primereact/calendar';
 import SelectFormItem from '@/components/Select/SelectFormItem';
 import CustomButton from '@/components/CustomButton';
-import { BiSolidLike } from 'react-icons/bi';
 import { TbFreeRights } from 'react-icons/tb';
 import { MdOutlineMailOutline } from 'react-icons/md';
 
