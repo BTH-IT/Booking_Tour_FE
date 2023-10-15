@@ -2,10 +2,11 @@ import styled, { css } from 'styled-components';
 
 interface IHeaderWrapperProps {
   $isScroll?: boolean;
+  $isTourDetail?: boolean;
 }
 
 export const HeaderWrapper = styled.header<IHeaderWrapperProps>`
-  position: sticky;
+  position: ${({ $isTourDetail }) => (!$isTourDetail ? 'sticky' : 'none')};
   top: 0;
   width: 100%;
   padding: 0 26px;

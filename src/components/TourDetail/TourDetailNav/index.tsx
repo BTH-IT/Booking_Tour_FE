@@ -39,6 +39,14 @@ const TourDetailNav = () => {
       left: (e.target as HTMLAnchorElement).offsetLeft,
       width: (e.target as HTMLAnchorElement).clientWidth,
     });
+
+    const id = anchorEle.href.split('#')[1];
+    const element = document.getElementById(id);
+
+    if (!element) return;
+
+    console.log(window.scrollY);
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const handleMouseLeave = () => {
