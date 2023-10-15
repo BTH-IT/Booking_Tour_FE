@@ -4,6 +4,7 @@ import NavHeader from './NavHeader';
 import RightHeader from './RightHeader';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import { useCallback, useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
 
 interface IHeaderProps {
   onClick: () => void;
@@ -13,6 +14,10 @@ interface IHeaderProps {
 
 const Header = ({ isShowSidebar, onClick, handleShowModal }: IHeaderProps) => {
   const [isScroll, setIsScroll] = useState(window.scrollY > 0);
+  const location = useLocation();
+  const [isTourDetail, setIsTourDetail] = useState(
+    location.pathname !== '/search',
+  );
 
   const handleScroll = useCallback(() => {
     setIsScroll(window.scrollY > 0);
@@ -27,7 +32,7 @@ const Header = ({ isShowSidebar, onClick, handleShowModal }: IHeaderProps) => {
   }, []);
 
   return (
-    <Styles.HeaderWrapper $isScroll={isScroll}>
+    <Styles.HeaderWrapper $isScroll={isScroll} $isTourDetail={isTourDetail}>
       <Styles.HeaderContainer $isScroll={isScroll}>
         <Logo />
         <Styles.HeaderResponsive>

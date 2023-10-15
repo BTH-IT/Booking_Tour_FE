@@ -25,6 +25,7 @@ time, mark, audio, video {
 	font-family: 'DM Sans', 'DM Serif Display', sans-serif;
 	vertical-align: baseline;
 	box-sizing: border-box;
+	scroll-behavior: smooth;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
