@@ -28,8 +28,8 @@ const SearchContentForm = ({
     setMeta({
       ...meta,
       search: values.keywords,
-      dateFrom: date[0],
-      dateTo: date[1],
+      dateFrom: date[0]?.getTime() || null,
+      dateTo: date[1]?.getTime() || null,
       _page: 1,
     });
   };

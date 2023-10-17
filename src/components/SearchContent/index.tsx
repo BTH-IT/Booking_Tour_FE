@@ -4,32 +4,30 @@ import { Col, Row } from 'antd';
 import SearchContentForm from './SearchContentForm';
 import SearchContentSort from './SearchContentSort';
 import FreshlyAdded from '../Card/FreshlyAdded';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import FreshlyAddedV2 from '../Card/FreshlyAddedV2';
 import tourService from '@/services/TourService';
 import { ITour } from 'tour';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import * as FreshlyAddedStyled from '../Card/FreshlyAdded/style';
+import * as FreshlyAddedStyledV2 from '../Card/FreshlyAddedV2/style';
+import { toast } from 'react-toastify';
 
 const SearchContent = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(false);
   const [layout, setLayout] = useState(false);
   const [tourList, setTourList] = useState<ITour[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 0]);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const [meta, setMeta] = useState({
+    ...Object.fromEntries(searchParams.entries()),
     type: searchParams.get('type') || 'releaseDate',
     order: searchParams.get('order') || 'desc',
-    search: searchParams.get('search') || '',
-    dateFrom: searchParams.get('dateFrom') || '',
-    dateTo: searchParams.get('dateTo') || '',
     priceFrom: searchParams.get('priceFrom') || 0,
-    priceTo: searchParams.get('priceTo') || 0,
-    destination: searchParams.get('destination')?.split('%2') || [],
-    activities: searchParams.get('activities')?.split('%2') || [],
   });
   const location = useLocation();
-  const navigate = useNavigate();
 
   const elementRef = useRef<HTMLDivElement | null>(null);
 
@@ -54,21 +52,27 @@ const SearchContent = () => {
     };
   }, [tourList]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setTourList([]);
     setPage(1);
     setHasMore(false);
+    setIsLoading(true);
   }, [meta]);
 
   const getSearchItems = async () => {
-    const data = await tourService.getAllTour({
-      ...meta,
-      _page: page,
-    });
-    setHasMore(data.tours.length > 0);
-    setTourList((prev) => [...prev, ...data.tours]);
-    setPriceRange([data.minPrice, data.maxPrice]);
-    handleChangeLocation();
+    try {
+      const data = await tourService.getAllTour({
+        ...meta,
+        _page: page,
+      });
+      setHasMore(data.tours.length > 0);
+      setTourList((prev) => [...prev, ...data.tours]);
+      setPriceRange([data.minPrice, data.maxPrice]);
+      handleChangeLocation();
+      setIsLoading(false);
+    } catch (error) {
+      toast.error('Oops!! Something is wrong');
+    }
   };
 
   useEffect(() => {
@@ -82,6 +86,8 @@ const SearchContent = () => {
   function handleChangeLocation() {
     for (const key in meta) {
       let value = meta[key as keyof typeof meta] as any;
+      if (key === '_page') continue;
+
       if (!value && key !== 'priceFrom') {
         searchParams.delete(key);
         continue;
@@ -90,7 +96,7 @@ const SearchContent = () => {
       if (key === 'destination') {
         value = value.filter((item: any) => item !== null || item);
         if (value.length > 0) {
-          searchParams.set(key, value.join('%2'));
+          searchParams.set(key, value);
         }
         continue;
       }
@@ -98,16 +104,16 @@ const SearchContent = () => {
       if (key === 'activities') {
         value = value.filter((item: any) => item !== null || item);
         if (value.length > 0) {
-          searchParams.set(key, value.join('%2'));
+          searchParams.set(key, value);
         }
         continue;
       }
       searchParams.set(key, value);
     }
 
-    navigate(location.pathname + '?' + searchParams.toString(), {
-      replace: true,
-    });
+    const newUrl = location.pathname + '?' + searchParams.toString();
+
+    window.history.pushState({ path: newUrl }, '', newUrl);
   }
 
   return (
@@ -131,24 +137,53 @@ const SearchContent = () => {
                 meta={meta}
                 handleSortBy={handleSortBy}
               />
-              {!layout ? (
+
+              {!isLoading ? (
+                <>
+                  {!layout ? (
+                    <Row gutter={[20, 20]}>
+                      {tourList.map((freshlyAdded, idx) => (
+                        <Col xs={24} sm={12} key={freshlyAdded._id + idx}>
+                          <FreshlyAdded {...freshlyAdded} maxWidth={'100%'} />
+                        </Col>
+                      ))}
+                    </Row>
+                  ) : (
+                    tourList.map((freshlyAdded, idx) => (
+                      <FreshlyAddedV2
+                        {...freshlyAdded}
+                        key={freshlyAdded._id + idx}
+                        maxWidth={'100%'}
+                      />
+                    ))
+                  )}
+                  {hasMore && <div ref={elementRef}></div>}
+                </>
+              ) : !layout ? (
                 <Row gutter={[20, 20]}>
-                  {tourList.map((freshlyAdded, idx) => (
-                    <Col xs={24} sm={12} key={freshlyAdded._id + idx}>
-                      <FreshlyAdded {...freshlyAdded} maxWidth={'100%'} />
+                  {[1, 2, 3, 4, 5, 6].map((item, idx) => (
+                    <Col xs={24} sm={12} key={item + idx}>
+                      <FreshlyAddedStyled.CardWrapper $maxWidth={'100%'}>
+                        <FreshlyAddedStyled.SkeletonImg active />
+                        <FreshlyAddedStyled.CardInfo>
+                          <FreshlyAddedStyled.SkeletonTitle active />
+                        </FreshlyAddedStyled.CardInfo>
+                      </FreshlyAddedStyled.CardWrapper>
                     </Col>
                   ))}
                 </Row>
               ) : (
-                tourList.map((freshlyAdded, idx) => (
-                  <FreshlyAddedV2
-                    {...freshlyAdded}
-                    key={freshlyAdded._id + idx}
-                    maxWidth={'100%'}
-                  />
+                [1, 2, 3, 4, 5, 6].map((item, idx) => (
+                  <Col xs={24} sm={12} key={item + idx}>
+                    <FreshlyAddedStyledV2.CardWrapper $maxWidth={'100%'}>
+                      <FreshlyAddedStyledV2.SkeletonImg active />
+                      <FreshlyAddedStyledV2.CardInfo>
+                        <FreshlyAddedStyledV2.SkeletonTitle active />
+                      </FreshlyAddedStyledV2.CardInfo>
+                    </FreshlyAddedStyledV2.CardWrapper>
+                  </Col>
                 ))
               )}
-              {hasMore && <div ref={elementRef}></div>}
             </Styles.SearchContentRight>
           </Col>
         </Row>
