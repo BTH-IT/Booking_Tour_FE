@@ -104,7 +104,7 @@ const TourDetailLeft = (props: ITour) => {
         )}
       </Styles.TourDetailLeftContent>
       <Styles.TourDetailLeftSeperate />
-      <Styles.TourDetailLeftContent id="map">
+      <Styles.TourDetailLeftContent id="faq">
         <Styles.TourDetailLeftTitle>FAQ</Styles.TourDetailLeftTitle>
         {props.days.map((day, idx) => (
           <Accordion

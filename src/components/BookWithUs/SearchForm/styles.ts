@@ -11,7 +11,7 @@ export const SearchFormWrapper = styled(Form)`
   background-color: white;
   border-radius: 16px;
   width: 100%;
-  max-width: 80%;
+  max-width: 90%;
   overflow: hidden;
 
   label {

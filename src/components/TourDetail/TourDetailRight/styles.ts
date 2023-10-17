@@ -21,6 +21,7 @@ export const TourDetailRightBookingPrice = styled.h6`
   color: black;
   gap: 10px;
 
+  s,
   span {
     font-size: 1.4rem;
     font-weight: 400;

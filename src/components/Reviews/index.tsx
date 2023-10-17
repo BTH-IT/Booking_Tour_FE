@@ -57,7 +57,7 @@ const Reviews = (props: ITour) => {
     }
   };
   return (
-    <Styles.ReviewsWrapper>
+    <Styles.ReviewsWrapper id="reviews">
       <Styles.ReviewsHeader>
         <Styles.ReviewsCount>{reviews.length} Reviews</Styles.ReviewsCount>
         <Styles.ReviewsHeaderSort>

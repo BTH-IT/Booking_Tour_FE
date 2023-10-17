@@ -2,7 +2,6 @@ import { ITour } from 'tour';
 import * as Styles from './styles';
 import {
   AiFillHeart,
-  AiOutlineEye,
   AiOutlineHeart,
   AiOutlineLike,
   AiOutlinePhone,
@@ -12,15 +11,28 @@ import {
 import CalendarInput from '@/components/CalendarInput';
 import { useState } from 'react';
 import { Form } from 'antd';
-import { CalendarChangeEvent } from 'primereact/calendar';
-import SelectFormItem from '@/components/Select/SelectFormItem';
+import {
+  CalendarChangeEvent,
+  CalendarDateTemplateEvent,
+} from 'primereact/calendar';
 import CustomButton from '@/components/CustomButton';
 import { TbFreeRights } from 'react-icons/tb';
 import { MdOutlineMailOutline } from 'react-icons/md';
+import InputFormItem from '@/components/Input/InputFormItem';
+
+const dateTemplate = (date: CalendarDateTemplateEvent) => {
+  if (date.day > 20 && date.day < 30) {
+    return <s style={{ textDecoration: 'line-through' }}>{date.day}</s>;
+  }
+
+  return date.day;
+};
 
 const TourDetailRight = (props: ITour) => {
   const [form] = Form.useForm();
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState<Date[]>([]);
+  const { price, salePercent } = props;
+  const [seatsAvailable, setSeatsAvailable] = useState(props.maxGuests);
 
   return (
     <Styles.TourDetailRightWrapper>
@@ -31,20 +43,36 @@ const TourDetailRight = (props: ITour) => {
         <Styles.TourDetailRightBookingPrice>
           <AiOutlineTag />
           <span>From</span>
-          <p>$1,200</p>
+          {salePercent > 0 ? (
+            <>
+              <s>${price}</s>
+              <p>${price - (price * salePercent) / 100}</p>
+            </>
+          ) : (
+            <p>${price}</p>
+          )}
         </Styles.TourDetailRightBookingPrice>
-        <Styles.TourDetailRightBookingForm form={form}>
+        <Styles.TourDetailRightBookingForm form={form} layout="vertical">
           <Styles.TourDetailRightBookingFormDate name="date">
             <CalendarInput
               value={date}
-              onChange={(e: CalendarChangeEvent) => setDate(e.value as Date)}
+              onChange={(e: CalendarChangeEvent) => {
+                setDate(e.value as Date[]);
+              }}
               minDate={new Date()}
+              disabledDates={[new Date('10/20/2023')]}
+              selectionMode="range"
             />
           </Styles.TourDetailRightBookingFormDate>
           <Styles.TourDetailRightBookingFormAvailable>
-            Available: 40 seats
+            Available: {seatsAvailable} seats
           </Styles.TourDetailRightBookingFormAvailable>
-          <SelectFormItem name="numOfPeople" label="" options={[]} />
+          <InputFormItem
+            name="numOfPeople"
+            label="Number of people"
+            type="number"
+            min="0"
+          />
           <CustomButton
             htmlType="submit"
             type="primary"
@@ -61,10 +89,6 @@ const TourDetailRight = (props: ITour) => {
             {/* <AiFillHeart/> */}
             <span>Save To Wish List</span>
           </Styles.TourDetailRightWishList>
-          <Styles.TourDetailRightNumView>
-            <AiOutlineEye />
-            <span>6424</span>
-          </Styles.TourDetailRightNumView>
         </Styles.TourDetailRightBookingInfo>
       </Styles.TourDetailRightBooking>
       <Styles.TourDetailRightBookingWithConfidence>

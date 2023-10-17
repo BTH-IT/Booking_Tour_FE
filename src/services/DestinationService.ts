@@ -6,8 +6,8 @@ const destinationService = {
     const url = `/destinations/${destinationId}`;
     return axiosClient.get(url);
   },
-  getAllDestination() {
-    return axiosClient.get('/destinations/');
+  getAllDestination(): Promise<IDestination[]> {
+    return axiosClient.get('/destinations');
   },
   createDestination(data: IDestination) {
     return axiosClient.post('/destinations', data);

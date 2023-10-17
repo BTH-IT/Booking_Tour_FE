@@ -45,8 +45,10 @@ const TourDetailNav = () => {
 
     if (!element) return;
 
-    console.log(window.scrollY);
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
   };
 
   const handleMouseLeave = () => {

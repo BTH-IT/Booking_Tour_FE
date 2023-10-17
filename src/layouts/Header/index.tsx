@@ -16,7 +16,8 @@ const Header = ({ isShowSidebar, onClick, handleShowModal }: IHeaderProps) => {
   const [isScroll, setIsScroll] = useState(window.scrollY > 0);
   const location = useLocation();
   const [isTourDetail, setIsTourDetail] = useState(
-    location.pathname !== '/search',
+    location.pathname.split('/')[1] !== 'search' &&
+      location.pathname.split('/')[1] !== '',
   );
 
   const handleScroll = useCallback(() => {

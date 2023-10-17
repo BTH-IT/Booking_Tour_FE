@@ -63,12 +63,12 @@ const FreshlyAddeds = () => {
           {tourList.map((freshlyAdded) => (
             <FreshlyAdded
               {...freshlyAdded}
-              key={freshlyAdded.images[0]}
+              key={freshlyAdded._id}
             ></FreshlyAdded>
           ))}
         </SliderBase>
         <ButtonLink
-          href="/"
+          href="/search"
           icon={true}
           $fontSize="1.4rem"
           $borderBottom={true}

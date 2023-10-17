@@ -1,38 +1,31 @@
 import * as Styles from './style';
 import React from 'react';
 import { Rate } from 'antd';
+import { ITour } from 'tour';
 
-interface IPopularTourProps {
-  title: string;
-  img: string;
-  salePercent: number;
-  price: number;
-  reviews: number;
-  rate: number;
-  time: string;
-}
-
-const PopularTour: React.FC<IPopularTourProps> = ({
-  title,
-  img,
+const PopularTour: React.FC<ITour> = ({
+  name,
+  images,
   salePercent,
   price,
   reviews,
   rate,
-  time,
+  days,
 }) => {
   return (
     <Styles.CardWrapper>
-      <Styles.Img src={img} alt={title} />
+      <Styles.Img src={images[0]} alt={name} />
       {salePercent > 0 && <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>}
       <Styles.CardInfo>
-        <Styles.Title>{title}</Styles.Title>
+        <Styles.Title>{name}</Styles.Title>
         <Styles.CardInfoContent className="card-info-content">
           <Styles.CardInfoContentLeft>
-            <Styles.CardInfoContentDays>{time}</Styles.CardInfoContentDays>
+            <Styles.CardInfoContentDays>
+              {`${days.length} Days ${days.length - 1} Nights`}
+            </Styles.CardInfoContentDays>
             <Styles.CardInfoContentReviews>
               <Rate allowHalf disabled defaultValue={rate} />
-              <span>({reviews} Reviews)</span>
+              <span>({reviews.length} Reviews)</span>
             </Styles.CardInfoContentReviews>
           </Styles.CardInfoContentLeft>
           <Styles.CardInfoContentRight>

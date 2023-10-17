@@ -4,6 +4,7 @@ export const CardWrapper = styled.div`
   width: 100%;
   max-width: 380px;
   height: 520px;
+  margin: 0 20px;
   display: inline-block;
   position: relative;
   border-radius: 12px;
@@ -48,7 +49,7 @@ export const CardInfo = styled.div`
   flex-direction: column;
   color: white;
   transition: all 0.2s ease;
-  transform: translateY(50%);
+  transform: translateY(51%);
   width: 100%;
 `;
 
