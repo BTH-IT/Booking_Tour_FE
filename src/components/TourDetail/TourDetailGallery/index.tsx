@@ -8,7 +8,7 @@ const TourDetailGallery = (props: ITour) => {
   return (
     <Styles.TourDetailGalleryWrapper>
       <Row gutter={[10, 10]}>
-        <Col xs={16}>
+        <Col xs={24} md={16}>
           <Styles.TourDetailGalleryImagePrimary>
             <img src={props.images[0]} alt="" />
             <Styles.TourDetailGalleryButtonWrapper>
@@ -23,7 +23,7 @@ const TourDetailGallery = (props: ITour) => {
             </Styles.TourDetailGalleryButtonWrapper>
           </Styles.TourDetailGalleryImagePrimary>
         </Col>
-        <Col xs={8}>
+        <Col xs={24} md={8}>
           <Styles.TourDetailGalleryRow>
             {props.images.slice(1).map((image, idx) => (
               <Styles.TourDetailGalleryImageSecondary key={idx}>

@@ -25,6 +25,12 @@ export const TourDetailHeaderSubInfo = styled.div`
   display: flex;
   align-items: center;
   gap: 40px;
+
+  @media screen and (max-width: 765px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
 `;
 
 export const TourDetailHeaderSubInfoItem = styled.div`

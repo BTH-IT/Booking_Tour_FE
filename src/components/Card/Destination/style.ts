@@ -49,7 +49,7 @@ export const CardInfo = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  transform: translateY(50%);
+  transform: translateY(51%);
   gap: 10px;
   display: flex;
   justify-content: center;

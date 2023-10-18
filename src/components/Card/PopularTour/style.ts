@@ -1,9 +1,10 @@
 import { styled } from 'styled-components';
 
-export const CardWrapper = styled.div`
+export const CardWrapper = styled.a`
   width: 100%;
   max-width: 380px;
   height: 520px;
+  margin: 0 20px;
   display: inline-block;
   position: relative;
   border-radius: 12px;
@@ -20,7 +21,7 @@ export const CardWrapper = styled.div`
   }
 `;
 
-export const Title = styled.a`
+export const Title = styled.h3`
   color: white;
   font-weight: 700;
   font-size: 3rem;
@@ -48,7 +49,7 @@ export const CardInfo = styled.div`
   flex-direction: column;
   color: white;
   transition: all 0.2s ease;
-  transform: translateY(50%);
+  transform: translateY(51%);
   width: 100%;
 `;
 

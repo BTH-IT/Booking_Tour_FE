@@ -2,6 +2,15 @@ import styled from 'styled-components';
 
 export const TourDetailNavWrapper = styled.div`
   border-bottom: 1px solid #8d8e95;
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: white;
+  z-index: 2;
+
+  @media screen and (max-width: 765px) {
+    display: none;
+  }
 `;
 
 export const TourDetailNav = styled.div`

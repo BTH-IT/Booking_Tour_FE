@@ -28,14 +28,27 @@ const SearchContentForm = ({
     setMeta({
       ...meta,
       search: values.keywords,
-      dateFrom: date[0],
-      dateTo: date[1],
+      dateFrom: date[0]?.getTime() || null,
+      dateTo: date[1]?.getTime() || null,
       _page: 1,
     });
   };
 
   const onFinishFailed = () => {
     toast.error('Oops!! something is wrong');
+  };
+
+  const handleResetFilter = () => {
+    form.resetFields();
+    setMeta({
+      ...meta,
+      search: '',
+      dateFrom: null,
+      dateTo: null,
+      priceFrom: 0,
+      priceTo: null,
+      _page: 1,
+    });
   };
 
   return (
@@ -93,7 +106,7 @@ const SearchContentForm = ({
           )}
         />
       </Styles.SearchContentFormItem>
-      <Styles.SearchContentFormButton>
+      <Styles.SearchContentFormButton onClick={handleResetFilter} type="button">
         <AiOutlineClose />
         <span>Clear Filter</span>
       </Styles.SearchContentFormButton>

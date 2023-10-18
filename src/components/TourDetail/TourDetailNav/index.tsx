@@ -39,6 +39,16 @@ const TourDetailNav = () => {
       left: (e.target as HTMLAnchorElement).offsetLeft,
       width: (e.target as HTMLAnchorElement).clientWidth,
     });
+
+    const id = anchorEle.href.split('#')[1];
+    const element = document.getElementById(id);
+
+    if (!element) return;
+
+    element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
   };
 
   const handleMouseLeave = () => {
@@ -57,6 +67,46 @@ const TourDetailNav = () => {
         width: navItemRef.current.clientWidth,
       });
     }
+  }, []);
+
+  function handleScroll() {
+    const sectionEle = document.querySelectorAll('section');
+    let currentSection = '';
+    sectionEle.forEach((section) => {
+      if (
+        window.scrollY >= section.offsetTop &&
+        !section.classList.contains('container')
+      ) {
+        currentSection = section.id;
+        return;
+      }
+    });
+
+    const nav = document.querySelector(`a[href="#${currentSection}"]`);
+
+    if (nav) {
+      nav.parentElement?.querySelector('.active')?.classList.remove('active');
+
+      nav.classList.add('active');
+
+      setCoords({
+        left: (nav as HTMLAnchorElement).offsetLeft,
+        width: (nav as HTMLAnchorElement).clientWidth,
+      });
+
+      setCoordsActive({
+        left: (nav as HTMLAnchorElement).offsetLeft,
+        width: (nav as HTMLAnchorElement).clientWidth,
+      });
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.addEventListener('scroll', handleScroll);
+    };
   }, []);
 
   return (

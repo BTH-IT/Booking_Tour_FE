@@ -41,7 +41,7 @@ export const SidebarNavItem = styled.li`
   cursor: pointer;
 `;
 
-export const SidebarNavItemLink = styled.a<{ isactive?: boolean }>`
+export const SidebarNavItemLink = styled.a<{ $isActive: boolean }>`
   display: block;
   font-size: 1.2rem;
   font-weight: 600;
@@ -51,8 +51,8 @@ export const SidebarNavItemLink = styled.a<{ isactive?: boolean }>`
   color: #979797;
   text-decoration: none;
 
-  ${({ isactive }) =>
-    isactive &&
+  ${({ $isActive }) =>
+    $isActive &&
     css`
       color: white;
     `}
@@ -69,4 +69,9 @@ export const SidebarTranferAction = styled.div`
   gap: 10px;
   align-items: center;
   margin-top: 20px;
+
+  @media screen and (max-width: 576px) {
+    flex-direction: column;
+    gap: 60px;
+  }
 `;

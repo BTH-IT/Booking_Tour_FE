@@ -1,9 +1,13 @@
-import { ITour } from './../types/tour.d';
+import { ITour, ISchedule } from './../types/tour.d';
 import axiosClient from './AxiosClient';
 
 const tourService = {
   getATour(tourId: string): Promise<ITour> {
     const url = `/tours/${tourId}`;
+    return axiosClient.get(url);
+  },
+  getSchedulesOfTour(tourId: string): Promise<ISchedule[]> {
+    const url = `/tours/${tourId}/schedules`;
     return axiosClient.get(url);
   },
   getAllTour(params?: any): Promise<{
@@ -12,6 +16,9 @@ const tourService = {
     minPrice: number;
   }> {
     return axiosClient.get('/tours/', { params: params });
+  },
+  getAllReviews(): Promise<any> {
+    return axiosClient.get('/tours/reviews');
   },
   createTour(data: ITour) {
     return axiosClient.post('/tours', data);

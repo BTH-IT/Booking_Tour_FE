@@ -2,6 +2,13 @@ import * as Styles from './styles';
 import CustomerReview from '../Card/CustomerReview';
 import SliderBase from '../Slider/SliderBase';
 import Slider from 'react-slick';
+import { useState } from 'react';
+import tourService from '@/services/TourService';
+import { toast } from 'react-toastify';
+import useDidMount from '@/hooks/useDidMount';
+import { ITour } from 'tour';
+import { IUser } from 'user';
+import { IReview } from '../Reviews';
 
 const customerReviews = [
   {
@@ -73,7 +80,26 @@ const settings = {
   ],
 };
 
+export type CustomerReviews = IReview & {
+  user: IUser;
+};
+
 const CustomerReviews = () => {
+  const [reviews, setReviews] = useState<CustomerReviews[]>([]);
+
+  async function handleFetchReviews() {
+    try {
+      const data = await tourService.getAllReviews();
+      setReviews(data);
+    } catch {
+      toast.error('Oops!! Something is wrong');
+    }
+  }
+
+  useDidMount(() => {
+    handleFetchReviews();
+  });
+
   return (
     <Styles.CustomerReviewsWrapper>
       <Styles.CustomerReviewsTitle>
@@ -81,14 +107,14 @@ const CustomerReviews = () => {
       </Styles.CustomerReviewsTitle>
 
       <Slider {...settings}>
-        {customerReviews.map((customerReview) => (
+        {reviews.map((customerReview) => (
           <CustomerReview
-            key={customerReview.fullname}
-            fullname={customerReview.fullname}
-            rate={customerReview.rate}
+            key={customerReview.id}
+            fullname={customerReview.user.fullname}
+            rate={customerReview.rating}
             content={customerReview.content}
-            avatar={customerReview.avatar}
-          ></CustomerReview>
+            avatar={customerReview.user.picture || '/avatar.png'}
+          />
         ))}
       </Slider>
     </Styles.CustomerReviewsWrapper>

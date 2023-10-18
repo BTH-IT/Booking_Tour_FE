@@ -57,7 +57,7 @@ const Reviews = (props: ITour) => {
     }
   };
   return (
-    <Styles.ReviewsWrapper>
+    <Styles.ReviewsWrapper id="reviews">
       <Styles.ReviewsHeader>
         <Styles.ReviewsCount>{reviews.length} Reviews</Styles.ReviewsCount>
         <Styles.ReviewsHeaderSort>
@@ -79,12 +79,12 @@ const Reviews = (props: ITour) => {
           onFinish={onFinish}
         >
           <Row gutter={[20, 20]}>
-            <Col xs={6}>
+            <Col xs={24} sm={12} md={8} xl={6}>
               <Form.Item name="rating" rules={[{ required: true }]}>
                 <Rate allowHalf />
               </Form.Item>
             </Col>
-            <Col xs={18}>
+            <Col xs={24} sm={12} md={16} xl={18}>
               <InputFormItem
                 label=""
                 name="content"

@@ -10,7 +10,6 @@ export const TourDetailGalleryWrapper = styled.div`
   margin-top: 20px;
   padding: 20px;
   gap: 20px;
-  max-height: 450px;
   margin-bottom: 40px;
 `;
 

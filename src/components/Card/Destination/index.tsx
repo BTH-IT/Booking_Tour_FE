@@ -1,24 +1,36 @@
-import { ICard } from '@/components/Destinations';
 import * as Styles from './style';
-import React from 'react';
+import React, { useState } from 'react';
 import ButtonLink from '@/components/ButtonLink';
+import { IDestination } from 'destination';
+import useDidMount from '@/hooks/useDidMount';
+import tourService from '@/services/TourService';
+import { toast } from 'react-toastify';
 
-const Destination: React.FC<ICard> = ({
-  title,
-  subtitle,
-  img,
-  view,
-  tours,
-}) => {
+const Destination: React.FC<IDestination> = ({ _id, name, desc, image }) => {
+  const [tours, setTours] = useState<number>(0);
+
+  async function handleFetchTourLength() {
+    try {
+      const data = await tourService.getAllTour({ destination: _id });
+
+      setTours(data.tours.length);
+    } catch {
+      toast.error('Oops!! Something is wrong');
+    }
+  }
+
+  useDidMount(() => {
+    handleFetchTourLength();
+  });
   return (
     <Styles.CardWrapper>
-      <Styles.Img src={img} alt="" />
-      <Styles.Tours>{tours}</Styles.Tours>
+      <Styles.Img src={image} alt="" />
+      <Styles.Tours>{tours} Tours</Styles.Tours>
       <Styles.CardInfo>
-        <Styles.Title>{title}</Styles.Title>
-        <Styles.subTitle>{subtitle}</Styles.subTitle>
+        <Styles.Title>{name}</Styles.Title>
+        <Styles.subTitle>{desc}</Styles.subTitle>
         <ButtonLink
-          href="/"
+          href={'/search?destination=' + _id}
           icon={false}
           $fontSize="1.4rem"
           color="#5c98f2"
@@ -26,7 +38,7 @@ const Destination: React.FC<ICard> = ({
           $fontWeight={600}
           $borderBottom={false}
         >
-          {view}
+          View all tours
         </ButtonLink>
       </Styles.CardInfo>
     </Styles.CardWrapper>

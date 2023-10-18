@@ -8,12 +8,14 @@ interface ICalendarInputProps extends CalendarProps {
   bordered?: boolean;
   errored?: boolean;
   rounded?: string;
+  hasIcon?: boolean;
 }
 
 const CalendarInput = ({
   bordered,
   rounded,
   errored,
+  hasIcon = true,
   ...props
 }: ICalendarInputProps) => {
   return (
@@ -22,7 +24,7 @@ const CalendarInput = ({
       rounded={rounded}
       $isErrored={errored}
     >
-      <BsCalendar2Date />
+      {hasIcon && <BsCalendar2Date />}
       <Styles.CalendarInput {...props} />
     </Styles.CalendarInputWrapper>
   );

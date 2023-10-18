@@ -9,6 +9,8 @@ import { useState } from 'react';
 import useDidMount from '@/hooks/useDidMount';
 import destinationService from '@/services/DestinationService';
 import { IDestination } from 'destination';
+import { faqList } from '@/utils/constants';
+import { toast } from 'react-toastify';
 
 const TourDetailLeft = (props: ITour) => {
   const [destination, setDestination] = useState<IDestination | null>(null);
@@ -21,7 +23,7 @@ const TourDetailLeft = (props: ITour) => {
 
       setDestination(data);
     } catch (error) {
-      console.log(error);
+      toast.error('Oops! Something is wrong');
     }
   }
 
@@ -98,20 +100,16 @@ const TourDetailLeft = (props: ITour) => {
         {destination && (
           <Styles.TourDetailLeftMap
             dangerouslySetInnerHTML={{
-              __html: destination.map.replace("width='600'", "width='100%'"),
+              __html: destination.map.replace('width="600"', "width='100%'"),
             }}
-          ></Styles.TourDetailLeftMap>
+          />
         )}
       </Styles.TourDetailLeftContent>
       <Styles.TourDetailLeftSeperate />
-      <Styles.TourDetailLeftContent id="map">
+      <Styles.TourDetailLeftContent id="faq">
         <Styles.TourDetailLeftTitle>FAQ</Styles.TourDetailLeftTitle>
-        {props.days.map((day, idx) => (
-          <Accordion
-            title={`Day ${idx + 1} - ${day.title}`}
-            content={day.desc}
-            key={day + idx}
-          />
+        {faqList.map((item, idx) => (
+          <Accordion title={item.title} content={item.content} key={idx} />
         ))}
       </Styles.TourDetailLeftContent>
     </>

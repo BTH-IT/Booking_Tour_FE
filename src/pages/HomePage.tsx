@@ -9,13 +9,13 @@ import PopularTours from '@/components/PopularTours';
 const Homepage = () => {
   return (
     <>
-      <BookWithUs></BookWithUs>
-      <Destinations></Destinations>
-      <PopularTours></PopularTours>
-      <FreshlyAddeds></FreshlyAddeds>
-      <ContactUs></ContactUs>
-      <CustomerReviews></CustomerReviews>
-      <AboutUs></AboutUs>
+      <BookWithUs />
+      <Destinations />
+      <PopularTours />
+      <FreshlyAddeds />
+      <ContactUs />
+      <CustomerReviews />
+      <AboutUs />
     </>
   );
 };
