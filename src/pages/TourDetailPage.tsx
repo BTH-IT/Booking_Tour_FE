@@ -74,16 +74,16 @@ const TourDetailPage = () => {
     tour && (
       <>
         <SearchTitle>{''}</SearchTitle>
-        <Container>
+        <Container className="container">
           <TourDetailNav />
           <TourDetailHeader {...tour} />
           <TourDetailGallery {...tour} />
           <TourDetailContentStyled>
             <Row gutter={[10, 10]}>
-              <Col xs={16}>
+              <Col xs={24} md={16}>
                 <TourDetailLeft {...tour} />
               </Col>
-              <Col xs={8}>
+              <Col xs={24} md={8}>
                 <TourDetailRight {...tour} />
               </Col>
             </Row>

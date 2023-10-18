@@ -8,6 +8,7 @@ import useDidMount from '@/hooks/useDidMount';
 import { useState } from 'react';
 import { ITour } from 'tour';
 import tourService from '@/services/TourService';
+import { toast } from 'react-toastify';
 
 const FreshlyAddeds = () => {
   const [tourList, setTourList] = useState<ITour[]>([]);
@@ -18,7 +19,7 @@ const FreshlyAddeds = () => {
 
       setTourList(data.tours);
     } catch (error) {
-      console.log(error);
+      toast.error('Oops! Something is wrong');
     }
   }
 

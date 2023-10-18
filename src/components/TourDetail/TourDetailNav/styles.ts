@@ -7,6 +7,10 @@ export const TourDetailNavWrapper = styled.div`
   left: 0;
   background-color: white;
   z-index: 2;
+
+  @media screen and (max-width: 765px) {
+    display: none;
+  }
 `;
 
 export const TourDetailNav = styled.div`

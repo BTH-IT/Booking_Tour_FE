@@ -20,3 +20,11 @@ export interface ITour {
   salePercent: number;
   destination: string;
 }
+
+export interface ISchedule {
+  tourId: string;
+  dateStart: Date;
+  dateEnd: Date;
+  availableSeats: number;
+  isActive: boolean;
+}

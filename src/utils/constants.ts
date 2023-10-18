@@ -294,3 +294,41 @@ export const SET_LOCALSTORAGE = (data: any) => {
   );
   localStorage.setItem(KEY_LOCALSTORAGE.REFRESH_TOKEN, data.refreshToken);
 };
+
+export function getDaysInMonth(month: number, year: number) {
+  const date = new Date(year, month, 1);
+  const days = [];
+  while (date.getMonth() === month) {
+    days.push(new Date(date));
+    date.setDate(date.getDate() + 1);
+  }
+  return days;
+}
+
+export const faqList = [
+  {
+    title: 'Can I get the refund?',
+    content:
+      'We have you covered! We will email you as items in your order ship, or if there are updates on the status of your order. Can’t find the email?Click here to check the status of your order.',
+  },
+  {
+    title: 'Can I change the travel date?',
+    content:
+      'We have you covered! We will email you as items in your order ship, or if there are updates on the status of your order. Can’t find the email?Click here to check the status of your order.',
+  },
+  {
+    title: 'My discount code is not working, what do I do?',
+    content:
+      'We have you covered! We will email you as items in your order ship, or if there are updates on the status of your order. Can’t find the email?Click here to check the status of your order.',
+  },
+  {
+    title: 'Do I need to apply visa?',
+    content:
+      'We have you covered! We will email you as items in your order ship, or if there are updates on the status of your order. Can’t find the email?Click here to check the status of your order.',
+  },
+  {
+    title: 'Do you have insurance covered?',
+    content:
+      'We have you covered! We will email you as items in your order ship, or if there are updates on the status of your order. Can’t find the email?Click here to check the status of your order.',
+  },
+];

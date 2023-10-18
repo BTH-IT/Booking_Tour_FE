@@ -1,7 +1,7 @@
 import { Form } from 'antd';
 import styled from 'styled-components';
 
-export const ReviewsWrapper = styled.div`
+export const ReviewsWrapper = styled.section`
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;
@@ -18,6 +18,11 @@ export const ReviewsHeader = styled.div`
   color: black;
   align-items: center;
   justify-content: space-between;
+
+  @media screen and (max-width: 567px) {
+    flex-direction: column;
+    gap: 30px;
+  }
 `;
 
 export const ReviewsHeaderSortRating = styled.div`

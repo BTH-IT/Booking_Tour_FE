@@ -1,4 +1,4 @@
-import { ITour } from 'tour';
+import { ISchedule, ITour } from 'tour';
 import * as Styles from './styles';
 import {
   AiFillHeart,
@@ -9,30 +9,94 @@ import {
   AiOutlineTag,
 } from 'react-icons/ai';
 import CalendarInput from '@/components/CalendarInput';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Form } from 'antd';
-import {
-  CalendarChangeEvent,
-  CalendarDateTemplateEvent,
-} from 'primereact/calendar';
+import { CalendarChangeEvent } from 'primereact/calendar';
 import CustomButton from '@/components/CustomButton';
 import { TbFreeRights } from 'react-icons/tb';
 import { MdOutlineMailOutline } from 'react-icons/md';
 import InputFormItem from '@/components/Input/InputFormItem';
-
-const dateTemplate = (date: CalendarDateTemplateEvent) => {
-  if (date.day > 20 && date.day < 30) {
-    return <s style={{ textDecoration: 'line-through' }}>{date.day}</s>;
-  }
-
-  return date.day;
-};
+import useDidMount from '@/hooks/useDidMount';
+import tourService from '@/services/TourService';
+import { getDaysInMonth } from '@/utils/constants';
+import { RuleObject } from 'antd/es/form';
+import { useNavigate } from 'react-router';
 
 const TourDetailRight = (props: ITour) => {
+  const [dates, setDates] = useState<Date[]>([]);
+  const [schedules, setSchedules] = useState<ISchedule[]>([]);
+  const [schedule, setSchedule] = useState<ISchedule | null>(null);
+  const { _id, price, salePercent, maxGuests } = props;
   const [form] = Form.useForm();
-  const [date, setDate] = useState<Date[]>([]);
-  const { price, salePercent } = props;
-  const [seatsAvailable, setSeatsAvailable] = useState(props.maxGuests);
+  const [seatsAvailable, setSeatsAvailable] = useState(maxGuests);
+  const navigate = useNavigate();
+
+  useDidMount(async () => {
+    const data = await tourService.getSchedulesOfTour(_id);
+
+    if (!data) return;
+    const newData = data
+      .filter((item) => {
+        const date = new Date(item.dateStart);
+        const currentDate = new Date();
+        if (date.getMonth() === currentDate.getMonth()) {
+          return date.getDate() >= currentDate.getDate();
+        }
+        return date.getMonth() > currentDate.getMonth();
+      })
+      .map((item) => {
+        const date = new Date(item.dateStart);
+        date.setDate(date.getDate() - 1);
+        return date;
+      });
+
+    const currentDate = new Date();
+
+    const dateRange = [];
+
+    const dateTo = new Date(props.dateTo);
+
+    for (let d = currentDate; d <= dateTo; d.setMonth(d.getMonth() + 1)) {
+      const dayOfMonth = getDaysInMonth(d.getMonth(), d.getFullYear());
+
+      dateRange.push(
+        ...dayOfMonth.filter((day) => {
+          return !newData.find(
+            (newDate) => newDate.toString() === day.toString(),
+          );
+        }),
+      );
+    }
+
+    setDates(dateRange);
+    setSchedules(data);
+  });
+
+  const validationSeats = useCallback(
+    (rule: RuleObject, value: any, callback: (error?: string) => void) => {
+      if (value <= seatsAvailable && value > 0) {
+        return callback();
+      }
+      return callback(
+        `Only ${seatsAvailable} seats left and seats must be greater than 0`,
+      );
+    },
+    [],
+  );
+
+  const onFinish = (values: any) => {
+    if (schedule) {
+      localStorage.setItem(
+        'tour_payment',
+        JSON.stringify({
+          schedule,
+          seats: values.numOfPeople,
+        }),
+      );
+
+      navigate('/payment');
+    }
+  };
 
   return (
     <Styles.TourDetailRightWrapper>
@@ -52,15 +116,46 @@ const TourDetailRight = (props: ITour) => {
             <p>${price}</p>
           )}
         </Styles.TourDetailRightBookingPrice>
-        <Styles.TourDetailRightBookingForm form={form} layout="vertical">
-          <Styles.TourDetailRightBookingFormDate name="date">
+        <Styles.TourDetailRightBookingForm
+          form={form}
+          layout="vertical"
+          initialValues={{ numOfPeople: 0 }}
+          onFinish={onFinish}
+        >
+          <Styles.TourDetailRightBookingFormDate
+            name="date"
+            rules={[{ required: true }]}
+          >
             <CalendarInput
-              value={date}
               onChange={(e: CalendarChangeEvent) => {
-                setDate(e.value as Date[]);
+                const dateRange = schedules.find((value) => {
+                  const newDate = new Date(value.dateStart);
+                  newDate.setDate(newDate.getDate() - 1);
+                  return (
+                    newDate.toString() === (e.value as Date[])[0].toString()
+                  );
+                });
+
+                if (dateRange) {
+                  const newDate = new Date(dateRange.dateEnd);
+                  newDate.setDate(newDate.getDate() - 1);
+                  (e.value as Date[])[1] = newDate;
+                  setSchedule(dateRange);
+                  setSeatsAvailable(dateRange.availableSeats);
+                } else {
+                  e.value = [];
+                  setSchedule(null);
+                }
               }}
+              disabledDates={dates}
               minDate={new Date()}
-              disabledDates={[new Date('10/20/2023')]}
+              maxDate={
+                new Date(
+                  new Date(props.dateTo).getFullYear(),
+                  new Date(props.dateTo).getMonth() + 1,
+                  0,
+                )
+              }
               selectionMode="range"
             />
           </Styles.TourDetailRightBookingFormDate>
@@ -72,6 +167,25 @@ const TourDetailRight = (props: ITour) => {
             label="Number of people"
             type="number"
             min="0"
+            max={seatsAvailable}
+            rules={[
+              {
+                validator: validationSeats,
+              },
+            ]}
+            onKeyDown={(e) => {
+              if (
+                !(
+                  (e.keyCode >= 48 && e.keyCode <= 57) ||
+                  e.keyCode === 8 ||
+                  (e.keyCode >= 37 && e.keyCode <= 40) ||
+                  (e.keyCode >= 96 && e.keyCode <= 105) ||
+                  e.ctrlKey
+                )
+              ) {
+                e.preventDefault();
+              }
+            }}
           />
           <CustomButton
             htmlType="submit"

@@ -31,6 +31,7 @@ const PopularTours = () => {
   useDidMount(() => {
     handleFetchTours();
   });
+
   return (
     <Container>
       <Styles.PopularToursContainer>

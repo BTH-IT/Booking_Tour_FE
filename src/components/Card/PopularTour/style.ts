@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 
-export const CardWrapper = styled.div`
+export const CardWrapper = styled.a`
   width: 100%;
   max-width: 380px;
   height: 520px;
@@ -21,7 +21,7 @@ export const CardWrapper = styled.div`
   }
 `;
 
-export const Title = styled.a`
+export const Title = styled.h3`
   color: white;
   font-weight: 700;
   font-size: 3rem;

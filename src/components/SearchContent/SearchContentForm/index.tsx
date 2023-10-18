@@ -38,6 +38,19 @@ const SearchContentForm = ({
     toast.error('Oops!! something is wrong');
   };
 
+  const handleResetFilter = () => {
+    form.resetFields();
+    setMeta({
+      ...meta,
+      search: '',
+      dateFrom: null,
+      dateTo: null,
+      priceFrom: 0,
+      priceTo: null,
+      _page: 1,
+    });
+  };
+
   return (
     <Styles.SearchContentForm
       form={form}
@@ -93,7 +106,7 @@ const SearchContentForm = ({
           )}
         />
       </Styles.SearchContentFormItem>
-      <Styles.SearchContentFormButton>
+      <Styles.SearchContentFormButton onClick={handleResetFilter} type="button">
         <AiOutlineClose />
         <span>Clear Filter</span>
       </Styles.SearchContentFormButton>

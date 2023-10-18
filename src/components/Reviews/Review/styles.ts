@@ -6,6 +6,10 @@ export const ReviewsContentItem = styled.div`
   align-items: center;
   padding: 30px 0;
   border-bottom: 1px solid gray;
+
+  @media screen and (max-width: 567px) {
+    flex-direction: column;
+  }
 `;
 
 export const ReviewsContentItemImg = styled.div`

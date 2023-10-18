@@ -12,8 +12,7 @@ const TourDetailHeader = (props: ITour) => {
     <Styles.TourDetailHeaderWrapper>
       <Styles.TourDetailHeaderName>
         <Styles.TourDetailHeaderTitle>
-          {/* {props.destination}Dubai - {props.name} */}
-          Dubai - {props.name}
+          {props.name}
         </Styles.TourDetailHeaderTitle>
         <Styles.TourDetailHeaderRate>
           <Rate defaultValue={props.rate} disabled allowHalf />
