@@ -84,7 +84,7 @@ const layout = {
 
 const PaymentPage = () => {
   const tourPayment = JSON.parse(localStorage.getItem("tour_payment") || "null");
-  const user = useAppSelector(selectAuth).user;
+    const user = useAppSelector(selectAuth).user;
   const account = useAppSelector(selectAuth).account;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -173,17 +173,6 @@ const PaymentPage = () => {
                 {current < steps.length - 1 && (
                   <CustomButton type="primary" htmlType='submit' onClick={async () => {
                     if (current === steps.length - 2) {
-                      console.log({
-                        userId: user._id,
-                        scheduleId: tourPayment.schedule._id,
-                        seats: Number(tourPayment.seats),
-                        isTip: form.getFieldValue("tip"),
-                        isEntranceTicket: form.getFieldValue("entrance"),
-                        isLunch: form.getFieldValue("lunch"),
-                        status: "pending",
-                        priceTotal: totalPay,
-                        travellers: travellers,
-                      })
                       try {
                         await bookingService.createBooking({
                           userId: user._id,
@@ -203,7 +192,6 @@ const PaymentPage = () => {
                       } catch (error) {
                         toast.error("Payment failure");
                         dispatch(authActions.logout());
-
                       }
                       return;
                     }
