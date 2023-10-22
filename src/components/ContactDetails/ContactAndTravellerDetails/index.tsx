@@ -1,5 +1,6 @@
+import { countryList } from '@/utils/constants'
 import { Col, FormInstance, Row } from 'antd'
-import React from 'react'
+import React, { Dispatch, SetStateAction, useLayoutEffect, useState } from 'react'
 import styled from 'styled-components'
 
 const ContactAndTravellerDetailsWrapper = styled.div`
@@ -24,6 +25,7 @@ const ContactAndTravellerDetailsItem = styled.div`
 	display: flex;
 	gap: 10px;
 	align-items: center;
+	margin-bottom: 10px;
 `
 const ContactAndTravellerDetailsItemLabel = styled.div`
 	min-width: 110px;
@@ -33,29 +35,32 @@ const ContactAndTravellerDetailsItemValue = styled.div`
 	font-size: 1.6rem;
 `
 
-const ContactAndTravellerDetails = ({form} : {form: FormInstance<any>}) => {
+const ContactAndTravellerDetails = ({form, travellers, setTravellers} : {form: FormInstance<any>; travellers: any[]; setTravellers: Dispatch<SetStateAction<any[]>>;}) => {
 	const values = form.getFieldsValue();
-
-	const newValues: any = [];
-
-	for (const key in values) {
-		if (key.includes("-")) {
-			const keys = key.split("-");
-			const idx = newValues.findIndex((item: any) => item.id === keys[1]);
-
-			if (idx === -1) {
-				newValues.push({
-					id: keys[1],
-					[keys[0]]: values[key],
-				})
-			} else {
-				newValues[idx] = {
-					...newValues[idx],
-					[keys[0]]: values[key],
+	
+	useLayoutEffect(() => {
+		const newValues: any = [];
+		for (const key in values) {
+			if (key.includes("-")) {
+				const keys = key.split("-");
+				const idx = newValues.findIndex((item: any) => item.id === keys[1]);
+	
+				if (idx === -1) {
+					newValues.push({
+						id: keys[1],
+						[keys[0]]: values[key],
+					})
+				} else {
+					newValues[idx] = {
+						...newValues[idx],
+						[keys[0]]: values[key],
+					}
 				}
 			}
 		}
-	}
+
+		setTravellers(newValues);
+	}, [])
 
   return (
     <ContactAndTravellerDetailsWrapper>
@@ -74,7 +79,7 @@ const ContactAndTravellerDetails = ({form} : {form: FormInstance<any>}) => {
 			</ContactAndTravellerDetailsItem>
 			<ContactAndTravellerDetailsItem>
 				<ContactAndTravellerDetailsItemLabel>Country :</ContactAndTravellerDetailsItemLabel>
-				<ContactAndTravellerDetailsItemValue>{form.getFieldValue("country")}</ContactAndTravellerDetailsItemValue>
+				<ContactAndTravellerDetailsItemValue>{countryList.find((item) => item.value === form.getFieldValue("country"))?.label}</ContactAndTravellerDetailsItemValue>
 			</ContactAndTravellerDetailsItem>
 			<ContactAndTravellerDetailsItem>
 				<ContactAndTravellerDetailsItemLabel>Address :</ContactAndTravellerDetailsItemLabel>
@@ -86,7 +91,7 @@ const ContactAndTravellerDetails = ({form} : {form: FormInstance<any>}) => {
 			</ContactAndTravellerDetailsItem>
 
 			<ContactAndTravellerDetailsTitle>Traveller Details</ContactAndTravellerDetailsTitle>
-			{newValues.map((item: any) => (
+			{travellers.map((item: any) => (
 				<Row gutter={[20, 20]} key={item.id}>
 					<Col xs={4}>
 						<ContactAndTravellerDetailsItemLabel>Traveller {item.id}:</ContactAndTravellerDetailsItemLabel>

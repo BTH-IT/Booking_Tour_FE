@@ -16,11 +16,17 @@ const TravellerSubTitle = styled.h4`
   margin-bottom: 30px;
 `
 
-const TravellerDetails = () => {
+const TravellerDetails = ({travellers}: {travellers: number}) => {
+  const travellerList = [];
+
+  for (let i = 1; i <= travellers; i++) {
+    travellerList.push(i);
+  }
+
   return (
     <>
       <TravellerTitle>Traveller Details</TravellerTitle>
-      {[1, 2, 3].map((item) => {
+      {travellerList.map((item) => {
         return <Row gutter={[20, 20]} key={item}>
           <Col xs={4}>
             <TravellerSubTitle>Traveller {item}</TravellerSubTitle>

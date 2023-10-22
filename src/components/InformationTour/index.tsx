@@ -1,13 +1,29 @@
+import { Dispatch, SetStateAction, useState } from 'react';
 import ButtonLink from '../ButtonLink'
 import * as Styles from "./styles"
+import moment from 'moment';
 
-const InformationTour = ({current, maxStep} : {current: number, maxStep: number}) => {
+const InformationTour = ({current, maxStep, totalPay, setTotalPay} : {current: number, maxStep: number, totalPay: number, setTotalPay: Dispatch<SetStateAction<number>>}) => {
+  const [tourPayment, setTourPayment] = useState(JSON.parse(localStorage.getItem("tour_payment") || ""));
+  
+  if (!tourPayment) {
+    return <></>
+  }
+
+  const dateStart = new Date(tourPayment.schedule.dateStart);
+  dateStart.setDate(dateStart.getDate() - 1);
+
+  const dateEnd = new Date(tourPayment.schedule.dateEnd);
+  dateEnd.setDate(dateEnd.getDate() - 1);
+
+  const period = dateEnd.getDate() - dateStart.getDate();
+
   return (
     <Styles.InformationTourWrapper>
       <Styles.InformationTourTitle>Austria – 6 Days in Vienna, Hallstatt</Styles.InformationTourTitle>
       <Styles.InformationTourContent>
         <p>Travel Date: </p>
-        <span>Frebruary 1, 2030</span>
+        <span>{moment(dateStart).format("ll")}</span>
         {current > 1 && current < maxStep - 2 && (
           <ButtonLink
             href="/"
@@ -23,11 +39,11 @@ const InformationTour = ({current, maxStep} : {current: number, maxStep: number}
       </Styles.InformationTourContent>
       <Styles.InformationTourContent>
         <p>End Date: </p>
-        <span>Frebruary 1, 2030</span>
+        <span>{moment(dateEnd).format("ll")}</span>
       </Styles.InformationTourContent>
       <Styles.InformationTourContent>
         <p>Period: </p>
-        <span>8 Days</span>
+        <span>{period} Days</span>
       </Styles.InformationTourContent>
       <Styles.InformationCoupon>
         
@@ -39,7 +55,7 @@ const InformationTour = ({current, maxStep} : {current: number, maxStep: number}
                 <p>1 x $2,200</p>
               </Styles.InformationCouponContentSubTitle>
               <div>
-                $3,815.00
+                ${totalPay}
               </div>
             </Styles.InformationCouponContent>
             <Styles.InformationCouponContent>
@@ -55,7 +71,7 @@ const InformationTour = ({current, maxStep} : {current: number, maxStep: number}
         <Styles.InformationCouponContent>
           <p>Total Price:</p>
           <div>
-            $3,815.00
+            ${totalPay}
           </div>
         </Styles.InformationCouponContent>
       </Styles.InformationCoupon>

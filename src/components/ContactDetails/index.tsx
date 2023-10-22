@@ -1,9 +1,8 @@
+import { useNavigate } from 'react-router';
 import InputFormItem from '../Input/InputFormItem'
 import SelectFormItem from '../Select/SelectFormItem'
 import { countryList } from '@/utils/constants'
 import styled from 'styled-components';
-
-
 
 const ContactTitle = styled.h2`
   font-size: 2rem;
@@ -35,7 +34,7 @@ const ContactDetails = () => {
       <SelectFormItem label='Country' name='country' options={countryList} rules={[{
         required: true,
       }]}/>
-      <InputFormItem label='Address' name='address'/>
+      <InputFormItem  label='Address' name='address'/>
       <InputFormItem label='Note' name='note'/>
     </>
   )

@@ -1,4 +1,6 @@
 import { Checkbox } from 'antd'
+import { debounce } from 'lodash'
+import { Dispatch, SetStateAction, useState } from 'react'
 import styled from 'styled-components'
 
 const ServicesWrapper = styled.div`
@@ -21,21 +23,37 @@ const ServicesTitle = styled.h2`
   margin-bottom: 30px;
 `
 
-const Services = () => {
+const Services = ({setTotalPay}: {setTotalPay: Dispatch<SetStateAction<number>>}) => {
+	const [tourPayment, setTourPayment] = useState(JSON.parse(localStorage.getItem("tour_payment") || ""));
+  
+  if (!tourPayment) {
+    return <></>
+  }
+
+	
   return (
     <>
 			<ServicesTitle>Please select your preferred additional services</ServicesTitle>
 			<ServicesWrapper>
-				<Checkbox name="clean" checked>
-					Cleaning fee - $9 / Room
-				</Checkbox>
 				<Checkbox name="tip" checked>
 					Tip for tour guide - $20 / Person
 				</Checkbox>
-				<Checkbox name="entrance">
+				<Checkbox name="entrance" onChange={(e) => {
+						if (e.target.checked) {
+							setTotalPay((prev) => prev + Number(tourPayment.seats) * 15)
+						} else {
+							setTotalPay((prev) => prev - Number(tourPayment.seats) * 15)
+						}
+					}}>
 					Entrance Ticket - $15 / Person
 				</Checkbox>
-				<Checkbox name="lunch">
+				<Checkbox name="lunch" onChange={(e) => {
+						if (e.target.checked) {
+							setTotalPay((prev) => prev + Number(tourPayment.seats) * 12)
+						} else {
+							setTotalPay((prev) => prev - Number(tourPayment.seats) * 12)
+						}
+					}}>
 					Lunch Meal - $12 / Person
 				</Checkbox>
 			</ServicesWrapper>

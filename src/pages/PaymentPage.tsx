@@ -1,4 +1,3 @@
-import ButtonLink from '@/components/ButtonLink';
 import ContactDetails from '@/components/ContactDetails';
 import ContactAndTravellerDetails from '@/components/ContactDetails/ContactAndTravellerDetails';
 import CustomButton from '@/components/CustomButton';
@@ -7,8 +6,13 @@ import SearchTitle from '@/components/SearchTitle'
 import Services from '@/components/Services';
 import TravellerDetails from '@/components/TravellerDetails';
 import { Container } from '@/constants'
+import { authActions, selectAuth } from '@/redux/features/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import bookingService from '@/services/BookingService';
 import { Col, Form, Row, Steps } from 'antd';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
 import styled from 'styled-components'
 
 const PaymentWrapper = styled.section`
@@ -79,7 +83,20 @@ const layout = {
 };
 
 const PaymentPage = () => {
+  const tourPayment = JSON.parse(localStorage.getItem("tour_payment") || "null");
+  const user = useAppSelector(selectAuth).user;
+  const account = useAppSelector(selectAuth).account;
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  if (!tourPayment || !user || !account) {
+    navigate("/");
+    return <></>
+  }
+  
+  const [travellers, setTravellers] = useState<any[]>([]);
   const [current, setCurrent] = useState(1);
+  const [totalPay, setTotalPay] = useState(((tourPayment.price - tourPayment.price * (tourPayment.salePercent / 100)) * Number(tourPayment.seats) + 20 * Number(tourPayment.seats)));
   const [form] = Form.useForm();
 
   const next = () => {
@@ -104,26 +121,30 @@ const PaymentPage = () => {
           </div>
           <RowStyled gutter={[20, 20]}>
             <Col xs={16}>
-              {current === 1 && 
-                <Form {...layout} form={form}>
-                  <TravellerDetails/>
-                  <ContactDetails/>
+                <Form onFinish={() => {next()}} {...layout} form={form} initialValues={{
+                    fullName: user.fullname,
+                    email: account.email,
+                    phone: user.phone,
+                    country: user.country,
+                    tip: true,
+                    entrance: false,
+                    lunch: false
+                  }}>
+                  {current === 1 && 
+                    <>
+                      <TravellerDetails travellers={Number(tourPayment.seats)}/>
+                      <ContactDetails/>
+                    </>
+                  }
+                  {current === 2 && 
+                    <>
+                      <Services setTotalPay={setTotalPay}/>
+                      <ContactAndTravellerDetails form={form} travellers={travellers} setTravellers={setTravellers}/>
+                    </>
+                  }
+
                 </Form>
-              }
-
-              {current === 2 && 
-                <>
-                  <Services/>
-                  <ContactAndTravellerDetails form={form}/>
-                </>
-              }
-
-              {current === 2 && 
-                <>
-                  <Services/>
-                  <ContactAndTravellerDetails form={form}/>
-                </>
-              }
+              
 
               {current === steps.length - 1 && 
                 <>
@@ -136,6 +157,9 @@ const PaymentPage = () => {
                     <CustomButton
                       type="primary"
                       height='50px'
+                      onClick={() => {
+                        navigate("/")
+                      }}
                       >
                         Go to home
                     </CustomButton>
@@ -144,14 +168,50 @@ const PaymentPage = () => {
               }
             </Col>
             <Col xs={8}>
-              <InformationTour current={current} maxStep={steps.length}/>
+              <InformationTour current={current} maxStep={steps.length} totalPay={totalPay} setTotalPay={setTotalPay}/>
               <PaymentButtonWrapper>
-                {current < steps.length - 2 && (
-                  <CustomButton type="primary" htmlType='submit' onClick={() => {
+                {current < steps.length - 1 && (
+                  <CustomButton type="primary" htmlType='submit' onClick={async () => {
+                    if (current === steps.length - 2) {
+                      console.log({
+                        userId: user._id,
+                        scheduleId: tourPayment.schedule._id,
+                        seats: Number(tourPayment.seats),
+                        isTip: form.getFieldValue("tip"),
+                        isEntranceTicket: form.getFieldValue("entrance"),
+                        isLunch: form.getFieldValue("lunch"),
+                        status: "pending",
+                        priceTotal: totalPay,
+                        travellers: travellers,
+                      })
+                      try {
+                        await bookingService.createBooking({
+                          userId: user._id,
+                          scheduleId: tourPayment.schedule._id,
+                          seats: Number(tourPayment.seats),
+                          isTip: form.getFieldValue("tip"),
+                          isEntranceTicket: form.getFieldValue("entrance"),
+                          isLunch: form.getFieldValue("lunch"),
+                          status: "pending",
+                          priceTotal: totalPay,
+                          travellers: travellers,
+                        });
+
+                        toast.success("Payment successfully");
+
+                        next();
+                      } catch (error) {
+                        toast.error("Payment failure");
+                        dispatch(authActions.logout());
+
+                      }
+                      return;
+                    }
+
                     if (current === 1) {
                       form.submit();
                     }
-                    next()
+                    
                   }}>
                     {current === steps.length - 2 ? "Payment" : "Next"}
                   </CustomButton>
