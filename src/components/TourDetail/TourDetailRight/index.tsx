@@ -91,6 +91,7 @@ const TourDetailRight = (props: ITour) => {
         JSON.stringify({
           schedule,
           seats: values.numOfPeople,
+          ...props,
         }),
       );
 
