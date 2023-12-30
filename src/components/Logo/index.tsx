@@ -1,6 +1,6 @@
 import * as Styles from './styles';
 
-const Logo = ({ src = './logo.png' }: { src?: string }) => {
+const Logo: React.FC<{ src?: string }> = ({ src = '../logo.png' }) => {
   return (
     <Styles.LogoWrapper href="/">
       <Styles.LogoImage src={src} />

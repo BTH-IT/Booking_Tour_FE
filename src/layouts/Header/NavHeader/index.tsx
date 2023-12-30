@@ -11,6 +11,11 @@ const NavHeader = () => {
           Tour Search
         </Styles.NavHeaderItemLink>
       </Styles.NavHeaderItem>
+      <Styles.NavHeaderItem>
+        <Styles.NavHeaderItemLink href="/room">
+          Room List
+        </Styles.NavHeaderItemLink>
+      </Styles.NavHeaderItem>
     </Styles.NavHeaderWrapper>
   );
 };

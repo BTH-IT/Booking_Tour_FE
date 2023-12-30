@@ -13,7 +13,7 @@ function App() {
   return (
     <ProviderLayout>
       <AppRouter />
-      <ToastContainer
+      {/* <ToastContainer
         position="top-right"
         autoClose={3000}
         hideProgressBar={false}
@@ -24,7 +24,7 @@ function App() {
         draggable
         pauseOnHover
         theme="light"
-      />
+      /> */}
     </ProviderLayout>
   );
 }
