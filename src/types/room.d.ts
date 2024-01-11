@@ -2,9 +2,9 @@ export interface IRoom {
   _id: string;
   hotelId: string;
   name: string;
-  maxGuests: number;
   bed: string;
   area: number;
+  maxRooms: number;
   view: string;
   price: number;
   detail: string;
@@ -19,7 +19,15 @@ export interface IRoom {
 }
 
 export interface IAmenities {
-  _id: string;
+  roomId: string;
   name: string;
   description?: string;
+}
+
+export interface ISchedule {
+  roomId: string;
+  checkIn: Date;
+  checkOut: Date;
+  roomQuantity: number;
+  isActive: boolean;
 }

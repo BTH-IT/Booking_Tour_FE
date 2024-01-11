@@ -1,4 +1,4 @@
-import Reviews from '@/components/Reviews';
+import { RoomReviews } from '@/components/Reviews';
 import SliderBase from '@/components/Slider/SliderBase';
 import RoomDetailGallery from '@/components/RoomDetail/RoomDetailGallery';
 import RoomDetailHeader from '@/components/RoomDetail/RoomDetailHeader';
@@ -13,6 +13,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { IRoom } from 'room';
+import Room from '@/components/Card/Room';
 
 const RoomDetailContentStyled = styled.div`
   margin: 0 auto;
@@ -44,6 +45,25 @@ const Separator = styled.div`
   margin-block: 30px;
   margin-inline: 40px;
 `;
+
+const OtherImagesWrapper = styled.div`
+  width: 98%;
+  display: flex;
+  margin: 0px 20px 80px 20px;
+  padding-bottom: 20px;
+  gap: 10px;
+  overflow-x: scroll;
+
+  img {
+    border-radius: inherit;
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+  }
+`;
+interface IRoomProps {
+  descriptionHeight?: string;
+}
 
 const RoomDetailPage = () => {
   const [room, setRoom] = useState<IRoom | null>(null);
@@ -77,10 +97,10 @@ const RoomDetailPage = () => {
       ],
       hotelId: '1',
       name: 'Luxury Suite',
-      maxGuests: 4,
+      maxRooms: 4,
       price: 100,
       rate: 4.5,
-      reviews: ['good'],
+      reviews: [],
       salePercent: 0,
       view: 'City View',
       roomImages: [
@@ -103,6 +123,20 @@ const RoomDetailPage = () => {
 
     // await fetchRoomList();
     setRoom(data);
+    setRoomList([
+      data,
+      data,
+      data,
+      data,
+      data,
+      data,
+      data,
+      data,
+      data,
+      data,
+      data,
+      data,
+    ]);
   });
 
   async function fetchRoomList() {
@@ -111,7 +145,7 @@ const RoomDetailPage = () => {
 
       setRoomList(data.rooms);
     } catch (error) {
-      toast.error('Sever is wrong');
+      toast.error("Sever isn't responding");
     }
   }
 
@@ -123,18 +157,23 @@ const RoomDetailPage = () => {
           <RoomDetailGallery {...room} />
           <RoomDetailContentStyled>
             <Row gutter={[10, 10]}>
-              <Col xs={24} md={18}>
+              <Col md={24} xl={17}>
                 <RoomDetailLeft {...room} />
               </Col>
-              <Col xs={24} md={6}>
-                {/* <RoomDetailRight {...room} /> */}
+              <Col md={24} xl={7}>
+                <RoomDetailRight {...room} />
               </Col>
             </Row>
           </RoomDetailContentStyled>
+          <OtherImagesWrapper>
+            {room.otherImages?.map((img, idx) => {
+              return <img key={idx} src={img} alt="Other Image" />;
+            })}
+          </OtherImagesWrapper>
           <Separator />
           <RoomDetailContent>
             <RoomDetailTitle>More Rooms</RoomDetailTitle>
-            {/* <SliderBase
+            <SliderBase
               config={{
                 slidesToShow: 3,
               }}
@@ -162,16 +201,16 @@ const RoomDetailPage = () => {
                 },
               ]}
             >
-              {roomList.map((freshlyAdded) => (
-                <FreshlyAdded
-                  {...freshlyAdded}
-                  maxWidth="325px"
-                  key={freshlyAdded.images[0]}
+              {roomList.map((room) => (
+                <Room
+                  {...room}
+                  descriptionHeight={'40px'}
+                  key={room.roomImages[0]}
                 />
               ))}
-            </SliderBase> */}
+            </SliderBase>
           </RoomDetailContent>
-          {/* <Reviews {...room} /> */}
+          <RoomReviews {...room} />
         </Container>
       </>
     )

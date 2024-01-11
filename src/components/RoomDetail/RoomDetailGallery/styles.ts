@@ -7,7 +7,6 @@ export const RoomDetailGalleryWrapper = styled.div`
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;
-  margin-top: 20px;
   padding: 20px;
   gap: 20px;
   margin-bottom: 20px;

@@ -1,20 +1,41 @@
 import { Form } from 'antd';
 import styled from 'styled-components';
+import CustomButton from '@/components/CustomButton';
+import InputFormItem from '@/components/Input/InputFormItem';
 
-export const TourDetailRightWrapper = styled.div`
+export const RoomDetailRightWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 30px;
 `;
 
-export const TourDetailRightBookingTitle = styled.h6`
-  font-size: 2rem;
-  font-weight: 500;
-  color: black;
-  margin-bottom: 30px;
+export const RoomDetailRightBooking = styled.div`
+  position: sticky;
+  border-radius: 16px;
+  background-color: #fff;
+  box-shadow: 0 20px 35px rgba(0,0,0,.1);
+  margin-left: 20px;
+  margin-bottom: 40px;
+  border-radius: 20px;
+
+  @media (max-width: 1200px) {
+    margin-left: 0;
+  }
 `;
 
-export const TourDetailRightBookingPrice = styled.h6`
+export const RoomDetailRightBookingTitle = styled.div`
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+  span {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: black;
+  }
+`;
+
+export const RoomDetailRightBookingPrice = styled.h6`
   display: flex;
   align-items: flex-end;
   font-size: 2.6rem;
@@ -35,112 +56,28 @@ export const TourDetailRightBookingPrice = styled.h6`
   }
 `;
 
-export const TourDetailRightBooking = styled.div`
-  padding: 20px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  border-radius: 16px;
-  background-color: white;
+export const RoomDetailRightBookingForm = styled(Form)`
+  padding: 20px 30px 30px 30px;
 `;
 
-export const TourDetailRightBookingForm = styled(Form)`
-  margin-top: 40px;
-`;
-
-export const TourDetailRightBookingFormDate = styled(Form.Item)`
-  & .ant-form-item-control-input {
-    border-radius: 4px;
-    border: 1px solid #d1d5db;
-    transition: all 0.2s linear;
-  }
-
-  & .ant-form-item-control-input {
-    &:focus-within {
-      border-color: #5c98f2;
-    }
-  }
-`;
-
-export const TourDetailRightBookingFormAvailable = styled.span`
+export const RoomDetailRightBookingLabel = styled.div`
   font-size: 1.3rem;
-  font-weight: 400;
-  color: gray;
-  margin: 30px 0;
-  display: block;
+  color: rgba(0, 0, 0, 0.88);
+  padding-bottom: 8px;
 `;
 
-export const TourDetailRightBookingInfo = styled.div`
-  display: flex;
-  justify-content: right;
-  gap: 20px;
+export const RoomDetailRightBookingFormDate = styled(Form.Item)`
+  border: 1px solid rgba(140, 140, 140, .5);
+
+  input {
+    font-size: 1.2rem;
+  }
+`;
+
+export const BookingButton = styled(CustomButton)`
   margin-top: 30px;
+`;
+
+export const InputItem = styled(InputFormItem)`
   margin-bottom: 10px;
-`;
-
-export const TourDetailRightWishList = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 1.6rem;
-  cursor: pointer;
-  span {
-    font-size: 1.4rem;
-    color: black;
-  }
-`;
-
-export const TourDetailRightNumView = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 1.6rem;
-  cursor: pointer;
-  span {
-    font-size: 1.4rem;
-    color: black;
-  }
-`;
-
-export const TourDetailRightBookingWithConfidence = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  border-radius: 16px;
-  padding: 20px;
-  background-color: white;
-`;
-
-export const TourDetailRightBookingWithConfidenceItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 3rem;
-  cursor: pointer;
-  color: #5c98f2;
-  span {
-    font-size: 1.4rem;
-    color: black;
-  }
-`;
-export const TourDetailRightNeedHelpItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 3rem;
-  cursor: pointer;
-  color: black;
-  span {
-    font-size: 1.4rem;
-    color: black;
-  }
-`;
-
-export const TourDetailRightNeedHelp = styled.div`
-  border: 2px solid black;
-
-  display: flex;
-  flex-direction: column;
-  border-radius: 16px;
-  padding: 20px;
-  background-color: white;
 `;

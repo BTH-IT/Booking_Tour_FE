@@ -2,10 +2,15 @@ import { styled } from 'styled-components';
 import { RightOutlined } from '@ant-design/icons';
 import { Skeleton } from 'antd';
 
+interface IRoomProps {
+  descriptionHeight?: string;
+}
+
 export const CardWrapper = styled.a`
   width: 100%;
   max-width: 385px;
   height: 515px;
+  text-decoration: none;
   display: flex;
   margin: 20px auto;
   flex-direction: column;
@@ -95,9 +100,9 @@ export const Price = styled.span`
   }
 `;
 
-export const CardInfoDescription = styled.div`
+export const CardInfoDescription = styled.div<IRoomProps>`
   color: #8c8c8c;
-  height: 80px;
+  height: ${({ descriptionHeight }) => descriptionHeight || '80px'};
   display: -webkit-box; /* For WebKit browsers */
   -webkit-box-orient: vertical; /* Set text orientation */
   overflow: hidden; /* Hide overflowing content */

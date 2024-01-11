@@ -1,4 +1,4 @@
-import { IRoom } from './../types/room.d';
+import { IRoom, ISchedule } from './../types/room.d';
 import axiosClient from './AxiosClient';
 
 const roomService = {
@@ -6,10 +6,10 @@ const roomService = {
     const url = `/rooms/${roomId}`;
     return axiosClient.get(url);
   },
-  // getSchedulesOfRoom(roomId: string): Promise<ISchedule[]> {
-  //   const url = `/rooms/${roomId}/schedules`;
-  //   return axiosClient.get(url);
-  // },
+  getSchedulesOfRoom(roomId: string): Promise<ISchedule[]> {
+    const url = `/rooms/${roomId}/schedules`;
+    return axiosClient.get(url);
+  },
   getAllRoom(params?: any): Promise<{
     rooms: IRoom[];
     maxPrice: number;

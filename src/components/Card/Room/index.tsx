@@ -1,19 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Rate } from 'antd';
+import * as RoomStyled from '../Room/style';
 import * as Styles from './style';
 
 import { IRoom } from 'room';
 
-const Room: React.FC<IRoom> = ({
-  name,
-  roomImages,
-  price,
-  reviews,
-  rate,
-  description,
-  salePercent,
-  _id,
-}) => {
+interface IRoomProps extends IRoom {
+  descriptionHeight?: string;
+}
+
+const Room: React.FC<IRoomProps> = ({ descriptionHeight, ...props }) => {
+  const {
+    name,
+    roomImages,
+    price,
+    reviews,
+    rate,
+    description,
+    salePercent,
+    _id,
+  } = props;
   const [isLazyLoad, setIsLazyLoad] = useState(false);
 
   const elementRef = useRef<HTMLDivElement | null>(null);
@@ -53,7 +59,7 @@ const Room: React.FC<IRoom> = ({
           </Styles.ImgWrapper>
           <Styles.CardInfo>
             <Styles.CardInfoTitle>{name}</Styles.CardInfoTitle>
-            <Styles.CardInfoDescription>
+            <Styles.CardInfoDescription descriptionHeight={descriptionHeight}>
               {description}
             </Styles.CardInfoDescription>
             <Styles.CardInfoReviews>

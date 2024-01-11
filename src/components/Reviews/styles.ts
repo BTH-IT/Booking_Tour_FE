@@ -9,6 +9,13 @@ export const ReviewsWrapper = styled.section`
   padding: 20px;
 `;
 
+export const RoomReviewsWrapper = styled.section`
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 20px;
+`;
+
 export const ReviewsHeader = styled.div`
   padding: 20px 0;
   border-top: 1px solid gray;

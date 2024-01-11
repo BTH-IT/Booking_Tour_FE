@@ -62,7 +62,7 @@ export const RoomDetailLeftAmenitiesTitle = styled.h4`
 
 export const RoomDetailLeftAmenitiesItem = styled.div`
   display: flex;
-  width: 280px;
+  width: 268px;
   padding: 30px;
   border: 1px solid #e1e1e1;
   border-radius: 12px;
@@ -93,6 +93,7 @@ export const RoomDetailLeftRule = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-bottom: 40px;
 `;
 
 export const RoomDetailLeftRuleItem = styled.div`

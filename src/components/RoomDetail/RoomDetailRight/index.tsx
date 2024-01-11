@@ -1,96 +1,83 @@
-import { ISchedule, ITour } from 'tour';
+import { ISchedule, IRoom } from 'room';
 import * as Styles from './styles';
-import {
-  AiFillHeart,
-  AiOutlineHeart,
-  AiOutlineLike,
-  AiOutlinePhone,
-  AiOutlineStar,
-  AiOutlineTag,
-} from 'react-icons/ai';
-import CalendarInput from '@/components/CalendarInput';
 import { useCallback, useState } from 'react';
 import { Form } from 'antd';
-import { CalendarChangeEvent } from 'primereact/calendar';
-import CustomButton from '@/components/CustomButton';
-import { TbFreeRights } from 'react-icons/tb';
-import { MdOutlineMailOutline } from 'react-icons/md';
 import InputFormItem from '@/components/Input/InputFormItem';
 import useDidMount from '@/hooks/useDidMount';
-import tourService from '@/services/TourService';
+import roomService from '@/services/RoomService';
 import { getDaysInMonth } from '@/utils/constants';
 import { RuleObject } from 'antd/es/form';
 import { useNavigate } from 'react-router';
+import { CalendarChangeEvent } from 'primereact/calendar';
+import CalendarInput from '@/components/CalendarInput';
 
-const TourDetailRight = (props: ITour) => {
+const RoomDetailRight = (props: IRoom) => {
   const [dates, setDates] = useState<Date[]>([]);
   const [schedules, setSchedules] = useState<ISchedule[]>([]);
   const [schedule, setSchedule] = useState<ISchedule | null>(null);
-  const { _id, price, salePercent, maxGuests } = props;
+  const { _id, price, salePercent, maxRooms } = props;
   const [form] = Form.useForm();
-  const [seatsAvailable, setSeatsAvailable] = useState(maxGuests);
+  const [numOfRooms, setNumOfRooms] = useState(0);
+  const [roomsAvailable, setRoomsAvailable] = useState(maxRooms);
   const navigate = useNavigate();
 
   useDidMount(async () => {
-    const data = await tourService.getSchedulesOfTour(_id);
-
+    const data = await roomService.getSchedulesOfRoom(_id);
     if (!data) return;
-    const newData = data
-      .filter((item) => {
-        const date = new Date(item.dateStart);
-        const currentDate = new Date();
-        if (date.getMonth() === currentDate.getMonth()) {
-          return date.getDate() >= currentDate.getDate();
-        }
-        return date.getMonth() > currentDate.getMonth();
-      })
-      .map((item) => {
-        const date = new Date(item.dateStart);
-        date.setDate(date.getDate() - 1);
-        return date;
-      });
 
-    const currentDate = new Date();
-
-    const dateRange = [];
-
-    const dateTo = new Date(props.dateTo);
-
-    for (let d = currentDate; d <= dateTo; d.setMonth(d.getMonth() + 1)) {
-      const dayOfMonth = getDaysInMonth(d.getMonth(), d.getFullYear());
-
-      dateRange.push(
-        ...dayOfMonth.filter((day) => {
-          return !newData.find(
-            (newDate) => newDate.toString() === day.toString(),
-          );
-        }),
-      );
-    }
-
-    setDates(dateRange);
     setSchedules(data);
   });
 
-  const validationSeats = useCallback(
-    (rule: RuleObject, value: any, callback: (error?: string) => void) => {
-      if (value <= seatsAvailable && value > 0) {
-        return callback();
+  const calculateAvailableRooms = (
+    checkIn: Date,
+    checkOut: Date,
+  ) => {
+    let availableRooms = maxRooms;
+
+    // Kiểm tra từng booking trong mảng
+    for (const schedule of schedules) {
+      const scheduleStart = new Date(schedule.checkIn);
+      const scheduleEnd = new Date(schedule.checkOut);
+      const requestedStart = new Date(checkIn);
+      const requestedEnd = new Date(checkOut);
+
+      // Kiểm tra xem nếu ngày đặt phòng yêu cầu nằm trong khoảng thời gian đã đặt
+      if (
+        (requestedStart >= scheduleStart && requestedStart < scheduleEnd) ||
+        (requestedEnd > scheduleStart && requestedEnd <= scheduleEnd) ||
+        (requestedStart <= scheduleStart && requestedEnd >= scheduleEnd)
+      ) {
+        // Nếu có trùng khớp, giảm số phòng còn trống bằng số phòng đã đặt trong schedule này
+        availableRooms -= schedule.roomQuantity;
       }
-      return callback(
-        `Only ${seatsAvailable} seats left and seats must be greater than 0`,
-      );
+    }
+
+    return setRoomsAvailable(availableRooms);
+  };
+
+  const validationRoom = useCallback(
+    (rule: RuleObject, value: any): Promise<void> => {
+      return new Promise((resolve, reject) => {
+        if (value <= roomsAvailable && value > 0) {
+          setNumOfRooms(value);
+          resolve();
+        } else {
+          reject(
+            `Only ${roomsAvailable} rooms left and number of rooms must be greater than 1`,
+          );
+        }
+      });
     },
-    [],
+    [roomsAvailable],
   );
 
   const onFinish = (values: any) => {
     if (schedule) {
       localStorage.setItem(
-        'tour_payment',
+        'Room_payment',
         JSON.stringify({
           schedule,
-          seats: values.numOfPeople,
+          numOfRooms: values.numOfRooms,
           ...props,
         }),
       );
@@ -100,78 +87,48 @@ const TourDetailRight = (props: ITour) => {
   };
 
   return (
-    <Styles.TourDetailRightWrapper>
-      <Styles.TourDetailRightBooking>
-        <Styles.TourDetailRightBookingTitle>
-          Price
-        </Styles.TourDetailRightBookingTitle>
-        <Styles.TourDetailRightBookingPrice>
-          <AiOutlineTag />
-          <span>From</span>
-          {salePercent > 0 ? (
-            <>
-              <s>${price}</s>
-              <p>${price - (price * salePercent) / 100}</p>
-            </>
-          ) : (
-            <p>${price}</p>
-          )}
-        </Styles.TourDetailRightBookingPrice>
-        <Styles.TourDetailRightBookingForm
+    <Styles.RoomDetailRightWrapper>
+      <Styles.RoomDetailRightBooking>
+        <Styles.RoomDetailRightBookingTitle>
+          <span>Book Your Room</span>
+        </Styles.RoomDetailRightBookingTitle>
+        <Styles.RoomDetailRightBookingForm
           form={form}
           layout="vertical"
-          initialValues={{ numOfPeople: 0 }}
+          initialValues={{ numOfRoom: 1 }}
           onFinish={onFinish}
         >
-          <Styles.TourDetailRightBookingFormDate
+          <Styles.RoomDetailRightBookingLabel>
+            Check In - Check Out
+          </Styles.RoomDetailRightBookingLabel>
+          <Styles.RoomDetailRightBookingFormDate
             name="date"
             rules={[{ required: true }]}
           >
             <CalendarInput
               onChange={(e: CalendarChangeEvent) => {
-                const dateRange = schedules.find((value) => {
-                  const newDate = new Date(value.dateStart);
-                  newDate.setDate(newDate.getDate() - 1);
-                  return (
-                    newDate.toString() === (e.value as Date[])[0].toString()
-                  );
-                });
-
-                if (dateRange) {
-                  const newDate = new Date(dateRange.dateEnd);
-                  newDate.setDate(newDate.getDate() - 1);
-                  (e.value as Date[])[1] = newDate;
-                  setSchedule(dateRange);
-                  setSeatsAvailable(dateRange.availableSeats);
-                } else {
-                  e.value = [];
-                  setSchedule(null);
+                const checkIn = (e.value as Date[])[0];
+                const checkOut = (e.value as Date[])[1];
+                if (checkIn && checkOut) {
+                  calculateAvailableRooms(checkIn, checkOut);
                 }
               }}
               disabledDates={dates}
               minDate={new Date()}
-              maxDate={
-                new Date(
-                  new Date(props.dateTo).getFullYear(),
-                  new Date(props.dateTo).getMonth() + 1,
-                  0,
-                )
-              }
               selectionMode="range"
             />
-          </Styles.TourDetailRightBookingFormDate>
-          <Styles.TourDetailRightBookingFormAvailable>
-            Available: {seatsAvailable} seats
-          </Styles.TourDetailRightBookingFormAvailable>
-          <InputFormItem
-            name="numOfPeople"
-            label="Number of people"
+          </Styles.RoomDetailRightBookingFormDate>
+          <Styles.RoomDetailRightBookingLabel>
+            Number of Rooms
+          </Styles.RoomDetailRightBookingLabel>
+          <Styles.InputItem
+            name="numOfRoom"
             type="number"
-            min="0"
-            max={seatsAvailable}
+            min="1"
+            max={roomsAvailable}
             rules={[
               {
-                validator: validationSeats,
+                validator: validationRoom,
               },
             ]}
             onKeyDown={(e) => {
@@ -188,7 +145,7 @@ const TourDetailRight = (props: ITour) => {
               }
             }}
           />
-          <CustomButton
+          <Styles.BookingButton
             htmlType="submit"
             type="primary"
             border_radius="4px"
@@ -196,52 +153,11 @@ const TourDetailRight = (props: ITour) => {
             height="60px"
           >
             PROCEED BOOKING
-          </CustomButton>
-        </Styles.TourDetailRightBookingForm>
-        <Styles.TourDetailRightBookingInfo>
-          <Styles.TourDetailRightWishList>
-            <AiOutlineHeart />
-            {/* <AiFillHeart/> */}
-            <span>Save To Wish List</span>
-          </Styles.TourDetailRightWishList>
-        </Styles.TourDetailRightBookingInfo>
-      </Styles.TourDetailRightBooking>
-      <Styles.TourDetailRightBookingWithConfidence>
-        <Styles.TourDetailRightBookingTitle>
-          Book With Confidence
-        </Styles.TourDetailRightBookingTitle>
-        <Styles.TourDetailRightBookingWithConfidenceItem>
-          <AiOutlineLike />
-          <span>No-hassle best price guarantee</span>
-        </Styles.TourDetailRightBookingWithConfidenceItem>
-        <Styles.TourDetailRightBookingWithConfidenceItem>
-          <AiOutlinePhone />
-          <span>Customer care available 24/7</span>
-        </Styles.TourDetailRightBookingWithConfidenceItem>
-        <Styles.TourDetailRightBookingWithConfidenceItem>
-          <AiOutlineStar />
-          <span>Hand-picked Tours & Activities</span>
-        </Styles.TourDetailRightBookingWithConfidenceItem>
-        <Styles.TourDetailRightBookingWithConfidenceItem>
-          <TbFreeRights />
-          <span>Free Travel Insureance</span>
-        </Styles.TourDetailRightBookingWithConfidenceItem>
-      </Styles.TourDetailRightBookingWithConfidence>
-      <Styles.TourDetailRightNeedHelp>
-        <Styles.TourDetailRightBookingTitle>
-          Need Help?
-        </Styles.TourDetailRightBookingTitle>
-        <Styles.TourDetailRightNeedHelpItem>
-          <AiOutlinePhone />
-          <span>1.8445.3356.33</span>
-        </Styles.TourDetailRightNeedHelpItem>
-        <Styles.TourDetailRightNeedHelpItem>
-          <MdOutlineMailOutline />
-          <span>Help@goodlayers.com</span>
-        </Styles.TourDetailRightNeedHelpItem>
-      </Styles.TourDetailRightNeedHelp>
-    </Styles.TourDetailRightWrapper>
+          </Styles.BookingButton>
+        </Styles.RoomDetailRightBookingForm>
+      </Styles.RoomDetailRightBooking>
+    </Styles.RoomDetailRightWrapper>
   );
 };
 
-export default TourDetailRight;
+export default RoomDetailRight;

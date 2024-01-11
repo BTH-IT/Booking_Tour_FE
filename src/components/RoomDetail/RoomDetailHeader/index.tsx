@@ -20,25 +20,19 @@ const RoomDetailHeader = (props: IRoom) => {
       </Styles.RoomDetailHeaderName>
       <Styles.RoomDetailHeaderSubInfo>
         <Styles.RoomDetailHeaderSubInfoItem>
-          <Styles.RoomDetailHeaderSubInfoCol xs={24} sm={12} md={6}>
+          <Styles.RoomDetailHeaderSubInfoCol xs={24} md={8}>
             <Styles.KingBedOutlined />
             <Styles.RoomDetailHeaderSubInfoDetail>
               {props.bed}
             </Styles.RoomDetailHeaderSubInfoDetail>
           </Styles.RoomDetailHeaderSubInfoCol>
-          <Styles.RoomDetailHeaderSubInfoCol xs={24} sm={12} md={6}>
-            <Styles.MdPeopleOutlined />
-            <Styles.RoomDetailHeaderSubInfoDetail>
-              Max: {props.maxGuests} Guest{props.maxGuests > 1 ? 's' : ''}
-            </Styles.RoomDetailHeaderSubInfoDetail>
-          </Styles.RoomDetailHeaderSubInfoCol>
-          <Styles.RoomDetailHeaderSubInfoCol xs={24} sm={12} md={6}>
+          <Styles.RoomDetailHeaderSubInfoCol xs={24} md={8}>
             <Styles.SpaceDashboardOutlined />
             <Styles.RoomDetailHeaderSubInfoDetail>
               {props.area} sqm
             </Styles.RoomDetailHeaderSubInfoDetail>
           </Styles.RoomDetailHeaderSubInfoCol>
-          <Styles.RoomDetailHeaderSubInfoCol xs={24} sm={12} md={6}>
+          <Styles.RoomDetailHeaderSubInfoCol xs={24} md={8}>
             <Styles.CorporateFareOutlined />
             <Styles.RoomDetailHeaderSubInfoDetail>
               {props.view}

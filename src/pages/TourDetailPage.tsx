@@ -1,5 +1,5 @@
 import FreshlyAdded from '@/components/Card/FreshlyAdded';
-import Reviews from '@/components/Reviews';
+import { TourReviews} from '@/components/Reviews';
 import SearchTitle from '@/components/SearchTitle';
 import SliderBase from '@/components/Slider/SliderBase';
 import TourDetailGallery from '@/components/TourDetail/TourDetailGallery';
@@ -127,7 +127,7 @@ const TourDetailPage = () => {
               ))}
             </SliderBase>
           </TourDetailContent>
-          <Reviews {...tour} />
+          <TourReviews {...tour} />
         </Container>
       </>
     )
