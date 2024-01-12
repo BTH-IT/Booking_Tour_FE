@@ -2,7 +2,7 @@ import { InputProps } from 'antd';
 import * as Styles from './styles';
 
 type CompoundedComponent = InputProps & {
-  label: string;
+  label?: string;
   rules?: any;
   isPassword?: boolean;
 };

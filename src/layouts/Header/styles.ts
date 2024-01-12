@@ -2,11 +2,11 @@ import styled, { css } from 'styled-components';
 
 interface IHeaderWrapperProps {
   $isScroll?: boolean;
-  $isTourDetail?: boolean;
+  $isSticky?: boolean;
 }
 
 export const HeaderWrapper = styled.header<IHeaderWrapperProps>`
-  position: ${({ $isTourDetail }) => (!$isTourDetail ? 'sticky' : 'none')};
+  position: ${({ $isSticky }) => (!$isSticky ? 'sticky' : 'none')};
   top: 0;
   width: 100%;
   padding: 0 26px;
@@ -19,7 +19,7 @@ export const HeaderWrapper = styled.header<IHeaderWrapperProps>`
           box-shadow:
             rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
             rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-          background-color: rgba(255, 255, 255, 0.97);
+          background-color: rgba(255, 255, 255, 0.85);
         `
       : css`
           background-color: transparent;
@@ -37,7 +37,7 @@ export const HeaderContainer = styled.div<IHeaderWrapperProps>`
   width: 100%;
   transition: all 0.2s linear;
   padding: ${({ $isScroll }) =>
-    $isScroll ? '20px 20px 10px 20px' : '50px 20px 0 20px'};
+    $isScroll ? '20px' : '30px 20px'};
 `;
 
 export const HeaderResponsive = styled.div`

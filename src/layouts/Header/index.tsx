@@ -15,9 +15,9 @@ interface IHeaderProps {
 const Header = ({ isShowSidebar, onClick, handleShowModal }: IHeaderProps) => {
   const [isScroll, setIsScroll] = useState(window.scrollY > 0);
   const location = useLocation();
-  const [isTourDetail, setIsTourDetail] = useState(
-    location.pathname.split('/')[1] !== 'search' &&
-      location.pathname.split('/')[1] !== '',
+  const [isSticky, setIsSticky] = useState(
+    location.pathname.split('/')[1] === 'tour' &&
+    location.pathname.split('/')[2].length > 0,
   );
 
   const handleScroll = useCallback(() => {
@@ -33,7 +33,7 @@ const Header = ({ isShowSidebar, onClick, handleShowModal }: IHeaderProps) => {
   }, []);
 
   return (
-    <Styles.HeaderWrapper $isScroll={isScroll} $isTourDetail={isTourDetail}>
+    <Styles.HeaderWrapper $isScroll={isScroll} $isSticky={isSticky}>
       <Styles.HeaderContainer $isScroll={isScroll}>
         <Logo />
         <Styles.HeaderResponsive>

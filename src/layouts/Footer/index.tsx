@@ -25,7 +25,7 @@ const Footer = () => {
           <Row gutter={[20, 20]}>
             <Col xs={24} md={12} xl={6}>
               <Styles.FooterContainer>
-                <Logo src={'./footer-logo.png'} />
+                <Logo src={'../footer-logo.png'} />
                 <div>
                   <Currency color="white" />
                   <Language></Language>
