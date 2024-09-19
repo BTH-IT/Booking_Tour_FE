@@ -17,7 +17,7 @@ const Header = ({ isShowSidebar, onClick, handleShowModal }: IHeaderProps) => {
   const location = useLocation();
   const [isSticky, setIsSticky] = useState(
     location.pathname.split('/')[1] === 'tour' &&
-    location.pathname.split('/')[2].length > 0,
+      location.pathname.split('/')[2].length > 0,
   );
 
   const handleScroll = useCallback(() => {

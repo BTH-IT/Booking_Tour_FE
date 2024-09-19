@@ -9,6 +9,7 @@ import AuthenticationaLayout from './layouts/AuthenticationLayout';
 import PaymentPage from './pages/PaymentPage';
 import RoomPage from './pages/RoomPage';
 import RoomDetailPage from './pages/RoomDetailPage';
+import DashboardPage from './pages/DashboardPage';
 
 export default function AppRouter() {
   return (
@@ -18,8 +19,9 @@ export default function AppRouter() {
         <Route path={router.search} element={<SearchPage />} />
         <Route path={router.register} element={<RegisterPage />} />
         <Route path={router.tourDetail} element={<TourDetailPage />} />
-        <Route path={router.rooms} element={<RoomPage />}/>
-        <Route path={router.roomDetail} element={<RoomDetailPage />}/>
+        <Route path={router.rooms} element={<RoomPage />} />
+        <Route path={router.roomDetail} element={<RoomDetailPage />} />
+        <Route path={router.dashboard} element={<DashboardPage />} />
       </Route>
       <Route element={<AuthenticationaLayout />}>
         <Route element={<DefaultLayout />}>
