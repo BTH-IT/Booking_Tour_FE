@@ -1,5 +1,5 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { useCallback, useMemo } from "react";
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useCallback, useMemo } from 'react';
 
 const useActiveTab = () => {
   const location = useLocation();
@@ -12,12 +12,12 @@ const useActiveTab = () => {
   );
 
   // Get the active tab from the URL parameter
-  const activeTab = queryParams.get("tab") || "dashboard";
+  const activeTab = queryParams.get('tab') || 'dashboard';
 
   // Function to update the URL parameter
   const setActiveTab = useCallback(
     (tab: string) => {
-      queryParams.set("tab", tab);
+      queryParams.set('tab', tab);
       navigate({ search: queryParams.toString() });
     },
     [navigate, queryParams],

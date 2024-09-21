@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const SearchContentWrapper = styled.section`
   width: 100%;
@@ -7,7 +7,7 @@ export const SearchContentWrapper = styled.section`
   padding-top: 70px;
   margin: 0 auto;
   color: black;
-  font-family: "DM Serif Display", sans-serif;
+  font-family: 'DM Serif Display', sans-serif;
   overflow: hidden;
 `;
 
@@ -21,5 +21,5 @@ export const SearchContentRight = styled.div`
 export const SearchContentResult = styled.h3`
   font-size: 2rem;
   font-weight: 600;
-  font-family: "DM Serif Display", sans-serif;
+  font-family: 'DM Serif Display', sans-serif;
 `;

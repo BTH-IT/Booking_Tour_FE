@@ -1,5 +1,5 @@
-import { Form, Select } from "antd";
-import styled from "styled-components";
+import { Form, Select } from 'antd';
+import styled from 'styled-components';
 
 export const SelectFormItemStyled = styled(Form.Item)`
   & .ant-select {

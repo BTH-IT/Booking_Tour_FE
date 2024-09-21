@@ -1,7 +1,7 @@
-import { Dispatch, SetStateAction, useState } from "react";
-import ButtonLink from "../ButtonLink";
-import * as Styles from "./styles";
-import moment from "moment";
+import { Dispatch, SetStateAction, useState } from 'react';
+import ButtonLink from '../ButtonLink';
+import * as Styles from './styles';
+import moment from 'moment';
 
 const InformationTour = ({
   current,
@@ -15,7 +15,7 @@ const InformationTour = ({
   setTotalPay: Dispatch<SetStateAction<number>>;
 }) => {
   const [tourPayment, setTourPayment] = useState(
-    JSON.parse(localStorage.getItem("tour_payment") || ""),
+    JSON.parse(localStorage.getItem('tour_payment') || ''),
   );
 
   if (!tourPayment) {
@@ -37,7 +37,7 @@ const InformationTour = ({
       </Styles.InformationTourTitle>
       <Styles.InformationTourContent>
         <p>Travel Date: </p>
-        <span>{moment(dateStart).format("ll")}</span>
+        <span>{moment(dateStart).format('ll')}</span>
         {current > 1 && current < maxStep - 2 && (
           <ButtonLink
             href="/"
@@ -53,7 +53,7 @@ const InformationTour = ({
       </Styles.InformationTourContent>
       <Styles.InformationTourContent>
         <p>End Date: </p>
-        <span>{moment(dateEnd).format("ll")}</span>
+        <span>{moment(dateEnd).format('ll')}</span>
       </Styles.InformationTourContent>
       <Styles.InformationTourContent>
         <p>Period: </p>

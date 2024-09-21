@@ -1,15 +1,15 @@
-import { Form, Slider } from "antd";
-import * as Styles from "./styles";
-import { BsSearch } from "react-icons/bs";
-import { useState } from "react";
-import CalendarInput from "@/components/CalendarInput";
-import { AiOutlineClose } from "react-icons/ai";
-import Filter from "./Filter";
-import CustomButton from "@/components/CustomButton";
-import { CalendarChangeEvent } from "primereact/calendar";
-import { toast } from "react-toastify";
-import { debounce } from "lodash";
-import { useSearchParams } from "react-router-dom";
+import { Form, Slider } from 'antd';
+import * as Styles from './styles';
+import { BsSearch } from 'react-icons/bs';
+import { useState } from 'react';
+import CalendarInput from '@/components/CalendarInput';
+import { AiOutlineClose } from 'react-icons/ai';
+import Filter from './Filter';
+import CustomButton from '@/components/CustomButton';
+import { CalendarChangeEvent } from 'primereact/calendar';
+import { toast } from 'react-toastify';
+import { debounce } from 'lodash';
+import { useSearchParams } from 'react-router-dom';
 
 const SearchContentForm = ({
   meta,
@@ -35,14 +35,14 @@ const SearchContentForm = ({
   };
 
   const onFinishFailed = () => {
-    toast.error("Oops!! something is wrong");
+    toast.error('Oops!! something is wrong');
   };
 
   const handleResetFilter = () => {
     form.resetFields();
     setMeta({
       ...meta,
-      search: "",
+      search: '',
       dateFrom: null,
       dateTo: null,
       priceFrom: 0,
@@ -59,11 +59,11 @@ const SearchContentForm = ({
       onFinishFailed={onFinishFailed}
       autoComplete="off"
       initialValues={{
-        keywords: "",
+        keywords: '',
         date: [],
         price: [
-          Number(searchParams.get("priceFrom") || 0),
-          Number(searchParams.get("priceTo") || 100000000000000000000000),
+          Number(searchParams.get('priceFrom') || 0),
+          Number(searchParams.get('priceTo') || 100000000000000000000000),
         ],
       }}
     >

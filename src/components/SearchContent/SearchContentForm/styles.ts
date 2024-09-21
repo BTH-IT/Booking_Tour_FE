@@ -1,6 +1,6 @@
-import { Form, Input, Rate, Select } from "antd";
-import styled from "styled-components";
-import { Calendar } from "primereact/calendar";
+import { Form, Input, Rate, Select } from 'antd';
+import styled from 'styled-components';
+import { Calendar } from 'primereact/calendar';
 
 export const SearchContentForm = styled(Form)`
   padding: 20px;

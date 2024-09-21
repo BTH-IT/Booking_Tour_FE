@@ -1,5 +1,5 @@
-import { ISchedule, ITour } from "tour";
-import * as Styles from "./styles";
+import { ISchedule, ITour } from 'tour';
+import * as Styles from './styles';
 import {
   AiFillHeart,
   AiOutlineHeart,
@@ -7,20 +7,20 @@ import {
   AiOutlinePhone,
   AiOutlineStar,
   AiOutlineTag,
-} from "react-icons/ai";
-import CalendarInput from "@/components/CalendarInput";
-import { useCallback, useState } from "react";
-import { Form } from "antd";
-import { CalendarChangeEvent } from "primereact/calendar";
-import CustomButton from "@/components/CustomButton";
-import { TbFreeRights } from "react-icons/tb";
-import { MdOutlineMailOutline } from "react-icons/md";
-import InputFormItem from "@/components/Input/InputFormItem";
-import useDidMount from "@/hooks/useDidMount";
-import tourService from "@/services/TourService";
-import { getDaysInMonth } from "@/utils/constants";
-import { RuleObject } from "antd/es/form";
-import { useNavigate } from "react-router";
+} from 'react-icons/ai';
+import CalendarInput from '@/components/CalendarInput';
+import { useCallback, useState } from 'react';
+import { Form } from 'antd';
+import { CalendarChangeEvent } from 'primereact/calendar';
+import CustomButton from '@/components/CustomButton';
+import { TbFreeRights } from 'react-icons/tb';
+import { MdOutlineMailOutline } from 'react-icons/md';
+import InputFormItem from '@/components/Input/InputFormItem';
+import useDidMount from '@/hooks/useDidMount';
+import tourService from '@/services/TourService';
+import { getDaysInMonth } from '@/utils/constants';
+import { RuleObject } from 'antd/es/form';
+import { useNavigate } from 'react-router';
 
 const TourDetailRight = (props: ITour) => {
   const [dates, setDates] = useState<Date[]>([]);
@@ -87,7 +87,7 @@ const TourDetailRight = (props: ITour) => {
   const onFinish = (values: any) => {
     if (schedule) {
       localStorage.setItem(
-        "tour_payment",
+        'tour_payment',
         JSON.stringify({
           schedule,
           seats: values.numOfPeople,
@@ -95,7 +95,7 @@ const TourDetailRight = (props: ITour) => {
         }),
       );
 
-      navigate("/payment");
+      navigate('/payment');
     }
   };
 

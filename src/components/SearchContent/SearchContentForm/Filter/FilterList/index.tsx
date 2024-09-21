@@ -1,9 +1,9 @@
-import * as Styles from "./styles";
-import { useState } from "react";
-import { Checkbox } from "antd";
-import { BsChevronCompactDown, BsChevronCompactUp } from "react-icons/bs";
-import { CheckboxChangeEvent } from "antd/es/checkbox";
-import { useSearchParams } from "react-router-dom";
+import * as Styles from './styles';
+import { useState } from 'react';
+import { Checkbox } from 'antd';
+import { BsChevronCompactDown, BsChevronCompactUp } from 'react-icons/bs';
+import { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { useSearchParams } from 'react-router-dom';
 
 const FilterList = ({
   name,
@@ -22,9 +22,9 @@ const FilterList = ({
   const [searchParams, setSearchParams] = useSearchParams();
 
   function handleCheckbox(e: CheckboxChangeEvent) {
-    const query = searchParams.get(name) || "";
-    if (query !== "") {
-      let value = query.split("%2").filter((item) => item !== null || item);
+    const query = searchParams.get(name) || '';
+    if (query !== '') {
+      let value = query.split('%2').filter((item) => item !== null || item);
       let isHave = value.findIndex((item) => item === e.target.name);
 
       if (e.target.checked && e.target.name) {
@@ -33,7 +33,7 @@ const FilterList = ({
         } else {
           value.push(e.target.name);
         }
-        searchParams.set(name, value.join("%2"));
+        searchParams.set(name, value.join('%2'));
 
         setMeta({
           ...meta,
@@ -49,7 +49,7 @@ const FilterList = ({
             ),
           );
         } else {
-          searchParams.set(name, value.join("%2"));
+          searchParams.set(name, value.join('%2'));
           setMeta({
             ...meta,
             [name]: e.target.value,

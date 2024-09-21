@@ -1,10 +1,10 @@
-import React from "react";
-import * as Styles from "./styles";
+import React from 'react';
+import * as Styles from './styles';
 
 const RoomTitle = ({
-  children = "Room Tours",
-  secondChildren = "Our Rooms",
-  backgroundImg = "",
+  children = 'Room Tours',
+  secondChildren = 'Our Rooms',
+  backgroundImg = '',
 }: {
   children?: React.ReactNode;
   secondChildren?: React.ReactNode;

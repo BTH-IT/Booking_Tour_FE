@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import KingBedOutlinedIcon from "@mui/icons-material/KingBedOutlined";
-import SpaceDashboardOutlinedIcon from "@mui/icons-material/SpaceDashboardOutlined";
-import { MdPeopleOutline } from "react-icons/md";
-import CorporateFareOutlinedIcon from "@mui/icons-material/CorporateFareOutlined";
-import { Row, Col } from "antd";
+import styled from 'styled-components';
+import KingBedOutlinedIcon from '@mui/icons-material/KingBedOutlined';
+import SpaceDashboardOutlinedIcon from '@mui/icons-material/SpaceDashboardOutlined';
+import { MdPeopleOutline } from 'react-icons/md';
+import CorporateFareOutlinedIcon from '@mui/icons-material/CorporateFareOutlined';
+import { Row, Col } from 'antd';
 
 export const RoomDetailHeaderWrapper = styled.div`
   display: flex;
@@ -85,7 +85,7 @@ export const RoomDetailHeaderTitle = styled.div`
   color: inherit;
   font-weight: inherit;
   font-size: inherit;
-  font-family: "DM Serif Display", sans-serif;
+  font-family: 'DM Serif Display', sans-serif;
 `;
 
 export const RoomDetailHeaderRate = styled.div`

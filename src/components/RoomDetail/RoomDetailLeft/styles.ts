@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const RoomDetailLeftContent = styled.section``;
 
@@ -54,7 +54,7 @@ export const RoomDetailLeftAmenities = styled.div`
 
 export const RoomDetailLeftAmenitiesTitle = styled.h4`
   font-size: 2rem;
-  font-family: "DM Serif Display", sans-serif;
+  font-family: 'DM Serif Display', sans-serif;
   color: black;
   font-weight: 500;
   margin-block: 40px;

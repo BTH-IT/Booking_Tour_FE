@@ -1,7 +1,7 @@
-import { Container } from "@/constants";
-import { Col, Row } from "antd";
+import { Container } from '@/constants';
+import { Col, Row } from 'antd';
 
-import * as Styles from "./styles";
+import * as Styles from './styles';
 
 const AboutUs = () => {
   return (

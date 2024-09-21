@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Eye, EyeOff, EyeOffIcon } from "lucide-react"; // Assuming you are using Heroicons
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Eye, EyeOff, EyeOffIcon } from 'lucide-react'; // Assuming you are using Heroicons
 
 export default function DashboardChangePassword() {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
@@ -24,7 +24,7 @@ export default function DashboardChangePassword() {
             <span className="text-red-500 text-xl"> *</span>
           </Label>
           <Input
-            type={showCurrentPassword ? "text" : "password"}
+            type={showCurrentPassword ? 'text' : 'password'}
             className="text-xl text-gray-900 h-16 border-0 border-b-2 focus-visible:ring-0 focus-visible:ring-offset-0"
             id="currentPassword"
             placeholder="Current Password"
@@ -47,7 +47,7 @@ export default function DashboardChangePassword() {
             <span className="text-red-500 text-xl"> *</span>
           </Label>
           <Input
-            type={showNewPassword ? "text" : "password"}
+            type={showNewPassword ? 'text' : 'password'}
             className="text-xl text-gray-900 h-16 border-0 border-b-2 focus-visible:ring-0 focus-visible:ring-offset-0"
             id="newPassword"
             placeholder="New Password"
@@ -70,7 +70,7 @@ export default function DashboardChangePassword() {
             Confirm Password<span className="text-red-500 text-xl"> *</span>
           </Label>
           <Input
-            type={showCurrentPassword ? "text" : "password"}
+            type={showCurrentPassword ? 'text' : 'password'}
             className="text-xl text-gray-900 h-16 border-0 border-b-2 focus-visible:ring-0 focus-visible:ring-offset-0"
             id="confirmPassword"
             placeholder="Confirm Password"

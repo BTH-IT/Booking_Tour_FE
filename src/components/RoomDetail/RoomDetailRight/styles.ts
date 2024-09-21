@@ -1,7 +1,7 @@
-import { Form } from "antd";
-import styled from "styled-components";
-import CustomButton from "@/components/CustomButton";
-import InputFormItem from "@/components/Input/InputFormItem";
+import { Form } from 'antd';
+import styled from 'styled-components';
+import CustomButton from '@/components/CustomButton';
+import InputFormItem from '@/components/Input/InputFormItem';
 
 export const RoomDetailRightWrapper = styled.div`
   display: flex;

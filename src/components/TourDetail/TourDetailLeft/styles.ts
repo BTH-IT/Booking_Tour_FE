@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const TourDetailLeftContent = styled.section``;
 
@@ -6,7 +6,7 @@ export const TourDetailLeftTitle = styled.h2`
   line-height: 1.2;
   font-size: 2.3rem;
   color: black;
-  font-family: "DM Serif Display", sans-serif;
+  font-family: 'DM Serif Display', sans-serif;
   font-weight: 500;
   margin-bottom: 20px;
 `;
@@ -15,7 +15,7 @@ export const TourDetailLeftMapTitle = styled.h2`
   line-height: 1.2;
   font-size: 2.3rem;
   color: black;
-  font-family: "DM Serif Display", sans-serif;
+  font-family: 'DM Serif Display', sans-serif;
   font-weight: 500;
   margin-top: 60px;
   margin-bottom: 20px;

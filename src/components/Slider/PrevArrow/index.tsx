@@ -1,5 +1,5 @@
-import { BsChevronLeft } from "react-icons/bs";
-import { PrevArrowStyled } from "./styles";
+import { BsChevronLeft } from 'react-icons/bs';
+import { PrevArrowStyled } from './styles';
 
 const PrevArrow = ({ onClick }: any) => {
   return (

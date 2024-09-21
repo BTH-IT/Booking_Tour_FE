@@ -1,12 +1,12 @@
-import { countryList } from "@/utils/constants";
-import { Col, FormInstance, Row } from "antd";
+import { countryList } from '@/utils/constants';
+import { Col, FormInstance, Row } from 'antd';
 import React, {
   Dispatch,
   SetStateAction,
   useLayoutEffect,
   useState,
-} from "react";
-import styled from "styled-components";
+} from 'react';
+import styled from 'styled-components';
 
 const ContactAndTravellerDetailsWrapper = styled.div`
   box-shadow: 0px 20px 45px rgb(0 0 0 / 10%);
@@ -54,8 +54,8 @@ const ContactAndTravellerDetails = ({
   useLayoutEffect(() => {
     const newValues: any = [];
     for (const key in values) {
-      if (key.includes("-")) {
-        const keys = key.split("-");
+      if (key.includes('-')) {
+        const keys = key.split('-');
         const idx = newValues.findIndex((item: any) => item.id === keys[1]);
 
         if (idx === -1) {
@@ -85,7 +85,7 @@ const ContactAndTravellerDetails = ({
           Full Name :
         </ContactAndTravellerDetailsItemLabel>
         <ContactAndTravellerDetailsItemValue>
-          {form.getFieldValue("fullName")}
+          {form.getFieldValue('fullName')}
         </ContactAndTravellerDetailsItemValue>
       </ContactAndTravellerDetailsItem>
       <ContactAndTravellerDetailsItem>
@@ -93,7 +93,7 @@ const ContactAndTravellerDetails = ({
           Email :
         </ContactAndTravellerDetailsItemLabel>
         <ContactAndTravellerDetailsItemValue>
-          {form.getFieldValue("email")}
+          {form.getFieldValue('email')}
         </ContactAndTravellerDetailsItemValue>
       </ContactAndTravellerDetailsItem>
       <ContactAndTravellerDetailsItem>
@@ -101,7 +101,7 @@ const ContactAndTravellerDetails = ({
           Phone :
         </ContactAndTravellerDetailsItemLabel>
         <ContactAndTravellerDetailsItemValue>
-          {form.getFieldValue("phone")}
+          {form.getFieldValue('phone')}
         </ContactAndTravellerDetailsItemValue>
       </ContactAndTravellerDetailsItem>
       <ContactAndTravellerDetailsItem>
@@ -111,7 +111,7 @@ const ContactAndTravellerDetails = ({
         <ContactAndTravellerDetailsItemValue>
           {
             countryList.find(
-              (item) => item.value === form.getFieldValue("country"),
+              (item) => item.value === form.getFieldValue('country'),
             )?.label
           }
         </ContactAndTravellerDetailsItemValue>
@@ -121,7 +121,7 @@ const ContactAndTravellerDetails = ({
           Address :
         </ContactAndTravellerDetailsItemLabel>
         <ContactAndTravellerDetailsItemValue>
-          {form.getFieldValue("address")}
+          {form.getFieldValue('address')}
         </ContactAndTravellerDetailsItemValue>
       </ContactAndTravellerDetailsItem>
       <ContactAndTravellerDetailsItem>
@@ -129,7 +129,7 @@ const ContactAndTravellerDetails = ({
           Note :
         </ContactAndTravellerDetailsItemLabel>
         <ContactAndTravellerDetailsItemValue>
-          {form.getFieldValue("note")}
+          {form.getFieldValue('note')}
         </ContactAndTravellerDetailsItemValue>
       </ContactAndTravellerDetailsItem>
 

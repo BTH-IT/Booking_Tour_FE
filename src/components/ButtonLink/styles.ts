@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export interface IButtonLinkWrapperProps {
   $borderBottom?: boolean;
@@ -16,19 +16,19 @@ export const ButtonLinkWrapper = styled.a<IButtonLinkWrapperProps>`
   gap: 10px;
   padding-bottom: 5px;
   text-decoration: none;
-  font-size: ${({ $fontSize }) => $fontSize || "1rem"};
+  font-size: ${({ $fontSize }) => $fontSize || '1rem'};
   border-bottom: 2px solid
     ${({ $borderBottom, $colorBottom }) =>
-      $borderBottom ? $colorBottom || "#cecece" : "transparent"};
+      $borderBottom ? $colorBottom || '#cecece' : 'transparent'};
 
-  font-weight: ${({ $fontWeight }) => $fontWeight || "400"};
-  color: ${({ color }) => color || "black"};
+  font-weight: ${({ $fontWeight }) => $fontWeight || '400'};
+  color: ${({ color }) => color || 'black'};
   transition: all 0.2s linear;
 
   &:hover {
-    color: ${({ $hoverColor }) => $hoverColor || "#cecece"};
+    color: ${({ $hoverColor }) => $hoverColor || '#cecece'};
 
     border-color: ${({ $hoverColorBottom, $borderBottom }) =>
-      $borderBottom ? $hoverColorBottom || "#cecece" : ""};
+      $borderBottom ? $hoverColorBottom || '#cecece' : ''};
   }
 `;

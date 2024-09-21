@@ -1,5 +1,5 @@
-import { Button, Col, Form, Row } from "antd";
-import styled from "styled-components";
+import { Button, Col, Form, Row } from 'antd';
+import styled from 'styled-components';
 
 export const SearchFormContent = styled(Row)`
   padding: 30px 0 18px 30px;

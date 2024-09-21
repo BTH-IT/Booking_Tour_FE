@@ -1,10 +1,10 @@
-import { authActions } from "@/redux/features/auth/authSlice";
-import authService from "@/services/AuthService";
-import { KEY_LOCALSTORAGE } from "@/utils/constants";
-import axios from "axios";
+import { authActions } from '@/redux/features/auth/authSlice';
+import authService from '@/services/AuthService';
+import { KEY_LOCALSTORAGE } from '@/utils/constants';
+import axios from 'axios';
 
 const axiosClient = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: 'http://localhost:5000',
 });
 
 // Add a request interceptor
@@ -14,7 +14,7 @@ axiosClient.interceptors.request.use(
 
     if (!config.headers.Authorization) {
       config.headers.Authorization = `Bearer ${
-        localStorage.getItem(KEY_LOCALSTORAGE.ACCESS_TOKEN) || " "
+        localStorage.getItem(KEY_LOCALSTORAGE.ACCESS_TOKEN) || ' '
       }`;
     }
 
@@ -38,7 +38,7 @@ axiosClient.interceptors.response.use(
     if (error.response.status === 403 && !originalRequest._retry) {
       originalRequest._retry = true;
       const access_token = await authService.refresh();
-      axios.defaults.headers.common["Authorization"] = "Bearer " + access_token;
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
       return axiosClient(originalRequest);
     }
     return Promise.reject(error);

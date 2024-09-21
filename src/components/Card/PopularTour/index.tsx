@@ -1,7 +1,7 @@
-import * as Styles from "./style";
-import React from "react";
-import { Rate } from "antd";
-import { ITour } from "tour";
+import * as Styles from './style';
+import React from 'react';
+import { Rate } from 'antd';
+import { ITour } from 'tour';
 
 const PopularTour: React.FC<ITour> = ({
   name,
@@ -14,7 +14,7 @@ const PopularTour: React.FC<ITour> = ({
   _id,
 }) => {
   return (
-    <Styles.CardWrapper href={"/" + _id}>
+    <Styles.CardWrapper href={'/' + _id}>
       <Styles.Img src={images[0]} alt={name} />
       {salePercent > 0 && <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>}
       <Styles.CardInfo>

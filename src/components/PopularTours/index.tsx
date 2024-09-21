@@ -1,16 +1,16 @@
-import PopularTour from "../Card/PopularTour";
-import { Container } from "@/constants";
-import SliderBase from "../Slider/SliderBase";
+import PopularTour from '../Card/PopularTour';
+import { Container } from '@/constants';
+import SliderBase from '../Slider/SliderBase';
 
-import * as Styles from "./styles";
-import ButtonLink from "../ButtonLink";
-import { Col, Row } from "antd";
-import { SkeletonImg } from "../Card/FreshlyAdded/style";
-import { useState } from "react";
-import tourService from "@/services/TourService";
-import { ITour } from "tour";
-import { toast } from "react-toastify";
-import useDidMount from "@/hooks/useDidMount";
+import * as Styles from './styles';
+import ButtonLink from '../ButtonLink';
+import { Col, Row } from 'antd';
+import { SkeletonImg } from '../Card/FreshlyAdded/style';
+import { useState } from 'react';
+import tourService from '@/services/TourService';
+import { ITour } from 'tour';
+import { toast } from 'react-toastify';
+import useDidMount from '@/hooks/useDidMount';
 
 const PopularTours = () => {
   const [tours, setTours] = useState<ITour[]>([]);
@@ -24,7 +24,7 @@ const PopularTours = () => {
       setTours(data.tours);
       setIsLoading(false);
     } catch {
-      toast.error("Oops!! Something is wrong");
+      toast.error('Oops!! Something is wrong');
     }
   }
 

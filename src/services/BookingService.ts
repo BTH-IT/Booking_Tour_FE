@@ -1,5 +1,5 @@
 // import { IBooking } from '../types/Booking';
-import axiosClient from "./AxiosClient";
+import axiosClient from './AxiosClient';
 
 const bookingService = {
   getABooking(bookingId: string): Promise<any> {
@@ -7,13 +7,13 @@ const bookingService = {
     return axiosClient.get(url);
   },
   getAllBooking(params?: any): Promise<any[]> {
-    return axiosClient.get("/bookings/", { params: params });
+    return axiosClient.get('/bookings/', { params: params });
   },
   createBooking(data: any) {
-    return axiosClient.post("/bookings", data);
+    return axiosClient.post('/bookings', data);
   },
   updateBooking(data: any) {
-    return axiosClient.patch("/bookings", data);
+    return axiosClient.patch('/bookings', data);
   },
   deleteBooking(BookingId: string) {
     const url = `/bookings/${BookingId}`;

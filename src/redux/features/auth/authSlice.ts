@@ -1,8 +1,8 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { LoginFormType } from "./authSaga";
-import { toast } from "react-toastify";
-import { KEY_LOCALSTORAGE } from "@/utils/constants";
-import { RootState } from "@/redux/store";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { LoginFormType } from './authSaga';
+import { toast } from 'react-toastify';
+import { KEY_LOCALSTORAGE } from '@/utils/constants';
+import { RootState } from '@/redux/store';
 export interface AuthState {
   isLoggedIn: boolean;
   account?: any;
@@ -14,15 +14,15 @@ export interface AuthState {
 const initialState: AuthState = {
   isLoggedIn: Boolean(localStorage.getItem(KEY_LOCALSTORAGE.CURRENT_USER)),
   account: JSON.parse(
-    localStorage.getItem(KEY_LOCALSTORAGE.CURRENT_ACCOUNT) || "{}",
+    localStorage.getItem(KEY_LOCALSTORAGE.CURRENT_ACCOUNT) || '{}',
   ),
-  user: JSON.parse(localStorage.getItem(KEY_LOCALSTORAGE.CURRENT_USER) || "{}"),
-  accessToken: localStorage.getItem(KEY_LOCALSTORAGE.ACCESS_TOKEN) || "",
-  refreshToken: localStorage.getItem(KEY_LOCALSTORAGE.REFRESH_TOKEN) || "",
+  user: JSON.parse(localStorage.getItem(KEY_LOCALSTORAGE.CURRENT_USER) || '{}'),
+  accessToken: localStorage.getItem(KEY_LOCALSTORAGE.ACCESS_TOKEN) || '',
+  refreshToken: localStorage.getItem(KEY_LOCALSTORAGE.REFRESH_TOKEN) || '',
 };
 
 const authSlide = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     login: (
@@ -68,18 +68,18 @@ const authSlide = createSlice({
       };
     },
     logout: (state) => {
-      toast.success("Logout Success!!");
-      state.accessToken = "";
-      state.refreshToken = "";
+      toast.success('Logout Success!!');
+      state.accessToken = '';
+      state.refreshToken = '';
       state.account = {};
       state.user = {};
       state.isLoggedIn = false;
-      window.location.href = "/";
+      window.location.href = '/';
     },
     loginFailed: (state) => {
-      toast.error("Login Failure!!");
-      state.accessToken = "";
-      state.refreshToken = "";
+      toast.error('Login Failure!!');
+      state.accessToken = '';
+      state.refreshToken = '';
       state.account = {};
       state.user = {};
       state.isLoggedIn = false;

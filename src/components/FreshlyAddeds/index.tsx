@@ -1,14 +1,14 @@
-import ButtonLink from "../ButtonLink";
-import FreshlyAdded from "../Card/FreshlyAdded";
-import SliderBase from "../Slider/SliderBase";
-import { Container } from "@/constants";
+import ButtonLink from '../ButtonLink';
+import FreshlyAdded from '../Card/FreshlyAdded';
+import SliderBase from '../Slider/SliderBase';
+import { Container } from '@/constants';
 
-import * as Styles from "./styles";
-import useDidMount from "@/hooks/useDidMount";
-import { useState } from "react";
-import { ITour } from "tour";
-import tourService from "@/services/TourService";
-import { toast } from "react-toastify";
+import * as Styles from './styles';
+import useDidMount from '@/hooks/useDidMount';
+import { useState } from 'react';
+import { ITour } from 'tour';
+import tourService from '@/services/TourService';
+import { toast } from 'react-toastify';
 
 const FreshlyAddeds = () => {
   const [tourList, setTourList] = useState<ITour[]>([]);
@@ -19,7 +19,7 @@ const FreshlyAddeds = () => {
 
       setTourList(data.tours);
     } catch (error) {
-      toast.error("Oops! Something is wrong");
+      toast.error('Oops! Something is wrong');
     }
   }
 

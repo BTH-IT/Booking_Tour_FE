@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import * as Styles from "./styles";
-import { Rate } from "antd";
-import { IReview } from "..";
-import useDidMount from "@/hooks/useDidMount";
-import { IUser } from "user";
-import userService from "@/services/UserService";
-import { toast } from "react-toastify";
-import moment from "moment";
+import React, { useState } from 'react';
+import * as Styles from './styles';
+import { Rate } from 'antd';
+import { IReview } from '..';
+import useDidMount from '@/hooks/useDidMount';
+import { IUser } from 'user';
+import userService from '@/services/UserService';
+import { toast } from 'react-toastify';
+import moment from 'moment';
 
 const RoomReview = ({
   userId,
@@ -22,7 +22,7 @@ const RoomReview = ({
 
       setUser(data);
     } catch (error) {
-      toast.error("Sever is wrong");
+      toast.error('Sever is wrong');
     }
   }
 
@@ -33,7 +33,7 @@ const RoomReview = ({
   return user ? (
     <Styles.ReviewsContentItem>
       <Styles.ReviewsContentItemImg>
-        <img src={user?.picture || "/avatar.png"} alt="avatar" />
+        <img src={user?.picture || '/avatar.png'} alt="avatar" />
       </Styles.ReviewsContentItemImg>
       <Styles.ReviewsContentItemName>
         {user?.fullname}
@@ -41,7 +41,7 @@ const RoomReview = ({
       <Styles.ReviewsContentItemInfo>
         <p>{content}</p>
         <Rate allowHalf defaultValue={rating} disabled />
-        <p>{moment(createdAt).format("L")}</p>
+        <p>{moment(createdAt).format('L')}</p>
       </Styles.ReviewsContentItemInfo>
     </Styles.ReviewsContentItem>
   ) : (

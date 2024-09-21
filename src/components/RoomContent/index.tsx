@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { Col, Row } from "antd";
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { Col, Row } from 'antd';
 
-import { IRoom } from "room";
-import roomService from "@/services/RoomService";
-import * as RoomStyled from "../Card/Room/style";
-import Room from "../Card/Room";
-import * as Styles from "./styles";
-import { Container } from "@/constants";
+import { IRoom } from 'room';
+import roomService from '@/services/RoomService';
+import * as RoomStyled from '../Card/Room/style';
+import Room from '../Card/Room';
+import * as Styles from './styles';
+import { Container } from '@/constants';
 
 const RoomContent = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -60,7 +60,7 @@ const RoomContent = () => {
       setRoomList(data.rooms);
       setIsLoading(false);
     } catch (error) {
-      toast.error("Oops!! Something is wrong");
+      toast.error('Oops!! Something is wrong');
     }
   };
 

@@ -1,19 +1,19 @@
-import ContactDetails from "@/components/ContactDetails";
-import ContactAndTravellerDetails from "@/components/ContactDetails/ContactAndTravellerDetails";
-import CustomButton from "@/components/CustomButton";
-import InformationTour from "@/components/InformationTour";
-import SearchTitle from "@/components/SearchTitle";
-import Services from "@/components/Services";
-import TravellerDetails from "@/components/TravellerDetails";
-import { Container } from "@/constants";
-import { authActions, selectAuth } from "@/redux/features/auth/authSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import bookingService from "@/services/BookingService";
-import { Col, Form, Row, Steps } from "antd";
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import { toast } from "react-toastify";
-import styled from "styled-components";
+import ContactDetails from '@/components/ContactDetails';
+import ContactAndTravellerDetails from '@/components/ContactDetails/ContactAndTravellerDetails';
+import CustomButton from '@/components/CustomButton';
+import InformationTour from '@/components/InformationTour';
+import SearchTitle from '@/components/SearchTitle';
+import Services from '@/components/Services';
+import TravellerDetails from '@/components/TravellerDetails';
+import { Container } from '@/constants';
+import { authActions, selectAuth } from '@/redux/features/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import bookingService from '@/services/BookingService';
+import { Col, Form, Row, Steps } from 'antd';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
+import styled from 'styled-components';
 
 const PaymentWrapper = styled.section`
   width: 100%;
@@ -64,16 +64,16 @@ const BookingComplete = styled.div`
 
 const steps = [
   {
-    title: "Select Tour",
+    title: 'Select Tour',
   },
   {
-    title: "Contact Details",
+    title: 'Contact Details',
   },
   {
-    title: "Payment",
+    title: 'Payment',
   },
   {
-    title: "Complete",
+    title: 'Complete',
   },
 ];
 
@@ -84,7 +84,7 @@ const layout = {
 
 const PaymentPage = () => {
   const tourPayment = JSON.parse(
-    localStorage.getItem("tour_payment") || "null",
+    localStorage.getItem('tour_payment') || 'null',
   );
   const user = useAppSelector(selectAuth).user;
   const account = useAppSelector(selectAuth).account;
@@ -92,7 +92,7 @@ const PaymentPage = () => {
   const dispatch = useAppDispatch();
 
   if (!tourPayment || !user || !account) {
-    navigate("/");
+    navigate('/');
     return <></>;
   }
 
@@ -171,7 +171,7 @@ const PaymentPage = () => {
                       type="primary"
                       height="50px"
                       onClick={() => {
-                        navigate("/");
+                        navigate('/');
                       }}
                     >
                       Go to home
@@ -199,19 +199,19 @@ const PaymentPage = () => {
                             userId: user._id,
                             scheduleId: tourPayment.schedule._id,
                             seats: Number(tourPayment.seats),
-                            isTip: form.getFieldValue("tip"),
-                            isEntranceTicket: form.getFieldValue("entrance"),
-                            isLunch: form.getFieldValue("lunch"),
-                            status: "pending",
+                            isTip: form.getFieldValue('tip'),
+                            isEntranceTicket: form.getFieldValue('entrance'),
+                            isLunch: form.getFieldValue('lunch'),
+                            status: 'pending',
                             priceTotal: totalPay,
                             travellers: travellers,
                           });
 
-                          toast.success("Payment successfully");
+                          toast.success('Payment successfully');
 
                           next();
                         } catch (error) {
-                          toast.error("Payment failure");
+                          toast.error('Payment failure');
                           dispatch(authActions.logout());
                         }
                         return;
@@ -222,7 +222,7 @@ const PaymentPage = () => {
                       }
                     }}
                   >
-                    {current === steps.length - 2 ? "Payment" : "Next"}
+                    {current === steps.length - 2 ? 'Payment' : 'Next'}
                   </CustomButton>
                 )}
 

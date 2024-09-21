@@ -1,6 +1,6 @@
-import { Col, Form, Row } from "antd";
-import InputFormItem from "../Input/InputFormItem";
-import styled from "styled-components";
+import { Col, Form, Row } from 'antd';
+import InputFormItem from '../Input/InputFormItem';
+import styled from 'styled-components';
 
 const TravellerTitle = styled.h2`
   font-size: 2rem;
@@ -48,7 +48,7 @@ const TravellerDetails = ({ travellers }: { travellers: number }) => {
                 rules={[
                   {
                     required: true,
-                    message: "This field is a phone number",
+                    message: 'This field is a phone number',
                     pattern: new RegExp(/(84|0[3|5|7|8|9])+([0-9]{8})\b/),
                   },
                 ]}

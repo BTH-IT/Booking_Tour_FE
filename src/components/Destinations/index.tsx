@@ -1,14 +1,14 @@
-import * as Styles from "./styles";
-import ButtonLink from "../ButtonLink";
-import { Col } from "antd";
-import Destination from "../Card/Destination";
-import { Container } from "@/constants";
-import destinationService from "@/services/DestinationService";
-import { useState } from "react";
-import { IDestination } from "destination";
-import { toast } from "react-toastify";
-import useDidMount from "@/hooks/useDidMount";
-import { SkeletonImg } from "../Card/FreshlyAdded/style";
+import * as Styles from './styles';
+import ButtonLink from '../ButtonLink';
+import { Col } from 'antd';
+import Destination from '../Card/Destination';
+import { Container } from '@/constants';
+import destinationService from '@/services/DestinationService';
+import { useState } from 'react';
+import { IDestination } from 'destination';
+import { toast } from 'react-toastify';
+import useDidMount from '@/hooks/useDidMount';
+import { SkeletonImg } from '../Card/FreshlyAdded/style';
 
 export const Destinations = () => {
   const [destinations, setDestinations] = useState<IDestination[]>([]);
@@ -22,7 +22,7 @@ export const Destinations = () => {
       setDestinations(data);
       setIsLoading(false);
     } catch {
-      toast.error("Oops!! Something is wrong");
+      toast.error('Oops!! Something is wrong');
     }
   }
 

@@ -1,13 +1,13 @@
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import TabSection from "@/components/DashboardTabSection";
-import useActiveTab from "@/hooks/useActiveTab";
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import TabSection from '@/components/DashboardTabSection';
+import useActiveTab from '@/hooks/useActiveTab';
 import {
   myAccountTabs,
   roomBookingTabs,
   tourBookingTabs,
-} from "@/constants/sidebarItem";
-import { LogOut } from "lucide-react";
+} from '@/constants/sidebarItem';
+import { LogOut } from 'lucide-react';
 
 export default function DashboardSidebar() {
   const { activeTab, setActiveTab } = useActiveTab();

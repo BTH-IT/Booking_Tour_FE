@@ -1,7 +1,7 @@
-import { BaseButtonProps, ButtonProps } from "antd/es/button/button";
-import * as Styles from "./styles";
+import { BaseButtonProps, ButtonProps } from 'antd/es/button/button';
+import * as Styles from './styles';
 
-import React from "react";
+import React from 'react';
 
 interface CustomButtonProps extends ButtonProps {
   width?: string;

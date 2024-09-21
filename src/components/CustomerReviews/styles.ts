@@ -1,9 +1,9 @@
-import Slider from "react-slick";
-import styled from "styled-components";
+import Slider from 'react-slick';
+import styled from 'styled-components';
 
 export const CustomerReviewsWrapper = styled.section`
   padding: 90px 0px 60px 0px;
-  background-image: url("https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2022/07/testimonial-bg.jpg");
+  background-image: url('https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2022/07/testimonial-bg.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

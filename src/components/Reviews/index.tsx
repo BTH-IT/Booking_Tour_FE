@@ -1,19 +1,19 @@
-import { Col, Form, Rate, Row } from "antd";
-import * as Styles from "./styles";
-import { BiSolidDownArrow, BiSolidUpArrow } from "react-icons/bi";
-import InputFormItem from "../Input/InputFormItem";
-import CustomButton from "../CustomButton";
-import { ITour } from "tour";
-import { toast } from "react-toastify";
-import tourService from "@/services/TourService";
-import { v4 as uuidv4 } from "uuid";
-import { KEY_LOCALSTORAGE } from "@/utils/constants";
-import { useAppSelector } from "@/redux/hooks";
-import { selectAuth } from "@/redux/features/auth/authSlice";
-import Review from "./Review";
-import { useState } from "react";
-import { IRoom } from "room";
-import roomService from "@/services/RoomService";
+import { Col, Form, Rate, Row } from 'antd';
+import * as Styles from './styles';
+import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
+import InputFormItem from '../Input/InputFormItem';
+import CustomButton from '../CustomButton';
+import { ITour } from 'tour';
+import { toast } from 'react-toastify';
+import tourService from '@/services/TourService';
+import { v4 as uuidv4 } from 'uuid';
+import { KEY_LOCALSTORAGE } from '@/utils/constants';
+import { useAppSelector } from '@/redux/hooks';
+import { selectAuth } from '@/redux/features/auth/authSlice';
+import Review from './Review';
+import { useState } from 'react';
+import { IRoom } from 'room';
+import roomService from '@/services/RoomService';
 
 export interface IReview {
   id: string;
@@ -53,9 +53,9 @@ export const TourReviews = (props: ITour) => {
         ...reviews,
       ]);
 
-      toast.success("Review Success!!");
+      toast.success('Review Success!!');
     } catch (error: any) {
-      toast.error("Review Failure!!");
+      toast.error('Review Failure!!');
     }
   };
   return (
@@ -76,7 +76,7 @@ export const TourReviews = (props: ITour) => {
         <Styles.ReviewsCommentForm
           initialValues={{
             rating: 0,
-            content: "",
+            content: '',
           }}
           onFinish={() => onFinish}
         >
@@ -145,9 +145,9 @@ export const RoomReviews = (props: IRoom) => {
         ...reviews,
       ]);
 
-      toast.success("Review Success!!");
+      toast.success('Review Success!!');
     } catch (error: any) {
-      toast.error("Review Failure!!");
+      toast.error('Review Failure!!');
     }
   };
   return (
@@ -168,7 +168,7 @@ export const RoomReviews = (props: IRoom) => {
         <Styles.ReviewsCommentForm
           initialValues={{
             rating: 0,
-            content: "",
+            content: '',
           }}
           onFinish={() => onFinish}
         >

@@ -1,5 +1,5 @@
-import SearchForm from "./SearchForm";
-import * as Styles from "./styles";
+import SearchForm from './SearchForm';
+import * as Styles from './styles';
 
 const BookWithUs = () => {
   return (

@@ -1,7 +1,7 @@
-import * as Styles from "./style";
-import React, { useEffect, useRef, useState } from "react";
-import { Rate } from "antd";
-import { ITour } from "tour";
+import * as Styles from './style';
+import React, { useEffect, useRef, useState } from 'react';
+import { Rate } from 'antd';
+import { ITour } from 'tour';
 
 interface IFreshlyAddedProps extends ITour {
   maxWidth?: string;

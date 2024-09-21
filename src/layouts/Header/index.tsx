@@ -1,10 +1,10 @@
-import Logo from "@/components/Logo";
-import * as Styles from "./styles";
-import NavHeader from "./NavHeader";
-import RightHeader from "./RightHeader";
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-import { useCallback, useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import Logo from '@/components/Logo';
+import * as Styles from './styles';
+import NavHeader from './NavHeader';
+import RightHeader from './RightHeader';
+import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
+import { useCallback, useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
 
 interface IHeaderProps {
   onClick: () => void;
@@ -16,9 +16,9 @@ const Header = ({ isShowSidebar, onClick, handleShowModal }: IHeaderProps) => {
   const [isScroll, setIsScroll] = useState(window.scrollY > 0);
   const location = useLocation();
   const [isSticky, setIsSticky] = useState(() => {
-    const pathSegments = location.pathname.split("/");
+    const pathSegments = location.pathname.split('/');
 
-    return pathSegments[1] === "tour" && pathSegments[2]?.length > 0;
+    return pathSegments[1] === 'tour' && pathSegments[2]?.length > 0;
   });
 
   const handleScroll = useCallback(() => {
@@ -26,10 +26,10 @@ const Header = ({ isShowSidebar, onClick, handleShowModal }: IHeaderProps) => {
   }, []);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, [handleScroll]);
 

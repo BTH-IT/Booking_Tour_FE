@@ -1,5 +1,5 @@
-import { Row } from "antd";
-import styled from "styled-components";
+import { Row } from 'antd';
+import styled from 'styled-components';
 
 export const DestinationsContainer = styled.div`
   width: 100%;
@@ -20,7 +20,7 @@ export const DestinationsTop = styled.div`
 export const DestinationsTopTitle = styled.h3`
   color: black;
   font-size: 5rem;
-  font-family: "DM Serif Display", sans-serif;
+  font-family: 'DM Serif Display', sans-serif;
   font-weight: 400;
 
   span {

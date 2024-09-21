@@ -1,5 +1,5 @@
-import DashboardSidebar from "../DashboardDetail/DashboardSidebar";
-import DashboardMainContent from "../DashboardDetail/DashboardMainContent";
+import DashboardSidebar from '../DashboardDetail/DashboardSidebar';
+import DashboardMainContent from '../DashboardDetail/DashboardMainContent';
 
 export default function DashboardContent() {
   return (

@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const SearchTitleWrapper = styled.div<{ $backgroundImg: string }>`
   padding: 160px 20px;
@@ -7,7 +7,7 @@ export const SearchTitleWrapper = styled.div<{ $backgroundImg: string }>`
   font-weight: 500;
   color: black;
   letter-spacing: 2px;
-  font-family: "DM Serif Display", sans-serif;
+  font-family: 'DM Serif Display', sans-serif;
   ${({ $backgroundImg }) =>
     $backgroundImg &&
     `

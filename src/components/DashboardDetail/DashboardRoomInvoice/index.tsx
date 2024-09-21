@@ -1,5 +1,5 @@
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { bookingStatuses } from "@/constants/bookingStatus";
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { bookingStatuses } from '@/constants/bookingStatus';
 import {
   Table,
   TableBody,
@@ -7,7 +7,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
 
 export default function DashboardRoomInvoice() {
   return (
@@ -18,7 +18,7 @@ export default function DashboardRoomInvoice() {
             <TabsTrigger
               key={status}
               className="border-l-[1px] border-gray-300 px-6 font-normal text-center text-[17px] text-gray-400 cursor-pointer underline-offset-8 !shadow-none data-[state=active]:text-blue-500 data-[state=active]:underline"
-              value={status.toLowerCase().replace(/\s+/g, "-")}
+              value={status.toLowerCase().replace(/\s+/g, '-')}
             >
               {status}
             </TabsTrigger>

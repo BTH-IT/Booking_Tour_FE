@@ -1,5 +1,5 @@
-import { Rate } from "antd";
-import styled from "styled-components";
+import { Rate } from 'antd';
+import styled from 'styled-components';
 
 export const CustomerReviewWrapper = styled.div`
   display: flex;

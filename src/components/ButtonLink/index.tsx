@@ -1,5 +1,5 @@
-import { BsArrowRight } from "react-icons/bs";
-import * as Styles from "./styles";
+import { BsArrowRight } from 'react-icons/bs';
+import * as Styles from './styles';
 
 interface IButtonLinkProps extends Styles.IButtonLinkWrapperProps {
   href: string;

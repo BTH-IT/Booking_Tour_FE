@@ -2,7 +2,7 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-} from "@/components/ui/breadcrumb";
+} from '@/components/ui/breadcrumb';
 import {
   Table,
   TableBody,
@@ -10,9 +10,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { Clock, Trash2 } from "lucide-react";
+} from '@/components/ui/table';
+import { Button } from '@/components/ui/button';
+import { Clock, Trash2 } from 'lucide-react';
 
 export default function DashboardWishList() {
   return (

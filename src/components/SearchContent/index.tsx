@@ -1,17 +1,17 @@
-import * as Styles from "./styles";
-import { Container } from "@/constants";
-import { Col, Row } from "antd";
-import SearchContentForm from "./SearchContentForm";
-import SearchContentSort from "./SearchContentSort";
-import FreshlyAdded from "../Card/FreshlyAdded";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import FreshlyAddedV2 from "../Card/FreshlyAddedV2";
-import tourService from "@/services/TourService";
-import { ITour } from "tour";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import * as FreshlyAddedStyled from "../Card/FreshlyAdded/style";
-import * as FreshlyAddedStyledV2 from "../Card/FreshlyAddedV2/style";
-import { toast } from "react-toastify";
+import * as Styles from './styles';
+import { Container } from '@/constants';
+import { Col, Row } from 'antd';
+import SearchContentForm from './SearchContentForm';
+import SearchContentSort from './SearchContentSort';
+import FreshlyAdded from '../Card/FreshlyAdded';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import FreshlyAddedV2 from '../Card/FreshlyAddedV2';
+import tourService from '@/services/TourService';
+import { ITour } from 'tour';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import * as FreshlyAddedStyled from '../Card/FreshlyAdded/style';
+import * as FreshlyAddedStyledV2 from '../Card/FreshlyAddedV2/style';
+import { toast } from 'react-toastify';
 
 const SearchContent = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -23,9 +23,9 @@ const SearchContent = () => {
   const [page, setPage] = useState(1);
   const [meta, setMeta] = useState({
     ...Object.fromEntries(searchParams.entries()),
-    type: searchParams.get("type") || "releaseDate",
-    order: searchParams.get("order") || "desc",
-    priceFrom: searchParams.get("priceFrom") || 0,
+    type: searchParams.get('type') || 'releaseDate',
+    order: searchParams.get('order') || 'desc',
+    priceFrom: searchParams.get('priceFrom') || 0,
   });
   const location = useLocation();
 
@@ -71,7 +71,7 @@ const SearchContent = () => {
       handleChangeLocation();
       setIsLoading(false);
     } catch (error) {
-      toast.error("Oops!! Something is wrong");
+      toast.error('Oops!! Something is wrong');
     }
   };
 
@@ -86,14 +86,14 @@ const SearchContent = () => {
   function handleChangeLocation() {
     for (const key in meta) {
       let value = meta[key as keyof typeof meta] as any;
-      if (key === "_page") continue;
+      if (key === '_page') continue;
 
-      if (!value && key !== "priceFrom") {
+      if (!value && key !== 'priceFrom') {
         searchParams.delete(key);
         continue;
       }
 
-      if (key === "destination") {
+      if (key === 'destination') {
         value = value.filter((item: any) => item !== null || item);
         if (value.length > 0) {
           searchParams.set(key, value);
@@ -101,7 +101,7 @@ const SearchContent = () => {
         continue;
       }
 
-      if (key === "activities") {
+      if (key === 'activities') {
         value = value.filter((item: any) => item !== null || item);
         if (value.length > 0) {
           searchParams.set(key, value);
@@ -111,9 +111,9 @@ const SearchContent = () => {
       searchParams.set(key, value);
     }
 
-    const newUrl = location.pathname + "?" + searchParams.toString();
+    const newUrl = location.pathname + '?' + searchParams.toString();
 
-    window.history.pushState({ path: newUrl }, "", newUrl);
+    window.history.pushState({ path: newUrl }, '', newUrl);
   }
 
   return (
@@ -144,7 +144,7 @@ const SearchContent = () => {
                     <Row gutter={[20, 20]}>
                       {tourList.map((freshlyAdded, idx) => (
                         <Col xs={24} sm={12} key={freshlyAdded._id + idx}>
-                          <FreshlyAdded {...freshlyAdded} maxWidth={"100%"} />
+                          <FreshlyAdded {...freshlyAdded} maxWidth={'100%'} />
                         </Col>
                       ))}
                     </Row>
@@ -153,7 +153,7 @@ const SearchContent = () => {
                       <FreshlyAddedV2
                         {...freshlyAdded}
                         key={freshlyAdded._id + idx}
-                        maxWidth={"100%"}
+                        maxWidth={'100%'}
                       />
                     ))
                   )}
@@ -163,7 +163,7 @@ const SearchContent = () => {
                 <Row gutter={[20, 20]}>
                   {[1, 2, 3, 4, 5, 6].map((item, idx) => (
                     <Col xs={24} sm={12} key={item + idx}>
-                      <FreshlyAddedStyled.CardWrapper $maxWidth={"100%"}>
+                      <FreshlyAddedStyled.CardWrapper $maxWidth={'100%'}>
                         <FreshlyAddedStyled.SkeletonImg active />
                         <FreshlyAddedStyled.CardInfo>
                           <FreshlyAddedStyled.SkeletonTitle active />
@@ -175,7 +175,7 @@ const SearchContent = () => {
               ) : (
                 [1, 2, 3, 4, 5, 6].map((item, idx) => (
                   <Col xs={24} sm={12} key={item + idx}>
-                    <FreshlyAddedStyledV2.CardWrapper $maxWidth={"100%"}>
+                    <FreshlyAddedStyledV2.CardWrapper $maxWidth={'100%'}>
                       <FreshlyAddedStyledV2.SkeletonImg active />
                       <FreshlyAddedStyledV2.CardInfo>
                         <FreshlyAddedStyledV2.SkeletonTitle active />

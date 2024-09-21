@@ -1,14 +1,14 @@
-import { useState } from "react";
-import * as Styles from "./styles";
-import { Col, Form, Input, Row, Select } from "antd";
-import { AiOutlineSearch } from "react-icons/ai";
-import CalendarInput from "@/components/CalendarInput";
-import { CalendarChangeEvent } from "primereact/calendar";
-import useDidMount from "@/hooks/useDidMount";
-import { IDestination } from "destination";
-import destinationService from "@/services/DestinationService";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router";
+import { useState } from 'react';
+import * as Styles from './styles';
+import { Col, Form, Input, Row, Select } from 'antd';
+import { AiOutlineSearch } from 'react-icons/ai';
+import CalendarInput from '@/components/CalendarInput';
+import { CalendarChangeEvent } from 'primereact/calendar';
+import useDidMount from '@/hooks/useDidMount';
+import { IDestination } from 'destination';
+import destinationService from '@/services/DestinationService';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
 
 const SearchForm = () => {
   const [form] = Form.useForm();
@@ -22,7 +22,7 @@ const SearchForm = () => {
 
       setDestinations(data);
     } catch {
-      toast.error("Oops!! Something is wrong");
+      toast.error('Oops!! Something is wrong');
     }
   }
 
@@ -34,7 +34,7 @@ const SearchForm = () => {
     let state = {};
     for (const key in values) {
       if (values[key]) {
-        if (key === "duration") {
+        if (key === 'duration') {
           if (values[key][1] === null) {
             state = {
               ...state,
@@ -59,7 +59,7 @@ const SearchForm = () => {
       }
     }
 
-    navigate("/search?" + new URLSearchParams(state).toString());
+    navigate('/search?' + new URLSearchParams(state).toString());
   };
 
   return (

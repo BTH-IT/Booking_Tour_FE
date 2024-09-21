@@ -1,8 +1,8 @@
-import { Dispatch, SetStateAction } from "react";
-import { BsCalendar2Date } from "react-icons/bs";
-import { CalendarProps } from "primereact/calendar";
+import { Dispatch, SetStateAction } from 'react';
+import { BsCalendar2Date } from 'react-icons/bs';
+import { CalendarProps } from 'primereact/calendar';
 
-import * as Styles from "./styles";
+import * as Styles from './styles';
 
 interface ICalendarInputProps extends CalendarProps {
   bordered?: boolean;

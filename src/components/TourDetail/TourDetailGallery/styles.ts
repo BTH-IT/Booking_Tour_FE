@@ -1,5 +1,5 @@
-import { Row } from "antd";
-import styled from "styled-components";
+import { Row } from 'antd';
+import styled from 'styled-components';
 
 export const TourDetailGalleryWrapper = styled.div`
   display: flex;

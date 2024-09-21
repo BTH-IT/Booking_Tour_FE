@@ -1,15 +1,15 @@
-import { ISchedule, IRoom } from "room";
-import * as Styles from "./styles";
-import { useCallback, useState } from "react";
-import { Form } from "antd";
-import InputFormItem from "@/components/Input/InputFormItem";
-import useDidMount from "@/hooks/useDidMount";
-import roomService from "@/services/RoomService";
-import { getDaysInMonth } from "@/utils/constants";
-import { RuleObject } from "antd/es/form";
-import { useNavigate } from "react-router";
-import { CalendarChangeEvent } from "primereact/calendar";
-import CalendarInput from "@/components/CalendarInput";
+import { ISchedule, IRoom } from 'room';
+import * as Styles from './styles';
+import { useCallback, useState } from 'react';
+import { Form } from 'antd';
+import InputFormItem from '@/components/Input/InputFormItem';
+import useDidMount from '@/hooks/useDidMount';
+import roomService from '@/services/RoomService';
+import { getDaysInMonth } from '@/utils/constants';
+import { RuleObject } from 'antd/es/form';
+import { useNavigate } from 'react-router';
+import { CalendarChangeEvent } from 'primereact/calendar';
+import CalendarInput from '@/components/CalendarInput';
 
 const RoomDetailRight = (props: IRoom) => {
   const [dates, setDates] = useState<Date[]>([]);
@@ -71,7 +71,7 @@ const RoomDetailRight = (props: IRoom) => {
   const onFinish = (values: any) => {
     if (schedule) {
       localStorage.setItem(
-        "Room_payment",
+        'Room_payment',
         JSON.stringify({
           schedule,
           numOfRooms: values.numOfRooms,
@@ -79,7 +79,7 @@ const RoomDetailRight = (props: IRoom) => {
         }),
       );
 
-      navigate("/payment");
+      navigate('/payment');
     }
   };
 

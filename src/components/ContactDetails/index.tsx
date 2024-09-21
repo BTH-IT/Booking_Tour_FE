@@ -1,8 +1,8 @@
-import { useNavigate } from "react-router";
-import InputFormItem from "../Input/InputFormItem";
-import SelectFormItem from "../Select/SelectFormItem";
-import { countryList } from "@/utils/constants";
-import styled from "styled-components";
+import { useNavigate } from 'react-router';
+import InputFormItem from '../Input/InputFormItem';
+import SelectFormItem from '../Select/SelectFormItem';
+import { countryList } from '@/utils/constants';
+import styled from 'styled-components';
 
 const ContactTitle = styled.h2`
   font-size: 2rem;
@@ -32,7 +32,7 @@ const ContactDetails = () => {
             required: true,
           },
           {
-            type: "email",
+            type: 'email',
           },
         ]}
       />
@@ -42,7 +42,7 @@ const ContactDetails = () => {
         rules={[
           {
             required: true,
-            message: "This field is a phone number",
+            message: 'This field is a phone number',
             pattern: new RegExp(/(84|0[3|5|7|8|9])+([0-9]{8})\b/),
           },
         ]}

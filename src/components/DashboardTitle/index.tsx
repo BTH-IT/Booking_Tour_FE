@@ -1,9 +1,9 @@
-import React from "react";
-import * as Styles from "./styles";
+import React from 'react';
+import * as Styles from './styles';
 
 const DashboardTitle = ({
-  children = "Dashboard",
-  backgroundImg = "",
+  children = 'Dashboard',
+  backgroundImg = '',
 }: {
   children?: React.ReactNode;
   backgroundImg?: string;

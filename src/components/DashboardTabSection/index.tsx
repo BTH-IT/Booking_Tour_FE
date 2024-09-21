@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   LayoutDashboard,
   Edit,
@@ -8,19 +8,19 @@ import {
   Star,
   Heart,
   Phone,
-} from "lucide-react";
+} from 'lucide-react';
 
 const iconMap = {
   dashboard: LayoutDashboard,
-  "edit-profile": Edit,
-  "change-password": Key,
-  "tour-my-bookings": BookOpen,
-  "tour-invoices": FileText,
-  "tour-reviews": Star,
-  "wish-list": Heart,
-  "room-my-bookings": BookOpen,
-  "room-invoices": FileText,
-  "room-reviews": Star,
+  'edit-profile': Edit,
+  'change-password': Key,
+  'tour-my-bookings': BookOpen,
+  'tour-invoices': FileText,
+  'tour-reviews': Star,
+  'wish-list': Heart,
+  'room-my-bookings': BookOpen,
+  'room-invoices': FileText,
+  'room-reviews': Star,
   help: Phone,
 };
 
@@ -48,8 +48,8 @@ const TabSection: React.FC<TabSectionProps> = ({
               variant="ghost"
               className={`flex gap-3 text-2xl py-8 w-full my-1 justify-start bg-white ${
                 activeTab === tab
-                  ? "text-blue-600 bg-blue-50 hover:text-blue-600 hover:bg-blue-50"
-                  : "text-gray-500 hover:text-blue-600 hover:bg-blue-50"
+                  ? 'text-blue-600 bg-blue-50 hover:text-blue-600 hover:bg-blue-50'
+                  : 'text-gray-500 hover:text-blue-600 hover:bg-blue-50'
               }`}
               onClick={() => setActiveTab(tab)}
             >

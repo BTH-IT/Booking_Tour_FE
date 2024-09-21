@@ -1,11 +1,11 @@
-import { ITour } from "tour";
-import * as Styles from "./styles";
-import { BsClockHistory, BsWifi } from "react-icons/bs";
-import { MdPeopleOutline } from "react-icons/md";
-import { IoCalendarNumberOutline } from "react-icons/io5";
-import { Rate } from "antd";
+import { ITour } from 'tour';
+import * as Styles from './styles';
+import { BsClockHistory, BsWifi } from 'react-icons/bs';
+import { MdPeopleOutline } from 'react-icons/md';
+import { IoCalendarNumberOutline } from 'react-icons/io5';
+import { Rate } from 'antd';
 
-const formatter = new Intl.DateTimeFormat("en", { month: "short" });
+const formatter = new Intl.DateTimeFormat('en', { month: 'short' });
 
 const TourDetailHeader = (props: ITour) => {
   return (
@@ -34,12 +34,12 @@ const TourDetailHeader = (props: ITour) => {
         </Styles.TourDetailHeaderSubInfoItem>
         <Styles.TourDetailHeaderSubInfoItem>
           <BsWifi />
-          <p>{props.isWifi ? "Wifi Available" : "Wifi Unavailable"}</p>
+          <p>{props.isWifi ? 'Wifi Available' : 'Wifi Unavailable'}</p>
         </Styles.TourDetailHeaderSubInfoItem>
         <Styles.TourDetailHeaderSubInfoItem>
           <IoCalendarNumberOutline />
           <p>
-            {formatter.format(new Date(props.dateFrom))} -{" "}
+            {formatter.format(new Date(props.dateFrom))} -{' '}
             {formatter.format(new Date(props.dateTo))}
           </p>
         </Styles.TourDetailHeaderSubInfoItem>

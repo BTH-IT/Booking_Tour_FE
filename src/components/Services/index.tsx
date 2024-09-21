@@ -1,7 +1,7 @@
-import { Checkbox } from "antd";
-import { debounce } from "lodash";
-import { Dispatch, SetStateAction, useState } from "react";
-import styled from "styled-components";
+import { Checkbox } from 'antd';
+import { debounce } from 'lodash';
+import { Dispatch, SetStateAction, useState } from 'react';
+import styled from 'styled-components';
 
 const ServicesWrapper = styled.div`
   box-shadow: 0px 20px 45px rgb(0 0 0 / 10%);
@@ -29,7 +29,7 @@ const Services = ({
   setTotalPay: Dispatch<SetStateAction<number>>;
 }) => {
   const [tourPayment, setTourPayment] = useState(
-    JSON.parse(localStorage.getItem("tour_payment") || ""),
+    JSON.parse(localStorage.getItem('tour_payment') || ''),
   );
 
   if (!tourPayment) {

@@ -1,8 +1,8 @@
-import { IRoom } from "room";
-import * as Styles from "./styles";
-import { Rate, Col } from "antd";
+import { IRoom } from 'room';
+import * as Styles from './styles';
+import { Rate, Col } from 'antd';
 
-const formatter = new Intl.DateTimeFormat("en", { month: "short" });
+const formatter = new Intl.DateTimeFormat('en', { month: 'short' });
 
 const RoomDetailHeader = (props: IRoom) => {
   return (

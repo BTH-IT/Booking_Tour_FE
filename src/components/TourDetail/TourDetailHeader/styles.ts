@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const TourDetailHeaderWrapper = styled.div`
   display: flex;
@@ -52,7 +52,7 @@ export const TourDetailHeaderTitle = styled.div`
   color: inherit;
   font-weight: inherit;
   font-size: inherit;
-  font-family: "DM Serif Display", sans-serif;
+  font-family: 'DM Serif Display', sans-serif;
 `;
 
 export const TourDetailHeaderRate = styled.div`
