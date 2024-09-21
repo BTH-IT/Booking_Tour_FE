@@ -36,8 +36,7 @@ export const HeaderContainer = styled.div<IHeaderWrapperProps>`
   align-items: center;
   width: 100%;
   transition: all 0.2s linear;
-  padding: ${({ $isScroll }) =>
-    $isScroll ? '20px' : '30px 20px'};
+  padding: ${({ $isScroll }) => ($isScroll ? '20px' : '30px 20px')};
 `;
 
 export const HeaderResponsive = styled.div`

@@ -24,7 +24,7 @@ import { CgGym } from 'react-icons/cg';
 import { RiInkBottleLine } from 'react-icons/ri';
 import { IoRestaurantOutline } from 'react-icons/io5';
 import { FaSwimmingPool } from 'react-icons/fa';
-import { PiDotFill } from "react-icons/pi";
+import { PiDotFill } from 'react-icons/pi';
 
 import Accordion from '@/components/Accordion';
 import { useState } from 'react';
@@ -47,10 +47,10 @@ const RoomDetailLeft = (props: IRoom) => {
   ];
 
   const hotelRules = [
-    "Smoking not allowed",
-    "Pets not allowed",
-    "Swimming pool closed from 8.00pm - 6.00am"
-  ]
+    'Smoking not allowed',
+    'Pets not allowed',
+    'Swimming pool closed from 8.00pm - 6.00am',
+  ];
 
   const roomAmenitiesIcon: { [key: number]: JSX.Element } = {
     0: <LuTv2 />,

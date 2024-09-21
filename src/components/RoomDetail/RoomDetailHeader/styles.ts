@@ -54,7 +54,6 @@ export const RoomDetailHeaderSubInfoCol = styled(Col)`
   gap: 10px;
 `;
 
-
 export const RoomDetailHeaderSubInfoDetail = styled.span`
   font-size: 1.4rem;
   color: inherit;

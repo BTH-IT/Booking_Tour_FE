@@ -1,8 +1,10 @@
 import styled, { css } from 'styled-components';
 
-export const BackgroundWrapper = styled.div<{$backgroundImg: string}>`
+export const BackgroundWrapper = styled.div<{ $backgroundImg: string }>`
   padding: 140px 20px;
-  ${({$backgroundImg}) => $backgroundImg && `
+  ${({ $backgroundImg }) =>
+    $backgroundImg &&
+    `
     background-image: url(${$backgroundImg});
     background-color: white;
     background-position: center;

@@ -73,7 +73,7 @@ const RoomContent = () => {
       <Styles.RoomCardsWrapper>
         {!isLoading ? (
           <>
-            <Row >
+            <Row>
               {roomList.map((room, idx) => (
                 <Col xs={24} lg={12} xl={8} key={room._id + idx}>
                   <Room {...room} />

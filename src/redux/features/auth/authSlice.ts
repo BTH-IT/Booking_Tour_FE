@@ -74,7 +74,7 @@ const authSlide = createSlice({
       state.account = {};
       state.user = {};
       state.isLoggedIn = false;
-      window.location.href = "/";
+      window.location.href = '/';
     },
     loginFailed: (state) => {
       toast.error('Login Failure!!');

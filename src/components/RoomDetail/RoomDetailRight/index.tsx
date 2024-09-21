@@ -28,10 +28,7 @@ const RoomDetailRight = (props: IRoom) => {
     setSchedules(data);
   });
 
-  const calculateAvailableRooms = (
-    checkIn: Date,
-    checkOut: Date,
-  ) => {
+  const calculateAvailableRooms = (checkIn: Date, checkOut: Date) => {
     let availableRooms = maxRooms;
 
     // Kiểm tra từng booking trong mảng

@@ -4,12 +4,11 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 export default function AuthenticationaLayout() {
   const navigate = useNavigate();
-  const isLogged =  Boolean(useAppSelector(selectAuth).account);
-
+  const isLogged = Boolean(useAppSelector(selectAuth).account);
 
   if (!isLogged) {
-    navigate("/");
-    return <></>
+    navigate('/');
+    return <></>;
   }
 
   return (

@@ -12,7 +12,7 @@ export const RoomDetailRightBooking = styled.div`
   position: sticky;
   border-radius: 16px;
   background-color: #fff;
-  box-shadow: 0 20px 35px rgba(0,0,0,.1);
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
   margin-left: 20px;
   margin-bottom: 40px;
   border-radius: 20px;
@@ -67,7 +67,7 @@ export const RoomDetailRightBookingLabel = styled.div`
 `;
 
 export const RoomDetailRightBookingFormDate = styled(Form.Item)`
-  border: 1px solid rgba(140, 140, 140, .5);
+  border: 1px solid rgba(140, 140, 140, 0.5);
 
   input {
     font-size: 1.2rem;

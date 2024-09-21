@@ -4,7 +4,7 @@ import * as Styles from './styles';
 const RoomTitle = ({
   children = 'Room Tours',
   secondChildren = 'Our Rooms',
-  backgroundImg = "",
+  backgroundImg = '',
 }: {
   children?: React.ReactNode;
   secondChildren?: React.ReactNode;
@@ -13,7 +13,9 @@ const RoomTitle = ({
   return (
     <Styles.BackgroundWrapper $backgroundImg={backgroundImg}>
       <Styles.RoomTitleWrapper>{children}</Styles.RoomTitleWrapper>
-      <Styles.RoomSecondTitleWrapper>{secondChildren}</Styles.RoomSecondTitleWrapper>
+      <Styles.RoomSecondTitleWrapper>
+        {secondChildren}
+      </Styles.RoomSecondTitleWrapper>
     </Styles.BackgroundWrapper>
   );
 };

@@ -15,7 +15,7 @@ export const CardWrapper = styled.a`
   margin: 20px auto;
   flex-direction: column;
   flex-wrap: wrap;
-  font-family: "DM Sans",sans-serif;
+  font-family: 'DM Sans', sans-serif;
   border-radius: 12px;
 `;
 
@@ -41,7 +41,7 @@ export const CardInfoTitle = styled.h3`
   transition: all 0.2s ease;
   width: 100%;
   padding-bottom: 20px;
-  font-family: "DM Serif Display",serif;
+  font-family: 'DM Serif Display', serif;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2; /* number of lines to show */
@@ -135,7 +135,7 @@ export const CardInfoBookNow = styled.div`
   color: black;
   width: 100%;
   & > span {
-    padding-right: 20px; 
+    padding-right: 20px;
     font-size: 1.2rem;
     font-weight: 600;
   }
@@ -146,7 +146,7 @@ export const CardInfoBookNow = styled.div`
     bottom: -4px; /* Adjust the value as needed */
     width: 100%;
     height: 2px;
-    background-color: #C2C2C2; /* Change the color as desired */
+    background-color: #c2c2c2; /* Change the color as desired */
     animation: lineAnimation 500ms forwards;
   }
 
