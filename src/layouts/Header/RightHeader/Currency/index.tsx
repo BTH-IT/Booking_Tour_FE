@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { AiFillCaretDown } from 'react-icons/ai';
-import * as Styles from './styles';
-const currencyList = ['USD', 'EUR', 'CHF'];
+import { useState } from "react";
+import { AiFillCaretDown } from "react-icons/ai";
+import * as Styles from "./styles";
+const currencyList = ["USD", "EUR", "CHF"];
 
 const Currency = ({ color, bgColor }: { color?: string; bgColor?: string }) => {
   const [value, setValue] = useState(currencyList[0]);

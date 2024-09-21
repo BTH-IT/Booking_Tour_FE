@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface ICurrencyProps {
   color?: string;
@@ -15,7 +15,7 @@ export const CurrencyWrapper = styled.div<ICurrencyProps>`
   align-items: center;
   height: 100%;
   padding: 0 20px;
-  color: ${({ color }) => (color ? color : 'black')};
+  color: ${({ color }) => (color ? color : "black")};
   cursor: pointer;
 `;
 
@@ -43,7 +43,7 @@ export const CurrencyDropdown = styled.ul<ICurrencyDropdownProps>`
   padding: 15px 25px;
   margin: 0px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  background-color: ${({ bgcolor }) => (bgcolor ? bgcolor : 'white')};
+  background-color: ${({ bgcolor }) => (bgcolor ? bgcolor : "white")};
   color: black;
   z-index: 2;
 `;

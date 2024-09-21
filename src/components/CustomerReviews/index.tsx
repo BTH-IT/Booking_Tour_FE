@@ -1,52 +1,52 @@
-import * as Styles from './styles';
-import CustomerReview from '../Card/CustomerReview';
-import SliderBase from '../Slider/SliderBase';
-import Slider from 'react-slick';
-import { useState } from 'react';
-import tourService from '@/services/TourService';
-import { toast } from 'react-toastify';
-import useDidMount from '@/hooks/useDidMount';
-import { ITour } from 'tour';
-import { IUser } from 'user';
-import { IReview } from '../Reviews';
+import * as Styles from "./styles";
+import CustomerReview from "../Card/CustomerReview";
+import SliderBase from "../Slider/SliderBase";
+import Slider from "react-slick";
+import { useState } from "react";
+import tourService from "@/services/TourService";
+import { toast } from "react-toastify";
+import useDidMount from "@/hooks/useDidMount";
+import { ITour } from "tour";
+import { IUser } from "user";
+import { IReview } from "../Reviews";
 
 const customerReviews = [
   {
     avatar:
-      'https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2022/07/P01-150x150.jpg',
+      "https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2022/07/P01-150x150.jpg",
     rate: 5,
-    fullname: 'David',
+    fullname: "David",
     content:
-      'The tours in this website are great. I had been really enjoy with my family! The team is very professional and taking care of the customers. Will surely recommend to my freind to join this company!',
+      "The tours in this website are great. I had been really enjoy with my family! The team is very professional and taking care of the customers. Will surely recommend to my freind to join this company!",
   },
   {
     avatar:
-      'https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2022/07/P02-150x150.jpg',
+      "https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2022/07/P02-150x150.jpg",
     rate: 5,
-    fullname: 'Brittany Clark',
+    fullname: "Brittany Clark",
     content:
-      'The tours in this website are great. I had been really enjoy with my family! The team is very professional and taking care of the customers. Will surely recommend to my freind to join this company!',
+      "The tours in this website are great. I had been really enjoy with my family! The team is very professional and taking care of the customers. Will surely recommend to my freind to join this company!",
   },
   {
     avatar:
-      'https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2022/07/P07-150x150.jpg',
+      "https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2022/07/P07-150x150.jpg",
     rate: 5,
-    fullname: 'Frances Hill',
+    fullname: "Frances Hill",
     content:
-      'The tours in this website are great. I had been really enjoy with my family! The team is very professional and taking care of the customers. Will surely recommend to my freind to join this company!',
+      "The tours in this website are great. I had been really enjoy with my family! The team is very professional and taking care of the customers. Will surely recommend to my freind to join this company!",
   },
   {
     avatar:
-      'https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2022/07/P04-150x150.jpg',
+      "https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2022/07/P04-150x150.jpg",
     rate: 5,
-    fullname: 'Jennth Norz',
+    fullname: "Jennth Norz",
     content:
-      'The tours in this website are great. I had been really enjoy with my family! The team is very professional and taking care of the customers. Will surely recommend to my freind to join this company!',
+      "The tours in this website are great. I had been really enjoy with my family! The team is very professional and taking care of the customers. Will surely recommend to my freind to join this company!",
   },
 ];
 
 const settings = {
-  className: 'center',
+  className: "center",
   centerMode: true,
   dots: true,
   infinite: true,
@@ -92,7 +92,7 @@ const CustomerReviews = () => {
       const data = await tourService.getAllReviews();
       setReviews(data);
     } catch {
-      toast.error('Oops!! Something is wrong');
+      toast.error("Oops!! Something is wrong");
     }
   }
 
@@ -113,7 +113,7 @@ const CustomerReviews = () => {
             fullname={customerReview.user.fullname}
             rate={customerReview.rating}
             content={customerReview.content}
-            avatar={customerReview.user.picture || '/avatar.png'}
+            avatar={customerReview.user.picture || "/avatar.png"}
           />
         ))}
       </Slider>

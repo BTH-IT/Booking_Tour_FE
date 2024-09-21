@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import * as Styles from './styles';
+import { useState } from "react";
+import * as Styles from "./styles";
 
 const Accordion = ({ title, content }: { title: string; content: string }) => {
   const [isShow, setIsShow] = useState(false);

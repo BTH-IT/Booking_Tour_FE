@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const FreshlyAddedContainer = styled.div`
   display: flex;
@@ -15,7 +15,7 @@ export const FreshlyAddedContainer = styled.div`
 export const FreshlyAddedTitle = styled.h3`
   color: black;
   font-size: 5rem;
-  font-family: 'DM Serif Display', sans-serif;
+  font-family: "DM Serif Display", sans-serif;
   font-weight: 400;
   text-align: center;
 

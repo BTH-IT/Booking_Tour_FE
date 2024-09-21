@@ -1,8 +1,8 @@
-import { IRoom } from 'room';
+import { IRoom } from "room";
 
-import * as Styles from './styles';
-import { Col, Row } from 'antd';
-import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai';
+import * as Styles from "./styles";
+import { Col, Row } from "antd";
+import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 import {
   LuTv2,
   LuWifi,
@@ -12,45 +12,45 @@ import {
   LuParkingCircle,
   LuConciergeBell,
   LuCircleDot,
-} from 'react-icons/lu';
-import { BsSafe } from 'react-icons/bs';
+} from "react-icons/lu";
+import { BsSafe } from "react-icons/bs";
 import {
   MdOutlineHeatPump,
   MdOutlineRoomService,
   MdOutlineLocalLaundryService,
-} from 'react-icons/md';
-import { GiHeatHaze } from 'react-icons/gi';
-import { CgGym } from 'react-icons/cg';
-import { RiInkBottleLine } from 'react-icons/ri';
-import { IoRestaurantOutline } from 'react-icons/io5';
-import { FaSwimmingPool } from 'react-icons/fa';
+} from "react-icons/md";
+import { GiHeatHaze } from "react-icons/gi";
+import { CgGym } from "react-icons/cg";
+import { RiInkBottleLine } from "react-icons/ri";
+import { IoRestaurantOutline } from "react-icons/io5";
+import { FaSwimmingPool } from "react-icons/fa";
 import { PiDotFill } from "react-icons/pi";
 
-import Accordion from '@/components/Accordion';
-import { useState } from 'react';
-import useDidMount from '@/hooks/useDidMount';
-import destinationService from '@/services/DestinationService';
-import { IDestination } from 'destination';
-import { faqList } from '@/utils/constants';
-import { toast } from 'react-toastify';
+import Accordion from "@/components/Accordion";
+import { useState } from "react";
+import useDidMount from "@/hooks/useDidMount";
+import destinationService from "@/services/DestinationService";
+import { IDestination } from "destination";
+import { faqList } from "@/utils/constants";
+import { toast } from "react-toastify";
 
 const RoomDetailLeft = (props: IRoom) => {
   const hotelAmenities = [
-    'Gym',
-    'Parking',
-    'Spa',
-    'Restaurant',
-    'Room Service',
-    'Swimming Pool',
-    '24 Hour Concierge',
-    'In-house Laundry',
+    "Gym",
+    "Parking",
+    "Spa",
+    "Restaurant",
+    "Room Service",
+    "Swimming Pool",
+    "24 Hour Concierge",
+    "In-house Laundry",
   ];
 
   const hotelRules = [
     "Smoking not allowed",
     "Pets not allowed",
-    "Swimming pool closed from 8.00pm - 6.00am"
-  ]
+    "Swimming pool closed from 8.00pm - 6.00am",
+  ];
 
   const roomAmenitiesIcon: { [key: number]: JSX.Element } = {
     0: <LuTv2 />,
@@ -99,7 +99,7 @@ const RoomDetailLeft = (props: IRoom) => {
             {props.salePercent > 0 ? (
               <>
                 <Styles.OriginalPrice>
-                  {' '}
+                  {" "}
                   ${props.price.toFixed(2)}
                 </Styles.OriginalPrice>
                 <Styles.ActualPrice>

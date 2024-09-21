@@ -1,5 +1,5 @@
-import { IRoom, ISchedule } from './../types/room.d';
-import axiosClient from './AxiosClient';
+import { IRoom, ISchedule } from "./../types/room.d";
+import axiosClient from "./AxiosClient";
 
 const roomService = {
   getARoom(roomId: string): Promise<IRoom> {
@@ -15,16 +15,16 @@ const roomService = {
     maxPrice: number;
     minPrice: number;
   }> {
-    return axiosClient.get('/rooms/', { params: params });
+    return axiosClient.get("/rooms/", { params: params });
   },
   getAllReviews(): Promise<any> {
-    return axiosClient.get('/rooms/reviews');
+    return axiosClient.get("/rooms/reviews");
   },
   createRoom(data: IRoom) {
-    return axiosClient.post('/rooms', data);
+    return axiosClient.post("/rooms", data);
   },
   updateRoom(data: IRoom) {
-    return axiosClient.patch('/rooms/' + data._id, data);
+    return axiosClient.patch("/rooms/" + data._id, data);
   },
   deleteRoom(roomId: string) {
     const url = `/rooms/${roomId}`;

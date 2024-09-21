@@ -7,7 +7,7 @@ const RoomPage = () => {
       <RoomTitle />
       <RoomContent />
     </>
-  )
+  );
 };
 
 export default RoomPage;

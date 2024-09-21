@@ -1,21 +1,21 @@
-import FreshlyAdded from '@/components/Card/FreshlyAdded';
-import { TourReviews} from '@/components/Reviews';
-import SearchTitle from '@/components/SearchTitle';
-import SliderBase from '@/components/Slider/SliderBase';
-import TourDetailGallery from '@/components/TourDetail/TourDetailGallery';
-import TourDetailHeader from '@/components/TourDetail/TourDetailHeader';
-import TourDetailLeft from '@/components/TourDetail/TourDetailLeft';
-import TourDetailNav from '@/components/TourDetail/TourDetailNav';
-import TourDetailRight from '@/components/TourDetail/TourDetailRight';
-import { Container } from '@/constants';
-import useDidMount from '@/hooks/useDidMount';
-import tourService from '@/services/TourService';
-import { Col, Row } from 'antd';
-import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import styled from 'styled-components';
-import { ITour } from 'tour';
+import FreshlyAdded from "@/components/Card/FreshlyAdded";
+import { TourReviews } from "@/components/Reviews";
+import SearchTitle from "@/components/SearchTitle";
+import SliderBase from "@/components/Slider/SliderBase";
+import TourDetailGallery from "@/components/TourDetail/TourDetailGallery";
+import TourDetailHeader from "@/components/TourDetail/TourDetailHeader";
+import TourDetailLeft from "@/components/TourDetail/TourDetailLeft";
+import TourDetailNav from "@/components/TourDetail/TourDetailNav";
+import TourDetailRight from "@/components/TourDetail/TourDetailRight";
+import { Container } from "@/constants";
+import useDidMount from "@/hooks/useDidMount";
+import tourService from "@/services/TourService";
+import { Col, Row } from "antd";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import styled from "styled-components";
+import { ITour } from "tour";
 
 const TourDetailContentStyled = styled.div`
   margin: 0 auto;
@@ -35,7 +35,7 @@ const TourDetailTitle = styled.h2`
   line-height: 1.2;
   font-size: 2.3rem;
   color: black;
-  font-family: 'DM Serif Display', sans-serif;
+  font-family: "DM Serif Display", sans-serif;
   font-weight: 500;
   margin-bottom: 20px;
 `;
@@ -47,7 +47,7 @@ const TourDetailPage = () => {
   const navigate = useNavigate();
 
   if (!tourId) {
-    navigate('/');
+    navigate("/");
     return <></>;
   }
 
@@ -66,14 +66,14 @@ const TourDetailPage = () => {
 
       setTourList(data.tours);
     } catch (error) {
-      toast.error('Sever is wrong');
+      toast.error("Sever is wrong");
     }
   }
 
   return (
     tour && (
       <>
-        <SearchTitle>{''}</SearchTitle>
+        <SearchTitle>{""}</SearchTitle>
         <Container className="container">
           <TourDetailNav />
           <TourDetailHeader {...tour} />

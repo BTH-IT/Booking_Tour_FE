@@ -1,10 +1,10 @@
-import CustomButton from '@/components/CustomButton';
-import Currency from './Currency';
-import Language from './Language';
-import * as Styles from './styles';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { BiSolidDownArrow } from 'react-icons/bi';
-import { authActions } from '@/redux/features/auth/authSlice';
+import CustomButton from "@/components/CustomButton";
+import Currency from "./Currency";
+import Language from "./Language";
+import * as Styles from "./styles";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { BiSolidDownArrow } from "react-icons/bi";
+import { authActions } from "@/redux/features/auth/authSlice";
 
 const RightHeader = ({ handleShowModal }: { handleShowModal: () => void }) => {
   const loginSuccess = useAppSelector((state) => state.auth.isLoggedIn);
@@ -21,7 +21,7 @@ const RightHeader = ({ handleShowModal }: { handleShowModal: () => void }) => {
             <img
               src={`${
                 currentUser.picture ||
-                'https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg'
+                "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg"
               }`}
               alt="avatar"
             />

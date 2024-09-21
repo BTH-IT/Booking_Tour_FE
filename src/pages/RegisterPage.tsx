@@ -1,20 +1,20 @@
-import CalendarInput from '@/components/CalendarInput';
-import CustomButton from '@/components/CustomButton';
-import InputFormItem from '@/components/Input/InputFormItem';
-import SearchTitle from '@/components/SearchTitle';
-import SelectFormItem from '@/components/Select/SelectFormItem';
-import { useAppSelector } from '@/redux/hooks';
-import authService from '@/services/AuthService';
-import { countryList } from '@/utils/constants';
-import { Col, Form, Row } from 'antd';
-import { CheckboxChangeEvent } from 'antd/es/checkbox';
-import Checkbox from 'antd/es/checkbox/Checkbox';
-import { RuleObject } from 'antd/es/form';
-import { CalendarChangeEvent } from 'primereact/calendar';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import styled from 'styled-components';
+import CalendarInput from "@/components/CalendarInput";
+import CustomButton from "@/components/CustomButton";
+import InputFormItem from "@/components/Input/InputFormItem";
+import SearchTitle from "@/components/SearchTitle";
+import SelectFormItem from "@/components/Select/SelectFormItem";
+import { useAppSelector } from "@/redux/hooks";
+import authService from "@/services/AuthService";
+import { countryList } from "@/utils/constants";
+import { Col, Form, Row } from "antd";
+import { CheckboxChangeEvent } from "antd/es/checkbox";
+import Checkbox from "antd/es/checkbox/Checkbox";
+import { RuleObject } from "antd/es/form";
+import { CalendarChangeEvent } from "primereact/calendar";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import styled from "styled-components";
 
 const RegisterStyled = styled.div`
   background-color: white;
@@ -71,24 +71,24 @@ const RegisterPage = () => {
 
   useEffect(() => {
     if (loginSuccess) {
-      navigate('/');
+      navigate("/");
     }
   }, [loginSuccess]);
 
   const onCheckboxChange = (e: CheckboxChangeEvent) => {
     setChecked(e.target.checked);
-    form.setFieldValue('term', e.target.checked);
+    form.setFieldValue("term", e.target.checked);
   };
 
   const onFinish = async (values: RegisterFormType) => {
     try {
       await authService.register(values);
 
-      toast.success('Register Success!!');
+      toast.success("Register Success!!");
 
-      navigate('/login');
+      navigate("/login");
     } catch (error: any) {
-      toast.error('Register Failure!!');
+      toast.error("Register Failure!!");
     }
   };
 
@@ -100,7 +100,7 @@ const RegisterPage = () => {
     if (checked) {
       return callback();
     }
-    return callback('Please accept the terms and conditions');
+    return callback("Please accept the terms and conditions");
   };
 
   const validationDate = (
@@ -111,7 +111,7 @@ const RegisterPage = () => {
     if (date != null) {
       return callback();
     }
-    return callback('Please select your birth date');
+    return callback("Please select your birth date");
   };
 
   return (
@@ -122,14 +122,14 @@ const RegisterPage = () => {
           form={form}
           layout="vertical"
           initialValues={{
-            email: '',
-            fullname: '',
-            password: '',
-            passwordConfirm: '',
-            phone: '',
-            country: '',
-            gender: '',
-            birthDate: '',
+            email: "",
+            fullname: "",
+            password: "",
+            passwordConfirm: "",
+            phone: "",
+            country: "",
+            gender: "",
+            birthDate: "",
             term: false,
           }}
           onFinish={onFinish}
@@ -146,11 +146,11 @@ const RegisterPage = () => {
                 rules={[
                   {
                     required: true,
-                    message: 'Please input your E-mail!',
+                    message: "Please input your E-mail!",
                   },
                   {
-                    type: 'email',
-                    message: 'The input is not valid E-mail!',
+                    type: "email",
+                    message: "The input is not valid E-mail!",
                   },
                 ]}
               />
@@ -191,7 +191,7 @@ const RegisterPage = () => {
                   },
                   {
                     message: "This field must equal to password's field",
-                    pattern: new RegExp(form.getFieldValue('password')),
+                    pattern: new RegExp(form.getFieldValue("password")),
                   },
                 ]}
                 isPassword
@@ -207,7 +207,7 @@ const RegisterPage = () => {
                 rules={[
                   {
                     required: true,
-                    message: 'This field is a phone number',
+                    message: "This field is a phone number",
                     pattern: new RegExp(/(84|0[3|5|7|8|9])+([0-9]{8})\b/),
                   },
                 ]}
@@ -230,16 +230,16 @@ const RegisterPage = () => {
                 size="large"
                 options={[
                   {
-                    value: '',
-                    label: 'Select your gender',
+                    value: "",
+                    label: "Select your gender",
                   },
                   {
-                    value: '1',
-                    label: 'Nam',
+                    value: "1",
+                    label: "Nam",
                   },
                   {
-                    value: '0',
-                    label: 'Nữ',
+                    value: "0",
+                    label: "Nữ",
                   },
                 ]}
                 bordered={true}
@@ -259,7 +259,7 @@ const RegisterPage = () => {
                   }}
                   bordered={true}
                   rounded="8px"
-                  errored={date == null && form.isFieldTouched('birthDate')}
+                  errored={date == null && form.isFieldTouched("birthDate")}
                 />
               </FormItemStyled>
             </Col>

@@ -1,5 +1,5 @@
-import React from 'react';
-import * as Styles from './styles';
+import React from "react";
+import * as Styles from "./styles";
 
 interface ICustomerReviewProps {
   avatar: string;

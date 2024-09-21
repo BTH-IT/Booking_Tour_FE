@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 interface IHeaderWrapperProps {
   $isScroll?: boolean;
@@ -6,7 +6,7 @@ interface IHeaderWrapperProps {
 }
 
 export const HeaderWrapper = styled.header<IHeaderWrapperProps>`
-  position: ${({ $isSticky }) => (!$isSticky ? 'sticky' : 'none')};
+  position: ${({ $isSticky }) => (!$isSticky ? "sticky" : "none")};
   top: 0;
   width: 100%;
   padding: 0 26px;
@@ -36,8 +36,7 @@ export const HeaderContainer = styled.div<IHeaderWrapperProps>`
   align-items: center;
   width: 100%;
   transition: all 0.2s linear;
-  padding: ${({ $isScroll }) =>
-    $isScroll ? '20px' : '30px 20px'};
+  padding: ${({ $isScroll }) => ($isScroll ? "20px" : "30px 20px")};
 `;
 
 export const HeaderResponsive = styled.div`

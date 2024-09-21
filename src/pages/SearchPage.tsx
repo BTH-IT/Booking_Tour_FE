@@ -1,5 +1,5 @@
-import SearchContent from '@/components/SearchContent';
-import SearchTitle from '@/components/SearchTitle';
+import SearchContent from "@/components/SearchContent";
+import SearchTitle from "@/components/SearchTitle";
 
 const SearchPage = () => {
   return (

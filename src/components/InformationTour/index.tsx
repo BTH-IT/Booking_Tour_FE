@@ -1,13 +1,25 @@
-import { Dispatch, SetStateAction, useState } from 'react';
-import ButtonLink from '../ButtonLink'
-import * as Styles from "./styles"
-import moment from 'moment';
+import { Dispatch, SetStateAction, useState } from "react";
+import ButtonLink from "../ButtonLink";
+import * as Styles from "./styles";
+import moment from "moment";
 
-const InformationTour = ({current, maxStep, totalPay, setTotalPay} : {current: number, maxStep: number, totalPay: number, setTotalPay: Dispatch<SetStateAction<number>>}) => {
-  const [tourPayment, setTourPayment] = useState(JSON.parse(localStorage.getItem("tour_payment") || ""));
-  
+const InformationTour = ({
+  current,
+  maxStep,
+  totalPay,
+  setTotalPay,
+}: {
+  current: number;
+  maxStep: number;
+  totalPay: number;
+  setTotalPay: Dispatch<SetStateAction<number>>;
+}) => {
+  const [tourPayment, setTourPayment] = useState(
+    JSON.parse(localStorage.getItem("tour_payment") || ""),
+  );
+
   if (!tourPayment) {
-    return <></>
+    return <></>;
   }
 
   const dateStart = new Date(tourPayment.schedule.dateStart);
@@ -20,7 +32,9 @@ const InformationTour = ({current, maxStep, totalPay, setTotalPay} : {current: n
 
   return (
     <Styles.InformationTourWrapper>
-      <Styles.InformationTourTitle>Austria – 6 Days in Vienna, Hallstatt</Styles.InformationTourTitle>
+      <Styles.InformationTourTitle>
+        Austria – 6 Days in Vienna, Hallstatt
+      </Styles.InformationTourTitle>
       <Styles.InformationTourContent>
         <p>Travel Date: </p>
         <span>{moment(dateStart).format("ll")}</span>
@@ -32,8 +46,8 @@ const InformationTour = ({current, maxStep, totalPay, setTotalPay} : {current: n
             $borderBottom={false}
             color="#5c98f2"
             $hoverColor="#5c98f2"
-            >
-              edit
+          >
+            edit
           </ButtonLink>
         )}
       </Styles.InformationTourContent>
@@ -46,7 +60,6 @@ const InformationTour = ({current, maxStep, totalPay, setTotalPay} : {current: n
         <span>{period} Days</span>
       </Styles.InformationTourContent>
       <Styles.InformationCoupon>
-        
         {current > 1 && current < maxStep - 2 && (
           <>
             <Styles.InformationCouponContent>
@@ -54,29 +67,25 @@ const InformationTour = ({current, maxStep, totalPay, setTotalPay} : {current: n
                 <div>Sub Total Price:</div>
                 <p>1 x $2,200</p>
               </Styles.InformationCouponContentSubTitle>
-              <div>
-                ${totalPay}
-              </div>
+              <div>${totalPay}</div>
             </Styles.InformationCouponContent>
             <Styles.InformationCouponContent>
               <p>Coupon Code:</p>
               <div>
                 <span>Apply</span>
-                <input type='text'/>
+                <input type="text" />
               </div>
             </Styles.InformationCouponContent>
           </>
         )}
-        
+
         <Styles.InformationCouponContent>
           <p>Total Price:</p>
-          <div>
-            ${totalPay}
-          </div>
+          <div>${totalPay}</div>
         </Styles.InformationCouponContent>
       </Styles.InformationCoupon>
     </Styles.InformationTourWrapper>
-  )
-}
+  );
+};
 
-export default InformationTour
+export default InformationTour;

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const PopularToursContainer = styled.div`
   display: flex;
@@ -16,7 +16,7 @@ export const PopularToursContainer = styled.div`
 export const PopularToursTitle = styled.h3`
   color: black;
   font-size: 5rem;
-  font-family: 'DM Serif Display', sans-serif;
+  font-family: "DM Serif Display", sans-serif;
   font-weight: 400;
   text-align: center;
 

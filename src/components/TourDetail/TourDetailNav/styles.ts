@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const TourDetailNavWrapper = styled.div`
   border-bottom: 1px solid #8d8e95;
@@ -49,7 +49,7 @@ export const TourDetailNavLine = styled.div<{
   position: absolute;
   background-color: #5c98f2;
   bottom: 0;
-  left: ${(props) => `${props.coords.left}px` || '0px'};
-  width: ${(props) => `${props.coords.width}px` || '95px'};
+  left: ${(props) => `${props.coords.left}px` || "0px"};
+  width: ${(props) => `${props.coords.width}px` || "95px"};
   transition: all 0.3s ease;
 `;

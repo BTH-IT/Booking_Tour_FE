@@ -1,5 +1,5 @@
-import { Skeleton } from 'antd';
-import { styled } from 'styled-components';
+import { Skeleton } from "antd";
+import { styled } from "styled-components";
 
 interface IFreshlyAddedProps {
   $maxWidth?: string;
@@ -7,7 +7,7 @@ interface IFreshlyAddedProps {
 
 export const CardWrapper = styled.div<IFreshlyAddedProps>`
   width: 100%;
-  max-width: ${({ $maxWidth }) => $maxWidth || '275px'};
+  max-width: ${({ $maxWidth }) => $maxWidth || "275px"};
   height: 450px;
   display: inline-block;
   position: relative;

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ContactUsContainer = styled.div`
   gap: 50px;
@@ -10,7 +10,7 @@ export const ContactUsContainer = styled.div`
 `;
 
 export const ContactUsLeft = styled.div`
-  background-image: url('https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2022/06/beach-bg.jpg');
+  background-image: url("https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2022/06/beach-bg.jpg");
   background-size: cover;
   background-position: center;
   width: 100%;

@@ -1,5 +1,5 @@
-import { IDestination } from '../types/destination';
-import axiosClient from './AxiosClient';
+import { IDestination } from "../types/destination";
+import axiosClient from "./AxiosClient";
 
 const destinationService = {
   getADestination(destinationId: string): Promise<IDestination> {
@@ -7,13 +7,13 @@ const destinationService = {
     return axiosClient.get(url);
   },
   getAllDestination(): Promise<IDestination[]> {
-    return axiosClient.get('/destinations');
+    return axiosClient.get("/destinations");
   },
   createDestination(data: IDestination) {
-    return axiosClient.post('/destinations', data);
+    return axiosClient.post("/destinations", data);
   },
   updateDestination(data: IDestination) {
-    return axiosClient.patch('/destinations', data);
+    return axiosClient.patch("/destinations", data);
   },
   deleteDestination(destinationId: string, userId: string) {
     const url = `/destination/${userId}/${destinationId}`;

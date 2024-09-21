@@ -1,9 +1,9 @@
-import { Container } from '@/constants';
-import * as Styles from './styles';
-import { Col, Row } from 'antd';
-import CustomButton from '../CustomButton';
-import { useNavigate } from 'react-router';
-import ContactUsForm from './ContactUsForm';
+import { Container } from "@/constants";
+import * as Styles from "./styles";
+import { Col, Row } from "antd";
+import CustomButton from "../CustomButton";
+import { useNavigate } from "react-router";
+import ContactUsForm from "./ContactUsForm";
 
 const ContactUs = () => {
   const navigator = useNavigate();
@@ -22,7 +22,7 @@ const ContactUs = () => {
               <CustomButton
                 width="150px"
                 height="50px"
-                onClick={() => navigator('/')}
+                onClick={() => navigator("/")}
               >
                 See Tours
               </CustomButton>

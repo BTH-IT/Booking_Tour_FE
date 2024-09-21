@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const RightHeaderWrapper = styled.div`
   height: 55px;
@@ -67,7 +67,7 @@ export const UserInfoDropdown = styled.ul`
   transition: all 0.2s linear;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 100%;
     left: 0;

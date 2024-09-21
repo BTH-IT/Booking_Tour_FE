@@ -1,16 +1,16 @@
-import { ITour } from 'tour';
+import { ITour } from "tour";
 
-import * as Styles from './styles';
-import { Col, Row } from 'antd';
-import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai';
-import { LuCircleDot } from 'react-icons/lu';
-import Accordion from '@/components/Accordion';
-import { useState } from 'react';
-import useDidMount from '@/hooks/useDidMount';
-import destinationService from '@/services/DestinationService';
-import { IDestination } from 'destination';
-import { faqList } from '@/utils/constants';
-import { toast } from 'react-toastify';
+import * as Styles from "./styles";
+import { Col, Row } from "antd";
+import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
+import { LuCircleDot } from "react-icons/lu";
+import Accordion from "@/components/Accordion";
+import { useState } from "react";
+import useDidMount from "@/hooks/useDidMount";
+import destinationService from "@/services/DestinationService";
+import { IDestination } from "destination";
+import { faqList } from "@/utils/constants";
+import { toast } from "react-toastify";
 
 const TourDetailLeft = (props: ITour) => {
   const [destination, setDestination] = useState<IDestination | null>(null);
@@ -23,7 +23,7 @@ const TourDetailLeft = (props: ITour) => {
 
       setDestination(data);
     } catch (error) {
-      toast.error('Oops! Something is wrong');
+      toast.error("Oops! Something is wrong");
     }
   }
 

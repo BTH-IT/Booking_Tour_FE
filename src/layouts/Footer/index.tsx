@@ -1,10 +1,10 @@
-import React from 'react';
-import * as Styles from './styles';
-import NavHeader from '../Header/NavHeader';
-import { Col, Row } from 'antd';
-import Logo from '@/components/Logo';
-import Currency from '../Header/RightHeader/Currency';
-import Language from '../Header/RightHeader/Language';
+import React from "react";
+import * as Styles from "./styles";
+import NavHeader from "../Header/NavHeader";
+import { Col, Row } from "antd";
+import Logo from "@/components/Logo";
+import Currency from "../Header/RightHeader/Currency";
+import Language from "../Header/RightHeader/Language";
 
 import {
   FaCcAmex,
@@ -15,7 +15,7 @@ import {
   FaPinterestP,
   FaTiktok,
   FaTwitter,
-} from 'react-icons/fa6';
+} from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -25,7 +25,7 @@ const Footer = () => {
           <Row gutter={[20, 20]}>
             <Col xs={24} md={12} xl={6}>
               <Styles.FooterContainer>
-                <Logo src={'../footer-logo.png'} />
+                <Logo src={"../footer-logo.png"} />
                 <div>
                   <Currency color="white" />
                   <Language></Language>

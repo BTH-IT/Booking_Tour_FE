@@ -1,8 +1,8 @@
-import * as Styles from './style';
-import React, { forwardRef, useEffect, useRef, useState } from 'react';
-import { Rate } from 'antd';
-import CustomButton from '@/components/CustomButton';
-import { ITour } from 'tour';
+import * as Styles from "./style";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
+import { Rate } from "antd";
+import CustomButton from "@/components/CustomButton";
+import { ITour } from "tour";
 
 interface IFreshlyAddedProps extends ITour {
   maxWidth?: string;

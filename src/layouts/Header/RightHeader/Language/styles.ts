@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const LanguageWrapper = styled.div`
   padding: 8px 12px;

@@ -1,7 +1,7 @@
-import { SliderStyled } from './styles';
-import PrevArrow from './PrevArrow';
-import NextArrow from './NextArrow';
-import { useState } from 'react';
+import { SliderStyled } from "./styles";
+import PrevArrow from "./PrevArrow";
+import NextArrow from "./NextArrow";
+import { useState } from "react";
 
 const responsive = [
   {

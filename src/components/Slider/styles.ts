@@ -1,5 +1,5 @@
-import Slider from 'react-slick';
-import styled from 'styled-components';
+import Slider from "react-slick";
+import styled from "styled-components";
 
 export const SliderStyled = styled(Slider)`
   .slick-prev {
@@ -11,7 +11,7 @@ export const SliderStyled = styled(Slider)`
 
   .slick-next:before,
   .slick-prev:before {
-    content: '' !important;
+    content: "" !important;
   }
 
   .slick-list {

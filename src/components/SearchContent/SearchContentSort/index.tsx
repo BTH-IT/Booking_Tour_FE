@@ -1,8 +1,8 @@
-import React from 'react';
-import * as Styles from './styles';
-import { Select } from 'antd';
-import { AiOutlineUnorderedList } from 'react-icons/ai';
-import { BsFillGrid3X3GapFill } from 'react-icons/bs';
+import React from "react";
+import * as Styles from "./styles";
+import { Select } from "antd";
+import { AiOutlineUnorderedList } from "react-icons/ai";
+import { BsFillGrid3X3GapFill } from "react-icons/bs";
 
 const SearchContentSort = ({
   layout,
@@ -20,7 +20,7 @@ const SearchContentSort = ({
       <span>Sort by</span>
       <Select
         size="middle"
-        defaultValue={meta.type || 'releaseDate'}
+        defaultValue={meta.type || "releaseDate"}
         onChange={(value) => {
           handleSortBy({
             ...meta,
@@ -29,31 +29,31 @@ const SearchContentSort = ({
         }}
         options={[
           {
-            value: 'releaseDate',
-            label: 'Release Date',
+            value: "releaseDate",
+            label: "Release Date",
           },
           {
-            value: 'tourDate',
-            label: 'Tour Date',
+            value: "tourDate",
+            label: "Tour Date",
           },
           {
-            value: 'name',
-            label: 'Name',
+            value: "name",
+            label: "Name",
           },
           {
-            value: 'price',
-            label: 'Price',
+            value: "price",
+            label: "Price",
           },
           {
-            value: 'rating',
-            label: 'Rating',
+            value: "rating",
+            label: "Rating",
           },
         ]}
         bordered={false}
       />
       <Select
         size="middle"
-        defaultValue={meta.order || 'desc'}
+        defaultValue={meta.order || "desc"}
         onChange={(value) => {
           handleSortBy({
             ...meta,
@@ -62,19 +62,19 @@ const SearchContentSort = ({
         }}
         options={[
           {
-            value: 'desc',
-            label: 'Descending',
+            value: "desc",
+            label: "Descending",
           },
           {
-            value: 'asc',
-            label: 'Ascending',
+            value: "asc",
+            label: "Ascending",
           },
         ]}
         bordered={false}
       />
       <Styles.SearchContentSortLayout>
         <AiOutlineUnorderedList
-          className={`${layout ? 'active' : ''}`}
+          className={`${layout ? "active" : ""}`}
           onClick={() => {
             if (layout) return;
 
@@ -82,7 +82,7 @@ const SearchContentSort = ({
           }}
         />
         <BsFillGrid3X3GapFill
-          className={`${!layout ? 'active' : ''}`}
+          className={`${!layout ? "active" : ""}`}
           onClick={() => {
             if (!layout) return;
 

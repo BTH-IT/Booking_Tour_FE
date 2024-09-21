@@ -1,8 +1,8 @@
-import { IRoom } from 'room';
-import * as Styles from './styles';
-import { Col, Row } from 'antd';
-import { IoImagesOutline } from 'react-icons/io5';
-import { LuVideo } from 'react-icons/lu';
+import { IRoom } from "room";
+import * as Styles from "./styles";
+import { Col, Row } from "antd";
+import { IoImagesOutline } from "react-icons/io5";
+import { LuVideo } from "react-icons/lu";
 
 const RoomDetailGallery = (props: IRoom) => {
   return (

@@ -1,8 +1,8 @@
-import { ITour } from 'tour';
-import * as Styles from './styles';
-import { Col, Row } from 'antd';
-import { IoImagesOutline } from 'react-icons/io5';
-import { LuVideo } from 'react-icons/lu';
+import { ITour } from "tour";
+import * as Styles from "./styles";
+import { Col, Row } from "antd";
+import { IoImagesOutline } from "react-icons/io5";
+import { LuVideo } from "react-icons/lu";
 
 const TourDetailGallery = (props: ITour) => {
   return (

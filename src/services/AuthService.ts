@@ -1,11 +1,11 @@
-import { KEY_LOCALSTORAGE } from '@/utils/constants';
-import { RegisterFormType } from './../pages/RegisterPage';
-import { LoginFormType } from './../redux/features/auth/authSaga';
-import axiosClient from './AxiosClient';
+import { KEY_LOCALSTORAGE } from "@/utils/constants";
+import { RegisterFormType } from "./../pages/RegisterPage";
+import { LoginFormType } from "./../redux/features/auth/authSaga";
+import axiosClient from "./AxiosClient";
 
 const authService = {
   login(data: LoginFormType) {
-    const url = '/auth/login';
+    const url = "/auth/login";
     return axiosClient.post(url, data);
   },
   register(data: RegisterFormType) {

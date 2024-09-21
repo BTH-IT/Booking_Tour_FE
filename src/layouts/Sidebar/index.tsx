@@ -1,9 +1,9 @@
-import { useLocation } from 'react-router';
-import Currency from '../Header/RightHeader/Currency';
-import Language from '../Header/RightHeader/Language';
-import * as Styles from './styles';
+import { useLocation } from "react-router";
+import Currency from "../Header/RightHeader/Currency";
+import Language from "../Header/RightHeader/Language";
+import * as Styles from "./styles";
 
-import { AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineClose } from "react-icons/ai";
 
 const Sidebar = ({ onClose }: { onClose: () => void }) => {
   const location = useLocation();
@@ -16,7 +16,7 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
       <Styles.SidebarNav>
         <Styles.SidebarNavItem>
           <Styles.SidebarNavItemLink
-            $isActive={location.pathname.split('/')[1] === ''}
+            $isActive={location.pathname.split("/")[1] === ""}
             href="/"
           >
             Home
@@ -24,7 +24,7 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
         </Styles.SidebarNavItem>
         <Styles.SidebarNavItem>
           <Styles.SidebarNavItemLink
-            $isActive={location.pathname.split('/')[1] === 'search'}
+            $isActive={location.pathname.split("/")[1] === "search"}
             href="/search"
           >
             Tour Search

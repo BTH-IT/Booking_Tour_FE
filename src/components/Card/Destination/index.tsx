@@ -1,10 +1,10 @@
-import * as Styles from './style';
-import React, { useState } from 'react';
-import ButtonLink from '@/components/ButtonLink';
-import { IDestination } from 'destination';
-import useDidMount from '@/hooks/useDidMount';
-import tourService from '@/services/TourService';
-import { toast } from 'react-toastify';
+import * as Styles from "./style";
+import React, { useState } from "react";
+import ButtonLink from "@/components/ButtonLink";
+import { IDestination } from "destination";
+import useDidMount from "@/hooks/useDidMount";
+import tourService from "@/services/TourService";
+import { toast } from "react-toastify";
 
 const Destination: React.FC<IDestination> = ({ _id, name, desc, image }) => {
   const [tours, setTours] = useState<number>(0);
@@ -15,7 +15,7 @@ const Destination: React.FC<IDestination> = ({ _id, name, desc, image }) => {
 
       setTours(data.tours.length);
     } catch {
-      toast.error('Oops!! Something is wrong');
+      toast.error("Oops!! Something is wrong");
     }
   }
 
@@ -30,7 +30,7 @@ const Destination: React.FC<IDestination> = ({ _id, name, desc, image }) => {
         <Styles.Title>{name}</Styles.Title>
         <Styles.subTitle>{desc}</Styles.subTitle>
         <ButtonLink
-          href={'/search?destination=' + _id}
+          href={"/search?destination=" + _id}
           icon={false}
           $fontSize="1.4rem"
           color="#5c98f2"

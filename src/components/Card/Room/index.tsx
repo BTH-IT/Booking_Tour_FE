@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Rate } from 'antd';
-import * as RoomStyled from '../Room/style';
-import * as Styles from './style';
+import React, { useEffect, useRef, useState } from "react";
+import { Rate } from "antd";
+import * as RoomStyled from "../Room/style";
+import * as Styles from "./style";
 
-import { IRoom } from 'room';
+import { IRoom } from "room";
 
 interface IRoomProps extends IRoom {
   descriptionHeight?: string;

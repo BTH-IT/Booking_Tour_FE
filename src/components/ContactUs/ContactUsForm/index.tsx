@@ -1,7 +1,7 @@
-import CustomButton from '@/components/CustomButton';
-import { BsFillSendFill } from 'react-icons/bs';
+import CustomButton from "@/components/CustomButton";
+import { BsFillSendFill } from "react-icons/bs";
 
-import * as Styles from './styles';
+import * as Styles from "./styles";
 
 const ContactUsForm = () => {
   return (

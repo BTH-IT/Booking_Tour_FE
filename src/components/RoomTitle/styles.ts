@@ -1,8 +1,10 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
-export const BackgroundWrapper = styled.div<{$backgroundImg: string}>`
+export const BackgroundWrapper = styled.div<{ $backgroundImg: string }>`
   padding: 140px 20px;
-  ${({$backgroundImg}) => $backgroundImg && `
+  ${({ $backgroundImg }) =>
+    $backgroundImg &&
+    `
     background-image: url(${$backgroundImg});
     background-color: white;
     background-position: center;
@@ -17,7 +19,7 @@ export const RoomTitleWrapper = styled.div`
   font-weight: 500;
   color: black;
   letter-spacing: 2px;
-  font-family: 'DM Serif Display', sans-serif;
+  font-family: "DM Serif Display", sans-serif;
 `;
 
 export const RoomSecondTitleWrapper = styled.div`
@@ -26,5 +28,5 @@ export const RoomSecondTitleWrapper = styled.div`
   font-size: 1.6rem;
   color: #595959;
   letter-spacing: 2px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
 `;

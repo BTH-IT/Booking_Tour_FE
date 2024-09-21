@@ -1,5 +1,5 @@
-import * as Styles from './styles';
-import { SelectProps } from 'antd';
+import * as Styles from "./styles";
+import { SelectProps } from "antd";
 
 interface ISelectFormItemProps extends SelectProps {
   label: string;

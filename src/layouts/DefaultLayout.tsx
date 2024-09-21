@@ -1,21 +1,21 @@
-import { Outlet } from 'react-router';
-import styled from 'styled-components';
-import { useState } from 'react';
+import { Outlet } from "react-router";
+import styled from "styled-components";
+import { useState } from "react";
 
-import Header from './Header';
-import Footer from './Footer';
-import Sidebar from './Sidebar';
-import Overlay from './Overlay';
-import { Col, Modal, Row } from 'antd';
-import useLoginForm from '@/hooks/useLoginForm';
-import InputFormItem from '@/components/Input/InputFormItem';
-import CustomButton from '@/components/CustomButton';
-import ButtonLink from '@/components/ButtonLink';
-import { useAppDispatch } from '@/redux/hooks';
-import { authActions } from '@/redux/features/auth/authSlice';
-import { LoginFormType } from '@/redux/features/auth/authSaga';
-import { BE_URL } from '@/utils/constants';
-import { toast } from 'react-toastify';
+import Header from "./Header";
+import Footer from "./Footer";
+import Sidebar from "./Sidebar";
+import Overlay from "./Overlay";
+import { Col, Modal, Row } from "antd";
+import useLoginForm from "@/hooks/useLoginForm";
+import InputFormItem from "@/components/Input/InputFormItem";
+import CustomButton from "@/components/CustomButton";
+import ButtonLink from "@/components/ButtonLink";
+import { useAppDispatch } from "@/redux/hooks";
+import { authActions } from "@/redux/features/auth/authSlice";
+import { LoginFormType } from "@/redux/features/auth/authSaga";
+import { BE_URL } from "@/utils/constants";
+import { toast } from "react-toastify";
 
 interface IDefaultStyledProps {
   $isShow: boolean;
@@ -25,13 +25,13 @@ const DefaultStyled = styled.div<IDefaultStyledProps>`
   position: relative;
   transition: all 0.3s ease;
   transform: ${({ $isShow }) =>
-    $isShow ? 'translateX(-350px)' : 'translateX(0)'};
+    $isShow ? "translateX(-350px)" : "translateX(0)"};
   background-color: #f8f8f8;
   z-index: 2;
 
   @media screen and (max-width: 576px) {
     transform: ${({ $isShow }) =>
-      $isShow ? 'translateX(-200px)' : 'translateX(0)'};
+      $isShow ? "translateX(-200px)" : "translateX(0)"};
   }
 `;
 
@@ -102,7 +102,7 @@ const DefaultLayout = () => {
         actionSuccess: () => {
           setIsModalOpen(false);
           form.resetFields();
-          toast.success('Login Success!!');
+          toast.success("Login Success!!");
         },
       }),
     );
@@ -141,11 +141,11 @@ const DefaultLayout = () => {
                 rules={[
                   {
                     required: true,
-                    message: 'Please input your E-mail!',
+                    message: "Please input your E-mail!",
                   },
                   {
-                    type: 'email',
-                    message: 'The input is not valid E-mail!',
+                    type: "email",
+                    message: "The input is not valid E-mail!",
                   },
                 ]}
               />

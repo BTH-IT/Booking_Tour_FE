@@ -1,8 +1,8 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import { authActions } from './authSlice';
-import authService from '@/services/AuthService';
-import { CLEAR_LOCALSTORAGE, SET_LOCALSTORAGE } from '@/utils/constants';
-import { IUser } from 'user';
+import { call, put, takeLatest } from "redux-saga/effects";
+import { authActions } from "./authSlice";
+import authService from "@/services/AuthService";
+import { CLEAR_LOCALSTORAGE, SET_LOCALSTORAGE } from "@/utils/constants";
+import { IUser } from "user";
 
 export interface ResponseGenerator {
   config?: Record<string, any>;
