@@ -1,7 +1,9 @@
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import TabSection from '@/components/DashboardTabSection';
-import useActiveTab from '@/hooks/useActiveTab';
+import useActiveDashboardTab from '@/hooks/useActiveDashboardTab';
+import { authActions } from '@/redux/features/auth/authSlice';
+import { useAppDispatch } from '@/redux/hooks';
 import {
   myAccountTabs,
   roomBookingTabs,
@@ -10,7 +12,9 @@ import {
 import { LogOut } from 'lucide-react';
 
 export default function DashboardSidebar() {
-  const { activeTab, setActiveTab } = useActiveTab();
+  const dispatch = useAppDispatch();
+
+  const { activeTab, setActiveTab } = useActiveDashboardTab();
 
   return (
     <aside className="w-[300px] bg-white shadow-md">
@@ -40,6 +44,9 @@ export default function DashboardSidebar() {
               <Button
                 variant="ghost"
                 className="flex gap-3 text-2xl w-full my-1 py-8 justify-start bg-white text-gray-500 hover:text-blue-600 hover:bg-blue-50"
+                onClick={() => {
+                  dispatch(authActions.logout());
+                }}
               >
                 <LogOut className="mr-2 h-6 w-6" /> Sign Out
               </Button>

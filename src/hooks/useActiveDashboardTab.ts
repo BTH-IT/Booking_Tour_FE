@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCallback, useMemo } from 'react';
 
-const useActiveTab = () => {
+const useActiveDashboardTab = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -26,4 +26,4 @@ const useActiveTab = () => {
   return { activeTab, setActiveTab };
 };
 
-export default useActiveTab;
+export default useActiveDashboardTab;

@@ -1,16 +1,14 @@
-import { useLocation, useNavigate } from 'react-router';
-import { Button } from '@/components/ui/button';
-import useActiveTab from '@/hooks/useActiveTab';
-import DashboardProfile from '../DashboardProfile';
-import DashboardEdit from '../DashboardEdit';
-import DashboardChangePassword from '../DashboardChangePassword';
-import DashboardTourBooking from '../DashboardTourBooking';
-import DashboardTourInvoice from '../DashboardTourInvoice';
-import DashboardTourReview from '../DashboardTourReview';
-import DashboardWishList from '../DashboardWishList';
-import DashboardRoomBooking from '../DashboardRoomBooking';
-import DashboardRoomInvoice from '../DashboardRoomInvoice';
-import DashboardRoomReview from '../DashboardRoomReview';
+import useActiveDashboardTab from '@/hooks/useActiveDashboardTab';
+import DashboardProfile from './DashboardProfile';
+import DashboardEdit from './DashboardEdit';
+import DashboardChangePassword from './DashboardChangePassword';
+import DashboardTourBooking from './DashboardTourBooking';
+import DashboardTourInvoice from './DashboardTourInvoice';
+import DashboardTourReview from './DashboardTourReview';
+import DashboardWishList from './DashboardWishList';
+import DashboardRoomBooking from './DashboardRoomBooking';
+import DashboardRoomInvoice from './DashboardRoomInvoice';
+import DashboardRoomReview from './DashboardRoomReview';
 
 import {
   myAccountTabs,
@@ -25,37 +23,30 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { UserRound } from 'lucide-react';
+
+const tabComponents = {
+  dashboard: <DashboardProfile />,
+  'edit-profile': <DashboardEdit />,
+  'change-password': <DashboardChangePassword />,
+  'tour-my-bookings': <DashboardTourBooking />,
+  'tour-invoices': <DashboardTourInvoice />,
+  'tour-reviews': <DashboardTourReview />,
+  'wish-list': <DashboardWishList />,
+  'room-my-bookings': <DashboardRoomBooking />,
+  'room-invoices': <DashboardRoomInvoice />,
+  'room-reviews': <DashboardRoomReview />,
+};
 
 export default function DashboardMainContent() {
-  const { activeTab } = useActiveTab();
+  const { activeTab } = useActiveDashboardTab();
   const tabs = { ...myAccountTabs, ...roomBookingTabs, ...tourBookingTabs };
 
   const renderContent = () => {
-    switch (activeTab) {
-      case 'dashboard':
-        return <DashboardProfile />;
-      case 'edit-profile':
-        return <DashboardEdit />;
-      case 'change-password':
-        return <DashboardChangePassword />;
-      case 'tour-my-bookings':
-        return <DashboardTourBooking />;
-      case 'tour-invoices':
-        return <DashboardTourInvoice />;
-      case 'tour-reviews':
-        return <DashboardTourReview />;
-      case 'wish-list':
-        return <DashboardWishList />;
-      case 'room-my-bookings':
-        return <DashboardRoomBooking />;
-      case 'room-invoices':
-        return <DashboardRoomInvoice />;
-      case 'room-reviews':
-        return <DashboardRoomReview />;
-      default:
-        return <DashboardProfile />;
-    }
+    return (
+      tabComponents[activeTab as keyof typeof tabComponents] || (
+        <DashboardProfile />
+      )
+    );
   };
 
   return (

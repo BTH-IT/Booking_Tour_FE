@@ -1,3 +1,14 @@
+/*ADMIN*/
+export const adminTabs = {
+  user: 'Users',
+  tour: 'Tours',
+  room: 'Rooms',
+  hotel: 'Hotels',
+  destination: 'Destinations',
+  booking: 'Bookings',
+};
+
+/*DASHBOARD*/
 export const myAccountTabs = {
   dashboard: 'Dashboard',
   'edit-profile': 'Edit Profile',

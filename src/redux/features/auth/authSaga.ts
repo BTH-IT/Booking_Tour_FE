@@ -29,17 +29,21 @@ export function* handleLogin(
   const { actionSuccess, ...rest } = action.payload;
   try {
     const data: {
-      accessToken: string;
-      account: any;
-      refreshToken: string;
-      user: IUser;
+      message: string;
+      result: {
+        accessToken: string;
+        refreshToken: string;
+        user: IUser;
+        account: any;
+      };
+      statusCode: number;
     } = yield call(authService.login, rest);
 
-    SET_LOCALSTORAGE(data);
+    SET_LOCALSTORAGE(data.result);
 
     yield put(
       authActions.loginSuccess({
-        ...data,
+        ...data.result,
         isLoggedIn: true,
         actionSuccess,
       }),

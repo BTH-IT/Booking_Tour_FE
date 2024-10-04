@@ -1,23 +1,25 @@
-import { IUser } from '../types/user';
-import axiosClient from './AxiosClient';
+import { ApiResponse, IUser } from '@/types';
+
+import configService from './ConfigService';
+import { API_URL } from '@/constants/endpoints';
 
 const userService = {
-  getAUser(userId: string): Promise<IUser> {
-    const url = `/users/${userId}`;
-    return axiosClient.get(url);
+  getUser(userId: string): Promise<ApiResponse<IUser>> {
+    const url = `${API_URL.USERS}/${userId}`;
+    return configService.get(url);
   },
-  getAllUser(params?: any): Promise<IUser[]> {
-    return axiosClient.get('/users/', { params: params });
+  getAllUsers(): Promise<ApiResponse<IUser[]>> {
+    return configService.get(`${API_URL.USERS}`);
   },
-  createUser(data: IUser) {
-    return axiosClient.post('/users', data);
+  createUser(data: Partial<IUser>): Promise<ApiResponse<IUser>> {
+    return configService.post(`${API_URL.USERS}`, data);
   },
-  updateUser(data: IUser) {
-    return axiosClient.patch('/users', data);
+  updateUser(data: IUser): Promise<ApiResponse<IUser>> {
+    return configService.patch(`${API_URL.USERS}`, data);
   },
-  deleteUser(userId: string) {
-    const url = `/users/${userId}`;
-    return axiosClient.delete(url);
+  deleteUser(userId: string): Promise<ApiResponse<boolean>> {
+    const url = `${API_URL.USERS}/${userId}`;
+    return configService.delete(url);
   },
 };
 

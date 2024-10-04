@@ -15,7 +15,7 @@ import { useAppDispatch } from '@/redux/hooks';
 import { authActions } from '@/redux/features/auth/authSlice';
 import { LoginFormType } from '@/redux/features/auth/authSaga';
 import { BE_URL } from '@/utils/constants';
-import { toast } from 'react-toastify';
+import { Toaster } from '@/components/ui/toaster';
 
 interface IDefaultStyledProps {
   $isShow: boolean;
@@ -190,6 +190,7 @@ const DefaultLayout = () => {
           </FooterStyled>
         </Form>
       </ModalStyled>
+      <Toaster />
     </>
   );
 };

@@ -1,15 +1,28 @@
+import { IRoom } from 'room';
+
 export interface IHotel {
-  _id: string;
+  id: string;
   name: string;
-  description: string;
   location: string;
-  locationDetail: string;
-  rules: string[];
-  hotelAmenities: string[];
+  locationCode: number;
+  description: string;
+  contactInfo: string;
+  rate?: number;
+  reviews?: any;
+  hotelRules?: any;
+  rooms: IRoom[];
+  hotelAmenities?: any;
+  createAt: Date;
+  updateAt: Date;
+  deleteAt: Date;
 }
 
-export interface IAmenities {
-  _id: string;
-  name: string;
-  description?: string;
+export interface IHotelRule {
+  id: string;
+  title: string;
+}
+
+export interface IHotelAmenity {
+  id: string;
+  title: string;
 }

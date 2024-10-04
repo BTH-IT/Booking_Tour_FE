@@ -1,5 +1,5 @@
 import { ITour, ISchedule } from './../types/tour.d';
-import axiosClient from './AxiosClient';
+import axiosClient from './ConfigService';
 
 const tourService = {
   getATour(tourId: string): Promise<ITour> {
