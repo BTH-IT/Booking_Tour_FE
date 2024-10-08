@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Styles from './styles';
 
-const DashboardTitle = ({
+const AdminTitle = ({
   children = 'Dashboard',
   backgroundImg = '',
 }: {
@@ -15,4 +15,4 @@ const DashboardTitle = ({
   );
 };
 
-export default DashboardTitle;
+export default AdminTitle;

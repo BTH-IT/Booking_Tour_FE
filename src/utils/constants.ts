@@ -305,6 +305,19 @@ export function getDaysInMonth(month: number, year: number) {
   return days;
 }
 
+export function formatDate(date: Date) {
+  return new Date(date).toLocaleDateString('vi-VN', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+}
+
+export function formatPhoneNumber(phoneNumber: string): string {
+  // Use regex to format the phone number in the desired format
+  return phoneNumber.replace(/(\d{4})(\d{3})(\d{3})/, '$1.$2.$3');
+}
+
 export const faqList = [
   {
     title: 'Can I get the refund?',

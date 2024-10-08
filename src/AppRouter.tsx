@@ -10,6 +10,7 @@ import PaymentPage from './pages/PaymentPage';
 import RoomPage from './pages/RoomPage';
 import RoomDetailPage from './pages/RoomDetailPage';
 import DashboardPage from './pages/DashboardPage';
+import AdminPage from './pages/AdminPage';
 
 export default function AppRouter() {
   return (
@@ -22,6 +23,7 @@ export default function AppRouter() {
         <Route path={router.rooms} element={<RoomPage />} />
         <Route path={router.roomDetail} element={<RoomDetailPage />} />
         <Route path={router.dashboard} element={<DashboardPage />} />
+        <Route path={router.admin} element={<AdminPage />} />
       </Route>
       <Route element={<AuthenticationaLayout />}>
         <Route element={<DefaultLayout />}>

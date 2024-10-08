@@ -1,5 +1,5 @@
 import { IRoom, ISchedule } from './../types/room.d';
-import axiosClient from './AxiosClient';
+import axiosClient from './ConfigService';
 
 const roomService = {
   getARoom(roomId: string): Promise<IRoom> {

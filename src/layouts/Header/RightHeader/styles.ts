@@ -12,7 +12,6 @@ export const UserInfo = styled.div`
   gap: 20px;
   align-items: center;
   font-size: 1.4rem;
-
   svg {
     flex-shrink: 0;
   }
@@ -55,10 +54,11 @@ export const UserInfoDropdown = styled.ul`
   position: absolute;
   top: calc(100% + 10px);
   display: flex;
+  right: -20px;
   flex-direction: column;
   background-color: white;
   padding: 10px;
-  width: 100%;
+  width: 150px;
   visibility: hidden;
   opacity: 0;
   box-shadow:

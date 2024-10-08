@@ -1,12 +1,17 @@
-import { IDestination } from '../types/destination';
-import axiosClient from './AxiosClient';
+import axios from 'axios';
+import { IDestination, ILocation } from '../types/destination';
+import axiosClient from './ConfigService';
+import { ApiResponse } from 'index';
 
 const destinationService = {
-  getADestination(destinationId: string): Promise<IDestination> {
+  getADestination(destinationId: string): Promise<ApiResponse<IDestination>> {
     const url = `/destinations/${destinationId}`;
     return axiosClient.get(url);
   },
-  getAllDestination(): Promise<IDestination[]> {
+  getCities(): Promise<any> {
+    return axios.get('https://provinces.open-api.vn/api/');
+  },
+  getAllDestination(): Promise<ApiResponse<IDestination[]>> {
     return axiosClient.get('/destinations');
   },
   createDestination(data: IDestination) {

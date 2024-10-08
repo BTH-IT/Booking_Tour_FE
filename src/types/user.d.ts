@@ -1,10 +1,15 @@
+import { IAccount } from 'account';
+
 export interface IUser {
-  _id: string;
+  id: string;
   fullname: string;
   birthDate: Date;
   country: string;
   phone: string;
-  picture: string;
   gender: string;
-  wishlist: string[];
+  accountId: string;
+  account: IAccount;
+  createAt: Date;
+  updateAt: Date;
+  deleteAt: Date;
 }

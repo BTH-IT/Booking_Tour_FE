@@ -1,5 +1,5 @@
 // import { IBooking } from '../types/Booking';
-import axiosClient from './AxiosClient';
+import axiosClient from './ConfigService';
 
 const bookingService = {
   getABooking(bookingId: string): Promise<any> {

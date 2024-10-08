@@ -1,14 +1,16 @@
-import { authActions } from '@/redux/features/auth/authSlice';
 import authService from '@/services/AuthService';
-import { KEY_LOCALSTORAGE } from '@/utils/constants';
+import { BE_URL, KEY_LOCALSTORAGE } from '@/utils/constants';
 import axios from 'axios';
 
-const axiosClient = axios.create({
-  baseURL: 'http://localhost:5000',
+const configService = axios.create({
+  baseURL: BE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 // Add a request interceptor
-axiosClient.interceptors.request.use(
+configService.interceptors.request.use(
   function (config) {
     // Do something before request is sent
 
@@ -26,7 +28,7 @@ axiosClient.interceptors.request.use(
 );
 
 // Add a response interceptor
-axiosClient.interceptors.response.use(
+configService.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
@@ -39,10 +41,10 @@ axiosClient.interceptors.response.use(
       originalRequest._retry = true;
       const access_token = await authService.refresh();
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
-      return axiosClient(originalRequest);
+      return configService(originalRequest);
     }
     return Promise.reject(error);
   },
 );
 
-export default axiosClient;
+export default configService;

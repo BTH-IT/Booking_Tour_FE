@@ -19,6 +19,9 @@ export interface ITour {
   reviews: CreateNewReviewDto[];
   salePercent: number;
   destination: string;
+  createAt: Date;
+  updateAt: Date;
+  deleteAt: Date;
 }
 
 export interface ISchedule {

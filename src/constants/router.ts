@@ -1,5 +1,6 @@
 export const router = {
   dashboard: '/dashboard',
+  admin: '/admin',
   home: '/',
   search: '/search',
   tourDetail: 'tour/:tourId',
