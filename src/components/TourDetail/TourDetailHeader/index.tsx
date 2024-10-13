@@ -8,6 +8,7 @@ import { Rate } from 'antd';
 const formatter = new Intl.DateTimeFormat('en', { month: 'short' });
 
 const TourDetailHeader = (props: ITour) => {
+  console.log(props);
   return (
     <Styles.TourDetailHeaderWrapper>
       <Styles.TourDetailHeaderName>

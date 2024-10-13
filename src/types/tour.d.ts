@@ -5,10 +5,10 @@ export interface ITour {
   isWifi: string;
   dayList: Day[];
   detail: string;
-  priceExcludes: string[];
-  priceIncludes: string[];
+  priceExcludeList: string[];
+  priceIncludeList: string[];
   expect: string;
-  activities: string[];
+  activityList: string[];
   price: number;
   dateFrom: Date;
   dateTo: Date;

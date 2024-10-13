@@ -46,7 +46,7 @@ const TourDetailLeft = (props: ITour) => {
           </Col>
           <Col xs={12}>
             <Styles.TourDetailLeftPriceIncludes>
-              {props.priceIncludes.map((include, idx) => (
+              {props.priceIncludeList.map((include, idx) => (
                 <Styles.TourDetailLeftPriceIncludesItem key={include + idx}>
                   <AiOutlineCheck />
                   <p>{include}</p>
@@ -61,7 +61,7 @@ const TourDetailLeft = (props: ITour) => {
           </Col>
           <Col xs={12}>
             <Styles.TourDetailLeftPriceExcludes>
-              {props.priceExcludes.map((excludes, idx) => (
+              {props.priceExcludeList.map((excludes, idx) => (
                 <Styles.TourDetailLeftPriceIncludesItem key={excludes + idx}>
                   <AiOutlineClose />
                   <p>{excludes}</p>
@@ -76,7 +76,7 @@ const TourDetailLeft = (props: ITour) => {
           {props.expect}
         </Styles.TourDetailLeftParagraph>
         <Styles.TourDetailLeftActivities>
-          {props.activities.map((activity, idx) => (
+          {props.activityList.map((activity, idx) => (
             <Styles.TourDetailLeftPriceIncludesItem key={activity + idx}>
               <LuCircleDot />
               <p>{activity}</p>

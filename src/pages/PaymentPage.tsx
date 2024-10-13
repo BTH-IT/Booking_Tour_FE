@@ -91,10 +91,10 @@ const PaymentPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  if (!tourPayment || !user || !account) {
-    navigate('/');
-    return <></>;
-  }
+  console.log('first');
+  console.log(tourPayment);
+  console.log(user);
+  console.log(account);
 
   const [travellers, setTravellers] = useState<any[]>([]);
   const [current, setCurrent] = useState(1);

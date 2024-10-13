@@ -5,7 +5,7 @@ import axiosClient from './ConfigService';
 const PREFIX = '/tour';
 
 const tourService = {
-  getATour(tourId: string): Promise<ITour> {
+  getATour(tourId: string): Promise<ApiResponse<ITour>> {
     const url = `${PREFIX}/Tours/${tourId}`;
     return axiosClient.get(url);
   },

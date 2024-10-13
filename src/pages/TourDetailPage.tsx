@@ -46,25 +46,27 @@ const TourDetailPage = () => {
   const { tourId } = useParams();
   const navigate = useNavigate();
 
+  console.log(tourId);
+
   if (!tourId) {
     navigate('/');
     return <></>;
   }
 
   useDidMount(async () => {
-    const data = await tourService.getATour(tourId);
+    const res = await tourService.getATour(tourId);
 
-    if (!data) return;
+    if (!res) return;
 
     await fetchTourList();
-    setTour(data);
+    setTour(res.result);
   });
 
   async function fetchTourList() {
     try {
       const data = await tourService.getAllTour();
 
-      setTourList(data.tours);
+      setTourList(data.result);
     } catch (error) {
       toast.error('Sever is wrong');
     }
@@ -127,7 +129,7 @@ const TourDetailPage = () => {
               ))}
             </SliderBase>
           </TourDetailContent>
-          <TourReviews {...tour} />
+          {/* <TourReviews {...tour} /> */}
         </Container>
       </>
     )
