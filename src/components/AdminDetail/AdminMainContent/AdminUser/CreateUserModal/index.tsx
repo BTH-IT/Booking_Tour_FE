@@ -129,11 +129,11 @@ const CreateUserModal = ({
   };
 
   const onSubmit = async (values: FormValues) => {
-    const { roleId, ...rest } = values;
+    const { roleId, birthDate, ...rest } = values;
 
     const data = {
       ...rest,
-      birthDate: values.birthDate.toDate(),
+      birthDate: birthDate.toDate(),
     };
 
     handleCreateUser(data);

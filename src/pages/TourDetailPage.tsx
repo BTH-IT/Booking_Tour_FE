@@ -1,5 +1,4 @@
 import FreshlyAdded from '@/components/Card/FreshlyAdded';
-import { TourReviews } from '@/components/Reviews';
 import SearchTitle from '@/components/SearchTitle';
 import SliderBase from '@/components/Slider/SliderBase';
 import TourDetailGallery from '@/components/TourDetail/TourDetailGallery';
@@ -54,7 +53,7 @@ const TourDetailPage = () => {
   }
 
   useDidMount(async () => {
-    const res = await tourService.getATour(tourId);
+    const res = await tourService.getTour(tourId);
 
     if (!res) return;
 
@@ -64,7 +63,7 @@ const TourDetailPage = () => {
 
   async function fetchTourList() {
     try {
-      const data = await tourService.getAllTour();
+      const data = await tourService.getAllTours();
 
       setTourList(data.result);
     } catch (error) {
@@ -120,12 +119,8 @@ const TourDetailPage = () => {
                 },
               ]}
             >
-              {tourList.map((freshlyAdded) => (
-                <FreshlyAdded
-                  {...freshlyAdded}
-                  maxWidth='325px'
-                  key={freshlyAdded.imageList[0]}
-                />
+              {tourList.map((freshlyAdded, idx) => (
+                <FreshlyAdded {...freshlyAdded} maxWidth='325px' key={idx} />
               ))}
             </SliderBase>
           </TourDetailContent>

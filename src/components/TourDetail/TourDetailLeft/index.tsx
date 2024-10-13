@@ -66,8 +66,8 @@ const TourDetailLeft = (props: ITour) => {
         <Styles.TourDetailLeftTitle>Itinerary</Styles.TourDetailLeftTitle>
         {props.dayList.map((day, idx) => (
           <Accordion
-            title={`Day ${idx + 1} - ${day.title}`}
-            content={day.desc}
+            title={`Day ${idx + 1} - ${day}`}
+            content={day}
             key={day + idx}
           />
         ))}

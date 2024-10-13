@@ -3,7 +3,6 @@ import * as Styles from './styles';
 import { BsClockHistory, BsWifi } from 'react-icons/bs';
 import { MdPeopleOutline } from 'react-icons/md';
 import { IoCalendarNumberOutline } from 'react-icons/io5';
-import { Rate } from 'antd';
 
 const formatter = new Intl.DateTimeFormat('en', { month: 'short' });
 
@@ -16,7 +15,7 @@ const TourDetailHeader = (props: ITour) => {
           {props.name}
         </Styles.TourDetailHeaderTitle>
         <Styles.TourDetailHeaderRate>
-          <Rate defaultValue={props.rate} disabled allowHalf />
+          {/* <Rate defaultValue={props.rate} disabled allowHalf /> */}
           <Styles.TourDetailHeaderReviews>
             ({props.reviewList.length} Reviews)
           </Styles.TourDetailHeaderReviews>

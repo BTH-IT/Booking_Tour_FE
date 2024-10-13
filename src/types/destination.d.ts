@@ -3,6 +3,9 @@ export interface IDestination {
   name: string;
   description: string;
   url: string;
+  createdAt: Date;
+  updatedAt: Date | null;
+  deletedAt: Date | null;
 }
 
 export interface ILocation {

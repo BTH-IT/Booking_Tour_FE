@@ -1,9 +1,10 @@
+import { IReview } from 'review';
+
 export interface ITour {
   id: string;
   name: string;
   maxGuests: number;
-  isWifi: string;
-  dayList: Day[];
+  isWifi: boolean;
   detail: string;
   priceExcludeList: string[];
   priceIncludeList: string[];
@@ -12,16 +13,20 @@ export interface ITour {
   price: number;
   dateFrom: Date;
   dateTo: Date;
-  rate: number;
-  imageList: string[];
-  video?: string;
-  location: string;
-  reviewList: CreateNewReviewDto[];
+  video: IFile;
   salePercent: number;
-  destination: string;
+  priceExcludes: string[];
+  priceIncludes: string[];
+  activities: string[];
+  imageList: string[];
+  dayList: string[];
+  destinationId: string;
+  reviewList: IReview[];
+  location: string;
   createAt: Date;
-  updateAt: Date;
-  deleteAt: Date;
+  rate: number;
+  updateAt: Date | null;
+  deleteAt: Date | null;
 }
 
 export interface ISchedule {
@@ -30,4 +35,9 @@ export interface ISchedule {
   dateStart: Date;
   dateEnd: Date;
   availableSeats: number;
+}
+
+export interface ITourItem {
+  id: string;
+  title: string;
 }

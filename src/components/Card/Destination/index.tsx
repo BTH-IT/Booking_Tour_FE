@@ -11,7 +11,7 @@ const Destination: React.FC<IDestination> = ({ id, name, desc, image }) => {
 
   async function handleFetchTourLength() {
     try {
-      const data = await tourService.getAllTour({ destination: id });
+      const data = await tourService.getAllTours({ destination: id });
 
       setTours(data.result.length);
     } catch {

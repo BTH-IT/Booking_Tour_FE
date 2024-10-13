@@ -10,6 +10,6 @@ export interface IUser {
   accountId: string;
   account: IAccount;
   createAt: Date;
-  updateAt: Date;
-  deleteAt: Date;
+  updateAt: Date | null;
+  deleteAt: Date | null;
 }

@@ -289,7 +289,7 @@ const DetailHotelModal = ({
                               theme="snow"
                               value={field.value}
                               onChange={field.onChange}
-                              className="h-[200px] text-gray-900 text-xl !rounded-md [&>.ql-toolbar]:rounded-t-md [&>.ql-container]:rounded-b-md"
+                              className="h-[200px] text-gray-800 [&_.ql-editor>p]:text-xl !rounded-md [&>.ql-toolbar]:rounded-t-md [&>.ql-container]:rounded-b-md"
                               placeholder="Write something amazing..."
                             />
                           </FormControl>

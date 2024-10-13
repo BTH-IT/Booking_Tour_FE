@@ -14,14 +14,7 @@ import Review from './Review';
 import { useState } from 'react';
 import { IRoom } from 'room';
 import roomService from '@/services/RoomService';
-
-export interface IReview {
-  id: string;
-  userId: string;
-  rating: number;
-  content: string;
-  createdAt: Date;
-}
+import { IReview } from 'review';
 
 export const TourReviews = (props: ITour) => {
   const [reviewList, setReviews] = useState<IReview[]>(props.reviewList);
@@ -38,6 +31,8 @@ export const TourReviews = (props: ITour) => {
             id: uuidv4(),
             userId: user.id,
             createdAt: new Date(),
+            tourId: props.id,
+            updatedAt: null,
           },
           ...reviewList,
         ],
@@ -49,6 +44,8 @@ export const TourReviews = (props: ITour) => {
           id: uuidv4(),
           userId: user.id,
           createdAt: new Date(),
+          tourId: props.id,
+          updatedAt: null,
         },
         ...reviewList,
       ]);
@@ -59,7 +56,7 @@ export const TourReviews = (props: ITour) => {
     }
   };
   return (
-    <Styles.ReviewsWrapper id='reviewList'>
+    <Styles.ReviewsWrapper id="reviewList">
       <Styles.ReviewsHeader>
         <Styles.ReviewsCount>{reviewList.length} Reviews</Styles.ReviewsCount>
         <Styles.ReviewsHeaderSort>
@@ -82,24 +79,24 @@ export const TourReviews = (props: ITour) => {
         >
           <Row gutter={[20, 20]}>
             <Col xs={24} sm={12} md={8} xl={6}>
-              <Form.Item name='rating' rules={[{ required: true }]}>
+              <Form.Item name="rating" rules={[{ required: true }]}>
                 <Rate allowHalf />
               </Form.Item>
             </Col>
             <Col xs={24} sm={12} md={16} xl={18}>
               <InputFormItem
-                label=''
-                name='content'
-                placeholder='Enter your review...'
+                label=""
+                name="content"
+                placeholder="Enter your review..."
                 rules={[{ required: true }]}
               />
             </Col>
           </Row>
           <CustomButton
-            htmlType='submit'
-            type='primary'
-            width='100%'
-            height='60px'
+            htmlType="submit"
+            type="primary"
+            width="100%"
+            height="60px"
           >
             Submit
           </CustomButton>
@@ -116,22 +113,24 @@ export const TourReviews = (props: ITour) => {
 };
 
 export const RoomReviews = (props: IRoom) => {
-  const [reviewList, setReviews] = useState<IReview[]>(props.reviewList);
+  const [reviews, setReviews] = useState<IReview[]>(props.reviews);
   const isLogged = Boolean(localStorage.getItem(KEY_LOCALSTORAGE.CURRENT_USER));
   const user = useAppSelector(selectAuth).user;
 
   const onFinish = async (values: { rating: number; content: string }) => {
     try {
-      await roomService.updateRoom({
+      await roomService.updateRoom(props.id, {
         ...props,
-        reviewList: [
+        reviews: [
           {
             ...values,
             id: uuidv4(),
             userId: user.id,
             createdAt: new Date(),
+            roomId: props.id,
+            updatedAt: null,
           },
-          ...reviewList,
+          ...reviews,
         ],
       });
 
@@ -141,8 +140,10 @@ export const RoomReviews = (props: IRoom) => {
           id: uuidv4(),
           userId: user.id,
           createdAt: new Date(),
+          roomId: props.id,
+          updatedAt: null,
         },
-        ...reviewList,
+        ...reviews,
       ]);
 
       toast.success('Review Success!!');
@@ -151,9 +152,9 @@ export const RoomReviews = (props: IRoom) => {
     }
   };
   return (
-    <Styles.RoomReviewsWrapper id='reviewList'>
+    <Styles.RoomReviewsWrapper id="reviews">
       <Styles.ReviewsHeader>
-        <Styles.ReviewsCount>{reviewList.length} Reviews</Styles.ReviewsCount>
+        <Styles.ReviewsCount>{reviews.length} Reviews</Styles.ReviewsCount>
         <Styles.ReviewsHeaderSort>
           <span>Sort By:</span>
           <Styles.ReviewsHeaderSortRating>
@@ -174,24 +175,24 @@ export const RoomReviews = (props: IRoom) => {
         >
           <Row gutter={[20, 20]}>
             <Col xs={24} sm={12} md={8} xl={6}>
-              <Form.Item name='rating' rules={[{ required: true }]}>
+              <Form.Item name="rating" rules={[{ required: true }]}>
                 <Rate allowHalf />
               </Form.Item>
             </Col>
             <Col xs={24} sm={12} md={16} xl={18}>
               <InputFormItem
-                label=''
-                name='content'
-                placeholder='Enter your review...'
+                label=""
+                name="content"
+                placeholder="Enter your review..."
                 rules={[{ required: true }]}
               />
             </Col>
           </Row>
           <CustomButton
-            htmlType='submit'
-            type='primary'
-            width='100%'
-            height='60px'
+            htmlType="submit"
+            type="primary"
+            width="100%"
+            height="60px"
           >
             Submit
           </CustomButton>
@@ -199,7 +200,7 @@ export const RoomReviews = (props: IRoom) => {
       )}
 
       <Styles.ReviewsContent>
-        {reviewList.map((review) => (
+        {reviews.map((review) => (
           <Review {...review} key={review.id} />
         ))}
       </Styles.ReviewsContent>
