@@ -132,10 +132,10 @@ const RoomTableRow = ({
         title="Are you sure you want to delete this room?"
         acceptTitle="Delete"
         acceptClassName="text-xl hover:bg-red-50 hover:text-red-700 text-red-600 transition-all duration-400"
-        // ocClickAccept={async () => {
-        //   await handleRemoveRoom(room.id);
-        //   setIsDeleteModalOpen(false);
-        // }}
+        ocClickAccept={async () => {
+          await handleRemoveRoom(room.id);
+          setIsDeleteModalOpen(false);
+        }}
       />
     </>
   );

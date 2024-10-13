@@ -61,9 +61,11 @@ const DetailRoomModal = ({
   const { toast } = useToast();
 
   const [roomAmenities, setRoomAmenities] = useState<IRoomAmenity[]>([]);
-  const [video, setVideo] = useState<IFile>({
-    id: '',
-  });
+  const [video, setVideo] = useState<IFile[]>([
+    {
+      id: '',
+    },
+  ]);
   const [images, setImages] = useState<IFile[]>([]);
 
   const formSchema = z.object({
@@ -101,9 +103,9 @@ const DetailRoomModal = ({
     },
   });
 
-  console.log(room.video);
-
   useEffect(() => {
+    console.log(room);
+
     form.setValue('name', room.name);
     form.setValue('hotel', {
       label: room.hotel.name,
@@ -113,7 +115,9 @@ const DetailRoomModal = ({
     form.setValue('maxGuests', `${room.maxGuests}`);
     form.setValue('detail', room.detail);
     setRoomAmenities(room.roomAmenities);
-    setVideo({ id: room.video.id, url: room.video.url, type: room.video.type });
+    setVideo([
+      { id: room.video.id, url: room.video.url, type: room.video.type },
+    ]);
     setImages(room.images);
   }, [room, form, isDetailModalOpen]);
 
@@ -121,7 +125,7 @@ const DetailRoomModal = ({
     setIsDetailModalOpen(false);
     form.reset();
     setRoomAmenities([]);
-    setVideo({ id: '' });
+    setVideo([{ id: '' }]);
     setImages([]);
   };
 
@@ -150,13 +154,12 @@ const DetailRoomModal = ({
       const imageData = await Promise.all(imageUploader);
 
       const videoData = await Promise.all(videoUploader);
-      console.log('videoData', videoData);
 
       const roomData = {
         ...data,
         id: room.id,
         images: imageData,
-        video: videoData,
+        video: videoData[0],
         roomAmenities: roomAmenities,
       };
 

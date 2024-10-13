@@ -5,8 +5,7 @@ import { API_URL } from '@/constants/endpoints';
 
 const hotelService = {
   getHotel(hotelId: string): Promise<ApiResponse<IHotel>> {
-    const url = `${API_URL.HOTELS}/${hotelId}`;
-    return configService.get(url);
+    return configService.get(`${API_URL.HOTELS}/${hotelId}`);
   },
   getAllHotels(): Promise<ApiResponse<IHotel[]>> {
     return configService.get(`${API_URL.HOTELS}`);
@@ -18,8 +17,7 @@ const hotelService = {
     return configService.put(`${API_URL.HOTELS}`, data);
   },
   deleteHotel(hotelId: string): Promise<ApiResponse<boolean>> {
-    const url = `${API_URL.HOTELS}/${hotelId}`;
-    return configService.delete(url);
+    return configService.delete(`${API_URL.HOTELS}/${hotelId}`);
   },
 };
 

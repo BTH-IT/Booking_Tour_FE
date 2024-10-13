@@ -1,12 +1,8 @@
 export interface IDestination {
   id: string;
   name: string;
-  desc: string;
-  image: string;
-  map: string;
-  createAt: Date;
-  updateAt: Date;
-  deleteAt: Date;
+  description: string;
+  url: string;
 }
 
 export interface ILocation {

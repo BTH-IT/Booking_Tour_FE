@@ -69,7 +69,7 @@ const HotelTableRow = ({
         <TableCell className="w-[15%] text-xl text-gray-600">
           {formatPhoneNumber(hotel.contactInfo)}
         </TableCell>
-        <TableCell className="w-[15%] text-xl text-gray-600">
+        <TableCell className="w-[10%] text-xl text-gray-600">
           <Ratings rating={hotel.rate || 0} size={15} variant="yellow" />
         </TableCell>
         <TableCell className="w-[10%] text-center">

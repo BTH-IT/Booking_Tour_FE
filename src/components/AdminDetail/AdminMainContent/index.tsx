@@ -12,11 +12,13 @@ import {
 } from '@/components/ui/breadcrumb';
 import AdminHotel from './AdminHotel';
 import AdminRoom from './AdminRoom';
+import AdminDestination from './AdminDestination';
 
 const tabComponents = {
   user: <AdminUser />,
   hotel: <AdminHotel />,
   room: <AdminRoom />,
+  destination: <AdminDestination />,
 };
 
 export default function AdminMainContent() {

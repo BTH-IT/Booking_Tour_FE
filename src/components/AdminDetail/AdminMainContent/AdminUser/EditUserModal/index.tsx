@@ -41,7 +41,7 @@ interface EditUserModalProps {
   roles: IRole[];
   users: IUser[];
   setUsers: Dispatch<SetStateAction<IUser[]>>;
-  user: IUser | null;
+  user: IUser;
 }
 
 const EditUserModal = ({
@@ -86,8 +86,6 @@ const EditUserModal = ({
 
   useEffect(() => {
     if (user) {
-      console.log(user);
-
       form.setValue('roleId', user.account.role.id.toString());
       form.setValue('fullname', user.fullname);
       form.setValue('birthDate', dayjs(user.birthDate));
@@ -141,8 +139,6 @@ const EditUserModal = ({
 
     handleCreateUser(data);
   };
-
-  if (!user) return null;
 
   return (
     <Dialog open={isEditModalOpen} onOpenChange={closeModal}>
@@ -326,7 +322,7 @@ const EditUserModal = ({
                 type="submit"
                 className="text-xl py-8 px-6 mt-4"
               >
-                Create User
+                Edit User
               </Button>
             </div>
           </form>

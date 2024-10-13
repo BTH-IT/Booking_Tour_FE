@@ -11,7 +11,7 @@ export interface IRoom {
   imageList: string[];
   isAvailable: boolean;
   maxGuests: number;
-  reviewList: any;
+  reviews: any;
   roomAmenities: any;
   hotelId: string;
   hotel: IHotel;

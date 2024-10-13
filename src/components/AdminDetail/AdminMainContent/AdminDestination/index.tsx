@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import userService from '@/services/UserService';
-import { IRole, IUser } from '@/types';
+import destinationService from '@/services/DestinationService';
+import { IDestination } from '@/types';
 import {
   Table,
   TableBody,
@@ -20,8 +20,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { MoreHorizontal, Edit, Plus, Search, Trash } from 'lucide-react';
 import { formatDate, formatPhoneNumber } from '@/utils/constants';
-import CreateUserModal from './CreateUserModal';
-import EditUserModal from './EditUserModal';
+import CreateDestinationModal from './CreateDestinationModal';
+import EditDestinationModal from './EditDestinationModal';
 import Pagination from '@/components/Pagination';
 import { Separator } from '@/components/ui/separator';
 import roleService from '@/services/RoleService';
@@ -30,32 +30,26 @@ import { useToast } from '@/hooks/use-toast';
 
 const ITEMS_PER_PAGE = 6;
 
-const AdminUser = () => {
+const AdminDestination = () => {
   const { toast } = useToast();
 
-  const [users, setUsers] = useState<IUser[]>([]);
-  const [roles, setRoles] = useState<IRole[]>([]);
+  const [destinations, setDestinations] = useState<IDestination[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentUser, setCurrentUser] = useState<IUser | null>(null);
-  const totalPages = Math.ceil(users.length / ITEMS_PER_PAGE);
+  const [currentDestination, setCurrentDestination] =
+    useState<IDestination | null>(null);
+  const totalPages = Math.ceil(destinations.length / ITEMS_PER_PAGE);
 
   const fetchData = async () => {
     try {
-      const [userRes, roleRes] = await Promise.all([
-        userService.getAllUsers(),
-        roleService.getAllRoles(),
-      ]);
+      const res = await destinationService.getAllDestinations();
 
-      userRes?.result
-        ? setUsers(userRes.result)
-        : console.error('Failed to fetch users');
-      roleRes?.result
-        ? setRoles(roleRes.result)
-        : console.error('Failed to fetch roles');
+      res?.result
+        ? setDestinations(res.result)
+        : console.error('Failed to fetch destinations');
     } catch (error) {
       console.error('Failed to fetch data:', error);
     }
@@ -63,36 +57,38 @@ const AdminUser = () => {
 
   useEffect(() => {
     fetchData();
-    console.log(users);
+    console.log(destinations);
   }, []);
 
-  const filteredUsers = users.filter(
-    (user) =>
-      user.fullname.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.phone.includes(searchTerm),
+  const filteredDestinations = destinations.filter((destination) =>
+    destination.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
-  const paginatedUsers = filteredUsers.slice(
+  const paginatedDestinations = filteredDestinations.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE,
   );
 
-  const handleRemoveUser = async (userId: string) => {
+  const handleRemoveDestination = async (destinationId: string) => {
     try {
-      const res = await userService.deleteUser(userId);
+      const res = await destinationService.deleteDestination(destinationId);
       if (res) {
         toast({
           duration: 2000,
-          title: 'User deleted successfully!',
+          title: 'Destination deleted successfully!',
         });
-        setUsers(users.filter((user) => user.id !== userId));
+        setDestinations(
+          destinations.filter(
+            (destination) => destination.id !== destinationId,
+          ),
+        );
       }
     } catch (error) {
-      console.error('Failed to delete user:', error);
+      console.error('Failed to delete destination:', error);
       toast({
         variant: 'destructive',
         duration: 2000,
-        title: 'Failed to delete user!',
+        title: 'Failed to delete destination!',
       });
     }
   };
@@ -104,7 +100,7 @@ const AdminUser = () => {
           <div className="relative w-64">
             <Search className="absolute left-2 top-4 h-6 w-6 text-gray-500" />
             <Input
-              placeholder="Search users..."
+              placeholder="Search destinations..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-96 text-xl text-gray-800 pl-10 py-7 focus-visible:ring-0 focus-visible:ring-offset-0"
@@ -116,7 +112,7 @@ const AdminUser = () => {
             className="py-7 text-xl"
           >
             <Plus className="w-6 h-6 mr-2" />
-            Add User
+            Add Destination
           </Button>
         </div>
         <div className="min-h-[415px] bg-white mb-10 shadow-md rounded-lg overflow-hidden">
@@ -124,51 +120,27 @@ const AdminUser = () => {
             <TableHeader className="!border-solid !border-b-[0.5px] !border-gray-400">
               <TableRow>
                 <TableHead className="text-xl text-gray-900 py-5">
-                  Full Name
+                  Name
                 </TableHead>
                 <TableHead className="text-xl text-gray-900 py-5">
-                  Email
+                  Description
                 </TableHead>
                 <TableHead className="text-xl text-gray-900 py-5">
-                  Birth Date
-                </TableHead>
-                <TableHead className="text-xl text-gray-900 py-5">
-                  Countries
-                </TableHead>
-                <TableHead className="text-xl text-gray-900 py-5">
-                  Phone Number
-                </TableHead>
-                <TableHead className="text-xl text-gray-900 py-5">
-                  Gender
-                </TableHead>
-                <TableHead className="text-xl text-gray-900 py-5">
-                  Role
+                  URL
                 </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {paginatedUsers.map((user: IUser) => (
-                <TableRow key={user.id}>
-                  <TableCell className="w-[15%] text-xl text-gray-600">
-                    {user.fullname}
+              {paginatedDestinations.map((destination: IDestination) => (
+                <TableRow key={destination.id}>
+                  <TableCell className="w-[30%] text-xl text-gray-600">
+                    {destination.name}
                   </TableCell>
-                  <TableCell className="w-[15%] text-xl text-gray-600">
-                    {user.account.email}
+                  <TableCell className="w-[30%] text-xl text-gray-600">
+                    {destination.description}
                   </TableCell>
-                  <TableCell className="w-[12%] text-xl text-gray-600">
-                    {formatDate(user.birthDate)}
-                  </TableCell>
-                  <TableCell className="w-[15%] text-xl text-gray-600">
-                    {user.country}
-                  </TableCell>
-                  <TableCell className="w-[15%] text-xl text-gray-600">
-                    {formatPhoneNumber(user.phone)}
-                  </TableCell>
-                  <TableCell className="w-[12%] text-xl text-gray-600">
-                    {user.gender}
-                  </TableCell>
-                  <TableCell className="w-[10%] text-xl text-gray-600">
-                    {user.account.role.roleName}
+                  <TableCell className="w-[30%] text-xl text-gray-600">
+                    {destination.url}
                   </TableCell>
                   <TableCell className="w-[10%] text-center">
                     <DropdownMenu modal={false}>
@@ -187,7 +159,7 @@ const AdminUser = () => {
                         <Separator />
                         <DropdownMenuItem
                           onClick={() => {
-                            setCurrentUser(user);
+                            setCurrentDestination(destination);
                             setIsEditModalOpen(true);
                           }}
                           className="text-xl py-3 px-2 text-gray-800 cursor-pointer"
@@ -197,7 +169,7 @@ const AdminUser = () => {
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           onClick={() => {
-                            setCurrentUser(user);
+                            setCurrentDestination(destination);
                             setIsDeleteModalOpen(true);
                           }}
                           className="py-3 px-2 cursor-pointer"
@@ -219,21 +191,19 @@ const AdminUser = () => {
           totalPages={totalPages}
         />
       </div>
-      <CreateUserModal
+      <CreateDestinationModal
         isCreateModalOpen={isCreateModalOpen}
         setIsCreateModalOpen={setIsCreateModalOpen}
-        roles={roles}
-        users={users}
-        setUsers={setUsers}
+        destinations={destinations}
+        setDestinations={setDestinations}
       />
-      {currentUser && (
-        <EditUserModal
+      {currentDestination && (
+        <EditDestinationModal
           isEditModalOpen={isEditModalOpen}
           setIsEditModalOpen={setIsEditModalOpen}
-          roles={roles}
-          users={users}
-          setUsers={setUsers}
-          user={currentUser}
+          destinations={destinations}
+          setDestinations={setDestinations}
+          destination={currentDestination}
         />
       )}
       <CommonModal
@@ -241,11 +211,11 @@ const AdminUser = () => {
         setIsOpen={setIsDeleteModalOpen}
         width={400}
         height={500}
-        title="Are you sure you want to delete this user?"
+        title="Are you sure you want to delete this destination?"
         acceptTitle="Delete"
         acceptClassName="text-xl hover:bg-red-50 hover:text-red-700 text-red-600 transition-all duration-400"
         ocClickAccept={async () => {
-          await handleRemoveUser(currentUser?.id || '');
+          await handleRemoveDestination(currentDestination?.id || '');
           setIsDeleteModalOpen(false);
         }}
       />
@@ -253,4 +223,4 @@ const AdminUser = () => {
   );
 };
 
-export default AdminUser;
+export default AdminDestination;
