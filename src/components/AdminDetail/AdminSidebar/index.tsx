@@ -30,10 +30,10 @@ export default function AdminSidebar() {
 
   return (
     <aside className="w-[300px] bg-white shadow-md">
-      <div className="p-6">
-        <nav className="space-y-6">
-          <div>
-            <ul className="pt-4 pb-20">
+      <div className="p-6 h-full">
+        <nav className="space-y-6 h-full">
+          <div className="h-full">
+            <ul className="h-full py-2 flex flex-col justify-between">
               <div className="my-6">
                 {Object.keys(adminTabs).map((tab) => {
                   const Icon = iconMap[tab as keyof typeof iconMap];
@@ -55,17 +55,19 @@ export default function AdminSidebar() {
                   );
                 })}
               </div>
-              <Separator className="my-3" />
-              <Button
-                variant="ghost"
-                className="flex gap-3 text-2xl w-full my-1 py-8 justify-start bg-white text-gray-500 hover:text-blue-600 hover:bg-blue-50"
-                onClick={() => {
-                  dispatch(authActions.logout());
-                }}
-              >
-                <LogOut className="mr-2 h-6 w-6" /> Sign Out
-              </Button>
-              <Separator className="my-3" />
+              <div>
+                <Separator className="my-3" />
+                <Button
+                  variant="ghost"
+                  className="flex gap-3 text-2xl w-full my-1 py-8 justify-start bg-white text-gray-500 hover:text-blue-600 hover:bg-blue-50"
+                  onClick={() => {
+                    dispatch(authActions.logout());
+                  }}
+                >
+                  <LogOut className="mr-2 h-6 w-6" /> Sign Out
+                </Button>
+                <Separator className="my-3" />
+              </div>
             </ul>
           </div>
         </nav>

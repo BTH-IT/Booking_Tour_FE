@@ -165,7 +165,7 @@ const DetailHotelModal = ({
     };
   });
 
-  const onSubmit = (values: FormValues) => {
+  const onSubmit = async (values: FormValues) => {
     if (!values.locationDetail) {
       form.setError('locationDetail', { message: 'City is required' });
       return;
@@ -189,7 +189,7 @@ const DetailHotelModal = ({
           <DialogContent className="sm:max-w-[700px] max-h-[90%] overflow-y-scroll no-scrollbar !px-0">
             <DialogHeader>
               <DialogTitle className="text-blue-600 text-3xl text-center">
-                Edit Hotel
+                Hotel Detail
               </DialogTitle>
             </DialogHeader>
             <Form {...form}>

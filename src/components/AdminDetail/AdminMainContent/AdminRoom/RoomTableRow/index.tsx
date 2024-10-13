@@ -6,71 +6,78 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { formatPhoneNumber } from '@/utils/constants';
+import { average, formatPhoneNumber } from '@/utils/constants';
 import { ILocation } from 'destination';
-import { IHotel } from 'hotel';
+import { IRoom } from 'room';
 import { Ratings } from '@/components/ui/rating';
 import { Button } from '@/components/ui/button';
 import { ListCollapse, MoreHorizontal, Trash } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
-import DetailHotelModal from '../DetailHotelModal';
+import DetailRoomModal from '../DetailRoomModal';
 import CommonModal from '@/components/CommonModal';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import hotelService from '@/services/HotelService';
+import roomService from '@/services/RoomService';
+import { IHotel } from 'hotel';
 
-const HotelTableRow = ({
-  hotel,
-  locations,
+const RoomTableRow = ({
+  room,
   hotels,
-  setHotels,
+  rooms,
+  setRooms,
 }: {
-  hotel: IHotel;
-  locations: ILocation[];
+  room: IRoom;
   hotels: IHotel[];
-  setHotels: Dispatch<SetStateAction<IHotel[]>>;
+  rooms: IRoom[];
+  setRooms: Dispatch<SetStateAction<IRoom[]>>;
 }) => {
   const { toast } = useToast();
 
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const handleRemoveHotel = async (hotelId: string) => {
+  const handleRemoveRoom = async (roomId: string) => {
     try {
-      const res = await hotelService.deleteHotel(hotelId);
+      const res = await roomService.deleteRoom(roomId);
       if (res) {
         toast({
-          title: 'Hotel deleted successfully',
+          title: 'Room deleted successfully',
           duration: 2000,
         });
-        setHotels(hotels.filter((hotel) => hotel.id !== hotelId));
+        setRooms(rooms.filter((room) => room.id !== roomId));
       }
     } catch (error) {
-      console.error('Failed to delete hotel:', error);
+      console.error('Failed to delete room:', error);
       toast({
         variant: 'destructive',
         duration: 2000,
-        title: 'Failed to delete hotel!',
+        title: 'Failed to delete room!',
       });
     }
   };
 
+  const rating = average(room.reviews.map((r: any) => r.rating));
+
   return (
     <>
-      <TableRow key={hotel.id}>
-        <TableCell className="w-[30%] text-xl text-gray-600 text-ellipsis">
-          <span className="w-full text-xl line-clamp-1">{hotel.name}</span>
+      <TableRow key={room.id}>
+        <TableCell className="w-[24%] text-gray-600 text-ellipsis">
+          <span className="w-full text-xl line-clamp-1">{room.name}</span>
         </TableCell>
-        <TableCell className="w-[30%] text-xl text-gray-600 text-ellipsis">
-          <span className="w-full text-xl line-clamp-1">
-            {`${hotel.location}, ${locations.find((loc) => loc.code === hotel.locationCode)?.name}`}
-          </span>
+        <TableCell className="w-[24%] text-xl text-gray-600 text-ellipsis">
+          <span className="w-full text-xl line-clamp-1">{room.hotel.name}</span>
         </TableCell>
         <TableCell className="w-[15%] text-xl text-gray-600">
-          {formatPhoneNumber(hotel.contactInfo)}
+          {room.price + ' VND'}
         </TableCell>
-        <TableCell className="w-[10%] text-xl text-gray-600">
-          <Ratings rating={hotel.rate || 0} size={15} variant="yellow" />
+        <TableCell className="w-[13%] text-xl text-gray-600">
+          {room.isAvailable ? 'Available' : 'Not Available'}
+        </TableCell>
+        <TableCell className="w-[12%] text-xl text-gray-600">
+          {room.maxGuests + ' Guests'}
+        </TableCell>
+        <TableCell className="w-[12%] text-xl text-gray-600">
+          <Ratings rating={rating || 0} size={15} variant="yellow" />
         </TableCell>
         <TableCell className="w-[10%] text-center">
           <DropdownMenu modal={false}>
@@ -109,24 +116,24 @@ const HotelTableRow = ({
           </DropdownMenu>
         </TableCell>
       </TableRow>
-      <DetailHotelModal
+      <DetailRoomModal
         isDetailModalOpen={isDetailModalOpen}
         setIsDetailModalOpen={setIsDetailModalOpen}
+        rooms={rooms}
+        setRooms={setRooms}
+        room={room}
         hotels={hotels}
-        setHotels={setHotels}
-        locations={locations}
-        hotel={hotel}
       />
       <CommonModal
         isOpen={isDeleteModalOpen}
         setIsOpen={setIsDeleteModalOpen}
         width={400}
         height={500}
-        title="Are you sure you want to delete this hotel?"
+        title="Are you sure you want to delete this room?"
         acceptTitle="Delete"
         acceptClassName="text-xl hover:bg-red-50 hover:text-red-700 text-red-600 transition-all duration-400"
         ocClickAccept={async () => {
-          await handleRemoveHotel(hotel.id);
+          await handleRemoveRoom(room.id);
           setIsDeleteModalOpen(false);
         }}
       />
@@ -134,4 +141,4 @@ const HotelTableRow = ({
   );
 };
 
-export default HotelTableRow;
+export default RoomTableRow;
