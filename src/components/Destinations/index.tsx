@@ -17,9 +17,7 @@ export const Destinations = () => {
   async function handleFetchDestinations() {
     setIsLoading(true);
     try {
-      const res = await destinationService.getAllDestination();
-
-      console.log(res.result);
+      const res = await destinationService.getAllDestinations();
 
       setDestinations(res.result);
       setIsLoading(false);

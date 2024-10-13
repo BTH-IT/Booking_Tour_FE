@@ -5,32 +5,9 @@ import { Col, Row } from 'antd';
 import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai';
 import { LuCircleDot } from 'react-icons/lu';
 import Accordion from '@/components/Accordion';
-import { useState } from 'react';
-import useDidMount from '@/hooks/useDidMount';
-import destinationService from '@/services/DestinationService';
-import { IDestination } from 'destination';
 import { faqList } from '@/utils/constants';
-import { toast } from 'react-toastify';
 
 const TourDetailLeft = (props: ITour) => {
-  const [destination, setDestination] = useState<IDestination | null>(null);
-
-  async function getDestination() {
-    try {
-      const res = await destinationService.getADestination(props.destination);
-
-      if (!res) return;
-
-      setDestination(res.result);
-    } catch (error) {
-      toast.error('Oops! Something is wrong');
-    }
-  }
-
-  useDidMount(() => {
-    getDestination();
-  });
-
   return (
     <>
       <Styles.TourDetailLeftContent id='detail'>
@@ -94,16 +71,6 @@ const TourDetailLeft = (props: ITour) => {
             key={day + idx}
           />
         ))}
-      </Styles.TourDetailLeftContent>
-      <Styles.TourDetailLeftContent id='map'>
-        <Styles.TourDetailLeftMapTitle>Map</Styles.TourDetailLeftMapTitle>
-        {destination && (
-          <Styles.TourDetailLeftMap
-            dangerouslySetInnerHTML={{
-              __html: destination.map.replace('width="600"', "width='100%'"),
-            }}
-          />
-        )}
       </Styles.TourDetailLeftContent>
       <Styles.TourDetailLeftSeperate />
       <Styles.TourDetailLeftContent id='faq'>

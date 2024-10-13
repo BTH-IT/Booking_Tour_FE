@@ -1,6 +1,7 @@
 import { ApiResponse } from 'index';
 import { ITour, ISchedule } from './../types/tour.d';
 import configService from './ConfigService';
+import { API_URL } from '@/constants/endpoints';
 
 const PREFIX = '/tour';
 
@@ -10,13 +11,15 @@ const tourService = {
     return configService.get(url);
   },
   getSchedulesOfTour(tourId: string): Promise<ISchedule[]> {
-    const url = `${PREFIX}/Tours/${tourId}/schedules`;
+    const url = `${API_URL.SCHEDULES}/tour/${tourId}`;
     return configService.get(url);
   },
   getAllTour(params?: any): Promise<ApiResponse<ITour[]>> {
     return configService.get(`${PREFIX}/Tours`, { params: params });
   },
-  getTourSearch(params?: any): Promise<
+  getTourSearch(
+    params?: any
+  ): Promise<
     ApiResponse<{
       tours: ITour[];
       maxPrice: number;

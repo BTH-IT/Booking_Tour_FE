@@ -76,7 +76,7 @@ const RoomDetailLeft = (props: IRoom) => {
 
   // async function getDestination() {
   //   try {
-  //     const data = await destinationService.getADestination(props.destination);
+  //     const data = await destinationService.getDestination(props.destination);
 
   //     if (!data) return;
 
@@ -92,7 +92,7 @@ const RoomDetailLeft = (props: IRoom) => {
 
   return (
     <>
-      <Styles.RoomDetailLeftContent id="detail">
+      <Styles.RoomDetailLeftContent id='detail'>
         <Styles.RoomDetailLeftTitleWrapper>
           <Styles.RoomDetailLeftFirstTitle>
             From

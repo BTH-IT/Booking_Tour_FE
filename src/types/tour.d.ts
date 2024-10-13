@@ -25,9 +25,9 @@ export interface ITour {
 }
 
 export interface ISchedule {
+  id: string;
   tourId: string;
   dateStart: Date;
   dateEnd: Date;
   availableSeats: number;
-  isActive: boolean;
 }
