@@ -15,14 +15,14 @@ const RoomDetailRight = (props: IRoom) => {
   const [dates, setDates] = useState<Date[]>([]);
   const [schedules, setSchedules] = useState<ISchedule[]>([]);
   const [schedule, setSchedule] = useState<ISchedule | null>(null);
-  const { _id, price, salePercent, maxRooms } = props;
+  const { id, price, salePercent, maxRooms } = props;
   const [form] = Form.useForm();
   const [numOfRooms, setNumOfRooms] = useState(0);
   const [roomsAvailable, setRoomsAvailable] = useState(maxRooms);
   const navigate = useNavigate();
 
   useDidMount(async () => {
-    const data = await roomService.getSchedulesOfRoom(_id);
+    const data = await roomService.getSchedulesOfRoom(id);
     if (!data) return;
 
     setSchedules(data);
@@ -60,12 +60,12 @@ const RoomDetailRight = (props: IRoom) => {
           resolve();
         } else {
           reject(
-            `Only ${roomsAvailable} rooms left and number of rooms must be greater than 1`,
+            `Only ${roomsAvailable} rooms left and number of rooms must be greater than 1`
           );
         }
       });
     },
-    [roomsAvailable],
+    [roomsAvailable]
   );
 
   const onFinish = (values: any) => {
@@ -76,7 +76,7 @@ const RoomDetailRight = (props: IRoom) => {
           schedule,
           numOfRooms: values.numOfRooms,
           ...props,
-        }),
+        })
       );
 
       navigate('/payment');
@@ -91,7 +91,7 @@ const RoomDetailRight = (props: IRoom) => {
         </Styles.RoomDetailRightBookingTitle>
         <Styles.RoomDetailRightBookingForm
           form={form}
-          layout="vertical"
+          layout='vertical'
           initialValues={{ numOfRoom: 1 }}
           onFinish={onFinish}
         >
@@ -99,7 +99,7 @@ const RoomDetailRight = (props: IRoom) => {
             Check In - Check Out
           </Styles.RoomDetailRightBookingLabel>
           <Styles.RoomDetailRightBookingFormDate
-            name="date"
+            name='date'
             rules={[{ required: true }]}
           >
             <CalendarInput
@@ -112,16 +112,16 @@ const RoomDetailRight = (props: IRoom) => {
               }}
               disabledDates={dates}
               minDate={new Date()}
-              selectionMode="range"
+              selectionMode='range'
             />
           </Styles.RoomDetailRightBookingFormDate>
           <Styles.RoomDetailRightBookingLabel>
             Number of Rooms
           </Styles.RoomDetailRightBookingLabel>
           <Styles.InputItem
-            name="numOfRoom"
-            type="number"
-            min="1"
+            name='numOfRoom'
+            type='number'
+            min='1'
             max={roomsAvailable}
             rules={[
               {
@@ -143,11 +143,11 @@ const RoomDetailRight = (props: IRoom) => {
             }}
           />
           <Styles.BookingButton
-            htmlType="submit"
-            type="primary"
-            border_radius="4px"
-            width="100%"
-            height="60px"
+            htmlType='submit'
+            type='primary'
+            border_radius='4px'
+            width='100%'
+            height='60px'
           >
             PROCEED BOOKING
           </Styles.BookingButton>

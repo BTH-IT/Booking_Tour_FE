@@ -19,6 +19,16 @@ const roomService = {
   deleteRoom(roomId: string): Promise<ApiResponse<boolean>> {
     return configService.delete(`${API_URL.ROOMS}/${roomId}`);
   },
+  getAllRoom(params?: any): Promise<{
+    rooms: IRoom[];
+    maxPrice: number;
+    minPrice: number;
+  }> {
+    return configService.get('/rooms/', { params: params });
+  },
+  getAllReviews(): Promise<any> {
+    return configService.get('/rooms/reviewList');
+  },
 };
 
 export default roomService;

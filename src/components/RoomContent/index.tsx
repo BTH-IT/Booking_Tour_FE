@@ -17,7 +17,7 @@ const RoomContent = () => {
     try {
       const data = await roomService.getAllRoom();
       // const data: IRoom = {
-      //   _id: '1',
+      //   id: '1',
       //   area: 30,
       //   bed: '2 Kings Beds',
       //   detail:
@@ -38,17 +38,17 @@ const RoomContent = () => {
       //   maxGuests: 4,
       //   price: 100,
       //   rate: 4.5,
-      //   reviews: ['good'],
+      //   reviewList: ['good'],
       //   salePercent: 20,
       //   view: 'City View',
-      //   roomImages: [
+      //   roomimageList: [
       //     'https://www.lottehotel.com/content/dam/lotte-hotel/lotte/yangon/accommodation/hotel/suite/royalsuite/180712-49-2000-acc-yangon-hotel.jpg.thumb.768.768.jpg',
       //     'https://d2e5ushqwiltxm.cloudfront.net/wp-content/uploads/sites/70/2016/11/22095538/suite-novotel-bangkok-ploenchit-sukhumvit-1.jpeg',
       //     'https://d2e5ushqwiltxm.cloudfront.net/wp-content/uploads/sites/209/2023/01/07041216/5437-80-1024x683.jpg',
       //     'https://media.cntraveler.com/photos/5f89a04c832eef138f7b94e9/16:9/w_1280,c_limit/Dorado%20Beach,%20a%20Ritz-Carlton%20Reserve.jpg',
       //     'https://www.sybaris.com/wp-content/uploads/2020/05/IN_CH_100-1024x670-1.jpg',
       //   ],
-      //   otherImages: [
+      //   otherimageList: [
       //     'https://www.lottehotel.com/content/dam/lotte-hotel/lotte/yangon/accommodation/hotel/suite/royalsuite/180712-49-2000-acc-yangon-hotel.jpg.thumb.768.768.jpg',
       //     'https://d2e5ushqwiltxm.cloudfront.net/wp-content/uploads/sites/70/2016/11/22095538/suite-novotel-bangkok-ploenchit-sukhumvit-1.jpeg',
       //     'https://d2e5ushqwiltxm.cloudfront.net/wp-content/uploads/sites/209/2023/01/07041216/5437-80-1024x683.jpg',
@@ -75,7 +75,7 @@ const RoomContent = () => {
           <>
             <Row>
               {roomList.map((room, idx) => (
-                <Col xs={24} lg={12} xl={8} key={room._id + idx}>
+                <Col xs={24} lg={12} xl={8} key={room.id + idx}>
                   <Room {...room} />
                 </Col>
               ))}

@@ -8,9 +8,10 @@ export interface IRoom {
   video: IFile;
   detail: string;
   price: number;
+  imageList: string[];
   isAvailable: boolean;
   maxGuests: number;
-  reviews: any;
+  reviewList: any;
   roomAmenities: any;
   hotelId: string;
   hotel: IHotel;

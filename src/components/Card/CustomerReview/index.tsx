@@ -15,7 +15,7 @@ const CustomerReview: React.FC<ICustomerReviewProps> = ({
   content,
 }) => {
   return (
-    <Styles.CustomerReviewWrapper className="reviews">
+    <Styles.CustomerReviewWrapper className='reviewList'>
       <Styles.CustomerReviewLeft>
         <Styles.CustomerReviewAvatar>
           <Styles.CustomerReviewAvatarImg src={avatar} />

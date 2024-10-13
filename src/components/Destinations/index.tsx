@@ -17,9 +17,11 @@ export const Destinations = () => {
   async function handleFetchDestinations() {
     setIsLoading(true);
     try {
-      const data = await destinationService.getAllDestination();
+      const res = await destinationService.getAllDestination();
 
-      setDestinations(data);
+      console.log(res.result);
+
+      setDestinations(res.result);
       setIsLoading(false);
     } catch {
       toast.error('Oops!! Something is wrong');
@@ -42,13 +44,13 @@ export const Destinations = () => {
             around the world.
           </Styles.DestinationsTopDesc>
           <ButtonLink
-            href="/search"
+            href='/search'
             icon={true}
-            $fontSize="1.4rem"
+            $fontSize='1.4rem'
             $borderBottom={true}
-            $hoverColorBottom="#5c98f2"
-            color="black"
-            $hoverColor="black"
+            $hoverColorBottom='#5c98f2'
+            color='black'
+            $hoverColor='black'
           >
             All Destinations
           </ButtonLink>
@@ -56,7 +58,7 @@ export const Destinations = () => {
         <Styles.DestinationsBottom gutter={[30, 30]}>
           {!isLoading
             ? destinations.map((destination) => (
-                <Col xs={24} sm={12} xl={8} key={destination._id}>
+                <Col xs={24} sm={12} xl={8} key={destination.id}>
                   <Destination {...destination} />
                 </Col>
               ))

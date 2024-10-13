@@ -286,23 +286,23 @@ export const SET_LOCALSTORAGE = (data: any) => {
   localStorage.setItem(KEY_LOCALSTORAGE.ACCESS_TOKEN, data.accessToken);
   localStorage.setItem(
     KEY_LOCALSTORAGE.CURRENT_USER,
-    JSON.stringify(data.user),
+    JSON.stringify(data.user)
   );
   localStorage.setItem(
     KEY_LOCALSTORAGE.CURRENT_ACCOUNT,
-    JSON.stringify(data.account),
+    JSON.stringify(data.account)
   );
   localStorage.setItem(KEY_LOCALSTORAGE.REFRESH_TOKEN, data.refreshToken);
 };
 
 export function getDaysInMonth(month: number, year: number) {
   const date = new Date(year, month, 1);
-  const days = [];
+  const dayList = [];
   while (date.getMonth() === month) {
-    days.push(new Date(date));
+    dayList.push(new Date(date));
     date.setDate(date.getDate() + 1);
   }
-  return days;
+  return dayList;
 }
 
 export function formatDate(date: Date) {

@@ -8,7 +8,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import FreshlyAddedV2 from '../Card/FreshlyAddedV2';
 import tourService from '@/services/TourService';
 import { ITour } from 'tour';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import * as FreshlyAddedStyled from '../Card/FreshlyAdded/style';
 import * as FreshlyAddedStyledV2 from '../Card/FreshlyAddedV2/style';
 import { toast } from 'react-toastify';
@@ -23,9 +23,9 @@ const SearchContent = () => {
   const [page, setPage] = useState(1);
   const [meta, setMeta] = useState({
     ...Object.fromEntries(searchParams.entries()),
-    type: searchParams.get('type') || 'releaseDate',
-    order: searchParams.get('order') || 'desc',
-    priceFrom: searchParams.get('priceFrom') || 0,
+    SortBy: searchParams.get('SortBy') || 'releaseDate',
+    IsDescending: Boolean(searchParams.get('IsDescending')) || true,
+    MinPrice: searchParams.get('MinPrice') || 0,
   });
   const location = useLocation();
 
@@ -61,13 +61,14 @@ const SearchContent = () => {
 
   const getSearchItems = async () => {
     try {
-      const data = await tourService.getAllTour({
+      const data = await tourService.getTourSearch({
         ...meta,
-        _page: page,
+        pageNumber: page,
+        pageSize: 4,
       });
-      setHasMore(data.tours.length > 0);
-      setTourList((prev) => [...prev, ...data.tours]);
-      setPriceRange([data.minPrice, data.maxPrice]);
+      setHasMore(data.result.tours.length > 0);
+      setTourList((prev) => [...prev, ...data.result.tours]);
+      setPriceRange([data.result.minPrice, data.result.maxPrice]);
       handleChangeLocation();
       setIsLoading(false);
     } catch (error) {
@@ -86,14 +87,14 @@ const SearchContent = () => {
   function handleChangeLocation() {
     for (const key in meta) {
       let value = meta[key as keyof typeof meta] as any;
-      if (key === '_page') continue;
+      if (key === 'PageSize') continue;
 
-      if (!value && key !== 'priceFrom') {
+      if (!value && key !== 'MinPrice') {
         searchParams.delete(key);
         continue;
       }
 
-      if (key === 'destination') {
+      if (key === 'Destinations') {
         value = value.filter((item: any) => item !== null || item);
         if (value.length > 0) {
           searchParams.set(key, value);
@@ -101,7 +102,7 @@ const SearchContent = () => {
         continue;
       }
 
-      if (key === 'activities') {
+      if (key === 'Activities') {
         value = value.filter((item: any) => item !== null || item);
         if (value.length > 0) {
           searchParams.set(key, value);
@@ -143,7 +144,7 @@ const SearchContent = () => {
                   {!layout ? (
                     <Row gutter={[20, 20]}>
                       {tourList.map((freshlyAdded, idx) => (
-                        <Col xs={24} sm={12} key={freshlyAdded._id + idx}>
+                        <Col xs={24} sm={12} key={freshlyAdded.id + idx}>
                           <FreshlyAdded {...freshlyAdded} maxWidth={'100%'} />
                         </Col>
                       ))}
@@ -152,7 +153,7 @@ const SearchContent = () => {
                     tourList.map((freshlyAdded, idx) => (
                       <FreshlyAddedV2
                         {...freshlyAdded}
-                        key={freshlyAdded._id + idx}
+                        key={freshlyAdded.id + idx}
                         maxWidth={'100%'}
                       />
                     ))

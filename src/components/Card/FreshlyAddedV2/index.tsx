@@ -12,8 +12,16 @@ const FreshlyAddedV2 = forwardRef<
   HTMLDivElement,
   React.PropsWithChildren<IFreshlyAddedProps>
 >((props, ref) => {
-  const { maxWidth, _id, name, images, salePercent, price, rate, reviews } =
-    props;
+  const {
+    maxWidth,
+    id,
+    name,
+    imageList,
+    salePercent,
+    price,
+    rate,
+    reviewList,
+  } = props;
   const [isLazyLoad, setIsLazyLoad] = useState(false);
   const elementRef = useRef<HTMLDivElement | null>(null);
 
@@ -38,14 +46,14 @@ const FreshlyAddedV2 = forwardRef<
       <div ref={elementRef}>
         {isLazyLoad ? (
           <Styles.CardWrapper $maxWidth={maxWidth}>
-            <Styles.CardImg href={`/${_id}`}>
-              <img src={images[0]} alt={images[0]} />
+            <Styles.CardImg href={`/${id}`}>
+              <img src={imageList[0]} alt={imageList[0]} />
             </Styles.CardImg>
             {salePercent > 0 && (
               <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>
             )}
             <Styles.CardInfo>
-              <Styles.Title href={`/${_id}`}>{name}</Styles.Title>
+              <Styles.Title href={`/${id}`}>{name}</Styles.Title>
               <Styles.CardInfoContent>
                 <Styles.CardInfoContentTop>
                   {salePercent > 0 ? (
@@ -65,13 +73,13 @@ const FreshlyAddedV2 = forwardRef<
                 </Styles.CardInfoContentTop>
                 <Styles.CardInfoContentReviews>
                   <Rate allowHalf disabled defaultValue={rate} />
-                  <span>({reviews.length} Reviews)</span>
+                  <span>({reviewList.length} Reviews)</span>
                 </Styles.CardInfoContentReviews>
                 <CustomButton
-                  type="primary"
-                  width="100%"
-                  border_radius="0"
-                  height="50px"
+                  type='primary'
+                  width='100%'
+                  border_radius='0'
+                  height='50px'
                 >
                   View Detail
                 </CustomButton>

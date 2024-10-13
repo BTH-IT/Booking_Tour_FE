@@ -30,11 +30,11 @@ const tabComponents = {
   'change-password': <DashboardChangePassword />,
   'tour-my-bookings': <DashboardTourBooking />,
   'tour-invoices': <DashboardTourInvoice />,
-  'tour-reviews': <DashboardTourReview />,
+  'tour-reviewList': <DashboardTourReview />,
   'wish-list': <DashboardWishList />,
   'room-my-bookings': <DashboardRoomBooking />,
   'room-invoices': <DashboardRoomInvoice />,
-  'room-reviews': <DashboardRoomReview />,
+  'room-reviewList': <DashboardRoomReview />,
 };
 
 export default function DashboardMainContent() {
@@ -50,21 +50,21 @@ export default function DashboardMainContent() {
   };
 
   return (
-    <main className="flex-1 py-20">
+    <main className='flex-1 py-20'>
       {activeTab && activeTab !== 'dashboard' && (
-        <Breadcrumb className="mx-14 mb-6 font-semibold">
+        <Breadcrumb className='mx-14 mb-6 font-semibold'>
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink
-                className="text-2xl text-gray-400"
-                href="/dashboard"
+                className='text-2xl text-gray-400'
+                href='/dashboard'
               >
                 Dashboard
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-2xl text-blue-600">
+              <BreadcrumbPage className='text-2xl text-blue-600'>
                 {tabs[activeTab as keyof typeof tabs]}
               </BreadcrumbPage>
             </BreadcrumbItem>

@@ -27,7 +27,7 @@ export const RoomDetailGalleryImagePrimary = styled.div`
   }
 `;
 
-export const RoomDetailGalleryImageSecondary = styled.div`
+export const RoomDetailGalleryimageListecondary = styled.div`
   width: calc(50% - 10px);
   height: calc(50% - 5px);
   border-radius: 12px;

@@ -17,7 +17,7 @@ const TourDetailHeader = (props: ITour) => {
         <Styles.TourDetailHeaderRate>
           <Rate defaultValue={props.rate} disabled allowHalf />
           <Styles.TourDetailHeaderReviews>
-            ({props.reviews.length} Reviews)
+            ({props.reviewList.length} Reviews)
           </Styles.TourDetailHeaderReviews>
         </Styles.TourDetailHeaderRate>
       </Styles.TourDetailHeaderName>
@@ -25,7 +25,7 @@ const TourDetailHeader = (props: ITour) => {
         <Styles.TourDetailHeaderSubInfoItem>
           <BsClockHistory />
           <p>
-            {props.days.length} Days {props.days.length - 1} Nights
+            {props.dayList.length} Days {props.dayList.length - 1} Nights
           </p>
         </Styles.TourDetailHeaderSubInfoItem>
         <Styles.TourDetailHeaderSubInfoItem>

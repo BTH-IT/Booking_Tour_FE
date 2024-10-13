@@ -5,28 +5,28 @@ import { ITour } from 'tour';
 
 const PopularTour: React.FC<ITour> = ({
   name,
-  images,
+  imageList,
   salePercent,
   price,
-  reviews,
+  reviewList,
   rate,
-  days,
-  _id,
+  dayList,
+  id,
 }) => {
   return (
-    <Styles.CardWrapper href={'/' + _id}>
-      <Styles.Img src={images[0]} alt={name} />
+    <Styles.CardWrapper href={'/' + id}>
+      <Styles.Img src={imageList[0]} alt={name} />
       {salePercent > 0 && <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>}
       <Styles.CardInfo>
         <Styles.Title>{name}</Styles.Title>
-        <Styles.CardInfoContent className="card-info-content">
+        <Styles.CardInfoContent className='card-info-content'>
           <Styles.CardInfoContentLeft>
             <Styles.CardInfoContentDays>
-              {`${days.length} Days ${days.length - 1} Nights`}
+              {`${dayList.length} Days ${dayList.length - 1} Nights`}
             </Styles.CardInfoContentDays>
             <Styles.CardInfoContentReviews>
               <Rate allowHalf disabled defaultValue={rate} />
-              <span>({reviews.length} Reviews)</span>
+              <span>({reviewList.length} Reviews)</span>
             </Styles.CardInfoContentReviews>
           </Styles.CardInfoContentLeft>
           <Styles.CardInfoContentRight>

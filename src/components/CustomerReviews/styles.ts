@@ -13,7 +13,7 @@ export const CustomerReviewsWrapper = styled.section`
     display: none !important;
   }
 
-  & .center .slick-center .reviews {
+  & .center .slick-center .reviewList {
     transition: all 400ms ease-in-out;
     transform: scale(1.1);
     z-index: 3;
@@ -30,7 +30,7 @@ export const CustomerReviewsWrapper = styled.section`
     padding: 20px;
   }
 
-  & .center .reviews {
+  & .center .reviewList {
     opacity: 0.6;
   }
 

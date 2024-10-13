@@ -1,27 +1,29 @@
 import axios from 'axios';
-import { IDestination, ILocation } from '../types/destination';
+import { IDestination } from '../types/destination';
 import axiosClient from './ConfigService';
 import { ApiResponse } from 'index';
 
+const PREFIX = '/tour/Destinations';
+
 const destinationService = {
   getADestination(destinationId: string): Promise<ApiResponse<IDestination>> {
-    const url = `/destinations/${destinationId}`;
+    const url = `${PREFIX}/${destinationId}`;
     return axiosClient.get(url);
   },
   getCities(): Promise<any> {
     return axios.get('https://provinces.open-api.vn/api/');
   },
   getAllDestination(): Promise<ApiResponse<IDestination[]>> {
-    return axiosClient.get('/destinations');
+    return axiosClient.get(`${PREFIX}`);
   },
   createDestination(data: IDestination) {
-    return axiosClient.post('/destinations', data);
+    return axiosClient.post(`${PREFIX}/${data.id}`, data);
   },
   updateDestination(data: IDestination) {
-    return axiosClient.patch('/destinations', data);
+    return axiosClient.put(`${PREFIX}/${data.id}`, data);
   },
-  deleteDestination(destinationId: string, userId: string) {
-    const url = `/destination/${userId}/${destinationId}`;
+  deleteDestination(destinationId: string) {
+    const url = `${PREFIX}/${destinationId}`;
     return axiosClient.delete(url);
   },
 };
