@@ -14,7 +14,7 @@ const hotelService = {
   createHotel(data: Partial<IHotel>): Promise<ApiResponse<IHotel>> {
     return configService.post(`${API_URL.HOTELS}`, data);
   },
-  updateHotel(data: IHotel): Promise<ApiResponse<IHotel>> {
+  updateHotel(data: Partial<IHotel>): Promise<ApiResponse<IHotel>> {
     return configService.put(`${API_URL.HOTELS}`, data);
   },
   deleteHotel(hotelId: string): Promise<ApiResponse<boolean>> {

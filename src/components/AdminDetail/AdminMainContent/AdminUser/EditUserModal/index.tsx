@@ -131,7 +131,7 @@ const EditUserModal = ({
     }
   };
 
-  const onSubmit = (values: FormValues) => {
+  const onSubmit = async (values: FormValues) => {
     const { roleId, ...rest } = values;
 
     const data = {

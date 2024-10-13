@@ -11,18 +11,12 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import AdminHotel from './AdminHotel';
+import AdminRoom from './AdminRoom';
 
 const tabComponents = {
   user: <AdminUser />,
   hotel: <AdminHotel />,
-  // 'change-password': <DashboardChangePassword />,
-  // 'tour-my-bookings': <DashboardTourBooking />,
-  // 'tour-invoices': <DashboardTourInvoice />,
-  // 'tour-reviews': <DashboardTourReview />,
-  // 'wish-list': <DashboardWishList />,
-  // 'room-my-bookings': <DashboardRoomBooking />,
-  // 'room-invoices': <DashboardRoomInvoice />,
-  // 'room-reviews': <DashboardRoomReview />,
+  room: <AdminRoom />,
 };
 
 export default function AdminMainContent() {

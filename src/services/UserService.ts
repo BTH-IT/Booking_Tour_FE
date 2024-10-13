@@ -14,7 +14,7 @@ const userService = {
   createUser(data: Partial<IUser>): Promise<ApiResponse<IUser>> {
     return configService.post(`${API_URL.USERS}`, data);
   },
-  updateUser(data: IUser): Promise<ApiResponse<IUser>> {
+  updateUser(data: Partial<IUser>): Promise<ApiResponse<IUser>> {
     return configService.patch(`${API_URL.USERS}`, data);
   },
   deleteUser(userId: string): Promise<ApiResponse<boolean>> {

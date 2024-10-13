@@ -1,34 +1,23 @@
-import { IRoom, ISchedule } from './../types/room.d';
-import axiosClient from './ConfigService';
+import { ApiResponse, IRoom } from '@/types';
+
+import configService from './ConfigService';
+import { API_URL } from '@/constants/endpoints';
 
 const roomService = {
-  getARoom(roomId: string): Promise<IRoom> {
-    const url = `/rooms/${roomId}`;
-    return axiosClient.get(url);
+  getRoom(roomId: string): Promise<ApiResponse<IRoom>> {
+    return configService.get(`${API_URL.ROOMS}/${roomId}`);
   },
-  getSchedulesOfRoom(roomId: string): Promise<ISchedule[]> {
-    const url = `/rooms/${roomId}/schedules`;
-    return axiosClient.get(url);
+  getAllRooms(params?: any): Promise<ApiResponse<IRoom[]>> {
+    return configService.get(API_URL.ROOMS, { params });
   },
-  getAllRoom(params?: any): Promise<{
-    rooms: IRoom[];
-    maxPrice: number;
-    minPrice: number;
-  }> {
-    return axiosClient.get('/rooms/', { params: params });
+  createRoom(data: Partial<IRoom>): Promise<ApiResponse<IRoom>> {
+    return configService.post(API_URL.ROOMS, data);
   },
-  getAllReviews(): Promise<any> {
-    return axiosClient.get('/rooms/reviews');
+  updateRoom(data: Partial<IRoom>): Promise<ApiResponse<IRoom>> {
+    return configService.put(API_URL.ROOMS, data);
   },
-  createRoom(data: IRoom) {
-    return axiosClient.post('/rooms', data);
-  },
-  updateRoom(data: IRoom) {
-    return axiosClient.patch('/rooms/' + data._id, data);
-  },
-  deleteRoom(roomId: string) {
-    const url = `/rooms/${roomId}`;
-    return axiosClient.delete(url);
+  deleteRoom(roomId: string): Promise<ApiResponse<boolean>> {
+    return configService.delete(`${API_URL.ROOMS}/${roomId}`);
   },
 };
 
