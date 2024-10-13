@@ -8,7 +8,7 @@ export interface IHotel {
   description: string;
   contactInfo: string;
   rate?: number;
-  reviews?: any;
+  reviewList?: any;
   hotelRules?: any;
   rooms: IRoom[];
   hotelAmenities?: any;

@@ -117,8 +117,8 @@ const TourDetailNav = () => {
           onClick={handleClick}
           onMouseLeave={handleMouseLeave}
           ref={navItemRef}
-          className="active"
-          href="#detail"
+          className='active'
+          href='#detail'
         >
           Detail
         </Styles.TourDetailNavItem>
@@ -126,7 +126,7 @@ const TourDetailNav = () => {
           onMouseEnter={handleMouseEnter}
           onClick={handleClick}
           onMouseLeave={handleMouseLeave}
-          href="#itinerary"
+          href='#itinerary'
         >
           Itinerary
         </Styles.TourDetailNavItem>
@@ -134,7 +134,7 @@ const TourDetailNav = () => {
           onMouseEnter={handleMouseEnter}
           onClick={handleClick}
           onMouseLeave={handleMouseLeave}
-          href="#map"
+          href='#map'
         >
           Map
         </Styles.TourDetailNavItem>
@@ -142,7 +142,7 @@ const TourDetailNav = () => {
           onMouseEnter={handleMouseEnter}
           onClick={handleClick}
           onMouseLeave={handleMouseLeave}
-          href="#faq"
+          href='#faq'
         >
           FAQ
         </Styles.TourDetailNavItem>
@@ -150,7 +150,7 @@ const TourDetailNav = () => {
           onMouseEnter={handleMouseEnter}
           onClick={handleClick}
           onMouseLeave={handleMouseLeave}
-          href="#reviews"
+          href='#reviewList'
         >
           Reviews
         </Styles.TourDetailNavItem>

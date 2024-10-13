@@ -17,11 +17,11 @@ const TourDetailLeft = (props: ITour) => {
 
   async function getDestination() {
     try {
-      const data = await destinationService.getADestination(props.destination);
+      const res = await destinationService.getADestination(props.destination);
 
-      if (!data) return;
+      if (!res) return;
 
-      setDestination(data);
+      setDestination(res.result);
     } catch (error) {
       toast.error('Oops! Something is wrong');
     }
@@ -33,7 +33,7 @@ const TourDetailLeft = (props: ITour) => {
 
   return (
     <>
-      <Styles.TourDetailLeftContent id="detail">
+      <Styles.TourDetailLeftContent id='detail'>
         <Styles.TourDetailLeftTitle>Detail</Styles.TourDetailLeftTitle>
         <Styles.TourDetailLeftParagraph>
           {props.detail}
@@ -85,9 +85,9 @@ const TourDetailLeft = (props: ITour) => {
         </Styles.TourDetailLeftActivities>
         <Styles.TourDetailLeftSeperate />
       </Styles.TourDetailLeftContent>
-      <Styles.TourDetailLeftContent id="itinerary">
+      <Styles.TourDetailLeftContent id='itinerary'>
         <Styles.TourDetailLeftTitle>Itinerary</Styles.TourDetailLeftTitle>
-        {props.days.map((day, idx) => (
+        {props.dayList.map((day, idx) => (
           <Accordion
             title={`Day ${idx + 1} - ${day.title}`}
             content={day.desc}
@@ -95,7 +95,7 @@ const TourDetailLeft = (props: ITour) => {
           />
         ))}
       </Styles.TourDetailLeftContent>
-      <Styles.TourDetailLeftContent id="map">
+      <Styles.TourDetailLeftContent id='map'>
         <Styles.TourDetailLeftMapTitle>Map</Styles.TourDetailLeftMapTitle>
         {destination && (
           <Styles.TourDetailLeftMap
@@ -106,7 +106,7 @@ const TourDetailLeft = (props: ITour) => {
         )}
       </Styles.TourDetailLeftContent>
       <Styles.TourDetailLeftSeperate />
-      <Styles.TourDetailLeftContent id="faq">
+      <Styles.TourDetailLeftContent id='faq'>
         <Styles.TourDetailLeftTitle>FAQ</Styles.TourDetailLeftTitle>
         {faqList.map((item, idx) => (
           <Accordion title={item.title} content={item.content} key={idx} />

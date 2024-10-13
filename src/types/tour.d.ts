@@ -1,9 +1,9 @@
 export interface ITour {
-  _id: string;
+  id: string;
   name: string;
   maxGuests: number;
   isWifi: string;
-  days: Day[];
+  dayList: Day[];
   detail: string;
   priceExcludes: string[];
   priceIncludes: string[];
@@ -13,10 +13,10 @@ export interface ITour {
   dateFrom: Date;
   dateTo: Date;
   rate: number;
-  images: string[];
+  imageList: string[];
   video?: string;
   location: string;
-  reviews: CreateNewReviewDto[];
+  reviewList: CreateNewReviewDto[];
   salePercent: number;
   destination: string;
   createAt: Date;

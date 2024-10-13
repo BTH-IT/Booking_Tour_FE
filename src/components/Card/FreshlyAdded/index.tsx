@@ -8,7 +8,7 @@ interface IFreshlyAddedProps extends ITour {
 }
 
 const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({ maxWidth, ...props }) => {
-  const { _id, images, salePercent, name, rate, reviews, price } = props;
+  const { id, imageList, salePercent, name, rate, reviewList, price } = props;
   const [isLazyLoad, setIsLazyLoad] = useState(false);
   const elementRef = useRef<HTMLDivElement | null>(null);
 
@@ -32,18 +32,18 @@ const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({ maxWidth, ...props }) => {
     <div ref={elementRef}>
       {isLazyLoad ? (
         <Styles.CardWrapper $maxWidth={maxWidth}>
-          <Styles.Img href={`/${_id}`}>
-            <img src={images[0]} alt={images[0]} />
+          <Styles.Img href={`/${id}`}>
+            <img src={imageList[0]} alt={imageList[0]} />
           </Styles.Img>
           {salePercent > 0 && (
             <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>
           )}
           <Styles.CardInfo>
-            <Styles.Title href={`/${_id}`}>{name}</Styles.Title>
+            <Styles.Title href={`/${id}`}>{name}</Styles.Title>
             <Styles.CardInfoContent>
               <Styles.CardInfoContentReviews>
                 <Rate allowHalf disabled defaultValue={rate} />
-                <span>({reviews.length} Reviews)</span>
+                <span>({reviewList.length} Reviews)</span>
               </Styles.CardInfoContentReviews>
               <Styles.CardInfoContentBottom>
                 {salePercent > 0 ? (

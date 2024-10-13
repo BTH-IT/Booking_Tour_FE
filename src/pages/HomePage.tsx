@@ -14,7 +14,7 @@ const Homepage = () => {
       <PopularTours />
       <FreshlyAddeds />
       <ContactUs />
-      <CustomerReviews />
+      {/* <CustomerReviews /> */}
       <AboutUs />
     </>
   );

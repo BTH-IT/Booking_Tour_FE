@@ -85,7 +85,7 @@ export type CustomerReviews = IReview & {
 };
 
 const CustomerReviews = () => {
-  const [reviews, setReviews] = useState<CustomerReviews[]>([]);
+  const [reviewList, setReviews] = useState<CustomerReviews[]>([]);
 
   async function handleFetchReviews() {
     try {
@@ -107,7 +107,7 @@ const CustomerReviews = () => {
       </Styles.CustomerReviewsTitle>
 
       <Slider {...settings}>
-        {reviews.map((customerReview) => (
+        {reviewList.map((customerReview) => (
           <CustomerReview
             key={customerReview.id}
             fullname={customerReview.user.fullname}

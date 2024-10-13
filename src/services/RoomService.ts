@@ -10,7 +10,9 @@ const roomService = {
     const url = `/rooms/${roomId}/schedules`;
     return axiosClient.get(url);
   },
-  getAllRoom(params?: any): Promise<{
+  getAllRoom(
+    params?: any
+  ): Promise<{
     rooms: IRoom[];
     maxPrice: number;
     minPrice: number;
@@ -18,13 +20,13 @@ const roomService = {
     return axiosClient.get('/rooms/', { params: params });
   },
   getAllReviews(): Promise<any> {
-    return axiosClient.get('/rooms/reviews');
+    return axiosClient.get('/rooms/reviewList');
   },
   createRoom(data: IRoom) {
     return axiosClient.post('/rooms', data);
   },
   updateRoom(data: IRoom) {
-    return axiosClient.patch('/rooms/' + data._id, data);
+    return axiosClient.patch('/rooms/' + data.id, data);
   },
   deleteRoom(roomId: string) {
     const url = `/rooms/${roomId}`;

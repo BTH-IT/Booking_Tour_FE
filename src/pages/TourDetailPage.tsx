@@ -74,7 +74,7 @@ const TourDetailPage = () => {
     tour && (
       <>
         <SearchTitle>{''}</SearchTitle>
-        <Container className="container">
+        <Container className='container'>
           <TourDetailNav />
           <TourDetailHeader {...tour} />
           <TourDetailGallery {...tour} />
@@ -121,8 +121,8 @@ const TourDetailPage = () => {
               {tourList.map((freshlyAdded) => (
                 <FreshlyAdded
                   {...freshlyAdded}
-                  maxWidth="325px"
-                  key={freshlyAdded.images[0]}
+                  maxWidth='325px'
+                  key={freshlyAdded.imageList[0]}
                 />
               ))}
             </SliderBase>

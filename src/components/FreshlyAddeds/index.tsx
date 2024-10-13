@@ -17,7 +17,7 @@ const FreshlyAddeds = () => {
     try {
       const data = await tourService.getAllTour();
 
-      setTourList(data.tours);
+      setTourList(data.result);
     } catch (error) {
       toast.error('Oops! Something is wrong');
     }
@@ -64,18 +64,18 @@ const FreshlyAddeds = () => {
           {tourList.map((freshlyAdded) => (
             <FreshlyAdded
               {...freshlyAdded}
-              key={freshlyAdded._id}
+              key={freshlyAdded.id}
             ></FreshlyAdded>
           ))}
         </SliderBase>
         <ButtonLink
-          href="/search"
+          href='/search'
           icon={true}
-          $fontSize="1.4rem"
+          $fontSize='1.4rem'
           $borderBottom={true}
-          $hoverColorBottom="#5c98f2"
-          color="black"
-          $hoverColor="black"
+          $hoverColorBottom='#5c98f2'
+          color='black'
+          $hoverColor='black'
         >
           View All Tours
         </ButtonLink>

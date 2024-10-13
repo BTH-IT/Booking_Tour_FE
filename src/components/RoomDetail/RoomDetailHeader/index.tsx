@@ -14,7 +14,7 @@ const RoomDetailHeader = (props: IRoom) => {
         <Styles.RoomDetailHeaderRate>
           <Rate defaultValue={props.rate} disabled allowHalf />
           <Styles.RoomDetailHeaderReviews>
-            ({props.reviews.length} Reviews)
+            ({props.reviewList.length} Reviews)
           </Styles.RoomDetailHeaderReviews>
         </Styles.RoomDetailHeaderRate>
       </Styles.RoomDetailHeaderName>

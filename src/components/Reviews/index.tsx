@@ -24,7 +24,7 @@ export interface IReview {
 }
 
 export const TourReviews = (props: ITour) => {
-  const [reviews, setReviews] = useState<IReview[]>(props.reviews);
+  const [reviewList, setReviews] = useState<IReview[]>(props.reviewList);
   const isLogged = Boolean(localStorage.getItem(KEY_LOCALSTORAGE.CURRENT_USER));
   const user = useAppSelector(selectAuth).user;
 
@@ -32,14 +32,14 @@ export const TourReviews = (props: ITour) => {
     try {
       await tourService.updateTour({
         ...props,
-        reviews: [
+        reviewList: [
           {
             ...values,
             id: uuidv4(),
-            userId: user._id,
+            userId: user.id,
             createdAt: new Date(),
           },
-          ...reviews,
+          ...reviewList,
         ],
       });
 
@@ -47,21 +47,21 @@ export const TourReviews = (props: ITour) => {
         {
           ...values,
           id: uuidv4(),
-          userId: user._id,
+          userId: user.id,
           createdAt: new Date(),
         },
-        ...reviews,
+        ...reviewList,
       ]);
 
       toast.success('Review Success!!');
-    } catch (error: any) {
+    } catch (error) {
       toast.error('Review Failure!!');
     }
   };
   return (
-    <Styles.ReviewsWrapper id="reviews">
+    <Styles.ReviewsWrapper id='reviewList'>
       <Styles.ReviewsHeader>
-        <Styles.ReviewsCount>{reviews.length} Reviews</Styles.ReviewsCount>
+        <Styles.ReviewsCount>{reviewList.length} Reviews</Styles.ReviewsCount>
         <Styles.ReviewsHeaderSort>
           <span>Sort By:</span>
           <Styles.ReviewsHeaderSortRating>
@@ -82,24 +82,24 @@ export const TourReviews = (props: ITour) => {
         >
           <Row gutter={[20, 20]}>
             <Col xs={24} sm={12} md={8} xl={6}>
-              <Form.Item name="rating" rules={[{ required: true }]}>
+              <Form.Item name='rating' rules={[{ required: true }]}>
                 <Rate allowHalf />
               </Form.Item>
             </Col>
             <Col xs={24} sm={12} md={16} xl={18}>
               <InputFormItem
-                label=""
-                name="content"
-                placeholder="Enter your review..."
+                label=''
+                name='content'
+                placeholder='Enter your review...'
                 rules={[{ required: true }]}
               />
             </Col>
           </Row>
           <CustomButton
-            htmlType="submit"
-            type="primary"
-            width="100%"
-            height="60px"
+            htmlType='submit'
+            type='primary'
+            width='100%'
+            height='60px'
           >
             Submit
           </CustomButton>
@@ -107,7 +107,7 @@ export const TourReviews = (props: ITour) => {
       )}
 
       <Styles.ReviewsContent>
-        {reviews.map((review) => (
+        {reviewList.map((review) => (
           <Review {...review} key={review.id} />
         ))}
       </Styles.ReviewsContent>
@@ -116,7 +116,7 @@ export const TourReviews = (props: ITour) => {
 };
 
 export const RoomReviews = (props: IRoom) => {
-  const [reviews, setReviews] = useState<IReview[]>(props.reviews);
+  const [reviewList, setReviews] = useState<IReview[]>(props.reviewList);
   const isLogged = Boolean(localStorage.getItem(KEY_LOCALSTORAGE.CURRENT_USER));
   const user = useAppSelector(selectAuth).user;
 
@@ -124,14 +124,14 @@ export const RoomReviews = (props: IRoom) => {
     try {
       await roomService.updateRoom({
         ...props,
-        reviews: [
+        reviewList: [
           {
             ...values,
             id: uuidv4(),
-            userId: user._id,
+            userId: user.id,
             createdAt: new Date(),
           },
-          ...reviews,
+          ...reviewList,
         ],
       });
 
@@ -139,21 +139,21 @@ export const RoomReviews = (props: IRoom) => {
         {
           ...values,
           id: uuidv4(),
-          userId: user._id,
+          userId: user.id,
           createdAt: new Date(),
         },
-        ...reviews,
+        ...reviewList,
       ]);
 
       toast.success('Review Success!!');
-    } catch (error: any) {
+    } catch (error) {
       toast.error('Review Failure!!');
     }
   };
   return (
-    <Styles.RoomReviewsWrapper id="reviews">
+    <Styles.RoomReviewsWrapper id='reviewList'>
       <Styles.ReviewsHeader>
-        <Styles.ReviewsCount>{reviews.length} Reviews</Styles.ReviewsCount>
+        <Styles.ReviewsCount>{reviewList.length} Reviews</Styles.ReviewsCount>
         <Styles.ReviewsHeaderSort>
           <span>Sort By:</span>
           <Styles.ReviewsHeaderSortRating>
@@ -174,24 +174,24 @@ export const RoomReviews = (props: IRoom) => {
         >
           <Row gutter={[20, 20]}>
             <Col xs={24} sm={12} md={8} xl={6}>
-              <Form.Item name="rating" rules={[{ required: true }]}>
+              <Form.Item name='rating' rules={[{ required: true }]}>
                 <Rate allowHalf />
               </Form.Item>
             </Col>
             <Col xs={24} sm={12} md={16} xl={18}>
               <InputFormItem
-                label=""
-                name="content"
-                placeholder="Enter your review..."
+                label=''
+                name='content'
+                placeholder='Enter your review...'
                 rules={[{ required: true }]}
               />
             </Col>
           </Row>
           <CustomButton
-            htmlType="submit"
-            type="primary"
-            width="100%"
-            height="60px"
+            htmlType='submit'
+            type='primary'
+            width='100%'
+            height='60px'
           >
             Submit
           </CustomButton>
@@ -199,7 +199,7 @@ export const RoomReviews = (props: IRoom) => {
       )}
 
       <Styles.ReviewsContent>
-        {reviews.map((review) => (
+        {reviewList.map((review) => (
           <Review {...review} key={review.id} />
         ))}
       </Styles.ReviewsContent>

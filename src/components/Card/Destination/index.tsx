@@ -6,14 +6,14 @@ import useDidMount from '@/hooks/useDidMount';
 import tourService from '@/services/TourService';
 import { toast } from 'react-toastify';
 
-const Destination: React.FC<IDestination> = ({ _id, name, desc, image }) => {
+const Destination: React.FC<IDestination> = ({ id, name, desc, image }) => {
   const [tours, setTours] = useState<number>(0);
 
   async function handleFetchTourLength() {
     try {
-      const data = await tourService.getAllTour({ destination: _id });
+      const data = await tourService.getAllTour({ destination: id });
 
-      setTours(data.tours.length);
+      setTours(data.result.length);
     } catch {
       toast.error('Oops!! Something is wrong');
     }
@@ -24,17 +24,17 @@ const Destination: React.FC<IDestination> = ({ _id, name, desc, image }) => {
   });
   return (
     <Styles.CardWrapper>
-      <Styles.Img src={image} alt="" />
+      <Styles.Img src={image} alt={name} />
       <Styles.Tours>{tours} Tours</Styles.Tours>
       <Styles.CardInfo>
         <Styles.Title>{name}</Styles.Title>
         <Styles.subTitle>{desc}</Styles.subTitle>
         <ButtonLink
-          href={'/search?destination=' + _id}
+          href={'/search?destination=' + id}
           icon={false}
-          $fontSize="1.4rem"
-          color="#5c98f2"
-          $hoverColor="#7cb0fc"
+          $fontSize='1.4rem'
+          color='#5c98f2'
+          $hoverColor='#7cb0fc'
           $fontWeight={600}
           $borderBottom={false}
         >

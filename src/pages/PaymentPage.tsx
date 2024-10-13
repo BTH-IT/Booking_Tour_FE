@@ -84,7 +84,7 @@ const layout = {
 
 const PaymentPage = () => {
   const tourPayment = JSON.parse(
-    localStorage.getItem('tour_payment') || 'null',
+    localStorage.getItem('tour_payment') || 'null'
   );
   const user = useAppSelector(selectAuth).user;
   const account = useAppSelector(selectAuth).account;
@@ -101,7 +101,7 @@ const PaymentPage = () => {
   const [totalPay, setTotalPay] = useState(
     (tourPayment.price - tourPayment.price * (tourPayment.salePercent / 100)) *
       Number(tourPayment.seats) +
-      20 * Number(tourPayment.seats),
+      20 * Number(tourPayment.seats)
   );
   const [form] = Form.useForm();
 
@@ -115,7 +115,7 @@ const PaymentPage = () => {
 
   return (
     <>
-      <SearchTitle backgroundImg="/page-title-bg.png">Payment</SearchTitle>
+      <SearchTitle backgroundImg='/page-title-bg.png'>Payment</SearchTitle>
       <Container>
         <PaymentWrapper>
           <div>
@@ -168,8 +168,8 @@ const PaymentPage = () => {
                       You can check the payment status from your dashboard.
                     </p>
                     <CustomButton
-                      type="primary"
-                      height="50px"
+                      type='primary'
+                      height='50px'
                       onClick={() => {
                         navigate('/');
                       }}
@@ -190,14 +190,14 @@ const PaymentPage = () => {
               <PaymentButtonWrapper>
                 {current < steps.length - 1 && (
                   <CustomButton
-                    type="primary"
-                    htmlType="submit"
+                    type='primary'
+                    htmlType='submit'
                     onClick={async () => {
                       if (current === steps.length - 2) {
                         try {
                           await bookingService.createBooking({
-                            userId: user._id,
-                            scheduleId: tourPayment.schedule._id,
+                            userId: user.id,
+                            scheduleId: tourPayment.schedule.id,
                             seats: Number(tourPayment.seats),
                             isTip: form.getFieldValue('tip'),
                             isEntranceTicket: form.getFieldValue('entrance'),

@@ -12,13 +12,13 @@ interface IRoomProps extends IRoom {
 const Room: React.FC<IRoomProps> = ({ descriptionHeight, ...props }) => {
   const {
     name,
-    roomImages,
+    roomimageList,
     price,
-    reviews,
+    reviewList,
     rate,
     description,
     salePercent,
-    _id,
+    id,
   } = props;
   const [isLazyLoad, setIsLazyLoad] = useState(false);
 
@@ -43,9 +43,9 @@ const Room: React.FC<IRoomProps> = ({ descriptionHeight, ...props }) => {
   return (
     <div ref={elementRef}>
       {isLazyLoad ? (
-        <Styles.CardWrapper href={`/room/${_id}`}>
+        <Styles.CardWrapper href={`/room/${id}`}>
           <Styles.ImgWrapper>
-            <Styles.Img src={roomImages[0]} alt={name} />
+            <Styles.Img src={roomimageList[0]} alt={name} />
             {salePercent > 0 && (
               <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>
             )}
@@ -64,7 +64,7 @@ const Room: React.FC<IRoomProps> = ({ descriptionHeight, ...props }) => {
             </Styles.CardInfoDescription>
             <Styles.CardInfoReviews>
               <Rate allowHalf disabled defaultValue={rate} />
-              <span>({reviews.length} Reviews)</span>
+              <span>({reviewList.length} Reviews)</span>
             </Styles.CardInfoReviews>
             <Styles.CardInfoBookNow>
               <span>

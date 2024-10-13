@@ -28,7 +28,7 @@ export const TourDetailGalleryImagePrimary = styled.div`
   }
 `;
 
-export const TourDetailGalleryImageSecondary = styled.div`
+export const TourDetailGalleryimageListecondary = styled.div`
   width: calc(50% - 10px);
   height: calc(50% - 5px);
   border-radius: 12px;

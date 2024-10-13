@@ -18,11 +18,11 @@ const tabComponents = {
   // 'change-password': <DashboardChangePassword />,
   // 'tour-my-bookings': <DashboardTourBooking />,
   // 'tour-invoices': <DashboardTourInvoice />,
-  // 'tour-reviews': <DashboardTourReview />,
+  // 'tour-reviewList': <DashboardTourReview />,
   // 'wish-list': <DashboardWishList />,
   // 'room-my-bookings': <DashboardRoomBooking />,
   // 'room-invoices': <DashboardRoomInvoice />,
-  // 'room-reviews': <DashboardRoomReview />,
+  // 'room-reviewList': <DashboardRoomReview />,
 };
 
 export default function AdminMainContent() {
@@ -35,17 +35,17 @@ export default function AdminMainContent() {
   };
 
   return (
-    <main className="flex-1 py-20">
-      <Breadcrumb className="mx-14 mb-6 font-semibold">
+    <main className='flex-1 py-20'>
+      <Breadcrumb className='mx-14 mb-6 font-semibold'>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink className="text-2xl text-gray-400" href="/admin">
+            <BreadcrumbLink className='text-2xl text-gray-400' href='/admin'>
               Admin
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage className="text-2xl text-blue-600">
+            <BreadcrumbPage className='text-2xl text-blue-600'>
               {adminTabs[activeTab as keyof typeof adminTabs] ?? 'Users'}
             </BreadcrumbPage>
           </BreadcrumbItem>

@@ -18,12 +18,12 @@ export const myAccountTabs = {
 export const tourBookingTabs = {
   'tour-my-bookings': 'My Bookings',
   'tour-invoices': 'Invoices',
-  'tour-reviews': 'Reviews',
+  'tour-reviewList': 'Reviews',
   'wish-list': 'Wish List',
 };
 
 export const roomBookingTabs = {
   'room-my-bookings': 'My Bookings',
   'room-invoices': 'Invoices',
-  'room-reviews': 'Reviews',
+  'room-reviewList': 'Reviews',
 };

@@ -21,7 +21,7 @@ const PopularTours = () => {
     try {
       const data = await tourService.getAllTour();
 
-      setTours(data.tours);
+      setTours(data.result);
       setIsLoading(false);
     } catch {
       toast.error('Oops!! Something is wrong');
@@ -41,7 +41,7 @@ const PopularTours = () => {
         <SliderBase>
           {!isLoading ? (
             tours.map((popularTour) => (
-              <PopularTour {...popularTour} key={popularTour._id}></PopularTour>
+              <PopularTour {...popularTour} key={popularTour.id}></PopularTour>
             ))
           ) : (
             <Row gutter={[30, 30]}>
@@ -54,13 +54,13 @@ const PopularTours = () => {
           )}
         </SliderBase>
         <ButtonLink
-          href="/search"
+          href='/search'
           icon={true}
-          $fontSize="1.4rem"
+          $fontSize='1.4rem'
           $borderBottom={true}
-          $hoverColorBottom="#5c98f2"
-          color="black"
-          $hoverColor="black"
+          $hoverColorBottom='#5c98f2'
+          color='black'
+          $hoverColor='black'
         >
           See More
         </ButtonLink>
