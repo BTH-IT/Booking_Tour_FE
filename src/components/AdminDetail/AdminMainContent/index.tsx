@@ -11,18 +11,14 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import AdminHotel from './AdminHotel';
+import AdminRoom from './AdminRoom';
+import AdminDestination from './AdminDestination';
 
 const tabComponents = {
   user: <AdminUser />,
   hotel: <AdminHotel />,
-  // 'change-password': <DashboardChangePassword />,
-  // 'tour-my-bookings': <DashboardTourBooking />,
-  // 'tour-invoices': <DashboardTourInvoice />,
-  // 'tour-reviewList': <DashboardTourReview />,
-  // 'wish-list': <DashboardWishList />,
-  // 'room-my-bookings': <DashboardRoomBooking />,
-  // 'room-invoices': <DashboardRoomInvoice />,
-  // 'room-reviewList': <DashboardRoomReview />,
+  room: <AdminRoom />,
+  destination: <AdminDestination />,
 };
 
 export default function AdminMainContent() {
@@ -35,17 +31,17 @@ export default function AdminMainContent() {
   };
 
   return (
-    <main className='flex-1 py-20'>
-      <Breadcrumb className='mx-14 mb-6 font-semibold'>
+    <main className="flex-1 py-20">
+      <Breadcrumb className="mx-14 mb-6 font-semibold">
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink className='text-2xl text-gray-400' href='/admin'>
+            <BreadcrumbLink className="text-2xl text-gray-400" href="/admin">
               Admin
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage className='text-2xl text-blue-600'>
+            <BreadcrumbPage className="text-2xl text-blue-600">
               {adminTabs[activeTab as keyof typeof adminTabs] ?? 'Users'}
             </BreadcrumbPage>
           </BreadcrumbItem>

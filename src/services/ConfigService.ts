@@ -1,13 +1,16 @@
 import authService from '@/services/AuthService';
 import { BE_URL, KEY_LOCALSTORAGE } from '@/utils/constants';
 import axios from 'axios';
+import { setupCache } from 'axios-cache-interceptor';
 
-const configService = axios.create({
+const instance = axios.create({
   baseURL: BE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
+
+const configService = setupCache(instance);
 
 // Add a request interceptor
 configService.interceptors.request.use(

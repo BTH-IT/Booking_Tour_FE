@@ -1,30 +1,31 @@
 import axios from 'axios';
 import { IDestination } from '../types/destination';
-import axiosClient from './ConfigService';
+import configService from './ConfigService';
 import { ApiResponse } from 'index';
-
-const PREFIX = '/tour/Destinations';
+import { API_URL } from '@/constants/endpoints';
 
 const destinationService = {
-  getADestination(destinationId: string): Promise<ApiResponse<IDestination>> {
-    const url = `${PREFIX}/${destinationId}`;
-    return axiosClient.get(url);
+  getDestination(destinationId: string): Promise<ApiResponse<IDestination>> {
+    return configService.get(`${API_URL.DESTINATIONS}/${destinationId}`);
   },
   getCities(): Promise<any> {
     return axios.get('https://provinces.open-api.vn/api/');
   },
-  getAllDestination(): Promise<ApiResponse<IDestination[]>> {
-    return axiosClient.get(`${PREFIX}`);
+  getAllDestinations(): Promise<ApiResponse<IDestination[]>> {
+    return configService.get(`${API_URL.DESTINATIONS}`);
   },
-  createDestination(data: IDestination) {
-    return axiosClient.post(`${PREFIX}/${data.id}`, data);
+  createDestination(
+    data: Partial<IDestination>,
+  ): Promise<ApiResponse<IDestination>> {
+    return configService.post(`${API_URL.DESTINATIONS}`, data);
   },
-  updateDestination(data: IDestination) {
-    return axiosClient.put(`${PREFIX}/${data.id}`, data);
+  updateDestination(
+    data: Partial<IDestination>,
+  ): Promise<ApiResponse<IDestination>> {
+    return configService.put(`${API_URL.DESTINATIONS}`, data);
   },
-  deleteDestination(destinationId: string) {
-    const url = `${PREFIX}/${destinationId}`;
-    return axiosClient.delete(url);
+  deleteDestination(destinationId: string): Promise<ApiResponse<boolean>> {
+    return configService.delete(`${API_URL.DESTINATIONS}/${destinationId}`);
   },
 };
 

@@ -57,6 +57,9 @@ const CreateHotelModal = ({
 }: CreateHotelModalProps) => {
   const { toast } = useToast();
 
+  const [hotelRules, setHotelRules] = useState<IHotelRule[]>([]);
+  const [hotelAmenities, setHotelAmenities] = useState<IHotelAmenity[]>([]);
+
   const formSchema = z.object({
     name: z
       .string()
@@ -99,9 +102,6 @@ const CreateHotelModal = ({
       contactInfo: '',
     },
   });
-
-  const [hotelRules, setHotelRules] = useState<IHotelRule[]>([]);
-  const [hotelAmenities, setHotelAmenities] = useState<IHotelAmenity[]>([]);
 
   const closeModal = () => {
     setIsCreateModalOpen(false);
@@ -147,7 +147,7 @@ const CreateHotelModal = ({
     });
   }, [locations]);
 
-  const onSubmit = (values: FormValues) => {
+  const onSubmit = async (values: FormValues) => {
     if (!values.locationDetail) {
       form.setError('locationDetail', { message: 'City is required' });
       return;

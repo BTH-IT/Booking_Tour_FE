@@ -318,6 +318,10 @@ export function formatPhoneNumber(phoneNumber: string): string {
   return phoneNumber.replace(/(\d{4})(\d{3})(\d{3})/, '$1.$2.$3');
 }
 
+export function average(nums: number[]): number {
+  return nums.reduce((a, b) => a + b, 0) / nums.length;
+}
+
 export const faqList = [
   {
     title: 'Can I get the refund?',
