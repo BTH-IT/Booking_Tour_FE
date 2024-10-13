@@ -13,12 +13,14 @@ import {
 import AdminHotel from './AdminHotel';
 import AdminRoom from './AdminRoom';
 import AdminDestination from './AdminDestination';
+import AdminTour from './AdminTour';
 
 const tabComponents = {
   user: <AdminUser />,
   hotel: <AdminHotel />,
   room: <AdminRoom />,
   destination: <AdminDestination />,
+  tour: <AdminTour />,
 };
 
 export default function AdminMainContent() {

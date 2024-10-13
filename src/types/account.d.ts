@@ -6,7 +6,7 @@ export interface IAccount {
   password: string;
   roleId: string;
   role: IRole;
-  createAt: Date;
-  updateAt: Date;
-  deleteAt: Date;
+  createdAt: Date;
+  updatedAt: Date | null;
+  deletedAt: Date | null;
 }

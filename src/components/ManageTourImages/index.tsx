@@ -6,7 +6,7 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { ReactSortable } from 'react-sortablejs';
 import { IFile } from 'file';
 
-const ManageRoomVideo = ({
+const ManageTourImages = ({
   files,
   setFiles,
   title,
@@ -15,13 +15,15 @@ const ManageRoomVideo = ({
   setFiles: Dispatch<SetStateAction<IFile[]>>;
   title: string;
 }) => {
+  const [editId, setEditId] = useState('');
+
   const addFile = (newFiles: FileList | null) => {
-    if (!newFiles || files.length >= 1) {
+    if (!newFiles || files.length >= 5) {
       return;
     }
 
     Array.from(newFiles).forEach((f: File, idx) => {
-      if (idx > 0) {
+      if (idx > 4) {
         return;
       }
       setFiles((prevFiles) => {
@@ -37,7 +39,15 @@ const ManageRoomVideo = ({
     }
 
     Array.from(newFiles).forEach((f: File) => {
-      setFiles([{ id: uuidv4(), data: f }]);
+      setFiles((prevFiles) => {
+        const updatedFiles = prevFiles.map((file) => {
+          if (file.id === editId) {
+            return { id: file.id, data: f };
+          }
+          return file;
+        });
+        return updatedFiles;
+      });
     });
   };
 
@@ -47,76 +57,88 @@ const ManageRoomVideo = ({
 
   return (
     <div className="w-[1000px]">
-      <div className="flex items-center mb-6">
-        <div className="flex gap-11 items-center">
+      <div className="flex justify-between items-center mb-4">
+        <div className="flex gap-8 items-center">
           <h1 className="w-full text-xl font-medium text-gray-800">{title}</h1>
-          <div className="w-full flex justify-between items-center">
+          <div className="w-full flex items-center">
             <Input
-              accept="video/*"
+              accept="image/*"
               type="file"
+              multiple
               onChange={(event) => addFile(event.target.files ?? null)}
               onClick={(event) => (event.currentTarget.value = '')}
-              className="add_video hidden"
+              className="add_image hidden"
             />
             <Input
-              accept="video/*"
+              accept="image/*"
               type="file"
               onChange={(event) => editFile(event.target.files ?? null)}
               onClick={(event) => (event.currentTarget.value = '')}
-              className="edit_video hidden"
+              className="edit_image hidden"
             />
             <Button
               onClick={() =>
                 (
-                  document.querySelector('.add_video') as HTMLInputElement
+                  document.querySelector('.add_image') as HTMLInputElement
                 )?.click()
               }
               type="button"
               className="flex gap-3 items-center justify-center rounded-md text-xl py-7"
-              disabled={files.length >= 1}
+              disabled={files.length >= 5}
             >
-              Upload Video
+              Upload Images
               <Upload className="w-6 h-6" />
             </Button>
           </div>
         </div>
+        <div>
+          <Button
+            onClick={() => {
+              setFiles([]);
+              setEditId('');
+            }}
+            variant="destructive"
+            type="button"
+            className="flex gap-3 items-center justify-center rounded-md text-xl py-7"
+            disabled={files.length === 0}
+          >
+            Clear
+            <Trash2 className="w-6 h-6" />
+          </Button>
+        </div>
       </div>
-      <div className="min-h-[200px]">
+      <div className="min-h-[192px]">
         {files.length > 0 && (
-          <div className="w-fit">
+          <ReactSortable
+            list={files}
+            setList={setFiles}
+            className="flex gap-3 w-full"
+          >
             {files.map((file, idx) => (
               <div
                 key={`${idx}-${file.id}`}
-                className="flex flex-col min-w-[400px] h-fit mb-2 py-5 px-5 border-solid border-[1px] border-gray-300 rounded-md my-3"
+                className="cursor-grab flex flex-col w-[200px] h-fit mb-2 py-5 border-solid border-[1px] border-gray-300 rounded-md my-3"
               >
-                <div className="w-[400px] h-[200px]">
+                <div className="w-[190px] h-[100px]">
                   {file.data ? (
-                    <video
-                      controls
+                    <img
+                      src={URL.createObjectURL(file.data)}
+                      alt="image"
                       className="rounded-md object-contain w-full h-full px-2"
-                    >
-                      <source
-                        src={URL.createObjectURL(file.data)}
-                        type={file.data.type}
-                      />
-                    </video>
+                    />
                   ) : (
                     <>
                       {file.url ? (
-                        <video
-                          controls
+                        <img
+                          src={file.url}
+                          alt="image"
                           className="rounded-md object-contain w-full h-full px-2"
-                        >
-                          <source
-                            src={file.url}
-                            type={file.type ? `${file.type}` : 'video/mp4'}
-                          />
-                        </video>
+                        />
                       ) : (
                         <img
-                          src="error-video.jpg"
-                          alt="video"
-                          className="rounded-md object-fit w-[400px] h-[200px]"
+                          src="error-image.png"
+                          alt="image"
+                          className="rounded-md object-contain"
                         />
                       )}
                     </>
@@ -125,9 +147,10 @@ const ManageRoomVideo = ({
                 <div className="flex gap-3 px-2 pt-5">
                   <Button
                     onClick={() => {
+                      setEditId(editId === file.id ? '' : file.id);
                       (
                         document.querySelector(
-                          '.edit_video',
+                          '.edit_image',
                         ) as HTMLInputElement
                       )?.click();
                     }}
@@ -148,11 +171,11 @@ const ManageRoomVideo = ({
                 </div>
               </div>
             ))}
-          </div>
+          </ReactSortable>
         )}
       </div>
     </div>
   );
 };
 
-export default ManageRoomVideo;
+export default ManageTourImages;

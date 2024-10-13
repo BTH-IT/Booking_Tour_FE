@@ -1,33 +1,39 @@
+import { IReview } from 'review';
+
 export interface ITour {
   id: string;
   name: string;
   maxGuests: number;
-  isWifi: string;
-  dayList: Day[];
+  isWifi: boolean;
   detail: string;
-  priceExcludes: string[];
-  priceIncludes: string[];
   expect: string;
-  activities: string[];
   price: number;
   dateFrom: Date;
   dateTo: Date;
-  rate: number;
-  imageList: string[];
-  video?: string;
-  location: string;
-  reviewList: CreateNewReviewDto[];
+  video: IFile;
   salePercent: number;
-  destination: string;
+  priceExcludes: ITourItem[];
+  priceIncludes: ITourItem[];
+  activities: ITourItem[];
+  imageList: ITourItem[];
+  dayList: ITourItem[];
+  destinationId: string;
+  reviewList: IReview[];
+  location: string;
   createAt: Date;
-  updateAt: Date;
-  deleteAt: Date;
+  updateAt: Date | null;
+  deleteAt: Date | null;
 }
 
 export interface ISchedule {
+  id: string;
   tourId: string;
   dateStart: Date;
   dateEnd: Date;
   availableSeats: number;
-  isActive: boolean;
+}
+
+export interface ITourItem {
+  id: string;
+  title: string;
 }

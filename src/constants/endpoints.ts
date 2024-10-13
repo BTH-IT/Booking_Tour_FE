@@ -9,6 +9,8 @@ export const API_URL = {
   /* ROOM */
   HOTELS: '/room/Hotels',
   ROOMS: '/room/Rooms',
+  REVIEW_HOTEL: '/room/ReviewHotel',
+  REVIEW_ROOM: '/room/ReviewRoom',
 
   /* TOUR */
   DESTINATIONS: '/tour/Destinations',

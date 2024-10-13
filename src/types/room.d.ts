@@ -1,5 +1,6 @@
 import { IFile } from 'file';
 import { IHotel } from 'hotel';
+import { IReview } from 'review';
 
 export interface IRoom {
   id: string;
@@ -11,13 +12,13 @@ export interface IRoom {
   imageList: string[];
   isAvailable: boolean;
   maxGuests: number;
-  reviews: any;
-  roomAmenities: any;
+  reviews: IReview[];
+  roomAmenities: IRoomAmenity[];
   hotelId: string;
   hotel: IHotel;
   createAt: Date;
-  updateAt: Date;
-  deleteAt: Date;
+  updateAt: Date | null;
+  deleteAt: Date | null;
 }
 
 export interface IRoomAmenity {

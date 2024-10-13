@@ -3,6 +3,6 @@ export interface IRole {
   roleName: string;
   status: boolean;
   createAt: Date;
-  updateAt: Date;
-  deleteAt: Date;
+  updateAt: Date | null;
+  deleteAt: Date | null;
 }
