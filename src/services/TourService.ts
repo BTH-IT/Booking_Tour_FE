@@ -1,20 +1,17 @@
 import { ApiResponse } from 'index';
-import { ITour, ISchedule } from './../types/tour.d';
+import { ITour, ISchedule, IReview } from '@/types';
 import configService from './ConfigService';
-
-const PREFIX = '/tour';
+import { API_URL } from '@/constants/endpoints';
 
 const tourService = {
-  getATour(tourId: string): Promise<ITour> {
-    const url = `${PREFIX}/Tours/${tourId}`;
-    return configService.get(url);
+  getTour(tourId: string): Promise<ApiResponse<ITour>> {
+    return configService.get(`${API_URL.TOURS}/${tourId}`);
   },
   getSchedulesOfTour(tourId: string): Promise<ISchedule[]> {
-    const url = `${PREFIX}/Tours/${tourId}/schedules`;
-    return configService.get(url);
+    return configService.get(`${API_URL.TOURS}/${tourId}/schedules`);
   },
-  getAllTour(params?: any): Promise<ApiResponse<ITour[]>> {
-    return configService.get(`${PREFIX}/Tours`, { params: params });
+  getAllTours(params?: any): Promise<ApiResponse<ITour[]>> {
+    return configService.get(`${API_URL.TOURS}`, { params: params });
   },
   getTourSearch(params?: any): Promise<
     ApiResponse<{
@@ -23,20 +20,19 @@ const tourService = {
       minPrice: number;
     }>
   > {
-    return configService.get(`${PREFIX}/Tours/search`, { params: params });
+    return configService.get(`${API_URL.TOURS}/search`, { params: params });
   },
-  getAllReviews(): Promise<any> {
+  getAllReviews(): Promise<ApiResponse<IReview[]>> {
     return configService.get('/tours/reviewList');
   },
-  createTour(data: ITour) {
-    return configService.post(`${PREFIX}/Tours`, data);
+  createTour(data: Partial<ITour>): Promise<ApiResponse<ITour>> {
+    return configService.post(`${API_URL.TOURS}`, data);
   },
-  updateTour(data: ITour) {
-    return configService.patch(`${PREFIX}/Tours/` + data.id, data);
+  updateTour(data: Partial<ITour>): Promise<ApiResponse<ITour>> {
+    return configService.patch(`${API_URL.TOURS}`, data);
   },
-  deleteTour(tourId: string) {
-    const url = `${PREFIX}/Tours/${tourId}`;
-    return configService.delete(url);
+  deleteTour(tourId: string): Promise<ApiResponse<boolean>> {
+    return configService.delete(`${API_URL.TOURS}/${tourId}`);
   },
 };
 

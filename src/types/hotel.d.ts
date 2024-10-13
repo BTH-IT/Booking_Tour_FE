@@ -7,14 +7,13 @@ export interface IHotel {
   locationCode: number;
   description: string;
   contactInfo: string;
-  rate?: number;
-  reviewList?: any;
-  hotelRules?: any;
+  reviewList?: IReview[];
+  hotelRules: IHotelRule[];
   rooms: IRoom[];
-  hotelAmenities?: any;
-  createAt: Date;
-  updateAt: Date;
-  deleteAt: Date;
+  hotelAmenities: IHotelAmenity[];
+  createdAt: Date;
+  updatedAt: Date | null;
+  deletedAt: Date | null;
 }
 
 export interface IHotelRule {

@@ -52,19 +52,19 @@ const TourDetailPage = () => {
   }
 
   useDidMount(async () => {
-    const data = await tourService.getATour(tourId);
+    const res = await tourService.getTour(tourId);
 
-    if (!data) return;
+    if (!res) return;
 
     await fetchTourList();
-    setTour(data);
+    setTour(res.result);
   });
 
   async function fetchTourList() {
     try {
       const data = await tourService.getAllTour();
 
-      setTourList(data.tours);
+      setTourList(data.result);
     } catch (error) {
       toast.error('Sever is wrong');
     }
@@ -74,7 +74,7 @@ const TourDetailPage = () => {
     tour && (
       <>
         <SearchTitle>{''}</SearchTitle>
-        <Container className='container'>
+        <Container className="container">
           <TourDetailNav />
           <TourDetailHeader {...tour} />
           <TourDetailGallery {...tour} />
@@ -121,7 +121,7 @@ const TourDetailPage = () => {
               {tourList.map((freshlyAdded) => (
                 <FreshlyAdded
                   {...freshlyAdded}
-                  maxWidth='325px'
+                  maxWidth="325px"
                   key={freshlyAdded.imageList[0]}
                 />
               ))}

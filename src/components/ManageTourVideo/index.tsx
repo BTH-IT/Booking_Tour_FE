@@ -6,7 +6,7 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { ReactSortable } from 'react-sortablejs';
 import { IFile } from 'file';
 
-const ManageRoomVideo = ({
+const ManageTourVideo = ({
   files,
   setFiles,
   title,
@@ -155,4 +155,4 @@ const ManageRoomVideo = ({
   );
 };
 
-export default ManageRoomVideo;
+export default ManageTourVideo;

@@ -13,8 +13,11 @@ const roomService = {
   createRoom(data: Partial<IRoom>): Promise<ApiResponse<IRoom>> {
     return configService.post(API_URL.ROOMS, data);
   },
-  updateRoom(data: Partial<IRoom>): Promise<ApiResponse<IRoom>> {
-    return configService.put(API_URL.ROOMS, data);
+  updateRoom(
+    roomId: string,
+    data: Partial<IRoom>,
+  ): Promise<ApiResponse<IRoom>> {
+    return configService.put(`${API_URL.ROOMS}/${roomId}`, data);
   },
   deleteRoom(roomId: string): Promise<ApiResponse<boolean>> {
     return configService.delete(`${API_URL.ROOMS}/${roomId}`);
