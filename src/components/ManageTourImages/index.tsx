@@ -4,18 +4,20 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { ReactSortable } from 'react-sortablejs';
-import { IFile } from 'file';
+import { ITourFile } from 'file';
 
 const ManageTourImages = ({
   files,
   setFiles,
   title,
 }: {
-  files: IFile[];
-  setFiles: Dispatch<SetStateAction<IFile[]>>;
+  files: ITourFile[];
+  setFiles: Dispatch<SetStateAction<ITourFile[]>>;
   title: string;
 }) => {
-  const [editId, setEditId] = useState('');
+  console.log(files);
+
+  const [editId, setEditId] = useState(-1);
 
   const addFile = (newFiles: FileList | null) => {
     if (!newFiles || files.length >= 5) {
@@ -27,7 +29,7 @@ const ManageTourImages = ({
         return;
       }
       setFiles((prevFiles) => {
-        const updatedFiles = [...prevFiles, { id: uuidv4(), data: f }];
+        const updatedFiles = [...prevFiles, { id: idx, data: f }];
         return updatedFiles;
       });
     });
@@ -51,7 +53,7 @@ const ManageTourImages = ({
     });
   };
 
-  const deleteFile = (id: string) => {
+  const deleteFile = (id: number) => {
     setFiles(files.filter((file) => file.id !== id));
   };
 
@@ -95,7 +97,7 @@ const ManageTourImages = ({
           <Button
             onClick={() => {
               setFiles([]);
-              setEditId('');
+              setEditId(-1);
             }}
             variant="destructive"
             type="button"
@@ -116,7 +118,7 @@ const ManageTourImages = ({
           >
             {files.map((file, idx) => (
               <div
-                key={`${idx}-${file.id}`}
+                key={`${idx}`}
                 className="cursor-grab flex flex-col w-[200px] h-fit mb-2 py-5 border-solid border-[1px] border-gray-300 rounded-md my-3"
               >
                 <div className="w-[190px] h-[100px]">
@@ -147,7 +149,7 @@ const ManageTourImages = ({
                 <div className="flex gap-3 px-2 pt-5">
                   <Button
                     onClick={() => {
-                      setEditId(editId === file.id ? '' : file.id);
+                      setEditId(editId === file.id ? -1 : file.id);
                       (
                         document.querySelector(
                           '.edit_image',

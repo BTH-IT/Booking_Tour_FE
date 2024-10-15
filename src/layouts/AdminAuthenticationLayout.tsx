@@ -3,15 +3,17 @@ import { useAppSelector } from '@/redux/hooks';
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-export default function AuthenticationaLayout() {
+export default function AdminAuthenticationaLayout() {
   const navigate = useNavigate();
-  const isLogged = Object.keys(useAppSelector(selectAuth).account).length !== 0;
+  const account = useAppSelector(selectAuth).account;
 
   useEffect(() => {
-    if (!isLogged) {
+    if (account?.role?.roleName !== 'Admin') {
+      console.log(account?.role?.roleName);
+
       navigate('/');
     }
-  }, [isLogged]);
+  }, [account]);
 
   return (
     <div>

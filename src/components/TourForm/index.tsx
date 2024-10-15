@@ -2,6 +2,7 @@ import { Input } from '@/components/ui/input';
 import ReactQuill from 'react-quill';
 import { DatePicker } from 'antd';
 import { Switch } from '@/components/ui/switch';
+import Select from 'react-select';
 import {
   FormControl,
   FormField,
@@ -9,8 +10,30 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { useCallback } from 'react';
+import { IDestination } from 'destination';
 
-const TourForm = ({ form }: { form: any }) => {
+type OptionType = {
+  label: string;
+  value: string;
+};
+
+const TourForm = ({
+  form,
+  destinations,
+  edit = false,
+}: {
+  form: any;
+  destinations: IDestination[];
+  edit?: boolean;
+}) => {
+  const options: OptionType[] = destinations.map((d) => {
+    return {
+      label: d.name,
+      value: `${d.id}`,
+    };
+  });
+
   return (
     <>
       <FormField
@@ -64,6 +87,27 @@ const TourForm = ({ form }: { form: any }) => {
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="destination"
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+              <FormLabel className="text-xl text-gray-800">
+                Tour Destination
+              </FormLabel>
+              <Select
+                defaultValue={edit ? field.value : ''}
+                isClearable
+                isSearchable
+                isMulti={false}
+                options={options}
+                className="[&>div]:py-[2px] w-[250px] text-2xl text-gray-900"
+                {...field}
+              />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       </div>
       <div className="flex w-[1000px] gap-[40px]">
         <FormField
@@ -76,7 +120,6 @@ const TourForm = ({ form }: { form: any }) => {
               </FormLabel>
               <FormControl>
                 <Input
-                  type="number"
                   className="w-[100px] text-xl text-gray-900 py-[20px] focus-visible:ring-0 focus-visible:ring-offset-0"
                   {...field}
                 />
@@ -109,7 +152,6 @@ const TourForm = ({ form }: { form: any }) => {
               <FormLabel className="text-xl text-gray-800">Price</FormLabel>
               <FormControl>
                 <Input
-                  type="number"
                   className="w-[300px] text-xl text-gray-900 py-[20px] focus-visible:ring-0 focus-visible:ring-offset-0"
                   {...field}
                 />
@@ -120,7 +162,7 @@ const TourForm = ({ form }: { form: any }) => {
         />
         <FormField
           control={form.control}
-          name="price"
+          name="salePercent"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-xl text-gray-800">
@@ -129,6 +171,7 @@ const TourForm = ({ form }: { form: any }) => {
               <FormControl>
                 <Input
                   type="number"
+                  min={0}
                   className="w-[100px] text-xl text-gray-900 py-[20px] focus-visible:ring-0 focus-visible:ring-offset-0"
                   {...field}
                 />
@@ -161,7 +204,7 @@ const TourForm = ({ form }: { form: any }) => {
         control={form.control}
         name="expect"
         render={({ field }) => (
-          <FormItem className="mt-14">
+          <FormItem className="my-14">
             <FormLabel className="text-xl text-gray-800">Expect</FormLabel>
             <FormControl>
               <ReactQuill

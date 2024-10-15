@@ -27,3 +27,10 @@ export type MODAL_SIZE_OPTIONS =
   | 800
   | 900
   | 1000;
+
+export type BaseModel = {
+  id: string;
+  createAt: Date;
+  updateAt: Date | null;
+  deleteAt: Date | null;
+};

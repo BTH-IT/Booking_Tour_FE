@@ -68,8 +68,8 @@ const Filter = ({
         <FilterList
           setMeta={setMeta}
           meta={meta}
-          name="activities"
-          title={'Activities'}
+          name="activityList"
+          title={'activityList'}
           checkboxList={[
             'City Tours',
             'Cultural & Thematic Tours',

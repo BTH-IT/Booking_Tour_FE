@@ -44,8 +44,6 @@ export const UserInfoFullname = styled.h4`
   cursor: default;
 
   overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 1; /* number of lines to show */
   line-clamp: 1;
   -webkit-box-orient: vertical;
 `;

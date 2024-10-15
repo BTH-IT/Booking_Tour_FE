@@ -31,7 +31,7 @@ import { IHotel, IRoom, IRoomAmenity } from '@/types';
 import ReactQuill from 'react-quill';
 import roomService from '@/services/RoomService';
 import ManageRoomItems from '@/components/ManageRoomItems';
-import { IFile } from 'file';
+import { IRoomFile } from 'file';
 import ManageRoomImages from '@/components/ManageRoomImages';
 import ManageRoomVideo from '@/components/ManageRoomVideo';
 import uploadService from '@/services/UploadService';
@@ -61,12 +61,12 @@ const DetailRoomModal = ({
   const { toast } = useToast();
 
   const [roomAmenities, setRoomAmenities] = useState<IRoomAmenity[]>([]);
-  const [video, setVideo] = useState<IFile[]>([
+  const [video, setVideo] = useState<IRoomFile[]>([
     {
       id: '',
     },
   ]);
-  const [images, setImages] = useState<IFile[]>([]);
+  const [images, setImages] = useState<IRoomFile[]>([]);
 
   const formSchema = z.object({
     name: z
@@ -307,6 +307,7 @@ const DetailRoomModal = ({
                         <FormControl>
                           <Input
                             type="number"
+                            min={0}
                             className="w-[480px] text-xl text-gray-900 py-[20px] focus-visible:ring-0 focus-visible:ring-offset-0"
                             {...field}
                           />
@@ -326,6 +327,7 @@ const DetailRoomModal = ({
                         <FormControl>
                           <Input
                             type="number"
+                            min={0}
                             className="w-[480px] text-xl text-gray-900 py-[20px] focus-visible:ring-0 focus-visible:ring-offset-0"
                             {...field}
                           />

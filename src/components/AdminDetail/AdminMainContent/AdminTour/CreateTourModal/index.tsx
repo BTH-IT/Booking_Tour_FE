@@ -19,9 +19,9 @@ import {
 import dayjs, { type Dayjs } from 'dayjs';
 import { Form } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
-import { ITour, ITourItem } from '@/types';
+import { IDestination, ITour, ITourItem } from '@/types';
 import tourService from '@/services/TourService';
-import { IFile } from 'file';
+import { ITourFile } from 'file';
 import uploadService from '@/services/UploadService';
 import ManageTourItems from '@/components/ManageTourItems';
 import ManageTourImages from '@/components/ManageTourImages';
@@ -33,6 +33,7 @@ interface CreateTourModalProps {
   setIsCreateModalOpen: Dispatch<SetStateAction<boolean>>;
   tours: ITour[];
   setTours: Dispatch<SetStateAction<ITour[]>>;
+  destinations: IDestination[];
 }
 
 const CreateTourModal = ({
@@ -40,14 +41,15 @@ const CreateTourModal = ({
   setIsCreateModalOpen,
   tours,
   setTours,
+  destinations,
 }: CreateTourModalProps) => {
   const { toast } = useToast();
 
-  const [video, setVideo] = useState<IFile[]>([]);
-  const [images, setImages] = useState<IFile[]>([]);
-  const [priceIncludes, setPriceIncludes] = useState<ITourItem[]>([]);
-  const [priceExcludes, setPriceExcludes] = useState<ITourItem[]>([]);
-  const [activiyList, setActiviyList] = useState<ITourItem[]>([]);
+  const [video, setVideo] = useState<ITourFile[]>([]);
+  const [images, setImages] = useState<ITourFile[]>([]);
+  const [priceIncludeList, setpriceIncludeList] = useState<ITourItem[]>([]);
+  const [priceExcludeList, setpriceExcludeList] = useState<ITourItem[]>([]);
+  const [activityList, setActivityList] = useState<ITourItem[]>([]);
   const [dayList, setDayList] = useState<ITourItem[]>([]);
 
   const formSchema = z.object({
@@ -60,14 +62,18 @@ const CreateTourModal = ({
         },
         { message: 'Tour name already exists' },
       ),
-    maxGuests: z.number().min(1, { message: 'Max guests is required' }),
+    maxGuests: z.string().min(1, { message: 'Max guests is required' }),
     isWifi: z.boolean({ required_error: 'Wifi is required' }),
     detail: z.string().min(1, { message: 'Description is required' }),
     expect: z.string().min(1, { message: 'Expect is required' }),
-    price: z.number().min(1, { message: 'Price is required' }),
+    price: z.string().min(1, { message: 'Price is required' }),
     dateFrom: z.custom<Dayjs>((val) => val instanceof dayjs, 'Invalid date'),
     dateTo: z.custom<Dayjs>((val) => val instanceof dayjs, 'Invalid date'),
-    salePercent: z.number(),
+    destination: z.object({
+      label: z.string(),
+      value: z.string(),
+    }),
+    salePercent: z.string(),
   });
 
   type FormValues = z.infer<typeof formSchema>;
@@ -76,14 +82,18 @@ const CreateTourModal = ({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
-      maxGuests: 0,
+      maxGuests: '',
       isWifi: false,
       detail: '',
       expect: '',
-      price: 0,
+      price: '',
       dateFrom: dayjs(),
       dateTo: dayjs(),
-      salePercent: 0,
+      destination: {
+        label: '',
+        value: '',
+      },
+      salePercent: '0',
     },
   });
 
@@ -92,6 +102,10 @@ const CreateTourModal = ({
     form.reset();
     setVideo([]);
     setImages([]);
+    setpriceIncludeList([]);
+    setpriceExcludeList([]);
+    setActivityList([]);
+    setDayList([]);
   };
 
   const handleCreateTour = async (data: any) => {
@@ -111,20 +125,13 @@ const CreateTourModal = ({
         uploadService.uploadMultipleFileWithAWS3(videoFile),
       ]);
 
-      const imageData: IFile[] = imageRes.map((res) => ({
-        id: uuidv4(),
-        url: res.url,
-      }));
+      const imageData = imageRes.map((res) => res.url);
 
-      const videoData = videoRes.map((res) => ({
-        id: uuidv4(),
-        url: res.url,
-        type: res.type,
-      }))[0];
+      const videoData = videoRes[0].url;
 
       const tourData = {
         ...data,
-        images: imageData,
+        imageList: imageData,
         video: videoData,
       };
 
@@ -155,7 +162,7 @@ const CreateTourModal = ({
   };
 
   const onSubmit = async (values: FormValues) => {
-    if (priceIncludes.length === 0) {
+    if (priceIncludeList.length === 0) {
       toast({
         variant: 'destructive',
         duration: 2000,
@@ -163,7 +170,7 @@ const CreateTourModal = ({
       });
       return;
     }
-    if (priceExcludes.length === 0) {
+    if (priceExcludeList.length === 0) {
       toast({
         variant: 'destructive',
         duration: 2000,
@@ -171,7 +178,7 @@ const CreateTourModal = ({
       });
       return;
     }
-    if (activiyList.length === 0) {
+    if (activityList.length === 0) {
       toast({
         variant: 'destructive',
         duration: 2000,
@@ -204,16 +211,28 @@ const CreateTourModal = ({
       return;
     }
 
-    const { dateFrom, dateTo, ...rest } = values;
+    const {
+      dateFrom,
+      dateTo,
+      maxGuests,
+      salePercent,
+      price,
+      destination,
+      ...rest
+    } = values;
 
     const data = {
       ...rest,
       dateFrom: dateFrom.toDate(),
       dateTo: dateTo.toDate(),
-      priceIncludes,
-      priceExcludes,
-      activiyList,
-      dayList,
+      maxGuests: parseInt(maxGuests),
+      salePercent: parseInt(salePercent),
+      price: parseInt(price),
+      destinationId: destination.value,
+      priceIncludeList: priceIncludeList.map((item) => item.title),
+      priceExcludeList: priceExcludeList.map((item) => item.title),
+      activityList: activityList.map((item) => item.title),
+      dayList: dayList.map((item) => item.title),
     };
     await handleCreateTour(data);
   };
@@ -234,23 +253,23 @@ const CreateTourModal = ({
             <div className="flex flex-col w-full">
               <div className="flex flex-col mx-auto gap-10">
                 <div className="flex flex-col mt-14 gap-5">
-                  <TourForm form={form} />
+                  <TourForm form={form} destinations={destinations} />
                   <ManageTourItems
-                    items={priceIncludes}
-                    setItems={setPriceIncludes}
+                    items={priceIncludeList}
+                    setItems={setpriceIncludeList}
                     title="Price Includes"
                     placeholder="Add new item"
                   />
                   <ManageTourItems
-                    items={priceExcludes}
-                    setItems={setPriceExcludes}
+                    items={priceExcludeList}
+                    setItems={setpriceExcludeList}
                     title="Price Excludes"
                     placeholder="Add new item"
                   />
                   <ManageTourItems
-                    items={activiyList}
-                    setItems={setActiviyList}
-                    title="Activities"
+                    items={activityList}
+                    setItems={setActivityList}
+                    title="Activity List"
                     placeholder="Add new activity"
                   />
                   <ManageTourItems

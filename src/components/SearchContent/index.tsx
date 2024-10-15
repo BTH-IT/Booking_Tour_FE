@@ -102,7 +102,7 @@ const SearchContent = () => {
         continue;
       }
 
-      if (key === 'Activities') {
+      if (key === 'activityList') {
         value = value.filter((item: any) => item !== null || item);
         if (value.length > 0) {
           searchParams.set(key, value);

@@ -1,11 +1,9 @@
-export interface IDestination {
-  id: string;
+import { BaseModel } from 'index';
+
+export interface IDestination extends BaseModel {
   name: string;
   description: string;
   url: string;
-  createdAt: Date;
-  updatedAt: Date | null;
-  deletedAt: Date | null;
 }
 
 export interface ILocation {

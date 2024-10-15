@@ -34,8 +34,11 @@ const tourService = {
   createTour(data: Partial<ITour>): Promise<ApiResponse<ITour>> {
     return configService.post(`${API_URL.TOURS}`, data);
   },
-  updateTour(data: Partial<ITour>): Promise<ApiResponse<ITour>> {
-    return configService.patch(`${API_URL.TOURS}`, data);
+  updateTour(
+    data: Partial<ITour>,
+    tourId: string,
+  ): Promise<ApiResponse<ITour>> {
+    return configService.put(`${API_URL.TOURS}/${tourId}`, data);
   },
   deleteTour(tourId: string): Promise<ApiResponse<boolean>> {
     return configService.delete(`${API_URL.TOURS}/${tourId}`);

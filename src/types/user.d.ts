@@ -1,7 +1,6 @@
-import { IAccount } from 'account';
+import { BaseModel, IAccount } from 'index';
 
-export interface IUser {
-  id: string;
+export interface IUser extends BaseModel {
   fullname: string;
   birthDate: Date;
   country: string;
@@ -9,7 +8,4 @@ export interface IUser {
   gender: string;
   accountId: string;
   account: IAccount;
-  createAt: Date;
-  updateAt: Date | null;
-  deleteAt: Date | null;
 }

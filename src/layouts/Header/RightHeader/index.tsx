@@ -1,6 +1,4 @@
 import CustomButton from '@/components/CustomButton';
-import Currency from './Currency';
-import Language from './Language';
 import * as Styles from './styles';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { BiSolidDownArrow } from 'react-icons/bi';
@@ -9,12 +7,11 @@ import { authActions } from '@/redux/features/auth/authSlice';
 const RightHeader = ({ handleShowModal }: { handleShowModal: () => void }) => {
   const loginSuccess = useAppSelector((state) => state.auth.isLoggedIn);
   const currentUser = useAppSelector((state) => state.auth.user);
+  const currentAccount = useAppSelector((state) => state.auth.account);
   const dispatch = useAppDispatch();
 
   return (
     <Styles.RightHeaderWrapper>
-      <Language />
-      <Currency />
       {loginSuccess ? (
         <Styles.UserInfo>
           <Styles.UserInfoImg>
@@ -31,6 +28,11 @@ const RightHeader = ({ handleShowModal }: { handleShowModal: () => void }) => {
           </Styles.UserInfoFullname>
           <BiSolidDownArrow />
           <Styles.UserInfoDropdown className="dropdown">
+            {currentAccount.role.roleName === 'Admin' && (
+              <Styles.UserInfoDropdownItem href="/admin">
+                Admin Panel
+              </Styles.UserInfoDropdownItem>
+            )}
             <Styles.UserInfoDropdownItem href="/dashboard">
               Dashboard
             </Styles.UserInfoDropdownItem>

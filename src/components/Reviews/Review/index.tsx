@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as Styles from './styles';
 import { Rate } from 'antd';
-import { IReview } from '..';
+import { IReview } from 'review';
 import useDidMount from '@/hooks/useDidMount';
 import { IUser } from 'user';
 import userService from '@/services/UserService';
@@ -18,9 +18,9 @@ const Review = ({
 
   async function fetchUserId() {
     try {
-      const data = await userService.getAUser(userId);
+      const data = await userService.getUser(userId);
 
-      setUser(data);
+      setUser(data.result);
     } catch (error) {
       toast.error('Sever is wrong');
     }
@@ -33,7 +33,7 @@ const Review = ({
   return user ? (
     <Styles.ReviewsContentItem>
       <Styles.ReviewsContentItemImg>
-        <img src={user?.picture || '/avatar.png'} alt="avatar" />
+        <img src={user?.fullname || '/avatar.png'} alt="avatar" />
       </Styles.ReviewsContentItemImg>
       <Styles.ReviewsContentItemName>
         {user?.fullname}

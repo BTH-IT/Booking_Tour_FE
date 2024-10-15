@@ -26,18 +26,18 @@ const ManageTourItems = ({
 }) => {
   const [newItem, setNewItem] = useState('');
   const [editingItem, setEditingItem] = useState<ITourItem>({
-    id: '',
+    id: -1,
     title: '',
   });
 
   const addItem = () => {
     if (newItem.trim()) {
-      setItems([...items, { id: uuidv4(), title: newItem.trim() }]);
+      setItems([...items, { id: items.length, title: newItem.trim() }]);
       setNewItem('');
     }
   };
 
-  const startEditing = (id: string, title: string) => {
+  const startEditing = (id: number, title: string) => {
     setEditingItem({ id, title });
   };
 
@@ -49,14 +49,14 @@ const ManageTourItems = ({
           : item,
       ),
     );
-    setEditingItem({ id: '', title: '' });
+    setEditingItem({ id: -1, title: '' });
   };
 
   const cancelEdit = () => {
-    setEditingItem({ id: '', title: '' });
+    setEditingItem({ id: -1, title: '' });
   };
 
-  const deleteItem = (id: string) => {
+  const deleteItem = (id: number) => {
     setItems(items.filter((item) => item.id !== id));
   };
 
@@ -89,7 +89,7 @@ const ManageTourItems = ({
           className="text-xl text-gray-900 py-[20px] focus-visible:ring-0 focus-visible:ring-offset-0"
         />
       </div>
-      {items.length > 0 && (
+      {items?.length > 0 && (
         <ReactSortable list={items} setList={setItems}>
           {items.map((item, idx) => (
             <div
