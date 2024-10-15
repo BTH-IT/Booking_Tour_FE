@@ -139,7 +139,7 @@ const RoomDetailLeft = (props: IRoom) => {
           Hotel Amenities
         </Styles.RoomDetailLeftAmenitiesTitle>
         <Styles.RoomDetailLeftAmenities>
-          {/* {props.priceExcludes.map((excludes, idx) => (
+          {/* {props.priceExcludeList.map((excludes, idx) => (
             <Styles.RoomDetailLeftAmenitiesItem key={excludes + idx}>
               <AiOutlineClose />
               <p>{excludes}</p>

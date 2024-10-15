@@ -3,8 +3,6 @@ import * as Styles from './styles';
 import NavHeader from '../Header/NavHeader';
 import { Col, Row } from 'antd';
 import Logo from '@/components/Logo';
-import Currency from '../Header/RightHeader/Currency';
-import Language from '../Header/RightHeader/Language';
 
 import {
   FaCcAmex,
@@ -26,10 +24,6 @@ const Footer = () => {
             <Col xs={24} md={12} xl={6}>
               <Styles.FooterContainer>
                 <Logo src={'../footer-logo.png'} />
-                <div>
-                  <Currency color="white" />
-                  <Language></Language>
-                </div>
               </Styles.FooterContainer>
             </Col>
             <Col xs={24} md={12} xl={6}>

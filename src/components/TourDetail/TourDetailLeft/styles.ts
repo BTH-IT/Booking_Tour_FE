@@ -30,31 +30,31 @@ export const TourDetailLeftParagraph = styled.p`
   color: #605656;
 `;
 
-export const TourDetailLeftPriceIncludes = styled.div`
+export const TourDetailLeftpriceIncludeList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
 `;
 
-export const TourDetailLeftPriceExcludes = styled.div`
+export const TourDetailLeftpriceExcludeList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
 `;
 
-export const TourDetailLeftPriceIncludesTitle = styled.h4`
+export const TourDetailLeftpriceIncludeListTitle = styled.h4`
   font-size: 1.4rem;
   color: black;
   font-weight: 500;
 `;
 
-export const TourDetailLeftPriceExcludesTitle = styled.h4`
+export const TourDetailLeftpriceExcludeListTitle = styled.h4`
   font-size: 1.4rem;
   color: black;
   font-weight: 500;
 `;
 
-export const TourDetailLeftPriceIncludesItem = styled.div`
+export const TourDetailLeftpriceIncludeListItem = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
@@ -68,7 +68,7 @@ export const TourDetailLeftPriceIncludesItem = styled.div`
   }
 `;
 
-export const TourDetailLeftActivities = styled.div`
+export const TourDetailLeftactivityList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;

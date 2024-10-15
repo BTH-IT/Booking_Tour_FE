@@ -17,14 +17,16 @@ import CommonModal from '@/components/CommonModal';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import tourService from '@/services/TourService';
-import { IHotel } from 'hotel';
+import { IDestination } from 'destination';
 
 const TourTableRow = ({
   tour,
+  destinations,
   tours,
   setTours,
 }: {
   tour: ITour;
+  destinations: IDestination[];
   tours: ITour[];
   setTours: Dispatch<SetStateAction<ITour[]>>;
 }) => {
@@ -62,7 +64,9 @@ const TourTableRow = ({
           <span className="w-full text-xl line-clamp-1">{tour.name}</span>
         </TableCell>
         <TableCell className="w-[15%] text-xl text-gray-600 text-ellipsis">
-          <span className="w-full text-xl line-clamp-1">destination</span>
+          <span className="w-full text-xl line-clamp-1">
+            {tour.destination.name}
+          </span>
         </TableCell>
         <TableCell className="w-[10%] text-xl text-gray-600">
           {tour.maxGuests + ' People'}
@@ -122,6 +126,7 @@ const TourTableRow = ({
         tours={tours}
         setTours={setTours}
         tour={tour}
+        destinations={destinations}
       />
       <CommonModal
         isOpen={isDeleteModalOpen}

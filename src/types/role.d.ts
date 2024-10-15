@@ -1,8 +1,7 @@
-export interface IRole {
-  id: string;
+import { BaseModel } from 'index';
+
+export interface IRole extends BaseModel {
   roleName: string;
   status: boolean;
   createAt: Date;
-  updateAt: Date | null;
-  deleteAt: Date | null;
 }

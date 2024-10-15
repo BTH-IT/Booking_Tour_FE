@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import tourService from '@/services/TourService';
-import { IHotel, ITour } from '@/types';
+import { IDestination, IHotel, ITour } from '@/types';
 import {
   Table,
   TableBody,
@@ -14,12 +14,13 @@ import { Plus, Search } from 'lucide-react';
 import Pagination from '@/components/Pagination';
 import TourTableRow from './TourTableRow';
 import CreateTourModal from './CreateTourModal';
-import hotelService from '@/services/HotelService';
+import destinationService from '@/services/DestinationService';
 
 const ITEMS_PER_PAGE = 6;
 
 const AdminTour = () => {
   const [tours, setTours] = useState<ITour[]>([]);
+  const [destinations, setDestinations] = useState<IDestination[]>([]);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,10 +28,16 @@ const AdminTour = () => {
 
   const fetchData = async () => {
     try {
-      const res = await tourService.getAllTours();
-      res?.result
-        ? setTours(res.result)
+      const [tourRes, destinationRes] = await Promise.all([
+        tourService.getAllTours(),
+        destinationService.getAllDestinations(),
+      ]);
+      tourRes?.result
+        ? setTours(tourRes.result)
         : console.error('Failed to fetch tours');
+      destinationRes?.result
+        ? setDestinations(destinationRes.result)
+        : console.error('Failed to fetch destinations');
     } catch (error) {
       console.error('Failed to fetch data:', error);
     }
@@ -107,6 +114,7 @@ const AdminTour = () => {
                 <TourTableRow
                   key={tour.id}
                   tour={tour}
+                  destinations={destinations}
                   tours={tours}
                   setTours={setTours}
                 />
@@ -125,6 +133,7 @@ const AdminTour = () => {
         setIsCreateModalOpen={setIsCreateModalOpen}
         tours={tours}
         setTours={setTours}
+        destinations={destinations}
       />
     </main>
   );

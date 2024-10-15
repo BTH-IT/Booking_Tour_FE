@@ -4,15 +4,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { ReactSortable } from 'react-sortablejs';
-import { IFile } from 'file';
+import { IRoomFile } from 'file';
 
 const ManageRoomVideo = ({
   files,
   setFiles,
   title,
 }: {
-  files: IFile[];
-  setFiles: Dispatch<SetStateAction<IFile[]>>;
+  files: IRoomFile[];
+  setFiles: Dispatch<SetStateAction<IRoomFile[]>>;
   title: string;
 }) => {
   const addFile = (newFiles: FileList | null) => {

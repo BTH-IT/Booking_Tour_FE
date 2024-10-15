@@ -1,6 +1,4 @@
 import { useLocation } from 'react-router';
-import Currency from '../Header/RightHeader/Currency';
-import Language from '../Header/RightHeader/Language';
 import * as Styles from './styles';
 
 import { AiOutlineClose } from 'react-icons/ai';
@@ -31,10 +29,7 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
           </Styles.SidebarNavItemLink>
         </Styles.SidebarNavItem>
       </Styles.SidebarNav>
-      <Styles.SidebarTranferAction>
-        <Currency color="white" bgColor="white" />
-        <Language />
-      </Styles.SidebarTranferAction>
+      <Styles.SidebarTranferAction></Styles.SidebarTranferAction>
     </Styles.SidebarWrapper>
   );
 };

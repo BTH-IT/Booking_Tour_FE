@@ -1,7 +1,6 @@
-import { IRoom } from 'room';
+import { BaseModel, IRoom } from 'index';
 
-export interface IHotel {
-  id: string;
+export interface IHotel extends BaseModel {
   name: string;
   location: string;
   locationCode: number;
@@ -11,9 +10,6 @@ export interface IHotel {
   hotelRules: IHotelRule[];
   rooms: IRoom[];
   hotelAmenities: IHotelAmenity[];
-  createdAt: Date;
-  updatedAt: Date | null;
-  deletedAt: Date | null;
 }
 
 export interface IHotelRule {

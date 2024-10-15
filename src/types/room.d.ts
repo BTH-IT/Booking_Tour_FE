@@ -1,12 +1,9 @@
-import { IFile } from 'file';
-import { IHotel } from 'hotel';
-import { IReview } from 'review';
+import { BaseModel, IRoomFile, IHotel, IReview } from 'index';
 
-export interface IRoom {
-  id: string;
+export interface IRoom extends BaseModel {
   name: string;
-  images: IFile[];
-  video: IFile;
+  images: IRoomFile[];
+  video: IRoomFile;
   detail: string;
   price: number;
   imageList: string[];
@@ -16,9 +13,6 @@ export interface IRoom {
   roomAmenities: IRoomAmenity[];
   hotelId: string;
   hotel: IHotel;
-  createAt: Date;
-  updateAt: Date | null;
-  deleteAt: Date | null;
 }
 
 export interface IRoomAmenity {

@@ -33,41 +33,41 @@ const TourDetailLeft = (props: ITour) => {
 
   return (
     <>
-      <Styles.TourDetailLeftContent id='detail'>
+      <Styles.TourDetailLeftContent id="detail">
         <Styles.TourDetailLeftTitle>Detail</Styles.TourDetailLeftTitle>
         <Styles.TourDetailLeftParagraph>
           {props.detail}
         </Styles.TourDetailLeftParagraph>
         <Row gutter={[20, 20]}>
           <Col xs={12}>
-            <Styles.TourDetailLeftPriceIncludesTitle>
+            <Styles.TourDetailLeftpriceIncludeListTitle>
               Price Includes
-            </Styles.TourDetailLeftPriceIncludesTitle>
+            </Styles.TourDetailLeftpriceIncludeListTitle>
           </Col>
           <Col xs={12}>
-            <Styles.TourDetailLeftPriceIncludes>
-              {props.priceIncludes.map((include, idx) => (
-                <Styles.TourDetailLeftPriceIncludesItem key={include + idx}>
+            <Styles.TourDetailLeftpriceIncludeList>
+              {props.priceIncludeList.map((include, idx) => (
+                <Styles.TourDetailLeftpriceIncludeListItem key={include + idx}>
                   <AiOutlineCheck />
                   <p>{include}</p>
-                </Styles.TourDetailLeftPriceIncludesItem>
+                </Styles.TourDetailLeftpriceIncludeListItem>
               ))}
-            </Styles.TourDetailLeftPriceIncludes>
+            </Styles.TourDetailLeftpriceIncludeList>
           </Col>
           <Col xs={12}>
-            <Styles.TourDetailLeftPriceExcludesTitle>
+            <Styles.TourDetailLeftpriceExcludeListTitle>
               Price Excludes
-            </Styles.TourDetailLeftPriceExcludesTitle>
+            </Styles.TourDetailLeftpriceExcludeListTitle>
           </Col>
           <Col xs={12}>
-            <Styles.TourDetailLeftPriceExcludes>
-              {props.priceExcludes.map((excludes, idx) => (
-                <Styles.TourDetailLeftPriceIncludesItem key={excludes + idx}>
+            <Styles.TourDetailLeftpriceExcludeList>
+              {props.priceExcludeList.map((excludes, idx) => (
+                <Styles.TourDetailLeftpriceIncludeListItem key={excludes + idx}>
                   <AiOutlineClose />
                   <p>{excludes}</p>
-                </Styles.TourDetailLeftPriceIncludesItem>
+                </Styles.TourDetailLeftpriceIncludeListItem>
               ))}
-            </Styles.TourDetailLeftPriceExcludes>
+            </Styles.TourDetailLeftpriceExcludeList>
           </Col>
         </Row>
         <Styles.TourDetailLeftSeperate />
@@ -75,17 +75,17 @@ const TourDetailLeft = (props: ITour) => {
         <Styles.TourDetailLeftParagraph>
           {props.expect}
         </Styles.TourDetailLeftParagraph>
-        <Styles.TourDetailLeftActivities>
-          {props.activities.map((activity, idx) => (
-            <Styles.TourDetailLeftPriceIncludesItem key={activity + idx}>
+        <Styles.TourDetailLeftactivityList>
+          {props.activityList.map((activity, idx) => (
+            <Styles.TourDetailLeftpriceIncludeListItem key={activity + idx}>
               <LuCircleDot />
               <p>{activity}</p>
-            </Styles.TourDetailLeftPriceIncludesItem>
+            </Styles.TourDetailLeftpriceIncludeListItem>
           ))}
-        </Styles.TourDetailLeftActivities>
+        </Styles.TourDetailLeftactivityList>
         <Styles.TourDetailLeftSeperate />
       </Styles.TourDetailLeftContent>
-      <Styles.TourDetailLeftContent id='itinerary'>
+      <Styles.TourDetailLeftContent id="itinerary">
         <Styles.TourDetailLeftTitle>Itinerary</Styles.TourDetailLeftTitle>
         {props.dayList.map((day, idx) => (
           <Accordion
@@ -95,7 +95,7 @@ const TourDetailLeft = (props: ITour) => {
           />
         ))}
       </Styles.TourDetailLeftContent>
-      <Styles.TourDetailLeftContent id='map'>
+      <Styles.TourDetailLeftContent id="map">
         <Styles.TourDetailLeftMapTitle>Map</Styles.TourDetailLeftMapTitle>
         {destination && (
           <Styles.TourDetailLeftMap
@@ -106,7 +106,7 @@ const TourDetailLeft = (props: ITour) => {
         )}
       </Styles.TourDetailLeftContent>
       <Styles.TourDetailLeftSeperate />
-      <Styles.TourDetailLeftContent id='faq'>
+      <Styles.TourDetailLeftContent id="faq">
         <Styles.TourDetailLeftTitle>FAQ</Styles.TourDetailLeftTitle>
         {faqList.map((item, idx) => (
           <Accordion title={item.title} content={item.content} key={idx} />

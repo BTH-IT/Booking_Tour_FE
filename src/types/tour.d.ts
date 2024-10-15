@@ -1,7 +1,6 @@
-import { IReview } from 'review';
+import { BaseModel, IDestination, IReview } from 'index';
 
-export interface ITour {
-  id: string;
+export interface ITour extends BaseModel {
   name: string;
   maxGuests: number;
   isWifi: boolean;
@@ -10,19 +9,17 @@ export interface ITour {
   price: number;
   dateFrom: Date;
   dateTo: Date;
-  video: IFile;
+  video: string;
   salePercent: number;
-  priceExcludes: ITourItem[];
-  priceIncludes: ITourItem[];
-  activities: ITourItem[];
-  imageList: ITourItem[];
-  dayList: ITourItem[];
+  priceExcludeList: string[];
+  priceIncludeList: string[];
+  activityList: string[];
+  imageList: string[];
+  dayList: string[];
   destinationId: string;
+  destination: IDestination;
   reviewList: IReview[];
   location: string;
-  createAt: Date;
-  updateAt: Date | null;
-  deleteAt: Date | null;
 }
 
 export interface ISchedule {
@@ -34,6 +31,6 @@ export interface ISchedule {
 }
 
 export interface ITourItem {
-  id: string;
+  id: number;
   title: string;
 }

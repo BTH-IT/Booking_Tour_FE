@@ -11,6 +11,7 @@ import RoomPage from './pages/RoomPage';
 import RoomDetailPage from './pages/RoomDetailPage';
 import DashboardPage from './pages/DashboardPage';
 import AdminPage from './pages/AdminPage';
+import AdminAuthenticationaLayout from './layouts/AdminAuthenticationLayout';
 
 export default function AppRouter() {
   return (
@@ -22,12 +23,16 @@ export default function AppRouter() {
         <Route path={router.tourDetail} element={<TourDetailPage />} />
         <Route path={router.rooms} element={<RoomPage />} />
         <Route path={router.roomDetail} element={<RoomDetailPage />} />
-        <Route path={router.dashboard} element={<DashboardPage />} />
-        <Route path={router.admin} element={<AdminPage />} />
       </Route>
       <Route element={<AuthenticationaLayout />}>
         <Route element={<DefaultLayout />}>
           <Route path={router.payment} element={<PaymentPage />} />
+          <Route path={router.dashboard} element={<DashboardPage />} />
+        </Route>
+      </Route>
+      <Route element={<AdminAuthenticationaLayout />}>
+        <Route element={<DefaultLayout />}>
+          <Route path={router.admin} element={<AdminPage />} />
         </Route>
       </Route>
     </Routes>

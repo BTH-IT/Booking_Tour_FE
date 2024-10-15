@@ -4,15 +4,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { ReactSortable } from 'react-sortablejs';
-import { IFile } from 'file';
+import { ITourFile } from 'file';
 
 const ManageTourVideo = ({
   files,
   setFiles,
   title,
 }: {
-  files: IFile[];
-  setFiles: Dispatch<SetStateAction<IFile[]>>;
+  files: ITourFile[];
+  setFiles: Dispatch<SetStateAction<ITourFile[]>>;
   title: string;
 }) => {
   const addFile = (newFiles: FileList | null) => {

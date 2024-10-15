@@ -31,7 +31,7 @@ import { IHotel, IRoom, IRoomAmenity } from '@/types';
 import ReactQuill from 'react-quill';
 import roomService from '@/services/RoomService';
 import ManageRoomItems from '@/components/ManageRoomItems';
-import { IFile } from 'file';
+import { IRoomFile } from 'file';
 import ManageRoomImages from '@/components/ManageRoomImages';
 import ManageRoomVideo from '@/components/ManageRoomVideo';
 import uploadService from '@/services/UploadService';
@@ -59,8 +59,8 @@ const CreateRoomModal = ({
   const { toast } = useToast();
 
   const [roomAmenities, setRoomAmenities] = useState<IRoomAmenity[]>([]);
-  const [video, setVideo] = useState<IFile[]>([]);
-  const [images, setImages] = useState<IFile[]>([]);
+  const [video, setVideo] = useState<IRoomFile[]>([]);
+  const [images, setImages] = useState<IRoomFile[]>([]);
 
   const formSchema = z.object({
     name: z
@@ -120,7 +120,7 @@ const CreateRoomModal = ({
         uploadService.uploadMultipleFileWithAWS3(videoFile),
       ]);
 
-      const imageData: IFile[] = imageRes.map((res) => ({
+      const imageData: IRoomFile[] = imageRes.map((res) => ({
         id: uuidv4(),
         url: res.url,
       }));
@@ -275,6 +275,7 @@ const CreateRoomModal = ({
                         <FormControl>
                           <Input
                             type="number"
+                            min={0}
                             className="w-[480px] text-xl text-gray-900 py-[20px] focus-visible:ring-0 focus-visible:ring-offset-0"
                             {...field}
                           />
@@ -294,6 +295,7 @@ const CreateRoomModal = ({
                         <FormControl>
                           <Input
                             type="number"
+                            min={0}
                             className="w-[480px] text-xl text-gray-900 py-[20px] focus-visible:ring-0 focus-visible:ring-offset-0"
                             {...field}
                           />
