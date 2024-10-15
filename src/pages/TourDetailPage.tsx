@@ -1,5 +1,4 @@
 import FreshlyAdded from '@/components/Card/FreshlyAdded';
-import { TourReviews } from '@/components/Reviews';
 import SearchTitle from '@/components/SearchTitle';
 import SliderBase from '@/components/Slider/SliderBase';
 import TourDetailGallery from '@/components/TourDetail/TourDetailGallery';
@@ -46,6 +45,8 @@ const TourDetailPage = () => {
   const { tourId } = useParams();
   const navigate = useNavigate();
 
+  console.log(tourId);
+
   if (!tourId) {
     navigate('/');
     return <></>;
@@ -62,7 +63,7 @@ const TourDetailPage = () => {
 
   async function fetchTourList() {
     try {
-      const data = await tourService.getAllTour();
+      const data = await tourService.getAllTours();
 
       setTourList(data.result);
     } catch (error) {
@@ -74,7 +75,7 @@ const TourDetailPage = () => {
     tour && (
       <>
         <SearchTitle>{''}</SearchTitle>
-        <Container className="container">
+        <Container className='container'>
           <TourDetailNav />
           <TourDetailHeader {...tour} />
           <TourDetailGallery {...tour} />
@@ -118,16 +119,12 @@ const TourDetailPage = () => {
                 },
               ]}
             >
-              {tourList.map((freshlyAdded) => (
-                <FreshlyAdded
-                  {...freshlyAdded}
-                  maxWidth="325px"
-                  key={freshlyAdded.imageList[0]}
-                />
+              {tourList.map((freshlyAdded, idx) => (
+                <FreshlyAdded {...freshlyAdded} maxWidth='325px' key={idx} />
               ))}
             </SliderBase>
           </TourDetailContent>
-          <TourReviews {...tour} />
+          {/* <TourReviews {...tour} /> */}
         </Container>
       </>
     )

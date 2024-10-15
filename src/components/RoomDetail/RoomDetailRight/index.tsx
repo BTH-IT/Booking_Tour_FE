@@ -70,6 +70,7 @@ const RoomDetailRight = (props: IRoom) => {
 
   const onFinish = (values: any) => {
     if (schedule) {
+      console.log(schedule);
       localStorage.setItem(
         'Room_payment',
         JSON.stringify({

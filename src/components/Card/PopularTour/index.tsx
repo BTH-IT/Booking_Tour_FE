@@ -14,7 +14,7 @@ const PopularTour: React.FC<ITour> = ({
   id,
 }) => {
   return (
-    <Styles.CardWrapper href={'/' + id}>
+    <Styles.CardWrapper href={'/tour/' + id}>
       <Styles.Img src={imageList[0]} alt={name} />
       {salePercent > 0 && <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>}
       <Styles.CardInfo>

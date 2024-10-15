@@ -16,6 +16,7 @@ import { authActions } from '@/redux/features/auth/authSlice';
 import { LoginFormType } from '@/redux/features/auth/authSaga';
 import { BE_URL } from '@/utils/constants';
 import { Toaster } from '@/components/ui/toaster';
+import { toast } from 'react-toastify';
 
 interface IDefaultStyledProps {
   $isShow: boolean;
@@ -104,7 +105,7 @@ const DefaultLayout = () => {
           form.resetFields();
           toast.success('Login Success!!');
         },
-      }),
+      })
     );
   };
 
@@ -123,19 +124,19 @@ const DefaultLayout = () => {
       {showSidebar && <Sidebar onClose={() => setShowSidebar(false)}></Sidebar>}
       <ModalStyled
         footer={null}
-        title="Login"
+        title='Login'
         open={isModalOpen}
         centered
         onCancel={() => setIsModalOpen(false)}
         width={800}
       >
-        <Form form={form} layout="vertical" onFinish={onFinish}>
+        <Form form={form} layout='vertical' onFinish={onFinish}>
           <Row gutter={[20, 20]}>
             <Col xs={24}>
               <InputFormItem
-                name="email"
-                label="Email"
-                placeholder="email"
+                name='email'
+                label='Email'
+                placeholder='email'
                 bordered
                 allowClear
                 rules={[
@@ -152,10 +153,10 @@ const DefaultLayout = () => {
             </Col>
             <Col xs={24}>
               <InputFormItem
-                name="password"
-                label="Password"
-                placeholder="password"
-                type="password"
+                name='password'
+                label='Password'
+                placeholder='password'
+                type='password'
                 bordered
                 allowClear
                 isPassword
@@ -167,16 +168,16 @@ const DefaultLayout = () => {
               />
             </Col>
           </Row>
-          <CustomButton width="100%" height="50px" htmlType="submit">
+          <CustomButton width='100%' height='50px' htmlType='submit'>
             Sign In!
           </CustomButton>
           <FooterStyled>
             <FooterTopStyled>
               <h4>DO NOT HAVE AN ACCOUNT?</h4>
               <ButtonLink
-                href="/register"
-                color="#5c98f2"
-                $hoverColor="#5c98f2"
+                href='/register'
+                color='#5c98f2'
+                $hoverColor='#5c98f2'
               >
                 CREATE AN ACCOUNT
               </ButtonLink>
@@ -184,7 +185,7 @@ const DefaultLayout = () => {
             </FooterTopStyled>
             <FooterBottomStyled>
               <FooterBottomLinkStyled href={`${BE_URL}/auth/google`}>
-                <img src="./google.png" alt="google" />
+                <img src='./google.png' alt='google' />
               </FooterBottomLinkStyled>
             </FooterBottomStyled>
           </FooterStyled>

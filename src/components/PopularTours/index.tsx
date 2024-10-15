@@ -19,7 +19,7 @@ const PopularTours = () => {
   async function handleFetchTours() {
     setIsLoading(true);
     try {
-      const data = await tourService.getAllTour();
+      const data = await tourService.getAllTours();
 
       setTours(data.result);
       setIsLoading(false);

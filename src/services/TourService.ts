@@ -3,17 +3,23 @@ import { ITour, ISchedule, IReview } from '@/types';
 import configService from './ConfigService';
 import { API_URL } from '@/constants/endpoints';
 
+const PREFIX = '/tour';
+
 const tourService = {
   getTour(tourId: string): Promise<ApiResponse<ITour>> {
-    return configService.get(`${API_URL.TOURS}/${tourId}`);
+    const url = `${PREFIX}/Tours/${tourId}`;
+    return configService.get(url);
   },
   getSchedulesOfTour(tourId: string): Promise<ISchedule[]> {
-    return configService.get(`${API_URL.TOURS}/${tourId}/schedules`);
+    const url = `${API_URL.SCHEDULES}/tour/${tourId}`;
+    return configService.get(url);
   },
   getAllTours(params?: any): Promise<ApiResponse<ITour[]>> {
     return configService.get(`${API_URL.TOURS}`, { params: params });
   },
-  getTourSearch(params?: any): Promise<
+  getTourSearch(
+    params?: any
+  ): Promise<
     ApiResponse<{
       tours: ITour[];
       maxPrice: number;

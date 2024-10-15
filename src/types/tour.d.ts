@@ -5,7 +5,10 @@ export interface ITour extends BaseModel {
   maxGuests: number;
   isWifi: boolean;
   detail: string;
+  priceExcludeList: string[];
+  priceIncludeList: string[];
   expect: string;
+  activityList: string[];
   price: number;
   dateFrom: Date;
   dateTo: Date;
@@ -20,6 +23,7 @@ export interface ITour extends BaseModel {
   destination: IDestination;
   reviewList: IReview[];
   location: string;
+  rate: number;
 }
 
 export interface ISchedule {

@@ -32,7 +32,7 @@ const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({ maxWidth, ...props }) => {
     <div ref={elementRef}>
       {isLazyLoad ? (
         <Styles.CardWrapper $maxWidth={maxWidth}>
-          <Styles.Img href={`/${id}`}>
+          <Styles.Img href={`/tour/${id}`}>
             <img src={imageList[0]} alt={imageList[0]} />
           </Styles.Img>
           {salePercent > 0 && (

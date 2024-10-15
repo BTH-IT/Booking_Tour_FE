@@ -15,7 +15,7 @@ const FreshlyAddeds = () => {
 
   async function fetchTourList() {
     try {
-      const data = await tourService.getAllTour();
+      const data = await tourService.getAllTours();
 
       setTourList(data.result);
     } catch (error) {

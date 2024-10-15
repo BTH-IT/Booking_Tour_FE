@@ -46,7 +46,7 @@ const FreshlyAddedV2 = forwardRef<
       <div ref={elementRef}>
         {isLazyLoad ? (
           <Styles.CardWrapper $maxWidth={maxWidth}>
-            <Styles.CardImg href={`/${id}`}>
+            <Styles.CardImg href={`/tour/${id}`}>
               <img src={imageList[0]} alt={imageList[0]} />
             </Styles.CardImg>
             {salePercent > 0 && (
