@@ -1,9 +1,7 @@
-import { Trash2, Upload } from 'lucide-react';
-import { v4 as uuidv4 } from 'uuid';
+import { Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Dispatch, SetStateAction, useState } from 'react';
-import { ReactSortable } from 'react-sortablejs';
+import { Dispatch, SetStateAction } from 'react';
 import { IRoomFile } from 'file';
 
 const ManageRoomVideo = ({
@@ -25,7 +23,7 @@ const ManageRoomVideo = ({
         return;
       }
       setFiles((prevFiles) => {
-        const updatedFiles = [...prevFiles, { id: uuidv4(), data: f }];
+        const updatedFiles = [...prevFiles, { id: prevFiles.length, data: f }];
         return updatedFiles;
       });
     });
@@ -36,12 +34,12 @@ const ManageRoomVideo = ({
       return;
     }
 
-    Array.from(newFiles).forEach((f: File) => {
-      setFiles([{ id: uuidv4(), data: f }]);
+    Array.from(newFiles).forEach((f: File, idx) => {
+      setFiles([{ id: idx, data: f }]);
     });
   };
 
-  const deleteFile = (id: string) => {
+  const deleteFile = (id: number) => {
     setFiles(files.filter((file) => file.id !== id));
   };
 
@@ -86,7 +84,7 @@ const ManageRoomVideo = ({
           <div className="w-fit">
             {files.map((file, idx) => (
               <div
-                key={`${idx}-${file.id}`}
+                key={`${idx}`}
                 className="flex flex-col min-w-[400px] h-fit mb-2 py-5 px-5 border-solid border-[1px] border-gray-300 rounded-md my-3"
               >
                 <div className="w-[400px] h-[200px]">
@@ -109,7 +107,10 @@ const ManageRoomVideo = ({
                         >
                           <source
                             src={file.url}
-                            type={file.type ? `${file.type}` : 'video/mp4'}
+                            type={
+                              `video/${file.url.split('.').reverse()[0]}` ||
+                              'video/mp4'
+                            }
                           />
                         </video>
                       ) : (

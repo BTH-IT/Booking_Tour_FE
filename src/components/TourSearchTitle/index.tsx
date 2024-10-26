@@ -1,9 +1,9 @@
 import React from 'react';
 import * as Styles from './styles';
 
-const RoomTitle = ({
-  children = 'Room Tours',
-  secondChildren = 'Our Rooms',
+const TourSearchTitle = ({
+  children = 'Search Tours',
+  secondChildren = 'Our Tours',
   backgroundImg = '',
 }: {
   children?: React.ReactNode;
@@ -12,12 +12,12 @@ const RoomTitle = ({
 }) => {
   return (
     <Styles.BackgroundWrapper $backgroundImg={backgroundImg}>
-      <Styles.RoomTitleWrapper>{children}</Styles.RoomTitleWrapper>
-      <Styles.RoomSecondTitleWrapper>
+      <Styles.TourSearchTitleWrapper>{children}</Styles.TourSearchTitleWrapper>
+      <Styles.TourSecondTitleWrapper>
         {secondChildren}
-      </Styles.RoomSecondTitleWrapper>
+      </Styles.TourSecondTitleWrapper>
     </Styles.BackgroundWrapper>
   );
 };
 
-export default RoomTitle;
+export default TourSearchTitle;

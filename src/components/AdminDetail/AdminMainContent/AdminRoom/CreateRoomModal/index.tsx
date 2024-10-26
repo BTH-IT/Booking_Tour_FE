@@ -27,7 +27,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { IHotel, IRoom, IRoomAmenity } from '@/types';
+import { IHotel, IRoom, IRoomItem } from '@/types';
 import ReactQuill from 'react-quill';
 import roomService from '@/services/RoomService';
 import ManageRoomItems from '@/components/ManageRoomItems';
@@ -58,7 +58,7 @@ const CreateRoomModal = ({
 }: CreateRoomModalProps) => {
   const { toast } = useToast();
 
-  const [roomAmenities, setRoomAmenities] = useState<IRoomAmenity[]>([]);
+  const [roomAmenities, setRoomAmenities] = useState<IRoomItem[]>([]);
   const [video, setVideo] = useState<IRoomFile[]>([]);
   const [images, setImages] = useState<IRoomFile[]>([]);
 
@@ -120,22 +120,15 @@ const CreateRoomModal = ({
         uploadService.uploadMultipleFileWithAWS3(videoFile),
       ]);
 
-      const imageData: IRoomFile[] = imageRes.map((res) => ({
-        id: uuidv4(),
-        url: res.url,
-      }));
+      const imageData = imageRes.map((res) => res.url);
 
-      const videoData = videoRes.map((res) => ({
-        id: uuidv4(),
-        url: res.url,
-        type: res.type,
-      }))[0];
+      const videoData = videoRes[0].url;
 
       const roomData = {
         ...data,
         images: imageData,
         video: videoData,
-        roomAmenities: roomAmenities,
+        roomAmenities: roomAmenities.map((item) => item.title),
       };
 
       const res = await roomService.createRoom(roomData);

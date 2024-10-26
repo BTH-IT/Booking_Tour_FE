@@ -15,8 +15,6 @@ const ManageTourImages = ({
   setFiles: Dispatch<SetStateAction<ITourFile[]>>;
   title: string;
 }) => {
-  console.log(files);
-
   const [editId, setEditId] = useState(-1);
 
   const addFile = (newFiles: FileList | null) => {

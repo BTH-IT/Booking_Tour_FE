@@ -11,11 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { ReactSortable } from 'react-sortablejs';
-
-interface IHotelItem {
-  id: string;
-  title: string;
-}
+import { IHotelItem } from 'hotel';
 
 const ManageHotelItems = ({
   items,
@@ -30,18 +26,18 @@ const ManageHotelItems = ({
 }) => {
   const [newItem, setNewItem] = useState('');
   const [editingItem, setEditingItem] = useState<IHotelItem>({
-    id: '',
+    id: -1,
     title: '',
   });
 
   const addItem = () => {
     if (newItem.trim()) {
-      setItems([...items, { id: uuidv4(), title: newItem.trim() }]);
+      setItems([...items, { id: items.length, title: newItem.trim() }]);
       setNewItem('');
     }
   };
 
-  const startEditing = (id: string, title: string) => {
+  const startEditing = (id: number, title: string) => {
     setEditingItem({ id, title });
   };
 
@@ -53,14 +49,14 @@ const ManageHotelItems = ({
           : item,
       ),
     );
-    setEditingItem({ id: '', title: '' });
+    setEditingItem({ id: -1, title: '' });
   };
 
   const cancelEdit = () => {
-    setEditingItem({ id: '', title: '' });
+    setEditingItem({ id: -1, title: '' });
   };
 
-  const deleteItem = (id: string) => {
+  const deleteItem = (id: number) => {
     setItems(items.filter((item) => item.id !== id));
   };
 
@@ -97,7 +93,7 @@ const ManageHotelItems = ({
         <ReactSortable list={items} setList={setItems}>
           {items.map((item, idx) => (
             <div
-              key={`${idx}-${item.id}`}
+              key={`${idx}`}
               className="cursor-grab w-full h-[55px] mb-2 p-2 border-solid border-[1px] border-gray-300 rounded-md my-3 flex justify-between items-center"
             >
               {editingItem.id === item.id ? (

@@ -11,6 +11,7 @@ import tourService from '@/services/TourService';
 import { ITour } from 'tour';
 import { toast } from 'react-toastify';
 import useDidMount from '@/hooks/useDidMount';
+import { logError } from '@/utils/constants';
 
 const PopularTours = () => {
   const [tours, setTours] = useState<ITour[]>([]);
@@ -23,8 +24,8 @@ const PopularTours = () => {
 
       setTours(data.result);
       setIsLoading(false);
-    } catch {
-      toast.error('Oops!! Something is wrong');
+    } catch (error) {
+      logError(error);
     }
   }
 
@@ -54,13 +55,13 @@ const PopularTours = () => {
           )}
         </SliderBase>
         <ButtonLink
-          href='/search'
+          href="/search"
           icon={true}
-          $fontSize='1.4rem'
+          $fontSize="1.4rem"
           $borderBottom={true}
-          $hoverColorBottom='#5c98f2'
-          color='black'
-          $hoverColor='black'
+          $hoverColorBottom="#5c98f2"
+          color="black"
+          $hoverColor="black"
         >
           See More
         </ButtonLink>

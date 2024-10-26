@@ -4,7 +4,7 @@ import { Select } from 'antd';
 import { AiOutlineUnorderedList } from 'react-icons/ai';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 
-const SearchContentSort = ({
+const RoomSearchContentSort = ({
   layout,
   setLayout,
   meta,
@@ -16,7 +16,7 @@ const SearchContentSort = ({
   handleSortBy: (meta: any) => void;
 }) => {
   return (
-    <Styles.SearchContentSortWrapper>
+    <Styles.RoomSearchContentSortWrapper>
       <span>Sort by</span>
       <Select
         size="middle"
@@ -33,8 +33,8 @@ const SearchContentSort = ({
             label: 'Release Date',
           },
           {
-            value: 'tourDate',
-            label: 'Tour Date',
+            value: 'roomDate',
+            label: 'Room Date',
           },
           {
             value: 'name',
@@ -72,7 +72,7 @@ const SearchContentSort = ({
         ]}
         bordered={false}
       />
-      <Styles.SearchContentSortLayout>
+      <Styles.RoomSearchContentSortLayout>
         <AiOutlineUnorderedList
           className={`${layout ? 'active' : ''}`}
           onClick={() => {
@@ -89,9 +89,9 @@ const SearchContentSort = ({
             setLayout(false);
           }}
         />
-      </Styles.SearchContentSortLayout>
-    </Styles.SearchContentSortWrapper>
+      </Styles.RoomSearchContentSortLayout>
+    </Styles.RoomSearchContentSortWrapper>
   );
 };
 
-export default SearchContentSort;
+export default RoomSearchContentSort;

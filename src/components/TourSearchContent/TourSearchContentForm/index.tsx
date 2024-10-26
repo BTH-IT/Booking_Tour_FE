@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { debounce } from 'lodash';
 import { useSearchParams } from 'react-router-dom';
 
-const SearchContentForm = ({
+const TourSearchContentForm = ({
   meta,
   setMeta,
   defaultValuePriceRange,
@@ -51,8 +51,19 @@ const SearchContentForm = ({
     });
   };
 
+  const debouncedSetMeta = debounce(
+    (value: [number, number]) =>
+      setMeta({
+        ...meta,
+        priceFrom: value[0],
+        priceTo: value[1],
+        _page: 1,
+      }),
+    500,
+  );
+
   return (
-    <Styles.SearchContentForm
+    <Styles.TourSearchContentForm
       form={form}
       layout="vertical"
       onFinish={onFinish}
@@ -67,19 +78,19 @@ const SearchContentForm = ({
         ],
       }}
     >
-      <Styles.SearchContentTitle>
+      <Styles.TourSearchContentTitle>
         <BsSearch />
         <span>Tour Search</span>
-      </Styles.SearchContentTitle>
-      <Styles.SearchContentFormItem name="keywords" label="Keywords">
-        <Styles.SearchContentFormInput
+      </Styles.TourSearchContentTitle>
+      <Styles.TourSearchContentFormItem name="keywords" label="Keywords">
+        <Styles.TourSearchContentFormInput
           placeholder="input search text"
           suffix={<BsSearch />}
           bordered={false}
           allowClear
         />
-      </Styles.SearchContentFormItem>
-      <Styles.SearchContentFormDate name="date" label="Date">
+      </Styles.TourSearchContentFormItem>
+      <Styles.TourSearchContentFormDate name="date" label="Date">
         <CalendarInput
           value={date}
           onChange={(e: CalendarChangeEvent) => setDate(e.value as Date[])}
@@ -87,30 +98,28 @@ const SearchContentForm = ({
           selectionMode="range"
           numberOfMonths={2}
         />
-      </Styles.SearchContentFormDate>
-      <Styles.SearchContentFormItem name="price" label="Price">
+      </Styles.TourSearchContentFormDate>
+      <Styles.TourSearchContentFormItem name="price" label="Price">
         <Slider
           range
           max={defaultValuePriceRange[1]}
           min={defaultValuePriceRange[0]}
           step={10}
-          onChange={debounce(
-            (value: [number, number]) =>
-              setMeta({
-                ...meta,
-                priceFrom: value[0],
-                priceTo: value[1],
-                _page: 1,
-              }),
-            500,
-          )}
+          onChange={(value: number | number[]) => {
+            if (Array.isArray(value)) {
+              debouncedSetMeta(value as [number, number]);
+            }
+          }}
         />
-      </Styles.SearchContentFormItem>
-      <Styles.SearchContentFormButton onClick={handleResetFilter} type="button">
+      </Styles.TourSearchContentFormItem>
+      <Styles.TourSearchContentFormButton
+        onClick={handleResetFilter}
+        type="button"
+      >
         <AiOutlineClose />
         <span>Clear Filter</span>
-      </Styles.SearchContentFormButton>
-      <Styles.SearchContentFormLine />
+      </Styles.TourSearchContentFormButton>
+      <Styles.TourSearchContentFormLine />
       <Filter meta={meta} setMeta={setMeta} />
       <CustomButton
         type="primary"
@@ -121,8 +130,8 @@ const SearchContentForm = ({
       >
         SEARCH
       </CustomButton>
-    </Styles.SearchContentForm>
+    </Styles.TourSearchContentForm>
   );
 };
 
-export default SearchContentForm;
+export default TourSearchContentForm;

@@ -1,11 +1,11 @@
 import CalendarInput from '@/components/CalendarInput';
 import CustomButton from '@/components/CustomButton';
 import InputFormItem from '@/components/Input/InputFormItem';
-import SearchTitle from '@/components/SearchTitle';
+import TourSearchTitle from '@/components/TourSearchTitle';
 import SelectFormItem from '@/components/Select/SelectFormItem';
 import { useAppSelector } from '@/redux/hooks';
 import authService from '@/services/AuthService';
-import { countryList } from '@/utils/constants';
+import { countryList, logError } from '@/utils/constants';
 import { Col, Form, Row } from 'antd';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import Checkbox from 'antd/es/checkbox/Checkbox';
@@ -87,8 +87,8 @@ const RegisterPage = () => {
       toast.success('Register Success!!');
 
       navigate('/login');
-    } catch (error: any) {
-      toast.error('Register Failure!!');
+    } catch (error) {
+      logError(error);
     }
   };
 
@@ -116,7 +116,7 @@ const RegisterPage = () => {
 
   return (
     <>
-      <SearchTitle>Register</SearchTitle>
+      <TourSearchTitle>Register</TourSearchTitle>
       <RegisterStyled>
         <Form
           form={form}

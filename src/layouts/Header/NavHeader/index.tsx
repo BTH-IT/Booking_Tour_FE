@@ -13,7 +13,7 @@ const NavHeader = () => {
       </Styles.NavHeaderItem>
       <Styles.NavHeaderItem>
         <Styles.NavHeaderItemLink href="/room">
-          Room List
+          Room Search
         </Styles.NavHeaderItemLink>
       </Styles.NavHeaderItem>
     </Styles.NavHeaderWrapper>

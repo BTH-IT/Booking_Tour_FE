@@ -13,7 +13,7 @@ export const BackgroundWrapper = styled.div<{ $backgroundImg: string }>`
   `}
 `;
 
-export const RoomTitleWrapper = styled.div`
+export const RoomSearchTitleWrapper = styled.div`
   text-align: center;
   font-size: 6rem;
   font-weight: 500;

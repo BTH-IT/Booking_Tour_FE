@@ -1,5 +1,5 @@
 import FreshlyAdded from '@/components/Card/FreshlyAdded';
-import SearchTitle from '@/components/SearchTitle';
+import TourSearchTitle from '@/components/TourSearchTitle';
 import SliderBase from '@/components/Slider/SliderBase';
 import TourDetailGallery from '@/components/TourDetail/TourDetailGallery';
 import TourDetailHeader from '@/components/TourDetail/TourDetailHeader';
@@ -15,6 +15,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { ITour } from 'tour';
+import { logError } from '@/utils/constants';
 
 const TourDetailContentStyled = styled.div`
   margin: 0 auto;
@@ -67,15 +68,15 @@ const TourDetailPage = () => {
 
       setTourList(data.result);
     } catch (error) {
-      toast.error('Sever is wrong');
+      logError(error);
     }
   }
 
   return (
     tour && (
       <>
-        <SearchTitle>{''}</SearchTitle>
-        <Container className='container'>
+        <TourSearchTitle>{''}</TourSearchTitle>
+        <Container className="container">
           <TourDetailNav />
           <TourDetailHeader {...tour} />
           <TourDetailGallery {...tour} />
@@ -120,7 +121,7 @@ const TourDetailPage = () => {
               ]}
             >
               {tourList.map((freshlyAdded, idx) => (
-                <FreshlyAdded {...freshlyAdded} maxWidth='325px' key={idx} />
+                <FreshlyAdded {...freshlyAdded} maxWidth="325px" key={idx} />
               ))}
             </SliderBase>
           </TourDetailContent>

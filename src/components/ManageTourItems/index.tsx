@@ -6,7 +6,6 @@ import {
   Trash2,
   X,
 } from 'lucide-react';
-import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dispatch, SetStateAction, useState } from 'react';

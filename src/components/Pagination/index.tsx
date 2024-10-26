@@ -6,7 +6,7 @@ import { Input } from '../ui/input';
 
 interface PaginationProps {
   currentPage: number;
-  setCurrentPage: Dispatch<SetStateAction<number>>;
+  setCurrentPage: (currentPage: number) => void;
   totalPages: number;
 }
 

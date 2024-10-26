@@ -22,7 +22,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { IHotel, IHotelAmenity, IHotelRule, ILocation } from '@/types';
+import { IHotel, IHotelItem, ILocation } from '@/types';
 import ReactQuill from 'react-quill';
 import hotelService from '@/services/HotelService';
 import ManageHotelItems from '@/components/ManageHotelItems';
@@ -54,8 +54,8 @@ const DetailHotelModal = ({
 }: DetailHotelModalProps) => {
   const { toast } = useToast();
 
-  const [hotelRules, setHotelRules] = useState<IHotelRule[]>([]);
-  const [hotelAmenities, setHotelAmenities] = useState<IHotelAmenity[]>([]);
+  const [hotelRules, setHotelRules] = useState<IHotelItem[]>([]);
+  const [hotelAmenities, setHotelAmenities] = useState<IHotelItem[]>([]);
 
   const formSchema = z.object({
     name: z
@@ -118,8 +118,15 @@ const DetailHotelModal = ({
       form.setValue('description', hotel.description);
       form.setValue('contactInfo', hotel.contactInfo);
 
-      setHotelRules(hotel.hotelRules);
-      setHotelAmenities(hotel.hotelAmenities);
+      setHotelRules(
+        hotel.hotelRules.map((rule, idx) => ({ id: idx, title: rule })),
+      );
+      setHotelAmenities(
+        hotel.hotelAmenities.map((amenity, idx) => ({
+          id: idx,
+          title: amenity,
+        })),
+      );
     }
   }, [hotel, form, isDetailModalOpen]);
 
@@ -175,8 +182,8 @@ const DetailHotelModal = ({
       ...rest,
       id: hotel?.id,
       locationCode: parseInt(locationDetail.value),
-      hotelRules: hotelRules,
-      hotelAmenities: hotelAmenities,
+      hotelRules: hotelRules.map((rule) => rule.title),
+      hotelAmenities: hotelAmenities.map((amenity) => amenity.title),
     };
 
     handleEditHotel(data);

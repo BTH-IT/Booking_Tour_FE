@@ -2,12 +2,12 @@ import { Routes, Route } from 'react-router-dom';
 import DefaultLayout from './layouts/DefaultLayout';
 import { router } from './constants/router';
 import Homepage from './pages/HomePage';
-import SearchPage from './pages/SearchPage';
+import SearchPage from './pages/TourSearchPage';
 import RegisterPage from './pages/RegisterPage';
 import TourDetailPage from './pages/TourDetailPage';
 import AuthenticationaLayout from './layouts/AuthenticationLayout';
 import PaymentPage from './pages/PaymentPage';
-import RoomPage from './pages/RoomPage';
+import RoomSearchPage from './pages/RoomSearchPage';
 import RoomDetailPage from './pages/RoomDetailPage';
 import DashboardPage from './pages/DashboardPage';
 import AdminPage from './pages/AdminPage';
@@ -21,7 +21,7 @@ export default function AppRouter() {
         <Route path={router.search} element={<SearchPage />} />
         <Route path={router.register} element={<RegisterPage />} />
         <Route path={router.tourDetail} element={<TourDetailPage />} />
-        <Route path={router.rooms} element={<RoomPage />} />
+        <Route path={router.rooms} element={<RoomSearchPage />} />
         <Route path={router.roomDetail} element={<RoomDetailPage />} />
       </Route>
       <Route element={<AuthenticationaLayout />}>

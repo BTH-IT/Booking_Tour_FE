@@ -11,21 +11,15 @@ export const Separator = styled.div`
 
 export const RoomDetailLeftFirstTitle = styled.h2`
   line-height: 1.2;
-  font-size: 1.7rem;
+  font-size: 2rem;
   color: black;
   font-weight: 500;
 `;
 
-export const OriginalPrice = styled.span`
-  font-size: 1.4rem;
-  padding-left: 7px;
-  color: #8c8c8c;
-  text-decoration: line-through;
-`;
-
 export const ActualPrice = styled.span`
-  font-size: 1.7rem;
+  font-size: 2rem;
   padding-left: 7px;
+  color: black;
 `;
 
 export const RoomDetailLeftSecondTitle = styled.h5`
@@ -36,18 +30,17 @@ export const RoomDetailLeftSecondTitle = styled.h5`
   margin-bottom: 30px;
 `;
 
-export const RoomDetailLeftParagraph = styled.p`
-  font-size: 1.5rem;
-  text-align: justify;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #8c8c8c;
-  margin-top: 40px;
-  margin-bottom: 40px;
+export const RoomDetailLeftParagraph = styled.div`
+  margin-bottom: 20px;
+
+  & > p {
+    font-size: 1.6rem !important;
+  }
 `;
 
 export const RoomDetailLeftAmenities = styled.div`
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   gap: 10px;
 `;
