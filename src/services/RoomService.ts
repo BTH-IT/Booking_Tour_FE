@@ -26,8 +26,23 @@ const roomService = {
     rooms: IRoom[];
     maxPrice: number;
     minPrice: number;
+    totalItems: number;
+    pageNumber: number;
+    pageSize: number;
   }> {
     return configService.get('/rooms/', { params: params });
+  },
+  getRoomSearch(params?: any): Promise<
+    ApiResponse<{
+      rooms: IRoom[];
+      maxPrice: number;
+      minPrice: number;
+      totalItems: number;
+      pageNumber: number;
+      pageSize: number;
+    }>
+  > {
+    return configService.get(`${API_URL.ROOMS}/search`, { params: params });
   },
   getAllReviews(): Promise<any> {
     return configService.get('/rooms/reviewList');

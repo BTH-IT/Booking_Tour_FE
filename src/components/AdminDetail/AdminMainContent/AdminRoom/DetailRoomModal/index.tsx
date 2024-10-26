@@ -27,7 +27,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { IHotel, IRoom, IRoomAmenity } from '@/types';
+import { IHotel, IRoom, IRoomItem } from '@/types';
 import ReactQuill from 'react-quill';
 import roomService from '@/services/RoomService';
 import ManageRoomItems from '@/components/ManageRoomItems';
@@ -60,10 +60,10 @@ const DetailRoomModal = ({
 }: DetailRoomModalProps) => {
   const { toast } = useToast();
 
-  const [roomAmenities, setRoomAmenities] = useState<IRoomAmenity[]>([]);
+  const [roomAmenities, setRoomAmenities] = useState<IRoomItem[]>([]);
   const [video, setVideo] = useState<IRoomFile[]>([
     {
-      id: '',
+      id: -1,
     },
   ]);
   const [images, setImages] = useState<IRoomFile[]>([]);
@@ -114,18 +114,18 @@ const DetailRoomModal = ({
     form.setValue('price', `${room.price}`);
     form.setValue('maxGuests', `${room.maxGuests}`);
     form.setValue('detail', room.detail);
-    setRoomAmenities(room.roomAmenities);
-    setVideo([
-      { id: room.video.id, url: room.video.url, type: room.video.type },
-    ]);
-    setImages(room.images);
+    setRoomAmenities(
+      room.roomAmenities.map((amenity, idx) => ({ id: idx, title: amenity })),
+    );
+    setVideo([{ id: 0, url: room.video }]);
+    setImages(room.images.map((image, idx) => ({ id: idx, url: image })));
   }, [room, form, isDetailModalOpen]);
 
   const closeModal = () => {
     setIsDetailModalOpen(false);
     form.reset();
     setRoomAmenities([]);
-    setVideo([{ id: '' }]);
+    setVideo([{ id: -1 }]);
     setImages([]);
   };
 
@@ -158,9 +158,9 @@ const DetailRoomModal = ({
       const roomData = {
         ...data,
         id: room.id,
-        images: imageData,
-        video: videoData[0],
-        roomAmenities: roomAmenities,
+        images: imageData.map((i) => i.url),
+        video: videoData.map((v) => v.url)[0],
+        roomAmenities: roomAmenities.map((amenity) => amenity.title),
       };
 
       console.log(roomData);

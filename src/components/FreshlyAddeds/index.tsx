@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { ITour } from 'tour';
 import tourService from '@/services/TourService';
 import { toast } from 'react-toastify';
+import { logError } from '@/utils/constants';
 
 const FreshlyAddeds = () => {
   const [tourList, setTourList] = useState<ITour[]>([]);
@@ -19,7 +20,7 @@ const FreshlyAddeds = () => {
 
       setTourList(data.result);
     } catch (error) {
-      toast.error('Oops! Something is wrong');
+      logError(error);
     }
   }
 
@@ -69,13 +70,13 @@ const FreshlyAddeds = () => {
           ))}
         </SliderBase>
         <ButtonLink
-          href='/search'
+          href="/search"
           icon={true}
-          $fontSize='1.4rem'
+          $fontSize="1.4rem"
           $borderBottom={true}
-          $hoverColorBottom='#5c98f2'
-          color='black'
-          $hoverColor='black'
+          $hoverColorBottom="#5c98f2"
+          color="black"
+          $hoverColor="black"
         >
           View All Tours
         </ButtonLink>

@@ -9,6 +9,7 @@ import { IDestination } from 'destination';
 import { toast } from 'react-toastify';
 import useDidMount from '@/hooks/useDidMount';
 import { SkeletonImg } from '../Card/FreshlyAdded/style';
+import { logError } from '@/utils/constants';
 
 export const Destinations = () => {
   const [destinations, setDestinations] = useState<IDestination[]>([]);
@@ -21,8 +22,8 @@ export const Destinations = () => {
 
       setDestinations(res.result);
       setIsLoading(false);
-    } catch {
-      toast.error('Oops!! Something is wrong');
+    } catch (error) {
+      logError(error);
     }
   }
 
@@ -42,13 +43,13 @@ export const Destinations = () => {
             around the world.
           </Styles.DestinationsTopDesc>
           <ButtonLink
-            href='/search'
+            href="/search"
             icon={true}
-            $fontSize='1.4rem'
+            $fontSize="1.4rem"
             $borderBottom={true}
-            $hoverColorBottom='#5c98f2'
-            color='black'
-            $hoverColor='black'
+            $hoverColorBottom="#5c98f2"
+            color="black"
+            $hoverColor="black"
           >
             All Destinations
           </ButtonLink>

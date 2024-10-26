@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SearchContentWrapper = styled.section`
+export const RoomSearchContentWrapper = styled.section`
   width: 100%;
   max-width: 1300px;
   padding: 0 20px;
@@ -11,14 +11,23 @@ export const SearchContentWrapper = styled.section`
   overflow: hidden;
 `;
 
-export const SearchContentRight = styled.div`
+export const ResultCountWrapper = styled.div`
+  color: black;
+  font-size: 2.1rem;
+  font-weight: 500;
+  color: black;
+  letter-spacing: 2px;
+  font-family: 'DM Serif Display', sans-serif;
+`;
+
+export const RoomSearchContentRight = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
   padding-bottom: 60px;
 `;
 
-export const SearchContentResult = styled.h3`
+export const RoomSearchContentResult = styled.h3`
   font-size: 2rem;
   font-weight: 600;
   font-family: 'DM Serif Display', sans-serif;

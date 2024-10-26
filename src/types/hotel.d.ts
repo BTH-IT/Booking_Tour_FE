@@ -7,17 +7,12 @@ export interface IHotel extends BaseModel {
   description: string;
   contactInfo: string;
   reviewList?: IReview[];
-  hotelRules: IHotelRule[];
+  hotelRules: string[];
   rooms: IRoom[];
-  hotelAmenities: IHotelAmenity[];
+  hotelAmenities: string[];
 }
 
-export interface IHotelRule {
-  id: string;
-  title: string;
-}
-
-export interface IHotelAmenity {
-  id: string;
+export interface IHotelItem {
+  id: number;
   title: string;
 }

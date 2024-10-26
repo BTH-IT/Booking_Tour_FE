@@ -1,25 +1,28 @@
 import * as Styles from './styles';
 import { Container } from '@/constants';
 import { Col, Row } from 'antd';
-import SearchContentForm from './SearchContentForm';
-import SearchContentSort from './SearchContentSort';
-import FreshlyAdded from '../Card/FreshlyAdded';
+import RoomSearchContentForm from './RoomSearchContentForm';
+import RoomSearchContentSort from './RoomSearchContentSort';
+import RoomFreshlyAdded from '../Card/RoomFreshlyAdded';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import FreshlyAddedV2 from '../Card/FreshlyAddedV2';
-import tourService from '@/services/TourService';
-import { ITour } from 'tour';
+import RoomFreshlyAddedV2 from '../Card/RoomFreshlyAddedV2';
+import roomService from '@/services/RoomService';
+import { IRoom } from 'room';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import * as FreshlyAddedStyled from '../Card/FreshlyAdded/style';
 import * as FreshlyAddedStyledV2 from '../Card/FreshlyAddedV2/style';
 import { toast } from 'react-toastify';
+import Pagination from '../Pagination';
+import { logError } from '@/utils/constants';
 
-const SearchContent = () => {
+const RoomSearchContent = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [layout, setLayout] = useState(false);
-  const [tourList, setTourList] = useState<ITour[]>([]);
+  const [roomList, setRoomList] = useState<IRoom[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 0]);
-  const [hasMore, setHasMore] = useState(true);
+  const [totalResults, setTotalResults] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
   const [meta, setMeta] = useState({
     ...Object.fromEntries(searchParams.entries()),
@@ -28,52 +31,46 @@ const SearchContent = () => {
     MinPrice: searchParams.get('MinPrice') || 0,
   });
   const location = useLocation();
-
-  const elementRef = useRef<HTMLDivElement | null>(null);
-
-  function onIntersection(entries: IntersectionObserverEntry[]) {
-    const firstEntry = entries[0];
-
-    if (firstEntry.isIntersecting && hasMore) {
-      setPage((prev) => prev + 1);
-    }
-  }
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(onIntersection);
-    if (observer && elementRef.current) {
-      observer.observe(elementRef.current);
-    }
-
-    return () => {
-      if (observer) {
-        observer.disconnect();
-      }
-    };
-  }, [tourList]);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    setTourList([]);
-    setPage(1);
-    setHasMore(false);
+    setRoomList([]);
     setIsLoading(true);
+
+    const page = searchParams.get('_page');
+    if (page && !isNaN(Number(page))) {
+      setPage(parseInt(searchParams.get('_page') || '1'));
+    }
   }, [meta]);
 
   const getSearchItems = async () => {
     try {
-      const data = await tourService.getTourSearch({
+      const data = await roomService.getRoomSearch({
         ...meta,
         pageNumber: page,
-        pageSize: 4,
+        pageSize: 6,
       });
-      setHasMore(data.result.tours.length > 0);
-      setTourList((prev) => [...prev, ...data.result.tours]);
+      setRoomList(data.result.rooms);
       setPriceRange([data.result.minPrice, data.result.maxPrice]);
+      setTotalResults(data.result.totalItems);
+      setTotalPages(Math.ceil(data.result.totalItems / data.result.pageSize));
       handleChangeLocation();
       setIsLoading(false);
     } catch (error) {
-      toast.error('Oops!! Something is wrong');
+      logError(error);
     }
+  };
+
+  const changePageHandler = (page: number) => {
+    setPage(page);
+    searchParams.set('_page', page.toString());
+
+    if (scrollRef.current) {
+      window.scrollBy(0, scrollRef.current.getBoundingClientRect().top - 120); // Adjust the offset value as needed
+    }
+
+    const newUrl = location.pathname + '?' + searchParams.toString();
+    window.history.pushState({ path: newUrl }, '', newUrl);
   };
 
   useEffect(() => {
@@ -109,7 +106,6 @@ const SearchContent = () => {
         }
         continue;
       }
-      searchParams.set(key, value);
     }
 
     const newUrl = location.pathname + '?' + searchParams.toString();
@@ -119,10 +115,10 @@ const SearchContent = () => {
 
   return (
     <Container>
-      <Styles.SearchContentWrapper>
+      <Styles.RoomSearchContentWrapper>
         <Row gutter={[60, 60]}>
           <Col xs={24} md={24} xl={8}>
-            <SearchContentForm
+            <RoomSearchContentForm
               defaultValuePriceRange={priceRange}
               meta={meta}
               setMeta={(meta: any) => {
@@ -131,8 +127,11 @@ const SearchContent = () => {
             />
           </Col>
           <Col xs={24} md={24} xl={16}>
-            <Styles.SearchContentRight>
-              <SearchContentSort
+            <Styles.RoomSearchContentRight>
+              <Styles.ResultCountWrapper ref={scrollRef}>
+                {totalResults} Results Found
+              </Styles.ResultCountWrapper>
+              <RoomSearchContentSort
                 layout={layout}
                 setLayout={setLayout}
                 meta={meta}
@@ -143,22 +142,24 @@ const SearchContent = () => {
                 <>
                   {!layout ? (
                     <Row gutter={[20, 20]}>
-                      {tourList.map((freshlyAdded, idx) => (
+                      {roomList.map((freshlyAdded, idx) => (
                         <Col xs={24} sm={12} key={freshlyAdded.id + idx}>
-                          <FreshlyAdded {...freshlyAdded} maxWidth={'100%'} />
+                          <RoomFreshlyAdded
+                            {...freshlyAdded}
+                            maxWidth={'100%'}
+                          />
                         </Col>
                       ))}
                     </Row>
                   ) : (
-                    tourList.map((freshlyAdded, idx) => (
-                      <FreshlyAddedV2
+                    roomList.map((freshlyAdded, idx) => (
+                      <RoomFreshlyAddedV2
                         {...freshlyAdded}
                         key={freshlyAdded.id + idx}
                         maxWidth={'100%'}
                       />
                     ))
                   )}
-                  {hasMore && <div ref={elementRef}></div>}
                 </>
               ) : !layout ? (
                 <Row gutter={[20, 20]}>
@@ -185,12 +186,17 @@ const SearchContent = () => {
                   </Col>
                 ))
               )}
-            </Styles.SearchContentRight>
+            </Styles.RoomSearchContentRight>
+            <Pagination
+              currentPage={page}
+              setCurrentPage={changePageHandler}
+              totalPages={totalPages}
+            />
           </Col>
         </Row>
-      </Styles.SearchContentWrapper>
+      </Styles.RoomSearchContentWrapper>
     </Container>
   );
 };
 
-export default SearchContent;
+export default RoomSearchContent;

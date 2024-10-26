@@ -7,7 +7,7 @@ import { ITour } from 'tour';
 import { toast } from 'react-toastify';
 import tourService from '@/services/TourService';
 import { v4 as uuidv4 } from 'uuid';
-import { KEY_LOCALSTORAGE } from '@/utils/constants';
+import { KEY_LOCALSTORAGE, logError } from '@/utils/constants';
 import { useAppSelector } from '@/redux/hooks';
 import { selectAuth } from '@/redux/features/auth/authSlice';
 import Review from './Review';
@@ -52,7 +52,7 @@ export const TourReviews = (props: ITour) => {
 
       toast.success('Review Success!!');
     } catch (error) {
-      toast.error('Review Failure!!');
+      logError(error);
     }
   };
   return (
@@ -148,7 +148,7 @@ export const RoomReviews = (props: IRoom) => {
 
       toast.success('Review Success!!');
     } catch (error) {
-      toast.error('Review Failure!!');
+      logError(error);
     }
   };
   return (

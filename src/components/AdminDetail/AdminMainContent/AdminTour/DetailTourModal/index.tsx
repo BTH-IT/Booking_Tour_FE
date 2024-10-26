@@ -1,10 +1,4 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -286,7 +280,7 @@ const DetailTourModal = ({
           <DialogContent className="sm:max-w-[1200px] max-h-[90%] overflow-y-scroll no-scrollbar !px-0">
             <DialogHeader>
               <DialogTitle className="text-blue-600 text-3xl text-center">
-                Add New Tour
+                Edit Tour
               </DialogTitle>
             </DialogHeader>
             <Form {...form}>

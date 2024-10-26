@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SearchContentSortWrapper = styled.div`
+export const TourSearchContentSortWrapper = styled.div`
   padding: 12px 20px;
   display: flex;
   align-items: center;
@@ -19,7 +19,7 @@ export const SearchContentSortWrapper = styled.div`
   }
 `;
 
-export const SearchContentSortLayout = styled.div`
+export const TourSearchContentSortLayout = styled.div`
   flex: 1;
   display: flex;
   justify-content: right;

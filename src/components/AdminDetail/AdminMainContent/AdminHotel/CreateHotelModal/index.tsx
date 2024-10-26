@@ -26,7 +26,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { IHotel, IHotelAmenity, IHotelRule, ILocation, IRoom } from '@/types';
+import { IHotel, IHotelItem, ILocation, IRoom } from '@/types';
 import ReactQuill from 'react-quill';
 import hotelService from '@/services/HotelService';
 import destinationService from '@/services/DestinationService';
@@ -57,8 +57,8 @@ const CreateHotelModal = ({
 }: CreateHotelModalProps) => {
   const { toast } = useToast();
 
-  const [hotelRules, setHotelRules] = useState<IHotelRule[]>([]);
-  const [hotelAmenities, setHotelAmenities] = useState<IHotelAmenity[]>([]);
+  const [hotelRules, setHotelRules] = useState<IHotelItem[]>([]);
+  const [hotelAmenities, setHotelAmenities] = useState<IHotelItem[]>([]);
 
   const formSchema = z.object({
     name: z
@@ -156,8 +156,8 @@ const CreateHotelModal = ({
     const data = {
       ...rest,
       locationCode: parseInt(locationDetail.value),
-      hotelRules: hotelRules,
-      hotelAmenities: hotelAmenities,
+      hotelRules: hotelRules.map((rule) => rule.title),
+      hotelAmenities: hotelAmenities.map((amenity) => amenity.title),
     };
 
     handleCreateHotel(data);
