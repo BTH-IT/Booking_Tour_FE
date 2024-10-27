@@ -61,6 +61,7 @@ export const RoomDetailGalleryButton = styled.button`
   background-color: white;
   border-radius: 6px;
   font-size: 1.3rem;
+  color: #374151;
   font-weight: 600;
   padding: 12px 14px;
   cursor: pointer;

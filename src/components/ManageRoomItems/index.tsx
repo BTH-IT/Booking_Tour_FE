@@ -6,12 +6,11 @@ import {
   Trash2,
   X,
 } from 'lucide-react';
-import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { ReactSortable } from 'react-sortablejs';
-import { IRoomAmenity } from 'room';
+import { IRoomItem } from 'room';
 
 const ManageRoomItems = ({
   items,
@@ -19,25 +18,25 @@ const ManageRoomItems = ({
   title,
   placeholder,
 }: {
-  items: IRoomAmenity[];
-  setItems: Dispatch<SetStateAction<IRoomAmenity[]>>;
+  items: IRoomItem[];
+  setItems: Dispatch<SetStateAction<IRoomItem[]>>;
   title: string;
   placeholder: string;
 }) => {
   const [newItem, setNewItem] = useState('');
-  const [editingItem, setEditingItem] = useState<IRoomAmenity>({
-    id: '',
+  const [editingItem, setEditingItem] = useState<IRoomItem>({
+    id: -1,
     title: '',
   });
 
   const addItem = () => {
     if (newItem.trim()) {
-      setItems([...items, { id: uuidv4(), title: newItem.trim() }]);
+      setItems([...items, { id: items.length, title: newItem.trim() }]);
       setNewItem('');
     }
   };
 
-  const startEditing = (id: string, title: string) => {
+  const startEditing = (id: number, title: string) => {
     setEditingItem({ id, title });
   };
 
@@ -49,14 +48,14 @@ const ManageRoomItems = ({
           : item,
       ),
     );
-    setEditingItem({ id: '', title: '' });
+    setEditingItem({ id: -1, title: '' });
   };
 
   const cancelEdit = () => {
-    setEditingItem({ id: '', title: '' });
+    setEditingItem({ id: -1, title: '' });
   };
 
-  const deleteItem = (id: string) => {
+  const deleteItem = (id: number) => {
     setItems(items.filter((item) => item.id !== id));
   };
 
@@ -93,7 +92,7 @@ const ManageRoomItems = ({
         <ReactSortable list={items} setList={setItems}>
           {items.map((item, idx) => (
             <div
-              key={`${idx}-${item.id}`}
+              key={`${idx}`}
               className="cursor-grab w-full h-[55px] mb-2 p-2 border-solid border-[1px] border-gray-300 rounded-md my-3 flex justify-between items-center"
             >
               {editingItem.id === item.id ? (

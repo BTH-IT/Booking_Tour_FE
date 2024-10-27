@@ -5,6 +5,7 @@ import { IDestination } from 'destination';
 import useDidMount from '@/hooks/useDidMount';
 import tourService from '@/services/TourService';
 import { toast } from 'react-toastify';
+import { logError } from '@/utils/constants';
 
 const Destination: React.FC<IDestination> = ({ id, name, desc, image }) => {
   const [tours, setTours] = useState<number>(0);
@@ -14,8 +15,8 @@ const Destination: React.FC<IDestination> = ({ id, name, desc, image }) => {
       const data = await tourService.getAllTours({ destination: id });
 
       setTours(data.result.length);
-    } catch {
-      toast.error('Oops!! Something is wrong');
+    } catch (error) {
+      logError(error);
     }
   }
 
@@ -32,9 +33,9 @@ const Destination: React.FC<IDestination> = ({ id, name, desc, image }) => {
         <ButtonLink
           href={'/search?destination=' + id}
           icon={false}
-          $fontSize='1.4rem'
-          color='#5c98f2'
-          $hoverColor='#7cb0fc'
+          $fontSize="1.4rem"
+          color="#5c98f2"
+          $hoverColor="#7cb0fc"
           $fontWeight={600}
           $borderBottom={false}
         >

@@ -1,9 +1,6 @@
 import styled from 'styled-components';
-import KingBedOutlinedIcon from '@mui/icons-material/KingBedOutlined';
-import SpaceDashboardOutlinedIcon from '@mui/icons-material/SpaceDashboardOutlined';
-import { MdPeopleOutline } from 'react-icons/md';
-import CorporateFareOutlinedIcon from '@mui/icons-material/CorporateFareOutlined';
 import { Row, Col } from 'antd';
+import { UsersRound } from 'lucide-react';
 
 export const RoomDetailHeaderWrapper = styled.div`
   display: flex;
@@ -48,35 +45,20 @@ export const RoomDetailHeaderSubInfoItem = styled(Row)`
 `;
 
 export const RoomDetailHeaderSubInfoCol = styled(Col)`
-  width: 200px;
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 600px;
 `;
 
 export const RoomDetailHeaderSubInfoDetail = styled.span`
   font-size: 1.4rem;
   color: inherit;
+  width: 100%;
   font-weight: inherit;
-  margin-right: 40px;
 `;
 
-export const KingBedOutlined = styled(KingBedOutlinedIcon)`
-  width: 35px !important;
-  height: 35px !important;
-`;
-
-export const MdPeopleOutlined = styled(MdPeopleOutline)`
-  width: 35px !important;
-  height: 35px !important;
-`;
-
-export const SpaceDashboardOutlined = styled(SpaceDashboardOutlinedIcon)`
-  width: 35px !important;
-  height: 35px !important;
-`;
-
-export const CorporateFareOutlined = styled(CorporateFareOutlinedIcon)`
+export const MdPeopleOutlined = styled(UsersRound)`
   width: 35px !important;
   height: 35px !important;
 `;

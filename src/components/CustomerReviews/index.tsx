@@ -8,7 +8,8 @@ import { toast } from 'react-toastify';
 import useDidMount from '@/hooks/useDidMount';
 import { ITour } from 'tour';
 import { IUser } from 'user';
-import { IReview } from '../Reviews';
+import { IReview } from 'review';
+import { logError } from '@/utils/constants';
 
 const customerReviews = [
   {
@@ -89,10 +90,10 @@ const CustomerReviews = () => {
 
   async function handleFetchReviews() {
     try {
-      const data = await tourService.getAllReviews();
-      setReviews(data);
-    } catch {
-      toast.error('Oops!! Something is wrong');
+      const res = await tourService.getAllReviews();
+      setReviews(res.result);
+    } catch (error) {
+      logError(error);
     }
   }
 

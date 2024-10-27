@@ -2,7 +2,7 @@ import ContactDetails from '@/components/ContactDetails';
 import ContactAndTravellerDetails from '@/components/ContactDetails/ContactAndTravellerDetails';
 import CustomButton from '@/components/CustomButton';
 import InformationTour from '@/components/InformationTour';
-import SearchTitle from '@/components/SearchTitle';
+import TourSearchTitle from '@/components/TourSearchTitle';
 import Services from '@/components/Services';
 import TravellerDetails from '@/components/TravellerDetails';
 import { Container } from '@/constants';
@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
+import { logError } from '@/utils/constants';
 
 const PaymentWrapper = styled.section`
   width: 100%;
@@ -84,7 +85,7 @@ const layout = {
 
 const PaymentPage = () => {
   const tourPayment = JSON.parse(
-    localStorage.getItem('tour_payment') || 'null'
+    localStorage.getItem('tour_payment') || 'null',
   );
   const user = useAppSelector(selectAuth).user;
   const account = useAppSelector(selectAuth).account;
@@ -101,7 +102,7 @@ const PaymentPage = () => {
   const [totalPay, setTotalPay] = useState(
     (tourPayment.price - tourPayment.price * (tourPayment.salePercent / 100)) *
       Number(tourPayment.seats) +
-      20 * Number(tourPayment.seats)
+      20 * Number(tourPayment.seats),
   );
   const [form] = Form.useForm();
 
@@ -115,7 +116,9 @@ const PaymentPage = () => {
 
   return (
     <>
-      <SearchTitle backgroundImg='/page-title-bg.png'>Payment</SearchTitle>
+      <TourSearchTitle backgroundImg="/page-title-bg.png">
+        Payment
+      </TourSearchTitle>
       <Container>
         <PaymentWrapper>
           <div>
@@ -168,8 +171,8 @@ const PaymentPage = () => {
                       You can check the payment status from your dashboard.
                     </p>
                     <CustomButton
-                      type='primary'
-                      height='50px'
+                      type="primary"
+                      height="50px"
                       onClick={() => {
                         navigate('/');
                       }}
@@ -190,8 +193,8 @@ const PaymentPage = () => {
               <PaymentButtonWrapper>
                 {current < steps.length - 1 && (
                   <CustomButton
-                    type='primary'
-                    htmlType='submit'
+                    type="primary"
+                    htmlType="submit"
                     onClick={async () => {
                       if (current === steps.length - 2) {
                         try {
@@ -211,7 +214,7 @@ const PaymentPage = () => {
 
                           next();
                         } catch (error) {
-                          toast.error('Payment failure');
+                          logError(error);
                           dispatch(authActions.logout());
                         }
                         return;

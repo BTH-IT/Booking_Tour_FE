@@ -7,6 +7,7 @@ import { IUser } from 'user';
 import userService from '@/services/UserService';
 import { toast } from 'react-toastify';
 import moment from 'moment';
+import { logError } from '@/utils/constants';
 
 const Review = ({
   userId,
@@ -22,7 +23,7 @@ const Review = ({
 
       setUser(data.result);
     } catch (error) {
-      toast.error('Sever is wrong');
+      logError(error);
     }
   }
 

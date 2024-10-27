@@ -2,13 +2,13 @@ import { Form, Input, Rate, Select } from 'antd';
 import styled from 'styled-components';
 import { Calendar } from 'primereact/calendar';
 
-export const SearchContentForm = styled(Form)`
+export const RoomSearchContentForm = styled(Form)`
   padding: 20px;
   border-radius: 6px;
   border: 1px solid #d1d5db;
 `;
 
-export const SearchContentTitle = styled.div`
+export const RoomSearchContentTitle = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
@@ -22,7 +22,7 @@ export const SearchContentTitle = styled.div`
   }
 `;
 
-export const SearchContentFormItem = styled(Form.Item)`
+export const RoomSearchContentFormItem = styled(Form.Item)`
   & .ant-form-item-control-input {
     padding: 10px;
     border-radius: 4px;
@@ -35,7 +35,7 @@ export const SearchContentFormItem = styled(Form.Item)`
   }
 `;
 
-export const SearchContentFormDate = styled(Form.Item)`
+export const RoomSearchContentFormDate = styled(Form.Item)`
   & .ant-form-item-control-input {
     border-radius: 4px;
     border: 1px solid #d1d5db;
@@ -47,7 +47,7 @@ export const SearchContentFormDate = styled(Form.Item)`
   }
 `;
 
-export const SearchContentFormRate = styled(Rate)`
+export const RoomSearchContentFormRate = styled(Rate)`
   display: flex;
   align-items: center;
   width: 100%;
@@ -58,7 +58,7 @@ export const SearchContentFormRate = styled(Rate)`
   }
 `;
 
-export const SearchContentFormButton = styled.button`
+export const RoomSearchContentFormButton = styled.button`
   display: flex;
   align-items: center;
   gap: 10px;
@@ -76,13 +76,13 @@ export const SearchContentFormButton = styled.button`
   }
 `;
 
-export const SearchContentFormInput = styled(Input)``;
+export const RoomSearchContentFormInput = styled(Input)``;
 
-export const SearchContentFormSelect = styled(Select)``;
+export const RoomSearchContentFormSelect = styled(Select)``;
 
-export const SearchContentFormCalendar = styled(Calendar)``;
+export const RoomSearchContentFormCalendar = styled(Calendar)``;
 
-export const SearchContentFormLine = styled.div`
+export const RoomSearchContentFormLine = styled.div`
   width: 100%;
   height: 1px;
   background-color: #d1d5db;

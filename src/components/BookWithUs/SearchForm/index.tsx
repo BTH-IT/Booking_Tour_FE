@@ -9,6 +9,7 @@ import { IDestination } from 'destination';
 import destinationService from '@/services/DestinationService';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
+import { logError } from '@/utils/constants';
 
 const SearchForm = () => {
   const [form] = Form.useForm();
@@ -18,11 +19,11 @@ const SearchForm = () => {
 
   async function handleFetchDestinations() {
     try {
-      const res = await destinationService.getAllDestination();
+      const res = await destinationService.getAllDestinations();
 
       setDestinations(res.result);
-    } catch {
-      toast.error('Oops!! Something is wrong');
+    } catch (error) {
+      logError(error);
     }
   }
 
@@ -65,22 +66,22 @@ const SearchForm = () => {
   return (
     <Styles.SearchFormWrapper
       form={form}
-      layout='vertical'
+      layout="vertical"
       onFinish={onFinish}
-      autoComplete='off'
+      autoComplete="off"
     >
       <Row gutter={20}>
         <Col xs={24} md={18}>
           <Styles.SearchFormContent gutter={20}>
             <Col xs={24} md={8}>
-              <Form.Item name='search' label='Keyword'>
-                <Input placeholder='Enter your keyword...' bordered={false} />
+              <Form.Item name="search" label="Keyword">
+                <Input placeholder="Enter your keyword..." bordered={false} />
               </Form.Item>
             </Col>
             <Col xs={24} md={8}>
-              <Form.Item name='destination' label='Destination'>
+              <Form.Item name="destination" label="Destination">
                 <Select
-                  size='middle'
+                  size="middle"
                   options={destinations.map((destination) => {
                     return {
                       label: destination.name,
@@ -92,7 +93,7 @@ const SearchForm = () => {
               </Form.Item>
             </Col>
             <Col xs={24} md={8}>
-              <Form.Item name='duration' label='Duration'>
+              <Form.Item name="duration" label="Duration">
                 <CalendarInput
                   hasIcon={false}
                   value={date}
@@ -100,7 +101,7 @@ const SearchForm = () => {
                     setDate(e.value as Date[])
                   }
                   minDate={new Date()}
-                  selectionMode='range'
+                  selectionMode="range"
                   numberOfMonths={2}
                 />
               </Form.Item>
@@ -109,8 +110,8 @@ const SearchForm = () => {
         </Col>
         <Col xs={24} md={6}>
           <Styles.SearchFormButton
-            type='primary'
-            htmlType='submit'
+            type="primary"
+            htmlType="submit"
             icon={<AiOutlineSearch />}
           >
             Search

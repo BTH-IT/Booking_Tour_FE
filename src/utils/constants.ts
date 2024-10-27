@@ -1,3 +1,6 @@
+import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
+
 export const countryList = [
   { label: 'Select your country', value: '' },
   ...[
@@ -286,11 +289,11 @@ export const SET_LOCALSTORAGE = (data: any) => {
   localStorage.setItem(KEY_LOCALSTORAGE.ACCESS_TOKEN, data.accessToken);
   localStorage.setItem(
     KEY_LOCALSTORAGE.CURRENT_USER,
-    JSON.stringify(data.user)
+    JSON.stringify(data.user),
   );
   localStorage.setItem(
     KEY_LOCALSTORAGE.CURRENT_ACCOUNT,
-    JSON.stringify(data.account)
+    JSON.stringify(data.account),
   );
   localStorage.setItem(KEY_LOCALSTORAGE.REFRESH_TOKEN, data.refreshToken);
 };
@@ -320,6 +323,13 @@ export function formatPhoneNumber(phoneNumber: string): string {
 
 export function average(nums: number[]): number {
   return nums.reduce((a, b) => a + b, 0) / nums.length;
+}
+
+export function logError(error: any) {
+  console.error(error);
+  if (error instanceof AxiosError) {
+    toast.error(error.response?.data.message);
+  }
 }
 
 export const faqList = [
