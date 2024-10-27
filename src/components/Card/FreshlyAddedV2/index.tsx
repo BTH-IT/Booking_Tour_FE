@@ -53,7 +53,7 @@ const FreshlyAddedV2 = forwardRef<
               <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>
             )}
             <Styles.CardInfo>
-              <Styles.Title href={`/${id}`}>{name}</Styles.Title>
+              <Styles.Title href={`/tour/${id}`}>{name}</Styles.Title>
               <Styles.CardInfoContent>
                 <Styles.CardInfoContentTop>
                   {salePercent > 0 ? (

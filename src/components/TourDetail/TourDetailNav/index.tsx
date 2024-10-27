@@ -134,14 +134,6 @@ const TourDetailNav = () => {
           onMouseEnter={handleMouseEnter}
           onClick={handleClick}
           onMouseLeave={handleMouseLeave}
-          href='#map'
-        >
-          Map
-        </Styles.TourDetailNavItem>
-        <Styles.TourDetailNavItem
-          onMouseEnter={handleMouseEnter}
-          onClick={handleClick}
-          onMouseLeave={handleMouseLeave}
           href='#faq'
         >
           FAQ

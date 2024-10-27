@@ -47,7 +47,7 @@ const Filter = ({
         <Styles.FilterListWrapper>
           <Styles.FilterListTitle>Rating</Styles.FilterListTitle>
           <Styles.FilterListContent>
-            <Checkbox name="rate" onChange={handleFilterRating} ref={inputRef}>
+            <Checkbox name='rate' onChange={handleFilterRating} ref={inputRef}>
               {''}
             </Checkbox>
             <Rate
@@ -68,8 +68,8 @@ const Filter = ({
         <FilterList
           setMeta={setMeta}
           meta={meta}
-          name="activityList"
-          title={'activityList'}
+          name='activityList'
+          title={'Activities'}
           checkboxList={[
             'City Tours',
             'Cultural & Thematic Tours',
@@ -84,7 +84,7 @@ const Filter = ({
         <FilterList
           setMeta={setMeta}
           meta={meta}
-          name="destination"
+          name='destination'
           title={'Destination'}
           checkboxList={[
             'America',

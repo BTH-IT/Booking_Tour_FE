@@ -39,6 +39,10 @@ export const SliderStyled = styled(Slider)`
     padding: 10px;
   }
 
+  .slick-list .slick-track .slick-slide > div > div {
+    width: 90%;
+  }
+
   @media screen and (max-width: 1500px) {
     max-width: 1000px !important;
   }

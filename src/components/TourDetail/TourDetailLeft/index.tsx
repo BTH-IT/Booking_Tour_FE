@@ -10,7 +10,7 @@ import { faqList } from '@/utils/constants';
 const TourDetailLeft = (props: ITour) => {
   return (
     <>
-      <Styles.TourDetailLeftContent id="detail">
+      <Styles.TourDetailLeftContent id='detail'>
         <Styles.TourDetailLeftTitle>Detail</Styles.TourDetailLeftTitle>
         <Styles.TourDetailLeftParagraph>
           {props.detail}
@@ -62,7 +62,7 @@ const TourDetailLeft = (props: ITour) => {
         </Styles.TourDetailLeftactivityList>
         <Styles.TourDetailLeftSeperate />
       </Styles.TourDetailLeftContent>
-      <Styles.TourDetailLeftContent id="itinerary">
+      <Styles.TourDetailLeftContent id='itinerary'>
         <Styles.TourDetailLeftTitle>Itinerary</Styles.TourDetailLeftTitle>
         {props.dayList.map((day, idx) => (
           <Accordion
@@ -72,18 +72,8 @@ const TourDetailLeft = (props: ITour) => {
           />
         ))}
       </Styles.TourDetailLeftContent>
-      <Styles.TourDetailLeftContent id="map">
-        <Styles.TourDetailLeftMapTitle>Map</Styles.TourDetailLeftMapTitle>
-        {destination && (
-          <Styles.TourDetailLeftMap
-            dangerouslySetInnerHTML={{
-              __html: destination.map.replace('width="600"', "width='100%'"),
-            }}
-          />
-        )}
-      </Styles.TourDetailLeftContent>
       <Styles.TourDetailLeftSeperate />
-      <Styles.TourDetailLeftContent id="faq">
+      <Styles.TourDetailLeftContent id='faq'>
         <Styles.TourDetailLeftTitle>FAQ</Styles.TourDetailLeftTitle>
         {faqList.map((item, idx) => (
           <Accordion title={item.title} content={item.content} key={idx} />

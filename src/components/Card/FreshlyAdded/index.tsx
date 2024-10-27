@@ -39,7 +39,7 @@ const FreshlyAdded: React.FC<IFreshlyAddedProps> = ({ maxWidth, ...props }) => {
             <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>
           )}
           <Styles.CardInfo>
-            <Styles.Title href={`/${id}`}>{name}</Styles.Title>
+            <Styles.Title href={`/tour/${id}`}>{name}</Styles.Title>
             <Styles.CardInfoContent>
               <Styles.CardInfoContentReviews>
                 <Rate allowHalf disabled defaultValue={rate} />
