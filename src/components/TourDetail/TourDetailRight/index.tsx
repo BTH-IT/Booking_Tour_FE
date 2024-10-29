@@ -1,7 +1,6 @@
 import { ISchedule, ITour } from 'tour';
 import * as Styles from './styles';
 import {
-  AiFillHeart,
   AiOutlineHeart,
   AiOutlineLike,
   AiOutlinePhone,
@@ -21,12 +20,15 @@ import tourService from '@/services/TourService';
 import { getDaysInMonth } from '@/utils/constants';
 import { RuleObject } from 'antd/es/form';
 import { useNavigate } from 'react-router';
+import { useAppSelector } from '@/redux/hooks';
+import { toast } from 'react-toastify';
 
 const TourDetailRight = (props: ITour) => {
   const [dates, setDates] = useState<Date[]>([]);
   const [schedules, setSchedules] = useState<ISchedule[]>([]);
   const [schedule, setSchedule] = useState<ISchedule | null>(null);
   const { id, price, salePercent, maxGuests } = props;
+  const user = useAppSelector((state) => state.auth.user);
   const [form] = Form.useForm();
   const [seatsAvailable, setSeatsAvailable] = useState(maxGuests);
   const navigate = useNavigate();
@@ -62,9 +64,9 @@ const TourDetailRight = (props: ITour) => {
       dateRange.push(
         ...dayOfMonth.filter((day) => {
           return !newData.find(
-            (newDate) => newDate.toString() === day.toString(),
+            (newDate) => newDate.toString() === day.toString()
           );
-        }),
+        })
       );
     }
 
@@ -78,13 +80,20 @@ const TourDetailRight = (props: ITour) => {
         return callback();
       }
       return callback(
-        `Only ${seatsAvailable} seats left and seats must be greater than 0`,
+        `Only ${seatsAvailable} seats left and seats must be greater than 0`
       );
     },
-    [],
+    []
   );
 
   const onFinish = (values: any) => {
+    if (!user) {
+      toast.error('Please login to book tour');
+      return;
+    }
+
+    console.log(schedule);
+
     if (schedule) {
       localStorage.setItem(
         'tour_payment',
@@ -92,7 +101,7 @@ const TourDetailRight = (props: ITour) => {
           schedule,
           seats: values.numOfPeople,
           ...props,
-        }),
+        })
       );
 
       navigate('/payment');
@@ -119,12 +128,12 @@ const TourDetailRight = (props: ITour) => {
         </Styles.TourDetailRightBookingPrice>
         <Styles.TourDetailRightBookingForm
           form={form}
-          layout="vertical"
+          layout='vertical'
           initialValues={{ numOfPeople: 0 }}
           onFinish={onFinish}
         >
           <Styles.TourDetailRightBookingFormDate
-            name="date"
+            name='date'
             rules={[{ required: true }]}
           >
             <CalendarInput
@@ -154,20 +163,20 @@ const TourDetailRight = (props: ITour) => {
                 new Date(
                   new Date(props.dateTo).getFullYear(),
                   new Date(props.dateTo).getMonth() + 1,
-                  0,
+                  0
                 )
               }
-              selectionMode="range"
+              selectionMode='range'
             />
           </Styles.TourDetailRightBookingFormDate>
           <Styles.TourDetailRightBookingFormAvailable>
             Available: {seatsAvailable} seats
           </Styles.TourDetailRightBookingFormAvailable>
           <InputFormItem
-            name="numOfPeople"
-            label="Number of people"
-            type="number"
-            min="0"
+            name='numOfPeople'
+            label='Number of people'
+            type='number'
+            min='0'
             max={seatsAvailable}
             rules={[
               {
@@ -189,11 +198,11 @@ const TourDetailRight = (props: ITour) => {
             }}
           />
           <CustomButton
-            htmlType="submit"
-            type="primary"
-            border_radius="4px"
-            width="100%"
-            height="60px"
+            htmlType='submit'
+            type='primary'
+            border_radius='4px'
+            width='100%'
+            height='60px'
           >
             PROCEED BOOKING
           </CustomButton>

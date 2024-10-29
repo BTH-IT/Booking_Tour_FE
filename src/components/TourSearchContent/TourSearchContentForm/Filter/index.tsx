@@ -1,33 +1,43 @@
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import * as Styles from './styles';
 import { BiFilterAlt } from 'react-icons/bi';
-import { useRef, useState } from 'react';
-import FilterList from './FilterList';
+import { useEffect, useRef, useState } from 'react';
 import { Checkbox, Rate } from 'antd';
 import { useSearchParams } from 'react-router-dom';
 import { CheckboxChangeEvent, CheckboxRef } from 'antd/es/checkbox';
+import { ILocation } from 'destination';
+import FilterList from '@/components/RoomSearchContent/RoomSearchContentForm/Filter/FilterList';
 
 const Filter = ({
   meta,
   setMeta,
+  locations,
+  activities,
 }: {
   meta: any;
   setMeta: (meta: any) => void;
+  locations: ILocation[];
+  activities: string[];
 }) => {
   const [isShow, setIsShow] = useState(true);
   const [rate, setRate] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const inputRef = useRef<CheckboxRef | null>(null);
+
+  useEffect(() => {
+    setRate
+  }, [searchParams]);
+
   function handleFilterRating(e: CheckboxChangeEvent) {
     if (e.target.checked) {
-      searchParams.set('rate', `${rate}`);
+      searchParams.set('Rating', `${rate}`);
       setMeta({
         ...meta,
-        rate,
+        Rating: rate,
       });
     } else {
-      const { rate, ...rest } = meta;
-      searchParams.delete('rate');
+      const { rating, ...rest } = meta;
+      searchParams.delete('Rating');
       setMeta(rest);
     }
   }
@@ -47,7 +57,11 @@ const Filter = ({
         <Styles.FilterListWrapper>
           <Styles.FilterListTitle>Rating</Styles.FilterListTitle>
           <Styles.FilterListContent>
-            <Checkbox name='rate' onChange={handleFilterRating} ref={inputRef}>
+            <Checkbox
+              name='Rating'
+              onChange={handleFilterRating}
+              ref={inputRef}
+            >
               {''}
             </Checkbox>
             <Rate
@@ -55,7 +69,7 @@ const Filter = ({
               onChange={(value) => {
                 setRate(value);
                 if (inputRef.current && inputRef.current.input?.checked) {
-                  searchParams.set('rate', `${value}`);
+                  searchParams.set('Rating', `${value}`);
                   setMeta({
                     ...meta,
                     rate,
@@ -68,32 +82,28 @@ const Filter = ({
         <FilterList
           setMeta={setMeta}
           meta={meta}
-          name='activityList'
+          name='Activities'
           title={'Activities'}
-          checkboxList={[
-            'City Tours',
-            'Cultural & Thematic Tours',
-            'Family Friendly Tours',
-            'Holiday & Seasonal Tours',
-            'Indulgence & Luxury Tours',
-            'Outdoor Activites',
-            'Relaxation Tours',
-            'Wild & Adventure Tours',
-          ]}
+          placeHolder='Select activities'
+          optionList={activities.map((act) => {
+            return {
+              label: act,
+              value: act,
+            };
+          })}
         />
         <FilterList
           setMeta={setMeta}
           meta={meta}
-          name='destination'
-          title={'Destination'}
-          checkboxList={[
-            'America',
-            'Asia',
-            'Egypt',
-            'Scandinavia',
-            'South Africa',
-            'Western Europe',
-          ]}
+          name='Destinations'
+          title={'Destinations'}
+          placeHolder='Select Destination'
+          optionList={locations.map((loc) => {
+            return {
+              label: loc.name,
+              value: loc.name,
+            };
+          })}
         />
       </Styles.ShowFilterList>
     </Styles.FilterWrapper>

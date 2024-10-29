@@ -11,7 +11,7 @@ const tourService = {
     return configService.get(url);
   },
   getSchedulesOfTour(tourId: string): Promise<ISchedule[]> {
-    const url = `${API_URL.SCHEDULES}/tour/${tourId}`;
+    const url = `${API_URL.SCHEDULES}/${tourId}`;
     return configService.get(url);
   },
   getAllTours(params?: any): Promise<ApiResponse<ITour[]>> {
@@ -36,7 +36,7 @@ const tourService = {
   },
   updateTour(
     data: Partial<ITour>,
-    tourId: string,
+    tourId: string
   ): Promise<ApiResponse<ITour>> {
     return configService.put(`${API_URL.TOURS}/${tourId}`, data);
   },

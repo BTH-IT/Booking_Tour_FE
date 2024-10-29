@@ -66,7 +66,7 @@ const RegisterPage = () => {
   const [date, setDate] = useState<Date | null>(null);
   const [checked, setChecked] = useState(false);
   const loginSuccess = Boolean(
-    useAppSelector((state) => state.auth.accessToken),
+    useAppSelector((state) => state.auth.accessToken)
   );
 
   useEffect(() => {
@@ -86,7 +86,7 @@ const RegisterPage = () => {
 
       toast.success('Register Success!!');
 
-      navigate('/login');
+      navigate('/');
     } catch (error) {
       logError(error);
     }
@@ -95,7 +95,7 @@ const RegisterPage = () => {
   const validationChecked = (
     rule: RuleObject,
     value: any,
-    callback: (error?: string) => void,
+    callback: (error?: string) => void
   ) => {
     if (checked) {
       return callback();
@@ -106,7 +106,7 @@ const RegisterPage = () => {
   const validationDate = (
     rule: RuleObject,
     value: any,
-    callback: (error?: string) => void,
+    callback: (error?: string) => void
   ) => {
     if (date != null) {
       return callback();
@@ -120,7 +120,7 @@ const RegisterPage = () => {
       <RegisterStyled>
         <Form
           form={form}
-          layout="vertical"
+          layout='vertical'
           initialValues={{
             email: '',
             fullname: '',
@@ -133,14 +133,14 @@ const RegisterPage = () => {
             term: false,
           }}
           onFinish={onFinish}
-          autoComplete="off"
+          autoComplete='off'
         >
           <Row gutter={[20, 20]}>
             <Col xs={12}>
               <InputFormItem
-                name="email"
-                label="Email"
-                placeholder="email"
+                name='email'
+                label='Email'
+                placeholder='email'
                 bordered
                 allowClear
                 rules={[
@@ -157,9 +157,9 @@ const RegisterPage = () => {
             </Col>
             <Col xs={12}>
               <InputFormItem
-                name="fullname"
-                label="Fullname"
-                placeholder="fullname"
+                name='fullname'
+                label='Fullname'
+                placeholder='fullname'
                 bordered
                 allowClear
                 rules={[{ required: true }]}
@@ -167,10 +167,10 @@ const RegisterPage = () => {
             </Col>
             <Col xs={12}>
               <InputFormItem
-                name="password"
-                label="Password"
-                placeholder="password"
-                type="password"
+                name='password'
+                label='Password'
+                placeholder='password'
+                type='password'
                 bordered
                 allowClear
                 rules={[{ required: true }]}
@@ -179,10 +179,10 @@ const RegisterPage = () => {
             </Col>
             <Col xs={12}>
               <InputFormItem
-                name="passwordConfirm"
-                label="Confirm Password"
-                placeholder="confirm password"
-                type="password"
+                name='passwordConfirm'
+                label='Confirm Password'
+                placeholder='confirm password'
+                type='password'
                 bordered
                 allowClear
                 rules={[
@@ -199,9 +199,9 @@ const RegisterPage = () => {
             </Col>
             <Col xs={12}>
               <InputFormItem
-                name="phone"
-                label="Phone"
-                placeholder="phone"
+                name='phone'
+                label='Phone'
+                placeholder='phone'
                 bordered
                 allowClear
                 rules={[
@@ -215,9 +215,9 @@ const RegisterPage = () => {
             </Col>
             <Col xs={12}>
               <SelectFormItem
-                name="country"
-                label="Country"
-                size="large"
+                name='country'
+                label='Country'
+                size='large'
                 options={countryList}
                 bordered={true}
                 rules={[{ required: true }]}
@@ -225,9 +225,9 @@ const RegisterPage = () => {
             </Col>
             <Col xs={12}>
               <SelectFormItem
-                name="gender"
-                label="Gender"
-                size="large"
+                name='gender'
+                label='Gender'
+                size='large'
                 options={[
                   {
                     value: '',
@@ -248,8 +248,8 @@ const RegisterPage = () => {
             </Col>
             <Col xs={12}>
               <FormItemStyled
-                name="birthDate"
-                label="Birth Date"
+                name='birthDate'
+                label='Birth Date'
                 rules={[{ validator: validationDate }]}
               >
                 <CalendarInput
@@ -258,7 +258,7 @@ const RegisterPage = () => {
                     setDate(e.value as Date);
                   }}
                   bordered={true}
-                  rounded="8px"
+                  rounded='8px'
                   errored={date == null && form.isFieldTouched('birthDate')}
                 />
               </FormItemStyled>
@@ -266,14 +266,14 @@ const RegisterPage = () => {
           </Row>
           <CheckboxFormStyled
             rules={[{ validator: validationChecked }]}
-            name="term"
+            name='term'
           >
             <CheckboxStyled onChange={onCheckboxChange} checked={checked}>
               Creating an account means you're okay with our Terms of Service
               and Privacy Statement.
             </CheckboxStyled>
           </CheckboxFormStyled>
-          <CustomButton width="100%" height="50px" htmlType="submit">
+          <CustomButton width='100%' height='50px' htmlType='submit'>
             Sign Up
           </CustomButton>
         </Form>

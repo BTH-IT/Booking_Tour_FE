@@ -1,7 +1,7 @@
 import { Form, Slider } from 'antd';
 import * as Styles from './styles';
 import { BsSearch } from 'react-icons/bs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CalendarInput from '@/components/CalendarInput';
 import { AiOutlineClose } from 'react-icons/ai';
 import Filter from './Filter';
@@ -10,6 +10,9 @@ import { CalendarChangeEvent } from 'primereact/calendar';
 import { toast } from 'react-toastify';
 import { debounce } from 'lodash';
 import { useSearchParams } from 'react-router-dom';
+import { ILocation } from 'destination';
+import destinationService from '@/services/DestinationService';
+import tourService from '@/services/TourService';
 
 const TourSearchContentForm = ({
   meta,
@@ -23,13 +26,36 @@ const TourSearchContentForm = ({
   const [form] = Form.useForm();
   const [date, setDate] = useState<Date[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [locations, setLocations] = useState<ILocation[]>([]);
+  const [activities, setActivities] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchLocation = async () => {
+      const res = await destinationService.getCities();
+      if (res) {
+        setLocations(res.data);
+      }
+    };
+
+    const fetchActivities = async () => {
+      const res = await tourService.getAllTours();
+      if (res) {
+        setActivities([
+          ...new Set(res.result.map((tour) => tour.activityList).flat()),
+        ]);
+      }
+    };
+
+    fetchActivities();
+    fetchLocation();
+  }, []);
 
   const onFinish = async (values: any) => {
     setMeta({
       ...meta,
-      search: values.keywords,
-      dateFrom: date[0]?.getTime() || null,
-      dateTo: date[1]?.getTime() || null,
+      Keyword: values.keywords,
+      StartDate: date[0]?.getTime() || null,
+      EndDate: date[1]?.getTime() || null,
       _page: 1,
     });
   };
@@ -42,11 +68,11 @@ const TourSearchContentForm = ({
     form.resetFields();
     setMeta({
       ...meta,
-      search: '',
-      dateFrom: null,
-      dateTo: null,
-      priceFrom: 0,
-      priceTo: null,
+      Keyword: '',
+      StartDate: null,
+      EndDate: null,
+      MinPrice: 0,
+      MaxPrice: null,
       _page: 1,
     });
   };
@@ -55,26 +81,26 @@ const TourSearchContentForm = ({
     (value: [number, number]) =>
       setMeta({
         ...meta,
-        priceFrom: value[0],
-        priceTo: value[1],
+        MinPrice: value[0],
+        MaxPrice: value[1],
         _page: 1,
       }),
-    500,
+    500
   );
 
   return (
     <Styles.TourSearchContentForm
       form={form}
-      layout="vertical"
+      layout='vertical'
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
-      autoComplete="off"
+      autoComplete='off'
       initialValues={{
         keywords: '',
         date: [],
         price: [
-          Number(searchParams.get('priceFrom') || 0),
-          Number(searchParams.get('priceTo') || 100000000000000000000000),
+          Number(searchParams.get('MinPrice') || 0),
+          Number(searchParams.get('MaxPrice') || 100000000000000000000000),
         ],
       }}
     >
@@ -82,24 +108,24 @@ const TourSearchContentForm = ({
         <BsSearch />
         <span>Tour Search</span>
       </Styles.TourSearchContentTitle>
-      <Styles.TourSearchContentFormItem name="keywords" label="Keywords">
+      <Styles.TourSearchContentFormItem name='keywords' label='Keywords'>
         <Styles.TourSearchContentFormInput
-          placeholder="input search text"
+          placeholder='input search text'
           suffix={<BsSearch />}
           bordered={false}
           allowClear
         />
       </Styles.TourSearchContentFormItem>
-      <Styles.TourSearchContentFormDate name="date" label="Date">
+      <Styles.TourSearchContentFormDate name='date' label='Date'>
         <CalendarInput
           value={date}
           onChange={(e: CalendarChangeEvent) => setDate(e.value as Date[])}
           minDate={new Date()}
-          selectionMode="range"
+          selectionMode='range'
           numberOfMonths={2}
         />
       </Styles.TourSearchContentFormDate>
-      <Styles.TourSearchContentFormItem name="price" label="Price">
+      <Styles.TourSearchContentFormItem name='price' label='Price'>
         <Slider
           range
           max={defaultValuePriceRange[1]}
@@ -114,19 +140,24 @@ const TourSearchContentForm = ({
       </Styles.TourSearchContentFormItem>
       <Styles.TourSearchContentFormButton
         onClick={handleResetFilter}
-        type="button"
+        type='button'
       >
         <AiOutlineClose />
         <span>Clear Filter</span>
       </Styles.TourSearchContentFormButton>
       <Styles.TourSearchContentFormLine />
-      <Filter meta={meta} setMeta={setMeta} />
+      <Filter
+        meta={meta}
+        setMeta={setMeta}
+        locations={locations}
+        activities={activities}
+      />
       <CustomButton
-        type="primary"
-        border_radius="0px"
-        width="100%"
-        height="50px"
-        htmlType="submit"
+        type='primary'
+        border_radius='0px'
+        width='100%'
+        height='50px'
+        htmlType='submit'
       >
         SEARCH
       </CustomButton>
