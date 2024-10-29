@@ -16,6 +16,7 @@ export const API_URL = {
   DESTINATIONS: '/tour/Destinations',
   SCHEDULES: '/tour/Schedules',
   TOURS: '/tour/Tours',
+  BOOKING_TOURS: '/booking/BookingTours',
 
   /* UPLOAD */
   UPLOADS: '/upload',
