@@ -1,7 +1,8 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import ButtonLink from '../ButtonLink';
 import * as Styles from './styles';
 import moment from 'moment';
+import { useNavigate } from 'react-router';
 
 const InformationTour = ({
   current,
@@ -14,38 +15,44 @@ const InformationTour = ({
   totalPay: number;
   setTotalPay: Dispatch<SetStateAction<number>>;
 }) => {
-  const [tourPayment, setTourPayment] = useState(
-    JSON.parse(localStorage.getItem('tour_payment') || ''),
-  );
+  const [tourPayment, setTourPayment] = useState<any>(null);
+  const navigate = useNavigate();
 
-  if (!tourPayment) {
-    return <></>;
-  }
+  useEffect(() => {
+    const storedTourPayment = JSON.parse(
+      localStorage.getItem('tour_payment') || 'null'
+    );
+    setTourPayment(storedTourPayment);
 
-  const dateStart = new Date(tourPayment.schedule.dateStart);
-  dateStart.setDate(dateStart.getDate() - 1);
+    if (!storedTourPayment) {
+      navigate('/', { replace: true });
+    }
+  }, []);
 
-  const dateEnd = new Date(tourPayment.schedule.dateEnd);
-  dateEnd.setDate(dateEnd.getDate() - 1);
+  const dateStart = new Date(tourPayment?.schedule?.dateStart);
 
-  const period = dateEnd.getDate() - dateStart.getDate();
+  const dateEnd = new Date(tourPayment?.schedule?.dateEnd);
+
+  const differenceInTime = dateEnd.getTime() - dateStart.getTime();
+
+  const period = Math.ceil(differenceInTime / (1000 * 60 * 60 * 24));
 
   return (
     <Styles.InformationTourWrapper>
       <Styles.InformationTourTitle>
-        Austria – 6 Days in Vienna, Hallstatt
+        {tourPayment?.name}
       </Styles.InformationTourTitle>
       <Styles.InformationTourContent>
         <p>Travel Date: </p>
         <span>{moment(dateStart).format('ll')}</span>
         {current > 1 && current < maxStep - 2 && (
           <ButtonLink
-            href="/"
+            href='/'
             icon={false}
-            $fontSize="1.4rem"
+            $fontSize='1.4rem'
             $borderBottom={false}
-            color="#5c98f2"
-            $hoverColor="#5c98f2"
+            color='#5c98f2'
+            $hoverColor='#5c98f2'
           >
             edit
           </ButtonLink>
@@ -73,7 +80,7 @@ const InformationTour = ({
               <p>Coupon Code:</p>
               <div>
                 <span>Apply</span>
-                <input type="text" />
+                <input type='text' />
               </div>
             </Styles.InformationCouponContent>
           </>

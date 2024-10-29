@@ -17,16 +17,16 @@ import { MdOutlineMailOutline } from 'react-icons/md';
 import InputFormItem from '@/components/Input/InputFormItem';
 import useDidMount from '@/hooks/useDidMount';
 import tourService from '@/services/TourService';
-import { getDaysInMonth } from '@/utils/constants';
 import { RuleObject } from 'antd/es/form';
 import { useNavigate } from 'react-router';
 import { useAppSelector } from '@/redux/hooks';
 import { toast } from 'react-toastify';
 
 const TourDetailRight = (props: ITour) => {
-  const [dates, setDates] = useState<Date[]>([]);
+  const [dates, setDates] = useState<Date[] | null>(null);
   const [schedules, setSchedules] = useState<ISchedule[]>([]);
   const [schedule, setSchedule] = useState<ISchedule | null>(null);
+  const [disabledDates, setDisabledDates] = useState<Date[]>([]);
   const { id, price, salePercent, maxGuests } = props;
   const user = useAppSelector((state) => state.auth.user);
   const [form] = Form.useForm();
@@ -34,43 +34,47 @@ const TourDetailRight = (props: ITour) => {
   const navigate = useNavigate();
 
   useDidMount(async () => {
-    const data = await tourService.getSchedulesOfTour(id);
+    const res = await tourService.getSchedulesOfTour(id);
+    const data = res.result;
 
     if (!data) return;
+
     const newData = data
       .filter((item) => {
         const date = new Date(item.dateStart);
-        const currentDate = new Date();
-        if (date.getMonth() === currentDate.getMonth()) {
-          return date.getDate() >= currentDate.getDate();
-        }
-        return date.getMonth() > currentDate.getMonth();
+        const dateFrom = new Date(props.dateFrom);
+        const dateTo = new Date(props.dateTo);
+        return date >= dateFrom && date <= dateTo;
       })
       .map((item) => {
         const date = new Date(item.dateStart);
-        date.setDate(date.getDate() - 1);
+        date.setHours(0, 0, 0, 0);
         return date;
       });
 
-    const currentDate = new Date();
-
-    const dateRange = [];
-
+    const allDates = [];
+    const dateFrom = new Date(props.dateFrom);
     const dateTo = new Date(props.dateTo);
 
-    for (let d = currentDate; d <= dateTo; d.setMonth(d.getMonth() + 1)) {
-      const dayOfMonth = getDaysInMonth(d.getMonth(), d.getFullYear());
-
-      dateRange.push(
-        ...dayOfMonth.filter((day) => {
-          return !newData.find(
-            (newDate) => newDate.toString() === day.toString()
-          );
-        })
-      );
+    for (let d = new Date(dateFrom); d <= dateTo; d.setDate(d.getDate() + 1)) {
+      allDates.push(new Date(d).setHours(0, 0, 0, 0));
     }
 
-    setDates(dateRange);
+    const disabledDatesArray = allDates
+      .map((timestamp) => new Date(timestamp))
+      .filter(
+        (date) =>
+          !newData.some(
+            (allowedDate) =>
+              allowedDate.getTime() === date.getTime() ||
+              data.some(
+                (schedule) =>
+                  new Date(schedule.dateEnd).getTime() === date.getTime()
+              )
+          )
+      );
+
+    setDisabledDates(disabledDatesArray); // Finalized disabled dates
     setSchedules(data);
   });
 
@@ -83,7 +87,7 @@ const TourDetailRight = (props: ITour) => {
         `Only ${seatsAvailable} seats left and seats must be greater than 0`
       );
     },
-    []
+    [seatsAvailable]
   );
 
   const onFinish = (values: any) => {
@@ -91,8 +95,6 @@ const TourDetailRight = (props: ITour) => {
       toast.error('Please login to book tour');
       return;
     }
-
-    console.log(schedule);
 
     if (schedule) {
       localStorage.setItem(
@@ -138,34 +140,35 @@ const TourDetailRight = (props: ITour) => {
           >
             <CalendarInput
               onChange={(e: CalendarChangeEvent) => {
-                const dateRange = schedules.find((value) => {
+                const selectedDate = (e.value as Date[])[0];
+
+                const matchingSchedule = schedules.find((value) => {
                   const newDate = new Date(value.dateStart);
-                  newDate.setDate(newDate.getDate() - 1);
-                  return (
-                    newDate.toString() === (e.value as Date[])[0].toString()
-                  );
+                  selectedDate.setHours(10, 0, 0, 0);
+                  return newDate.getTime() === selectedDate.getTime();
                 });
 
-                if (dateRange) {
-                  const newDate = new Date(dateRange.dateEnd);
-                  newDate.setDate(newDate.getDate() - 1);
-                  (e.value as Date[])[1] = newDate;
-                  setSchedule(dateRange);
-                  setSeatsAvailable(dateRange.availableSeats);
+                if (matchingSchedule) {
+                  const newEndDate = new Date(matchingSchedule.dateEnd);
+                  newEndDate.setHours(10, 0, 0, 0);
+
+                  console.log(matchingSchedule);
+
+                  (e.value as Date[])[1] = newEndDate;
+
+                  setDates([selectedDate, newEndDate]);
+                  setSchedule(matchingSchedule);
+                  setSeatsAvailable(matchingSchedule.availableSeats);
                 } else {
                   e.value = [];
+                  setDates(null);
                   setSchedule(null);
                 }
               }}
-              disabledDates={dates}
-              minDate={new Date()}
-              maxDate={
-                new Date(
-                  new Date(props.dateTo).getFullYear(),
-                  new Date(props.dateTo).getMonth() + 1,
-                  0
-                )
-              }
+              value={dates}
+              disabledDates={disabledDates}
+              minDate={new Date(new Date(props.dateFrom).setHours(0, 0, 0, 0))}
+              maxDate={new Date(new Date(props.dateTo).setHours(0, 0, 0, 0))}
               selectionMode='range'
             />
           </Styles.TourDetailRightBookingFormDate>
@@ -178,11 +181,7 @@ const TourDetailRight = (props: ITour) => {
             type='number'
             min='0'
             max={seatsAvailable}
-            rules={[
-              {
-                validator: validationSeats,
-              },
-            ]}
+            rules={[{ validator: validationSeats }]}
             onKeyDown={(e) => {
               if (
                 !(
@@ -210,7 +209,6 @@ const TourDetailRight = (props: ITour) => {
         <Styles.TourDetailRightBookingInfo>
           <Styles.TourDetailRightWishList>
             <AiOutlineHeart />
-            {/* <AiFillHeart/> */}
             <span>Save To Wish List</span>
           </Styles.TourDetailRightWishList>
         </Styles.TourDetailRightBookingInfo>
@@ -229,11 +227,11 @@ const TourDetailRight = (props: ITour) => {
         </Styles.TourDetailRightBookingWithConfidenceItem>
         <Styles.TourDetailRightBookingWithConfidenceItem>
           <AiOutlineStar />
-          <span>Hand-picked Tours & activityList</span>
+          <span>Hand-picked Tours & activities</span>
         </Styles.TourDetailRightBookingWithConfidenceItem>
         <Styles.TourDetailRightBookingWithConfidenceItem>
           <TbFreeRights />
-          <span>Free Travel Insureance</span>
+          <span>Free Travel Insurance</span>
         </Styles.TourDetailRightBookingWithConfidenceItem>
       </Styles.TourDetailRightBookingWithConfidence>
       <Styles.TourDetailRightNeedHelp>

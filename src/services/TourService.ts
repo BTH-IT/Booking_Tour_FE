@@ -10,8 +10,8 @@ const tourService = {
     const url = `${PREFIX}/Tours/${tourId}`;
     return configService.get(url);
   },
-  getSchedulesOfTour(tourId: string): Promise<ISchedule[]> {
-    const url = `${API_URL.SCHEDULES}/${tourId}`;
+  getSchedulesOfTour(tourId: string): Promise<ApiResponse<ISchedule[]>> {
+    const url = `${API_URL.SCHEDULES}/tour/${tourId}`;
     return configService.get(url);
   },
   getAllTours(params?: any): Promise<ApiResponse<ITour[]>> {
