@@ -12,6 +12,7 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 import * as FreshlyAddedStyled from '../Card/FreshlyAdded/style';
 import * as FreshlyAddedStyledV2 from '../Card/FreshlyAddedV2/style';
 import { logError } from '@/utils/constants';
+import { capitalize } from '@/lib/utils';
 
 const TourSearchContent = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -26,6 +27,7 @@ const TourSearchContent = () => {
     SortBy: searchParams.get('SortBy') || 'releaseDate',
     IsDescending: Boolean(searchParams.get('IsDescending')) || true,
     MinPrice: searchParams.get('MinPrice') || 0,
+    MaxPrice: searchParams.get('MaxPrice') || 0,
   });
   const location = useLocation();
 
@@ -66,6 +68,7 @@ const TourSearchContent = () => {
         pageNumber: page,
         pageSize: 4,
       });
+
       setHasMore(data.result.tours.length > 0);
       setTourList((prev) => [...prev, ...data.result.tours]);
       setPriceRange([data.result.minPrice, data.result.maxPrice]);
@@ -87,29 +90,36 @@ const TourSearchContent = () => {
   function handleChangeLocation() {
     for (const key in meta) {
       let value = meta[key as keyof typeof meta] as any;
-      if (key === 'PageSize') continue;
+      let newKey = capitalize(key);
 
-      if (!value && key !== 'MinPrice') {
-        searchParams.delete(key);
+      if (newKey === 'PageSize') continue;
+
+      if (!value && newKey !== 'MinPrice') {
+        searchParams.delete(newKey);
         continue;
       }
 
-      if (key === 'Destinations') {
-        value = value.filter((item: any) => item !== null || item);
+      if (!value && newKey !== 'MaxPrice') {
+        searchParams.delete(newKey);
+        continue;
+      }
+
+      if (newKey === 'Destinations') {
+        value = [value].filter((item: any) => item !== null || item) || [];
         if (value.length > 0) {
-          searchParams.set(key, value);
+          searchParams.set(newKey, value);
         }
         continue;
       }
 
-      if (key === 'activityList') {
-        value = value.filter((item: any) => item !== null || item);
+      if (newKey === 'Activities') {
+        value = [value].filter((item: any) => item !== null || item) || [];
         if (value.length > 0) {
-          searchParams.set(key, value);
+          searchParams.set(newKey, value);
         }
         continue;
       }
-      searchParams.set(key, value);
+      searchParams.set(newKey, value);
     }
 
     const newUrl = location.pathname + '?' + searchParams.toString();

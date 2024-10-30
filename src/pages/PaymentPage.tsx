@@ -10,7 +10,7 @@ import { authActions, selectAuth } from '@/redux/features/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import bookingService from '@/services/BookingService';
 import { Col, Form, Row, Steps } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
@@ -84,26 +84,33 @@ const layout = {
 };
 
 const PaymentPage = () => {
-  const tourPayment = JSON.parse(
-    localStorage.getItem('tour_payment') || 'null',
-  );
   const user = useAppSelector(selectAuth).user;
   const account = useAppSelector(selectAuth).account;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [tourPayment, setTourPayment] = useState<any>(null);
+  const [totalPay, setTotalPay] = useState(0);
 
-  console.log('first');
-  console.log(tourPayment);
-  console.log(user);
-  console.log(account);
+  useEffect(() => {
+    const storedTourPayment = JSON.parse(
+      localStorage.getItem('tour_payment') || 'null'
+    );
+    setTourPayment(storedTourPayment);
+    setTotalPay(
+      (storedTourPayment?.price -
+        storedTourPayment?.price * (storedTourPayment?.salePercent / 100)) *
+        Number(storedTourPayment?.seats) +
+        20 * Number(storedTourPayment?.seats)
+    );
+
+    if (!storedTourPayment) {
+      navigate('/', { replace: true });
+    }
+  }, []);
 
   const [travellers, setTravellers] = useState<any[]>([]);
   const [current, setCurrent] = useState(1);
-  const [totalPay, setTotalPay] = useState(
-    (tourPayment.price - tourPayment.price * (tourPayment.salePercent / 100)) *
-      Number(tourPayment.seats) +
-      20 * Number(tourPayment.seats),
-  );
+
   const [form] = Form.useForm();
 
   const next = () => {
@@ -116,7 +123,7 @@ const PaymentPage = () => {
 
   return (
     <>
-      <TourSearchTitle backgroundImg="/page-title-bg.png">
+      <TourSearchTitle backgroundImg='/page-title-bg.png'>
         Payment
       </TourSearchTitle>
       <Container>
@@ -144,7 +151,7 @@ const PaymentPage = () => {
               >
                 {current === 1 && (
                   <>
-                    <TravellerDetails travellers={Number(tourPayment.seats)} />
+                    <TravellerDetails travellers={Number(tourPayment?.seats)} />
                     <ContactDetails />
                   </>
                 )}
@@ -171,8 +178,8 @@ const PaymentPage = () => {
                       You can check the payment status from your dashboard.
                     </p>
                     <CustomButton
-                      type="primary"
-                      height="50px"
+                      type='primary'
+                      height='50px'
                       onClick={() => {
                         navigate('/');
                       }}
@@ -193,15 +200,15 @@ const PaymentPage = () => {
               <PaymentButtonWrapper>
                 {current < steps.length - 1 && (
                   <CustomButton
-                    type="primary"
-                    htmlType="submit"
+                    type='primary'
+                    htmlType='submit'
                     onClick={async () => {
                       if (current === steps.length - 2) {
                         try {
                           await bookingService.createBooking({
                             userId: user.id,
-                            scheduleId: tourPayment.schedule.id,
-                            seats: Number(tourPayment.seats),
+                            scheduleId: tourPayment?.schedule.id,
+                            seats: Number(tourPayment?.seats),
                             isTip: form.getFieldValue('tip'),
                             isEntranceTicket: form.getFieldValue('entrance'),
                             isLunch: form.getFieldValue('lunch'),

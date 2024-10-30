@@ -7,7 +7,8 @@ interface IFreshlyAddedProps {
 
 export const CardWrapper = styled.div<IFreshlyAddedProps>`
   width: 100%;
-  max-width: ${({ $maxWidth }) => $maxWidth || '275px'};
+  max-width: 100%;
+  /* max-width: ${({ $maxWidth }) => $maxWidth || '275px'}; */
   height: 450px;
   display: inline-block;
   position: relative;

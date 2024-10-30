@@ -10,7 +10,7 @@ const tourService = {
     const url = `${PREFIX}/Tours/${tourId}`;
     return configService.get(url);
   },
-  getSchedulesOfTour(tourId: string): Promise<ISchedule[]> {
+  getSchedulesOfTour(tourId: string): Promise<ApiResponse<ISchedule[]>> {
     const url = `${API_URL.SCHEDULES}/tour/${tourId}`;
     return configService.get(url);
   },
@@ -36,7 +36,7 @@ const tourService = {
   },
   updateTour(
     data: Partial<ITour>,
-    tourId: string,
+    tourId: string
   ): Promise<ApiResponse<ITour>> {
     return configService.put(`${API_URL.TOURS}/${tourId}`, data);
   },
