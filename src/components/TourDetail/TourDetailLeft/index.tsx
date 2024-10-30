@@ -74,13 +74,13 @@ const TourDetailLeft = (props: ITour) => {
       </Styles.TourDetailLeftContent>
       <Styles.TourDetailLeftContent id="map">
         <Styles.TourDetailLeftMapTitle>Map</Styles.TourDetailLeftMapTitle>
-        {destination && (
+        {/* {destination && (
           <Styles.TourDetailLeftMap
             dangerouslySetInnerHTML={{
               __html: destination.map.replace('width="600"', "width='100%'"),
             }}
           />
-        )}
+        )} */}
       </Styles.TourDetailLeftContent>
       <Styles.TourDetailLeftSeperate />
       <Styles.TourDetailLeftContent id="faq">

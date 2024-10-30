@@ -1,7 +1,9 @@
-import { Form } from 'antd';
+import { DatePicker, Form } from 'antd';
 import styled from 'styled-components';
 import CustomButton from '@/components/CustomButton';
 import InputFormItem from '@/components/Input/InputFormItem';
+
+const { RangePicker } = DatePicker;
 
 export const RoomDetailRightWrapper = styled.div`
   display: flex;
@@ -67,11 +69,15 @@ export const RoomDetailRightBookingLabel = styled.div`
 `;
 
 export const RoomDetailRightBookingFormDate = styled(Form.Item)`
-  border: 1px solid rgba(140, 140, 140, 0.5);
-
   input {
-    font-size: 1.2rem;
+    font-size: 1.2rem !important;
   }
+`;
+
+export const RoomDetailDateRangePicker = styled(RangePicker)`
+  width: 100%;
+  height: 48px;
+  padding-top: 2px;
 `;
 
 export const BookingButton = styled(CustomButton)`
@@ -80,4 +86,6 @@ export const BookingButton = styled(CustomButton)`
 
 export const InputItem = styled(InputFormItem)`
   margin-bottom: 10px;
+  padding-block: 10px;
+  font-size: 1.2rem;
 `;

@@ -1,24 +1,23 @@
-// import { IBooking } from '../types/Booking';
+import { IBookingRoom } from 'booking';
 import configService from './ConfigService';
+import { API_URL } from '@/constants/endpoints';
 
 const bookingService = {
-  getABooking(bookingId: string): Promise<any> {
-    const url = `/bookings/${bookingId}`;
-    return configService.get(url);
+  /* ROOM */
+  getAllBookingRooms(): Promise<IBookingRoom[]> {
+    return configService.get(`${API_URL.BOOKING_ROOM}`);
   },
-  getAllBooking(params?: any): Promise<any[]> {
-    return configService.get('/bookings/', { params: params });
+  getBookingRoom(bookingId: string): Promise<IBookingRoom> {
+    return configService.get(`${API_URL.BOOKING_ROOM}/${bookingId}`);
   },
-  createBooking(data: any) {
-    return configService.post('/bookings', data);
+  getCurrentUserBookingRooms(): Promise<IBookingRoom[]> {
+    return configService.get(`${API_URL.BOOKING_ROOM}/current-user`);
   },
-  updateBooking(data: any) {
-    return configService.patch('/bookings', data);
+  createBookingRoom(data: Partial<IBookingRoom>): Promise<IBookingRoom> {
+    return configService.post(`${API_URL.SAGA_ROOM}`, data);
   },
-  deleteBooking(BookingId: string) {
-    const url = `/bookings/${BookingId}`;
-    return configService.delete(url);
-  },
+
+  /* TOUR */
 };
 
 export default bookingService;

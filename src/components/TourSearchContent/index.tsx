@@ -11,7 +11,6 @@ import { ITour } from 'tour';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import * as FreshlyAddedStyled from '../Card/FreshlyAdded/style';
 import * as FreshlyAddedStyledV2 from '../Card/FreshlyAddedV2/style';
-import { toast } from 'react-toastify';
 import { logError } from '@/utils/constants';
 
 const TourSearchContent = () => {

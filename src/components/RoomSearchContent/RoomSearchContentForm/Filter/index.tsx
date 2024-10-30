@@ -11,11 +11,11 @@ import { ILocation } from 'destination';
 const Filter = ({
   meta,
   setMeta,
-  locations,
+  data,
 }: {
   meta: any;
   setMeta: (meta: any) => void;
-  locations: ILocation[];
+  data: any;
 }) => {
   const [isShow, setIsShow] = useState(true);
   const [rate, setRate] = useState(0);
@@ -68,34 +68,52 @@ const Filter = ({
             />
           </Styles.FilterListContent>
         </Styles.FilterListWrapper>
-        <FilterList
-          setMeta={setMeta}
-          meta={meta}
-          name="location"
-          title={'Location'}
-          placeHolder="Select Destination"
-          optionList={locations.map((loc) => {
-            return {
-              label: loc.name,
-              value: loc.name,
-            };
-          })}
-        />
-        {/* <FilterList
-          setMeta={setMeta}
-          meta={meta}
-          name="destination"
-          title={'Destination'}
-          optionList={[
-            'America',
-            'Asia',
-            'Egypt',
-            'Scandinavia',
-            'South Africa',
-            'Western Europe',
-          ]}
-        /> */}
       </Styles.ShowFilterList>
+      <FilterList
+        setMeta={setMeta}
+        meta={meta}
+        name="locationCode"
+        title={'Location'}
+        placeHolder="Select Destination"
+        optionList={data.loc.map((location: ILocation) => ({
+          label: location.name,
+          value: location.code.toString(),
+        }))}
+        useId
+      />
+      <FilterList
+        setMeta={setMeta}
+        meta={meta}
+        name="roomAmenities"
+        title={'Room Amenities'}
+        placeHolder="Select Room Amenities"
+        optionList={data.roomAmenities.map((amenity: any) => ({
+          label: amenity,
+          value: amenity,
+        }))}
+      />
+      <FilterList
+        setMeta={setMeta}
+        meta={meta}
+        name="hotelAmenities"
+        title={'Hotel Amenities'}
+        placeHolder="Select Hotel Amenities"
+        optionList={data.hotelAmenities.map((amenity: any) => ({
+          label: amenity,
+          value: amenity,
+        }))}
+      />
+      <FilterList
+        setMeta={setMeta}
+        meta={meta}
+        name="hotelRules"
+        title={'Hotel Rules'}
+        placeHolder="Select Hotel Rules"
+        optionList={data.hotelRules.map((rule: any) => ({
+          label: rule,
+          value: rule,
+        }))}
+      />
     </Styles.FilterWrapper>
   );
 };
