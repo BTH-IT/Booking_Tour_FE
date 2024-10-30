@@ -4,7 +4,6 @@ export const FilterWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-bottom: 10px;
   margin-bottom: 40px;
 `;
 

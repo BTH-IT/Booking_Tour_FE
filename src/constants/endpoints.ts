@@ -1,23 +1,31 @@
 export const API_URL = {
-  /* IDENTITY */
+  /* IDENTITIES */
   ACCOUNTS: '/identity/Accounts',
   AUTHORIZES: '/identity/Authorizes',
   PERMISSIONS: '/identity/Permissions',
   ROLES: '/identity/Roles',
   USERS: '/identity/Users',
 
-  /* ROOM */
+  /* ROOMS */
   HOTELS: '/room/Hotels',
   ROOMS: '/room/Rooms',
   REVIEW_HOTEL: '/room/ReviewHotel',
   REVIEW_ROOM: '/room/ReviewRoom',
 
-  /* TOUR */
+  /* TOURS */
   DESTINATIONS: '/tour/Destinations',
   SCHEDULES: '/tour/Schedules',
   TOURS: '/tour/Tours',
   BOOKING_TOURS: '/booking/BookingTours',
 
-  /* UPLOAD */
+  /* UPLOADS */
   UPLOADS: '/upload',
+
+  /* BOOKINGS */
+  BOOKING_ROOM: '/booking/BookingRooms',
+  BOOKING_TOUR: '/booking/BookingTours',
+
+  /* SAGAS */
+  SAGA_ROOM: '/saga/Sagas/booking-room',
+  SAGA_TOUR: '/saga/Sagas/booking-tour',
 };

@@ -23,8 +23,7 @@ const RoomSearchContentSort = ({
         defaultValue={meta.type || 'releaseDate'}
         onChange={(value) => {
           handleSortBy({
-            ...meta,
-            type: value,
+            sortBy: value,
           });
         }}
         options={[
@@ -56,8 +55,7 @@ const RoomSearchContentSort = ({
         defaultValue={meta.order || 'desc'}
         onChange={(value) => {
           handleSortBy({
-            ...meta,
-            order: value,
+            sortOrder: value,
           });
         }}
         options={[

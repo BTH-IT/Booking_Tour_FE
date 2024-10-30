@@ -89,9 +89,9 @@ const RoomDetailPage = () => {
 
   async function fetchRoomList() {
     try {
-      const data = await roomService.getAllRoom();
+      const data = await roomService.getAllRooms();
 
-      setRoomList(data.rooms);
+      setRoomList(data.result);
     } catch (error) {
       logError(error);
     }

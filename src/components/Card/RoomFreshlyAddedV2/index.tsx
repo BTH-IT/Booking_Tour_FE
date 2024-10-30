@@ -44,7 +44,7 @@ const RoomFreshlyAddedV2 = forwardRef<
               <img src={images[0]} alt={images[0]} />
             </Styles.CardImg>
             <Styles.CardInfo>
-              <Styles.Title href={`/${id}`}>{name}</Styles.Title>
+              <Styles.Title href={`/room/${id}`}>{name}</Styles.Title>
               <Styles.CardInfoContent>
                 <Styles.CardInfoContentTop>
                   <Styles.CardInfoContentPriceWithoutSale>

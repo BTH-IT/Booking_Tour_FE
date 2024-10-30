@@ -22,16 +22,6 @@ const roomService = {
   deleteRoom(roomId: string): Promise<ApiResponse<boolean>> {
     return configService.delete(`${API_URL.ROOMS}/${roomId}`);
   },
-  getAllRoom(params?: any): Promise<{
-    rooms: IRoom[];
-    maxPrice: number;
-    minPrice: number;
-    totalItems: number;
-    pageNumber: number;
-    pageSize: number;
-  }> {
-    return configService.get('/rooms/', { params: params });
-  },
   getRoomSearch(params?: any): Promise<
     ApiResponse<{
       rooms: IRoom[];
@@ -42,7 +32,12 @@ const roomService = {
       pageSize: number;
     }>
   > {
-    return configService.get(`${API_URL.ROOMS}/search`, { params: params });
+    return configService.get(`${API_URL.ROOMS}/search`, {
+      params: params,
+      paramsSerializer: {
+        indexes: null,
+      },
+    });
   },
   getAllReviews(): Promise<any> {
     return configService.get('/rooms/reviewList');

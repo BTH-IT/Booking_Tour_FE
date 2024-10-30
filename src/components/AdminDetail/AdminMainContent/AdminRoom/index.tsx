@@ -44,8 +44,6 @@ const AdminRoom = () => {
     }
   };
 
-  console.log(rooms);
-
   useEffect(() => {
     fetchData();
   }, []);

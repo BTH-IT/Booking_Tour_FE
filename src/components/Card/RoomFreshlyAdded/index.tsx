@@ -42,7 +42,7 @@ const RoomFreshlyAdded: React.FC<IRoomFreshlyAddedProps> = ({
             <img src={images[0]} alt={images[0]} />
           </Styles.Img>
           <Styles.CardInfo>
-            <Styles.Title href={`/${id}`}>{name}</Styles.Title>
+            <Styles.Title href={`/room/${id}`}>{name}</Styles.Title>
             <Styles.CardInfoContent>
               <Styles.CardInfoContentReviews>
                 <Rate allowHalf disabled defaultValue={rate} />

@@ -22,13 +22,12 @@ const RoomSearchContent = () => {
   const [roomList, setRoomList] = useState<IRoom[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 0]);
   const [totalResults, setTotalResults] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(1);
   const [meta, setMeta] = useState({
     ...Object.fromEntries(searchParams.entries()),
-    SortBy: searchParams.get('SortBy') || 'releaseDate',
-    IsDescending: Boolean(searchParams.get('IsDescending')) || true,
-    MinPrice: searchParams.get('MinPrice') || 0,
+    sortBy: searchParams.get('sortBy') || 'releaseDate',
+    sortOrder: searchParams.get('sortOrder') || 'desc',
   });
   const location = useLocation();
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -45,16 +44,31 @@ const RoomSearchContent = () => {
 
   const getSearchItems = async () => {
     try {
-      const data = await roomService.getRoomSearch({
+      handleChangeLocation();
+
+      const params = {
         ...meta,
+        name: searchParams.get('name'),
+        locationCode: searchParams.get('locationCode')?.split('%2'),
+        maxGuests: searchParams.get('maxGuests'),
+        minPrice: Number(searchParams.get('minPrice')) || 0,
+        maxPrice: Number(searchParams.get('maxPrice')) || null,
+        checkIn: searchParams.get('checkIn'),
+        checkOut: searchParams.get('checkOut'),
+        roomAmenities: searchParams.get('roomAmenities')?.split('%2'),
+        hotelAmenities: searchParams.get('hotelAmenities')?.split('%2'),
+        hotelRules: searchParams.get('hotelRules')?.split('%2'),
         pageNumber: page,
         pageSize: 6,
-      });
+      };
+
+      const data = await roomService.getRoomSearch(params);
+
       setRoomList(data.result.rooms);
       setPriceRange([data.result.minPrice, data.result.maxPrice]);
       setTotalResults(data.result.totalItems);
       setTotalPages(Math.ceil(data.result.totalItems / data.result.pageSize));
-      handleChangeLocation();
+      console.log(page, totalPages);
       setIsLoading(false);
     } catch (error) {
       logError(error);
@@ -77,39 +91,54 @@ const RoomSearchContent = () => {
     getSearchItems();
   }, [meta, page]);
 
+  useEffect(() => {
+    if (page > totalPages) {
+      changePageHandler(totalPages);
+    }
+  }, [totalPages]);
+
   function handleSortBy(meta: any) {
-    setMeta(meta);
+    // get key from meta
+    searchParams.set(Object.keys(meta)[0], `${Object.values(meta)[0]}`);
+    setMeta((prev) => ({
+      ...prev,
+      ...meta,
+    }));
   }
 
   function handleChangeLocation() {
     for (const key in meta) {
       let value = meta[key as keyof typeof meta] as any;
-      if (key === 'PageSize') continue;
 
-      if (!value && key !== 'MinPrice') {
-        searchParams.delete(key);
-        continue;
-      }
+      switch (key) {
+        // non-array values
+        case 'name':
+        case 'checkIn':
+        case 'checkOut':
+        case 'maxGuests':
+        case 'minPrice':
+        case 'maxPrice':
+          value
+            ? searchParams.set(key, value.toString())
+            : searchParams.delete(key);
+          break;
 
-      if (key === 'Destinations') {
-        value = value.filter((item: any) => item !== null || item);
-        if (value.length > 0) {
-          searchParams.set(key, value);
-        }
-        continue;
-      }
+        // array values
+        case 'locationCode':
+        case 'roomAmenities':
+        case 'hotelAmenities':
+        case 'hotelRules':
+          value && value.length > 0 && value !== ''
+            ? searchParams.set(key, value.toString())
+            : searchParams.delete(key);
+          break;
 
-      if (key === 'activityList') {
-        value = value.filter((item: any) => item !== null || item);
-        if (value.length > 0) {
-          searchParams.set(key, value);
-        }
-        continue;
+        default:
+          break;
       }
     }
 
     const newUrl = location.pathname + '?' + searchParams.toString();
-
     window.history.pushState({ path: newUrl }, '', newUrl);
   }
 
@@ -187,11 +216,13 @@ const RoomSearchContent = () => {
                 ))
               )}
             </Styles.RoomSearchContentRight>
-            <Pagination
-              currentPage={page}
-              setCurrentPage={changePageHandler}
-              totalPages={totalPages}
-            />
+            {totalResults !== 0 && (
+              <Pagination
+                currentPage={page}
+                setCurrentPage={changePageHandler}
+                totalPages={totalPages}
+              />
+            )}
           </Col>
         </Row>
       </Styles.RoomSearchContentWrapper>
