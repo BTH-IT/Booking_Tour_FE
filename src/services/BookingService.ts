@@ -11,7 +11,7 @@ const bookingService = {
     return configService.get(`${API_URL.BOOKING_TOURS}`, { params: params });
   },
   createBooking(data: any) {
-    return configService.post(`${API_URL.BOOKING_TOURS}`, data);
+    return configService.post(`${API_URL.SAGAS + API_URL.BOOKING_TOURS}`, data);
   },
   updateBooking(data: any) {
     return configService.patch(`${API_URL.BOOKING_TOURS}`, data);
