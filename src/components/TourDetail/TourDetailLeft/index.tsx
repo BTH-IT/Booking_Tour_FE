@@ -72,6 +72,19 @@ const TourDetailLeft = (props: ITour) => {
           />
         ))}
       </Styles.TourDetailLeftContent>
+<<<<<<< HEAD
+      <Styles.TourDetailLeftContent id="map">
+        <Styles.TourDetailLeftMapTitle>Map</Styles.TourDetailLeftMapTitle>
+        {/* {destination && (
+          <Styles.TourDetailLeftMap
+            dangerouslySetInnerHTML={{
+              __html: destination.map.replace('width="600"', "width='100%'"),
+            }}
+          />
+        )} */}
+      </Styles.TourDetailLeftContent>
+=======
+>>>>>>> 8c3a46e267c74bc7554e37ae40c4b59719ba63e4
       <Styles.TourDetailLeftSeperate />
       <Styles.TourDetailLeftContent id='faq'>
         <Styles.TourDetailLeftTitle>FAQ</Styles.TourDetailLeftTitle>

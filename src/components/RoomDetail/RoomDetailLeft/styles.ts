@@ -32,9 +32,10 @@ export const RoomDetailLeftSecondTitle = styled.h5`
 
 export const RoomDetailLeftParagraph = styled.div`
   margin-bottom: 20px;
+  font-size: 1.4rem !important;
 
-  & > p {
-    font-size: 1.6rem !important;
+  & > * {
+    font-size: 1.4rem !important;
   }
 `;
 

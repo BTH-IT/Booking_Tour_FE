@@ -104,8 +104,6 @@ const DetailRoomModal = ({
   });
 
   useEffect(() => {
-    console.log(room);
-
     form.setValue('name', room.name);
     form.setValue('hotel', {
       label: room.hotel.name,
@@ -162,8 +160,6 @@ const DetailRoomModal = ({
         video: videoData.map((v) => v.url)[0],
         roomAmenities: roomAmenities.map((amenity) => amenity.title),
       };
-
-      console.log(roomData);
 
       const res = await roomService.updateRoom(room.id, roomData);
       if (res) {

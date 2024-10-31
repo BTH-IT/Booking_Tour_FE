@@ -1,9 +1,5 @@
-'use client';
-
 import { useEffect, useState } from 'react';
-import { Checkbox, Select, Space } from 'antd';
-import { BsChevronCompactDown, BsChevronCompactUp } from 'react-icons/bs';
-import { CheckboxChangeEvent } from 'antd/es/checkbox';
+import Select, { MultiValue } from 'react-select';
 import { useSearchParams } from 'react-router-dom';
 
 const FilterList = ({
@@ -13,6 +9,7 @@ const FilterList = ({
   optionList,
   meta,
   setMeta,
+  useId = false,
 }: {
   name: string;
   title: string;
@@ -20,20 +17,27 @@ const FilterList = ({
   optionList: any;
   meta: any;
   setMeta: (meta: any) => void;
+  useId?: boolean;
 }) => {
+  console.log(optionList);
+
   const [searchParams, setSearchParams] = useSearchParams();
-  const [defaultOption, setDefaultOption] = useState<string[]>([]);
+  const [defaultOption, setDefaultOption] = useState<
+    {
+      label: string;
+      value: string;
+    }[]
+  >([]);
   const [isMounted, setIsMounted] = useState(false);
 
-  const handleSelect = (selectedOption: string[]) => {
+  const handleSelect = (
+    selectedOption: MultiValue<{ label: string; value: string }>,
+  ) => {
+    console.log(selectedOption);
+
     const query = searchParams.get(name) || '';
 
-    console.log(query);
-    console.log('selectedOption', selectedOption);
-
     if (query !== '' && selectedOption.length === 0) {
-      console.log(name);
-
       searchParams.delete(name);
 
       const updatedMeta = Object.fromEntries(
@@ -45,13 +49,13 @@ const FilterList = ({
       setMeta(updatedMeta);
     }
     if (query === '') {
-      searchParams.set(name, selectedOption[0]);
+      searchParams.set(name, selectedOption[0].value);
       setMeta({
         ...meta,
-        [name]: selectedOption[0],
+        [name]: selectedOption[0].value,
       });
     } else {
-      const newParams = selectedOption.join('%2');
+      const newParams = selectedOption.map((option) => option.value).join('%2');
       console.log(newParams);
 
       searchParams.set(name, newParams);
@@ -62,33 +66,58 @@ const FilterList = ({
     }
   };
 
+  const generateDefaultOption = (value: string[]) => {
+    if (useId) {
+      if (value[0] !== '') {
+        return value.map((v: string) => {
+          return {
+            label: `${
+              optionList.find((option: any) => option.value === v)?.label
+            }`,
+            value: v,
+          };
+        });
+      }
+      return [];
+    } else {
+      if (value[0] !== '') {
+        return value.map((v) => {
+          return {
+            label: v,
+            value: v,
+          };
+        });
+      }
+      return [];
+    }
+  };
+
   useEffect(() => {
     const query = searchParams.get(name) || '';
     const value = query.split('%2').filter((item) => item !== null || item);
-
-    setDefaultOption(value[0] !== '' ? value : []);
+    const defaultOption = generateDefaultOption(value);
+    setDefaultOption(defaultOption);
     console.log(defaultOption);
 
     setIsMounted(true);
   }, [searchParams]);
 
   return (
-    <>
-      <h4 className="text-[1.6rem] font-semibold mt-[20px]">{title}</h4>
+    <div>
+      <h4 className="text-[1.6rem] font-semibold py-[10px]">{title}</h4>
       {isMounted && (
         <Select
-          mode="multiple"
-          allowClear
-          size="large"
+          isMulti
+          isClearable
+          isSearchable
           placeholder={placeHolder}
-          defaultValue={defaultOption}
           onChange={handleSelect}
           options={optionList}
-          className="w-full"
-          virtual={false}
+          defaultValue={defaultOption}
+          className=""
         />
       )}
-    </>
+    </div>
   );
 };
 

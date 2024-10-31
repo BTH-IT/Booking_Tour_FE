@@ -57,7 +57,6 @@ const AdminDestination = () => {
 
   useEffect(() => {
     fetchData();
-    console.log(destinations);
   }, []);
 
   const filteredDestinations = destinations.filter((destination) =>
