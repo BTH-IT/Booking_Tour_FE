@@ -2,12 +2,11 @@ import { IRoom } from 'room';
 import dayjs, { Dayjs } from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 import * as Styles from './styles';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { DatePickerProps, Form } from 'antd';
 import InputFormItem from '@/components/Input/InputFormItem';
-import useDidMount from '@/hooks/useDidMount';
 import roomService from '@/services/RoomService';
-import { getDaysInMonth } from '@/utils/constants';
+import { getDaysInMonth, logError } from '@/utils/constants';
 import { RuleObject } from 'antd/es/form';
 import { useNavigate } from 'react-router';
 import { CalendarChangeEvent } from 'primereact/calendar';
@@ -23,40 +22,59 @@ interface ISchedule {
 }
 
 const RoomDetailRight = (props: IRoom) => {
-  const [dates, setDates] = useState<Date[]>([]);
   const [schedules, setSchedules] = useState<ISchedule[]>([]);
-  const [schedule, setSchedule] = useState<ISchedule | null>(null);
-  const [checkInDate, setCheckInDate] = useState<Date | null>(null);
-  // const { id, price } = props;
+  const [adults, setAdults] = useState<number>(1);
+  const [children, setChildren] = useState<number>(0);
+  const { id, maxGuests } = props;
   const [form] = Form.useForm();
-  const [numOfRooms, setNumOfRooms] = useState(0);
+  const [formData, setFormData] = useState<{
+    schedule: [Dayjs, Dayjs] | null;
+    adults: number;
+    children: number;
+  }>({
+    schedule: null,
+    adults: 1,
+    children: 0,
+  });
+  const [isFormValid, setIsFormValid] = useState(false);
+
   const navigate = useNavigate();
 
-  useDidMount(async () => {
-    // const data = await bookingService
-    // if (!data) return;
+  const fetchSchedule = async () => {
+    try {
+      const res = await bookingService.getOccupiedSchedule(id);
+      if (res) {
+        setSchedules(res.result.data);
+      }
+    } catch (e) {
+      logError(e);
+    }
+  };
 
-    const data: ISchedule[] = [
-      {
-        checkIn: new Date('2024-11-01'),
-        checkOut: new Date('2024-11-10'),
-      },
-      {
-        checkIn: new Date('2024-11-15'),
-        checkOut: new Date('2024-11-20'),
-      },
-      {
-        checkIn: new Date('2024-11-25'),
-        checkOut: new Date('2024-11-30'),
-      },
-      {
-        checkIn: new Date('2024-12-01'),
-        checkOut: new Date('2024-12-10'),
-      },
-    ];
+  useEffect(() => {
+    fetchSchedule();
+  }, [id]);
 
-    setSchedules(data);
-  });
+  useEffect(() => {
+    // Check if all required fields are filled
+    const isValid =
+      formData.schedule !== null &&
+      formData.adults >= 1 &&
+      formData.children >= 0 &&
+      formData.adults + formData.children <= maxGuests;
+    setIsFormValid(isValid);
+  }, [formData]);
+
+  const handleDateChange = (
+    dates: [Dayjs | null, Dayjs | null],
+    dateStrings: [string, string],
+    info: any,
+  ) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      schedule: dates[0] && dates[1] ? [dates[0], dates[1]] : null,
+    }));
+  };
 
   const disabledDayList = useMemo(() => {
     // eg: checkIn:2024-11-01 -> checkOut:2024-11-10 => [2024-11-01, 2024-11-02, ..., 2024-11-10]
@@ -109,59 +127,53 @@ const RoomDetailRight = (props: IRoom) => {
     return isDateInDisabled(current);
   };
 
-  const calculateAvailableRooms = (checkIn: Date, checkOut: Date) => {
-    // let availableRooms = maxRooms;
-
-    // Kiểm tra từng booking trong mảng
-    for (const schedule of schedules) {
-      const scheduleStart = new Date(schedule.checkIn);
-      const scheduleEnd = new Date(schedule.checkOut);
-      const requestedStart = new Date(checkIn);
-      const requestedEnd = new Date(checkOut);
-
-      // Kiểm tra xem nếu ngày đặt phòng yêu cầu nằm trong khoảng thời gian đã đặt
-      if (
-        (requestedStart >= scheduleStart && requestedStart < scheduleEnd) ||
-        (requestedEnd > scheduleStart && requestedEnd <= scheduleEnd) ||
-        (requestedStart <= scheduleStart && requestedEnd >= scheduleEnd)
-      ) {
-        // Nếu có trùng khớp, giảm số phòng còn trống bằng số phòng đã đặt trong schedule này
-        // availableRooms -= schedule.roomQuantity;
-      }
-    }
-
-    // return setRoomsAvailable(10);
+  const onFinish = (values: any) => {
+    localStorage.setItem(
+      'room_payment',
+      JSON.stringify({
+        schedule: formData.schedule,
+        adults: formData.adults,
+        children: formData.children,
+        ...props,
+      }),
+    );
+    navigate('/room-payment');
   };
 
-  // const validationRoom = useCallback(
-  //   (rule: RuleObject, value: any): Promise<void> => {
-  //     return new Promise((resolve, reject) => {
-  //       if (value <= roomsAvailable && value > 0) {
-  //         setNumOfRooms(value);
-  //         resolve();
-  //       } else {
-  //         reject(
-  //           `Only ${roomsAvailable} rooms left and number of rooms must be greater than 1`,
-  //         );
-  //       }
-  //     });
-  //   },
-  //   [roomsAvailable],
-  // );
+  const validationAdult = (rule: RuleObject, value: Number): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      const amount = Number(value);
+      setFormData((prevFormData) => {
+        const newFormData = {
+          ...prevFormData,
+          adults: amount,
+        };
+        if (amount + newFormData.children <= maxGuests) {
+          resolve();
+        } else {
+          reject(`You can only book a maximum of ${maxGuests} guests`);
+        }
+        return newFormData;
+      });
+    });
+  };
 
-  const onFinish = (values: any) => {
-    if (schedule) {
-      console.log(schedule);
-      localStorage.setItem(
-        'Room_payment',
-        JSON.stringify({
-          schedule,
-          numOfRooms: values.numOfRooms,
-          ...props,
-        }),
-      );
-      navigate('/payment');
-    }
+  const validationChildren = (rule: RuleObject, value: any): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      const amount = Number(value);
+      setFormData((prevFormData) => {
+        const newFormData = {
+          ...prevFormData,
+          children: amount,
+        };
+        if (amount + newFormData.adults <= maxGuests) {
+          resolve();
+        } else {
+          reject(`You can only book a maximum of ${maxGuests} guests`);
+        }
+        return newFormData;
+      });
+    });
   };
 
   return (
@@ -173,7 +185,7 @@ const RoomDetailRight = (props: IRoom) => {
         <Styles.RoomDetailRightBookingForm
           form={form}
           layout="vertical"
-          initialValues={{ numOfRoom: 1 }}
+          initialValues={{ adults: 1, children: 0 }}
           onFinish={onFinish}
         >
           <Styles.RoomDetailRightBookingLabel>
@@ -186,41 +198,74 @@ const RoomDetailRight = (props: IRoom) => {
             <Styles.RoomDetailDateRangePicker
               disabledDate={calculateDisabledDayRange}
               minDate={dayjs()}
+              onCalendarChange={handleDateChange}
             />
           </Styles.RoomDetailRightBookingFormDate>
           <Styles.RoomDetailRightBookingLabel>
-            Number of Rooms
+            Adults
           </Styles.RoomDetailRightBookingLabel>
-          <Styles.InputItem
-            name="numOfRoom"
-            type="number"
-            min="1"
-            // max={roomsAvailable}
-            // rules={[
-            //   {
-            //     validator: validationRoom,
-            //   },
-            // ]}
-            onKeyDown={(e) => {
-              if (
-                !(
-                  (e.keyCode >= 48 && e.keyCode <= 57) ||
-                  e.keyCode === 8 ||
-                  (e.keyCode >= 37 && e.keyCode <= 40) ||
-                  (e.keyCode >= 96 && e.keyCode <= 105) ||
-                  e.ctrlKey
-                )
-              ) {
-                e.preventDefault();
-              }
-            }}
-          />
+          <Styles.FormInputWrapper>
+            <Styles.InputItem
+              name="adults"
+              type="number"
+              min="1"
+              rules={[
+                {
+                  required: true,
+                  validator: validationAdult,
+                },
+              ]}
+              onKeyDown={(e) => {
+                if (
+                  !(
+                    (e.keyCode >= 48 && e.keyCode <= 57) ||
+                    e.keyCode === 8 ||
+                    (e.keyCode >= 37 && e.keyCode <= 40) ||
+                    (e.keyCode >= 96 && e.keyCode <= 105) ||
+                    e.ctrlKey
+                  )
+                ) {
+                  e.preventDefault();
+                }
+              }}
+            />
+          </Styles.FormInputWrapper>
+          <Styles.RoomDetailRightBookingLabel>
+            Children
+          </Styles.RoomDetailRightBookingLabel>
+          <Styles.FormInputWrapper>
+            <Styles.InputItem
+              name="children"
+              type="number"
+              min="0"
+              rules={[
+                {
+                  required: true,
+                  validator: validationChildren,
+                },
+              ]}
+              onKeyDown={(e) => {
+                if (
+                  !(
+                    (e.keyCode >= 48 && e.keyCode <= 57) ||
+                    e.keyCode === 8 ||
+                    (e.keyCode >= 37 && e.keyCode <= 40) ||
+                    (e.keyCode >= 96 && e.keyCode <= 105) ||
+                    e.ctrlKey
+                  )
+                ) {
+                  e.preventDefault();
+                }
+              }}
+            />
+          </Styles.FormInputWrapper>
           <Styles.BookingButton
             htmlType="submit"
             type="primary"
             border_radius="4px"
             width="100%"
             height="60px"
+            disabled={!isFormValid}
           >
             PROCEED BOOKING
           </Styles.BookingButton>

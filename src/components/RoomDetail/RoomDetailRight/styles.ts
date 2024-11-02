@@ -68,6 +68,23 @@ export const RoomDetailRightBookingLabel = styled.div`
   padding-bottom: 8px;
 `;
 
+export const FormInputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+
+  & > div {
+    margin-bottom: 0 !important;
+    width: 100%;
+  }
+
+  & > span {
+    font-size: 1.3rem;
+    color: rgba(0, 0, 0, 0.6);
+  }
+`;
+
 export const RoomDetailRightBookingFormDate = styled(Form.Item)`
   input {
     font-size: 1.2rem !important;
@@ -85,7 +102,6 @@ export const BookingButton = styled(CustomButton)`
 `;
 
 export const InputItem = styled(InputFormItem)`
-  margin-bottom: 10px;
   padding-block: 10px;
   font-size: 1.2rem;
 `;

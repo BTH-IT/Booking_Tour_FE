@@ -1,32 +1,34 @@
-<<<<<<< HEAD
 import { IBookingRoom } from 'booking';
-=======
-// import { IBooking } from '../types/Booking';
 import { API_URL } from '@/constants/endpoints';
->>>>>>> 8c3a46e267c74bc7554e37ae40c4b59719ba63e4
 import configService from './ConfigService';
-import { API_URL } from '@/constants/endpoints';
-
+import { ISchedule } from 'tour';
+import { ApiResponse } from 'index';
 const bookingService = {
-<<<<<<< HEAD
   /* ROOM */
-  getAllBookingRooms(): Promise<IBookingRoom[]> {
+  getAllBookingRooms(): Promise<ApiResponse<IBookingRoom[]>> {
     return configService.get(`${API_URL.BOOKING_ROOM}`);
   },
-  getBookingRoom(bookingId: string): Promise<IBookingRoom> {
+  getBookingRoom(bookingId: string): Promise<ApiResponse<IBookingRoom>> {
     return configService.get(`${API_URL.BOOKING_ROOM}/${bookingId}`);
   },
-  getCurrentUserBookingRooms(): Promise<IBookingRoom[]> {
+  getCurrentUserBookingRooms(): Promise<ApiResponse<IBookingRoom[]>> {
     return configService.get(`${API_URL.BOOKING_ROOM}/current-user`);
   },
-  createBookingRoom(data: Partial<IBookingRoom>): Promise<IBookingRoom> {
+  getOccupiedSchedule(roomId: string): Promise<ApiResponse<any>> {
+    return configService.get(`${API_URL.BOOKING_ROOM}/${roomId}/data`);
+  },
+  createBookingRoom(
+    data: Partial<IBookingRoom>,
+  ): Promise<ApiResponse<IBookingRoom>> {
     return configService.post(`${API_URL.SAGA_ROOM}`, data);
-=======
-  getABooking(bookingId: string): Promise<any> {
+  },
+
+  /* TOUR */
+  getABooking(bookingId: string): Promise<ApiResponse<any>> {
     const url = `${API_URL.BOOKING_TOURS}/${bookingId}`;
     return configService.get(url);
   },
-  getAllBooking(params?: any): Promise<any[]> {
+  getAllBooking(params?: any): Promise<ApiResponse<any[]>> {
     return configService.get(`${API_URL.BOOKING_TOURS}`, { params: params });
   },
   createBooking(data: any) {
@@ -38,10 +40,7 @@ const bookingService = {
   deleteBooking(BookingId: string) {
     const url = `${API_URL.BOOKING_TOURS}/${BookingId}`;
     return configService.delete(url);
->>>>>>> 8c3a46e267c74bc7554e37ae40c4b59719ba63e4
   },
-
-  /* TOUR */
 };
 
 export default bookingService;

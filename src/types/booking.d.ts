@@ -6,15 +6,6 @@ export interface IBookingRoom extends BaseModel {
   checkOut: Date;
   numberOfPeople: number;
   priceTotal: number;
-  detailBookingRooms: IDetailBookingRoom[];
+  bookingRoomDetails: any;
   user: IUser;
-}
-
-export interface IDetailBookingRoom extends BaseModel {
-  bookingId: string;
-  roomId: string;
-  price: number;
-  adults: number;
-  children: number;
-  room: IRoom;
 }

@@ -3,8 +3,9 @@ import ButtonLink from '../ButtonLink';
 import * as Styles from './styles';
 import moment from 'moment';
 import { useNavigate } from 'react-router';
+import { formatDate, totalDates } from '@/utils/constants';
 
-const InformationTour = ({
+const InformationRoom = ({
   current,
   maxStep,
   totalPay,
@@ -15,36 +16,34 @@ const InformationTour = ({
   totalPay: number;
   setTotalPay: Dispatch<SetStateAction<number>>;
 }) => {
-  const [tourPayment, setTourPayment] = useState<any>(null);
+  const [roomPayment, setRoomPayment] = useState<any>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedTourPayment = JSON.parse(
-      localStorage.getItem('tour_payment') || 'null',
+    const storedRoomPayment = JSON.parse(
+      localStorage.getItem('room_payment') || 'null',
     );
-    setTourPayment(storedTourPayment);
+    setRoomPayment(storedRoomPayment);
 
-    if (!storedTourPayment) {
+    if (!storedRoomPayment) {
       navigate('/', { replace: true });
     }
   }, []);
 
-  const dateStart = new Date(tourPayment?.schedule?.dateStart);
+  const dateStart = new Date(roomPayment?.schedule[0]);
 
-  const dateEnd = new Date(tourPayment?.schedule?.dateEnd);
+  const dateEnd = new Date(roomPayment?.schedule[1]);
 
-  const differenceInTime = dateEnd.getTime() - dateStart.getTime();
-
-  const period = Math.ceil(differenceInTime / (1000 * 60 * 60 * 24));
+  const period = totalDates(dateStart, dateEnd);
 
   return (
-    <Styles.InformationTourWrapper>
-      <Styles.InformationTourTitle>
-        {tourPayment?.name}
-      </Styles.InformationTourTitle>
-      <Styles.InformationTourContent>
-        <p>Travel Date: </p>
-        <span>{moment(dateStart).format('ll')}</span>
+    <Styles.InformationRoomWrapper>
+      <Styles.InformationRoomTitle>
+        {roomPayment?.name}
+      </Styles.InformationRoomTitle>
+      <Styles.InformationRoomContent>
+        <p>Check In: </p>
+        <span>{formatDate(dateStart)}</span>
         {current > 1 && current < maxStep - 2 && (
           <ButtonLink
             href="/"
@@ -57,15 +56,15 @@ const InformationTour = ({
             edit
           </ButtonLink>
         )}
-      </Styles.InformationTourContent>
-      <Styles.InformationTourContent>
+      </Styles.InformationRoomContent>
+      <Styles.InformationRoomContent>
         <p>End Date: </p>
-        <span>{moment(dateEnd).format('ll')}</span>
-      </Styles.InformationTourContent>
-      <Styles.InformationTourContent>
+        <span>{formatDate(dateEnd)}</span>
+      </Styles.InformationRoomContent>
+      <Styles.InformationRoomContent>
         <p>Period: </p>
         <span>{period} Days</span>
-      </Styles.InformationTourContent>
+      </Styles.InformationRoomContent>
       <Styles.InformationCoupon>
         {current > 1 && current < maxStep - 2 && (
           <>
@@ -91,8 +90,8 @@ const InformationTour = ({
           <div>${totalPay}</div>
         </Styles.InformationCouponContent>
       </Styles.InformationCoupon>
-    </Styles.InformationTourWrapper>
+    </Styles.InformationRoomWrapper>
   );
 };
 
-export default InformationTour;
+export default InformationRoom;

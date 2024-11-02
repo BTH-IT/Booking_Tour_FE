@@ -11,7 +11,7 @@ const ContactTitle = styled.h2`
   margin-bottom: 30px;
 `;
 
-const ContactDetails = () => {
+const RoomContactDetails = () => {
   return (
     <>
       <ContactTitle>Contact Details</ContactTitle>
@@ -63,4 +63,4 @@ const ContactDetails = () => {
   );
 };
 
-export default ContactDetails;
+export default RoomContactDetails;

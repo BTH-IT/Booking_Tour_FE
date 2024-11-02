@@ -6,7 +6,8 @@ export const router = {
   tourDetail: 'tour/:tourId',
   profile: '/profile',
   register: '/register',
-  payment: '/payment',
+  tourPayment: '/tour-payment',
+  roomPayment: '/room-payment',
   rooms: '/room',
   roomDetail: '/room/:roomId',
 };

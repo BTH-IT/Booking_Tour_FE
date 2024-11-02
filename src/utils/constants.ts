@@ -316,6 +316,13 @@ export function formatDate(date: Date) {
   });
 }
 
+export function totalDates(start: Date, end: Date) {
+  return Math.ceil(
+    (new Date(end).getTime() - new Date(start).getTime()) /
+      (1000 * 60 * 60 * 24),
+  );
+}
+
 export function formatPhoneNumber(phoneNumber: string): string {
   // Use regex to format the phone number in the desired format
   return phoneNumber.replace(/(\d{4})(\d{3})(\d{3})/, '$1.$2.$3');

@@ -69,9 +69,9 @@ const TourDetailRight = (props: ITour) => {
               allowedDate.getTime() === date.getTime() ||
               data.some(
                 (schedule) =>
-                  new Date(schedule.dateEnd).getTime() === date.getTime()
-              )
-          )
+                  new Date(schedule.dateEnd).getTime() === date.getTime(),
+              ),
+          ),
       );
 
     setDisabledDates(disabledDatesArray); // Finalized disabled dates
@@ -84,10 +84,10 @@ const TourDetailRight = (props: ITour) => {
         return callback();
       }
       return callback(
-        `Only ${seatsAvailable} seats left and seats must be greater than 0`
+        `Only ${seatsAvailable} seats left and seats must be greater than 0`,
       );
     },
-    [seatsAvailable]
+    [seatsAvailable],
   );
 
   const onFinish = (values: any) => {
@@ -103,10 +103,10 @@ const TourDetailRight = (props: ITour) => {
           schedule,
           seats: values.numOfPeople,
           ...props,
-        })
+        }),
       );
 
-      navigate('/payment');
+      navigate('/tour-payment');
     }
   };
 
@@ -130,12 +130,12 @@ const TourDetailRight = (props: ITour) => {
         </Styles.TourDetailRightBookingPrice>
         <Styles.TourDetailRightBookingForm
           form={form}
-          layout='vertical'
+          layout="vertical"
           initialValues={{ numOfPeople: 0 }}
           onFinish={onFinish}
         >
           <Styles.TourDetailRightBookingFormDate
-            name='date'
+            name="date"
             rules={[{ required: true }]}
           >
             <CalendarInput
@@ -169,17 +169,17 @@ const TourDetailRight = (props: ITour) => {
               disabledDates={disabledDates}
               minDate={new Date(new Date(props.dateFrom).setHours(0, 0, 0, 0))}
               maxDate={new Date(new Date(props.dateTo).setHours(0, 0, 0, 0))}
-              selectionMode='range'
+              selectionMode="range"
             />
           </Styles.TourDetailRightBookingFormDate>
           <Styles.TourDetailRightBookingFormAvailable>
             Available: {seatsAvailable} seats
           </Styles.TourDetailRightBookingFormAvailable>
           <InputFormItem
-            name='numOfPeople'
-            label='Number of people'
-            type='number'
-            min='0'
+            name="numOfPeople"
+            label="Number of people"
+            type="number"
+            min="0"
             max={seatsAvailable}
             rules={[{ validator: validationSeats }]}
             onKeyDown={(e) => {
@@ -197,11 +197,11 @@ const TourDetailRight = (props: ITour) => {
             }}
           />
           <CustomButton
-            htmlType='submit'
-            type='primary'
-            border_radius='4px'
-            width='100%'
-            height='60px'
+            htmlType="submit"
+            type="primary"
+            border_radius="4px"
+            width="100%"
+            height="60px"
           >
             PROCEED BOOKING
           </CustomButton>

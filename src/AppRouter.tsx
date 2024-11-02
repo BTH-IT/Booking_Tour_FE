@@ -6,7 +6,8 @@ import SearchPage from './pages/TourSearchPage';
 import RegisterPage from './pages/RegisterPage';
 import TourDetailPage from './pages/TourDetailPage';
 import AuthenticationaLayout from './layouts/AuthenticationLayout';
-import PaymentPage from './pages/PaymentPage';
+import TourPaymentPage from './pages/TourPaymentPage';
+import RoomPaymentPage from './pages/RoomPaymentPage';
 import RoomSearchPage from './pages/RoomSearchPage';
 import RoomDetailPage from './pages/RoomDetailPage';
 import DashboardPage from './pages/DashboardPage';
@@ -26,8 +27,9 @@ export default function AppRouter() {
       </Route>
       <Route element={<AuthenticationaLayout />}>
         <Route element={<DefaultLayout />}>
-          <Route path={router.payment} element={<PaymentPage />} />
           <Route path={router.dashboard} element={<DashboardPage />} />
+          <Route path={router.tourPayment} element={<TourPaymentPage />} />
+          <Route path={router.roomPayment} element={<RoomPaymentPage />} />
         </Route>
       </Route>
       <Route element={<AdminAuthenticationaLayout />}>
