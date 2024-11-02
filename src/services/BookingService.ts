@@ -1,5 +1,7 @@
 import { IBookingRoom } from 'booking';
 import { API_URL } from '@/constants/endpoints';
+=======
+>>>>>>> 3613ab2355ad6d8ff7a48d340467ac4087b75b16
 import configService from './ConfigService';
 import { ISchedule } from 'tour';
 import { ApiResponse } from 'index';
@@ -22,7 +24,6 @@ const bookingService = {
   ): Promise<ApiResponse<IBookingRoom>> {
     return configService.post(`${API_URL.SAGA_ROOM}`, data);
   },
-
   /* TOUR */
   getABooking(bookingId: string): Promise<ApiResponse<any>> {
     const url = `${API_URL.BOOKING_TOURS}/${bookingId}`;
@@ -32,7 +33,7 @@ const bookingService = {
     return configService.get(`${API_URL.BOOKING_TOURS}`, { params: params });
   },
   createBooking(data: any) {
-    return configService.post(`${API_URL.BOOKING_TOURS}`, data);
+    return configService.post(`${API_URL.SAGAS + API_URL.BOOKING_TOURS}`, data);
   },
   updateBooking(data: any) {
     return configService.patch(`${API_URL.BOOKING_TOURS}`, data);
