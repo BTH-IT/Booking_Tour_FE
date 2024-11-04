@@ -106,18 +106,6 @@ const ContactAndTravellerDetails = ({
       </ContactAndTravellerDetailsItem>
       <ContactAndTravellerDetailsItem>
         <ContactAndTravellerDetailsItemLabel>
-          Country :
-        </ContactAndTravellerDetailsItemLabel>
-        <ContactAndTravellerDetailsItemValue>
-          {
-            countryList.find(
-              (item) => item.value === form.getFieldValue('country'),
-            )?.label
-          }
-        </ContactAndTravellerDetailsItemValue>
-      </ContactAndTravellerDetailsItem>
-      <ContactAndTravellerDetailsItem>
-        <ContactAndTravellerDetailsItemLabel>
           Address :
         </ContactAndTravellerDetailsItemLabel>
         <ContactAndTravellerDetailsItemValue>

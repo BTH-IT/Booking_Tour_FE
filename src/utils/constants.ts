@@ -289,11 +289,11 @@ export const SET_LOCALSTORAGE = (data: any) => {
   localStorage.setItem(KEY_LOCALSTORAGE.ACCESS_TOKEN, data.accessToken);
   localStorage.setItem(
     KEY_LOCALSTORAGE.CURRENT_USER,
-    JSON.stringify(data.user),
+    JSON.stringify(data.user)
   );
   localStorage.setItem(
     KEY_LOCALSTORAGE.CURRENT_ACCOUNT,
-    JSON.stringify(data.account),
+    JSON.stringify(data.account)
   );
   localStorage.setItem(KEY_LOCALSTORAGE.REFRESH_TOKEN, data.refreshToken);
 };
@@ -328,7 +328,8 @@ export function average(nums: number[]): number {
 export function logError(error: any) {
   console.error(error);
   if (error instanceof AxiosError) {
-    toast.error(error.response?.data.message);
+    console.log(error);
+    toast.error(error.response?.data.message || error.message);
   }
 }
 

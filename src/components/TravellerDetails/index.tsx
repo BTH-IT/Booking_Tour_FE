@@ -26,15 +26,15 @@ const TravellerDetails = ({ travellers }: { travellers: number }) => {
   return (
     <>
       <TravellerTitle>Traveller Details</TravellerTitle>
-      {travellerList.map((item) => {
+      {travellerList.map((item, idx) => {
         return (
-          <Row gutter={[20, 20]} key={item}>
+          <Row gutter={[20, 20]} key={idx}>
             <Col xs={4}>
               <TravellerSubTitle>Traveller {item}</TravellerSubTitle>
             </Col>
             <Col xs={20}>
               <InputFormItem
-                label="Full Name"
+                label='Full Name'
                 name={`fullName-${item}`}
                 rules={[
                   {
@@ -43,7 +43,7 @@ const TravellerDetails = ({ travellers }: { travellers: number }) => {
                 ]}
               />
               <InputFormItem
-                label="Phone"
+                label='Phone'
                 name={`phone-${item}`}
                 rules={[
                   {
@@ -54,12 +54,27 @@ const TravellerDetails = ({ travellers }: { travellers: number }) => {
                 ]}
               />
               <InputFormItem
-                label="Age"
+                label='Age'
                 name={`age-${item}`}
                 rules={[
                   {
                     required: true,
                   },
+                ]}
+              />
+              <InputFormItem
+                label='Gender'
+                name={`gender-${item}`}
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+                isSelect
+                options={[
+                  { value: 'male', label: 'Male' },
+                  { value: 'female', label: 'Female' },
+                  { value: 'other', label: 'Other' },
                 ]}
               />
             </Col>
