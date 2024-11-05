@@ -27,7 +27,7 @@ const TourSearchContent = () => {
     SortBy: searchParams.get('SortBy') || 'releaseDate',
     IsDescending: Boolean(searchParams.get('IsDescending')) || true,
     MinPrice: searchParams.get('MinPrice') || 0,
-    MaxPrice: searchParams.get('MaxPrice') || 0,
+    Keyword: searchParams.get('Keyword') || '',
   });
   const location = useLocation();
 

@@ -25,6 +25,18 @@ const PaymentWrapper = styled.section`
   padding-left: 10px;
 `;
 
+const FormWrapper = styled(Form)`
+  .ant-form-item-explain-error {
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+
+  .ant-form-item .ant-form-item-label > label::after {
+    margin: 0 !important;
+  }
+`;
+
 const PaymentButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -131,9 +143,9 @@ const TourPaymentPage = () => {
           <div>
             <Steps current={current} progressDot items={steps} />
           </div>
-          <RowStyled gutter={[20, 20]}>
+          <RowStyled gutter={[40, 60]}>
             <Col xs={16}>
-              <Form
+              <FormWrapper
                 onFinish={() => {
                   next();
                 }}
@@ -165,7 +177,7 @@ const TourPaymentPage = () => {
                     />
                   </>
                 )}
-              </Form>
+              </FormWrapper>
 
               {current === steps.length - 1 && (
                 <>
@@ -222,12 +234,27 @@ const TourPaymentPage = () => {
                           next();
                         } catch (error) {
                           logError(error);
-                          dispatch(authActions.logout());
+                          // dispatch(authActions.logout());
                         }
                         return;
                       }
 
                       if (current === 1) {
+                        const values = form.getFieldsValue();
+
+                        const travellerList = [];
+
+                        for (let i = 1; i <= Number(tourPayment?.seats); i++) {
+                          travellerList.push({
+                            fullName: values[`fullName-${i}`],
+                            phone: values[`phone-${i}`],
+                            age: values[`age-${i}`],
+                            gender: values[`gender-${i}`],
+                          });
+                        }
+
+                        setTravellers(travellerList);
+
                         form.submit();
                       }
                     }}
@@ -236,7 +263,7 @@ const TourPaymentPage = () => {
                   </CustomButton>
                 )}
 
-                {current > 1 && current < steps.length - 2 && (
+                {current > 1 && current < steps.length - 1 && (
                   <CustomButton onClick={() => prev()}>Previous</CustomButton>
                 )}
               </PaymentButtonWrapper>

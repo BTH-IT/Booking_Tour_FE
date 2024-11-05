@@ -12,10 +12,10 @@ import tourService from '@/services/TourService';
 import { Col, Row } from 'antd';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { ITour } from 'tour';
 import { logError } from '@/utils/constants';
+import { TourReviews } from '@/components/Reviews';
 
 const TourDetailContentStyled = styled.div`
   margin: 0 auto;
@@ -75,8 +75,8 @@ const TourDetailPage = () => {
   return (
     tour && (
       <>
-        <TourSearchTitle>{''}</TourSearchTitle>
-        <Container className="container">
+        <TourSearchTitle>{'Tour Detail'}</TourSearchTitle>
+        <Container>
           <TourDetailNav />
           <TourDetailHeader {...tour} />
           <TourDetailGallery {...tour} />
@@ -121,11 +121,11 @@ const TourDetailPage = () => {
               ]}
             >
               {tourList.map((freshlyAdded, idx) => (
-                <FreshlyAdded {...freshlyAdded} maxWidth="325px" key={idx} />
+                <FreshlyAdded {...freshlyAdded} maxWidth='325px' key={idx} />
               ))}
             </SliderBase>
           </TourDetailContent>
-          {/* <TourReviews {...tour} /> */}
+          <TourReviews {...tour} />
         </Container>
       </>
     )
