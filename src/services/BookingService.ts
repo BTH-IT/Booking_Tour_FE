@@ -1,8 +1,10 @@
 import { IBookingRoom } from 'booking';
-import { API_URL } from '@/constants/endpoints';
-import configService from './ConfigService';
-import { ISchedule } from 'tour';
 import { ApiResponse } from 'index';
+
+import configService from './ConfigService';
+
+import { API_URL } from '@/constants/endpoints';
+
 const bookingService = {
   /* ROOM */
   getAllBookingRooms(): Promise<ApiResponse<IBookingRoom[]>> {
@@ -18,7 +20,7 @@ const bookingService = {
     return configService.get(`${API_URL.BOOKING_ROOM}/${roomId}/data`);
   },
   createBookingRoom(
-    data: Partial<IBookingRoom>,
+    data: Partial<IBookingRoom>
   ): Promise<ApiResponse<IBookingRoom>> {
     return configService.post(`${API_URL.SAGA_ROOM}`, data);
   },

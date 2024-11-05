@@ -1,1 +1,38 @@
-[{"D:\\Code\\VS Code\\Web\\Booking_Tour_FE\\src\\services\\BookingService.ts":"1"},{"size":1717,"mtime":1730770712307,"results":"2","hashOfConfig":"3"},{"filePath":"4","messages":"5","suppressedMessages":"6","errorCount":1,"fatalErrorCount":1,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},"1hlcota","D:\\Code\\VS Code\\Web\\Booking_Tour_FE\\src\\services\\BookingService.ts",["7"],[],{"ruleId":null,"fatal":true,"severity":2,"message":"8","line":8,"column":23,"nodeType":null},"Parsing error: Unexpected token :"]
+[
+  {
+    "D:\\Code\\VS Code\\Web\\Booking_Tour_FE\\src\\services\\BookingService.ts": "1"
+  },
+  {
+    "size": 1717,
+    "mtime": 1730770712307,
+    "results": "2",
+    "hashOfConfig": "3"
+  },
+  {
+    "filePath": "4",
+    "messages": "5",
+    "suppressedMessages": "6",
+    "errorCount": 1,
+    "fatalErrorCount": 1,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "source": null
+  },
+  "1hlcota",
+  "D:\\Code\\VS Code\\Web\\Booking_Tour_FE\\src\\services\\BookingService.ts",
+  [
+    "7"
+  ],
+  [],
+  {
+    "ruleId": null,
+    "fatal": true,
+    "severity": 2,
+    "message": "8",
+    "line": 8,
+    "column": 23,
+    "nodeType": null
+  },
+  "Parsing error: Unexpected token :"
+]
