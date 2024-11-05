@@ -1,7 +1,5 @@
 import { IBookingRoom } from 'booking';
 import { API_URL } from '@/constants/endpoints';
-=======
->>>>>>> 3613ab2355ad6d8ff7a48d340467ac4087b75b16
 import configService from './ConfigService';
 import { ISchedule } from 'tour';
 import { ApiResponse } from 'index';

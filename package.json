@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "lint": "eslint . --fix --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "format": "prettier . --write",
+    "preview": "vite preview",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -45,7 +47,9 @@
     "cmdk": "1.0.0",
     "date-fns": "^4.1.0",
     "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.37.2",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",
@@ -100,5 +104,12 @@
     "tailwindcss": "^3.4.11",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
+  },
+  "main": "index.js",
+  "repository": "https://github.com/BTH-IT/Booking_Tour_FE.git",
+  "author": "bthung.dev@gmail.com",
+  "license": "MIT",
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   }
 }
