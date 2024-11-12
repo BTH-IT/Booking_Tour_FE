@@ -1,3 +1,4 @@
+import { Button } from 'antd';
 import styled from 'styled-components';
 
 export const TourDetailLeftContent = styled.section``;
@@ -6,16 +7,38 @@ export const TourDetailLeftTitle = styled.h2`
   line-height: 1.2;
   font-size: 2.3rem;
   color: black;
-  font-family: 'DM Serif Display', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
   font-weight: 500;
   margin-bottom: 20px;
+`;
+
+export const HeaderWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const WishListButton = styled(Button)`
+  padding-block: 20px;
+  & > span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  & > span > span {
+    font-size: 1.2rem;
+  }
+  &:disabled {
+    background: rgba(255, 255, 255, 50) !important;
+  }
 `;
 
 export const TourDetailLeftMapTitle = styled.h2`
   line-height: 1.2;
   font-size: 2.3rem;
   color: black;
-  font-family: 'DM Serif Display', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
   font-weight: 500;
   margin-top: 60px;
   margin-bottom: 20px;

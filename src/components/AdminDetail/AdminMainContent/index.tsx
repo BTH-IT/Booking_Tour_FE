@@ -1,7 +1,11 @@
-import useActiveDashboardTab from '@/hooks/useActiveDashboardTab';
+import AdminDestination from './AdminDestination';
+import AdminHotel from './AdminHotel';
+import AdminRoom from './AdminRoom';
+import AdminRoomBooking from './AdminRoomBooking';
+import AdminTour from './AdminTour';
+import AdminTourBooking from './AdminTourBooking';
 import AdminUser from './AdminUser';
 
-import { adminTabs } from '@/constants/sidebarItem';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,10 +14,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import AdminHotel from './AdminHotel';
-import AdminRoom from './AdminRoom';
-import AdminDestination from './AdminDestination';
-import AdminTour from './AdminTour';
+import { adminTabs } from '@/constants/sidebarItem';
+import useActiveDashboardTab from '@/hooks/useActiveDashboardTab';
 
 const tabComponents = {
   user: <AdminUser />,
@@ -21,6 +23,8 @@ const tabComponents = {
   room: <AdminRoom />,
   destination: <AdminDestination />,
   tour: <AdminTour />,
+  'tour-booking': <AdminTourBooking />,
+  'room-booking': <AdminRoomBooking />,
 };
 
 export default function AdminMainContent() {

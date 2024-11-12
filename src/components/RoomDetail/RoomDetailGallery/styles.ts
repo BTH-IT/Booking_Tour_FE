@@ -1,4 +1,3 @@
-import { Row } from 'antd';
 import styled from 'styled-components';
 
 export const RoomDetailGalleryWrapper = styled.div`
@@ -16,7 +15,7 @@ export const RoomDetailGalleryImagePrimary = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  max-height: 450px;
+  max-height: 460px;
   border-radius: 12px;
 
   img {

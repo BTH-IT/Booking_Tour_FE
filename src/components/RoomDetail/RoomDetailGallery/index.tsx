@@ -1,10 +1,12 @@
-import { IRoom } from 'room';
-import * as Styles from './styles';
 import { Col, Row } from 'antd';
+import { useState } from 'react';
 import { IoImagesOutline } from 'react-icons/io5';
 import { LuVideo } from 'react-icons/lu';
+import { IRoom } from 'room';
+
+import * as Styles from './styles';
+
 import ShowMediaModal from '@/components/ShowMediaModal';
-import { useState } from 'react';
 
 const RoomDetailGallery = (props: IRoom) => {
   const [isImageGalleriesOpen, setIsImageGalleriesOpen] = useState(false);

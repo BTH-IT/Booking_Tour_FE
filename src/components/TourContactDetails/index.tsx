@@ -1,4 +1,7 @@
+import { useNavigate } from 'react-router';
 import InputFormItem from '../Input/InputFormItem';
+import SelectFormItem from '../Select/SelectFormItem';
+import { countryList } from '@/utils/constants';
 import styled from 'styled-components';
 
 const ContactTitle = styled.h2`
@@ -8,13 +11,13 @@ const ContactTitle = styled.h2`
   margin-bottom: 30px;
 `;
 
-const ContactDetails = () => {
+const TourContactDetails = () => {
   return (
     <>
       <ContactTitle>Contact Details</ContactTitle>
       <InputFormItem
-        label='Full Name'
-        name='fullName'
+        label="Full Name"
+        name="fullName"
         rules={[
           {
             required: true,
@@ -22,8 +25,8 @@ const ContactDetails = () => {
         ]}
       />
       <InputFormItem
-        label='Email'
-        name='email'
+        label="Email"
+        name="email"
         rules={[
           {
             required: true,
@@ -34,8 +37,8 @@ const ContactDetails = () => {
         ]}
       />
       <InputFormItem
-        label='Phone'
-        name='phone'
+        label="Phone"
+        name="phone"
         rules={[
           {
             required: true,
@@ -44,15 +47,20 @@ const ContactDetails = () => {
           },
         ]}
       />
-      <InputFormItem label='Address' name='address' />
-      <InputFormItem
-        label='Note'
-        name='note'
-        rules={[{ required: false, message: 'Please input your note!' }]}
-        isTextArea
+      <SelectFormItem
+        label="Country"
+        name="country"
+        options={countryList}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
       />
+      <InputFormItem label="Address" name="address" />
+      <InputFormItem label="Note" name="note" />
     </>
   );
 };
 
-export default ContactDetails;
+export default TourContactDetails;

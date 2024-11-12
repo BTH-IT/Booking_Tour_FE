@@ -1,14 +1,15 @@
+import { useState } from 'react';
+import { ITour } from 'tour';
+
 import ButtonLink from '../ButtonLink';
 import FreshlyAdded from '../Card/FreshlyAdded';
 import SliderBase from '../Slider/SliderBase';
-import { Container } from '@/constants';
 
 import * as Styles from './styles';
+
+import { Container } from '@/constants';
 import useDidMount from '@/hooks/useDidMount';
-import { useState } from 'react';
-import { ITour } from 'tour';
 import tourService from '@/services/TourService';
-import { toast } from 'react-toastify';
 import { logError } from '@/utils/constants';
 
 const FreshlyAddeds = () => {

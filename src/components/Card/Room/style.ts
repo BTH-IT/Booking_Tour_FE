@@ -1,6 +1,6 @@
-import { styled } from 'styled-components';
 import { RightOutlined } from '@ant-design/icons';
 import { Skeleton } from 'antd';
+import { styled } from 'styled-components';
 
 interface IRoomProps {
   descriptionHeight?: string;
@@ -15,7 +15,8 @@ export const CardWrapper = styled.a`
   margin: 20px auto;
   flex-direction: column;
   flex-wrap: wrap;
-  font-family: 'DM Sans', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
   border-radius: 12px;
 `;
 
@@ -41,7 +42,8 @@ export const CardInfoTitle = styled.h3`
   transition: all 0.2s ease;
   width: 100%;
   padding-bottom: 20px;
-  font-family: 'DM Serif Display', serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2; /* number of lines to show */

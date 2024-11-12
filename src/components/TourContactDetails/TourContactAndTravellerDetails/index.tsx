@@ -40,7 +40,7 @@ const ContactAndTravellerDetailsItemValue = styled.div`
   font-size: 1.6rem;
 `;
 
-const ContactAndTravellerDetails = ({
+const TourContactAndTravellerDetails = ({
   form,
   travellers,
   setTravellers,
@@ -163,4 +163,4 @@ const ContactAndTravellerDetails = ({
   );
 };
 
-export default ContactAndTravellerDetails;
+export default TourContactAndTravellerDetails;

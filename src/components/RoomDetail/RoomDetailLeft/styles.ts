@@ -1,12 +1,33 @@
+import { Button } from 'antd';
 import styled from 'styled-components';
 
 export const RoomDetailLeftContent = styled.section``;
 
 export const RoomDetailLeftTitleWrapper = styled.div``;
 
+export const HeaderWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 export const Separator = styled.div`
   border-bottom: 1px solid #e1e1e1;
   margin-block: 30px;
+`;
+
+export const WishListButton = styled(Button)`
+  padding-block: 20px;
+  & > span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  & > span > span {
+    font-size: 1.2rem;
+  }
+  &:disabled {
+    background: rgba(255, 255, 255, 50) !important;
+  }
 `;
 
 export const RoomDetailLeftFirstTitle = styled.h2`
@@ -48,7 +69,8 @@ export const RoomDetailLeftAmenities = styled.div`
 
 export const RoomDetailLeftAmenitiesTitle = styled.h4`
   font-size: 2rem;
-  font-family: 'DM Serif Display', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
   color: black;
   font-weight: 500;
   margin-block: 40px;

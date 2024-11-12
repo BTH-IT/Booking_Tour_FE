@@ -1,20 +1,19 @@
+import { Col, Row } from 'antd';
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { IRoom } from 'room';
+import styled from 'styled-components';
+
+import Room from '@/components/Card/Room';
 import { RoomReviews } from '@/components/Reviews';
-import SliderBase from '@/components/Slider/SliderBase';
 import RoomDetailGallery from '@/components/RoomDetail/RoomDetailGallery';
 import RoomDetailHeader from '@/components/RoomDetail/RoomDetailHeader';
 import RoomDetailLeft from '@/components/RoomDetail/RoomDetailLeft';
 import RoomDetailRight from '@/components/RoomDetail/RoomDetailRight';
+import SliderBase from '@/components/Slider/SliderBase';
 import { Container } from '@/constants';
 import useDidMount from '@/hooks/useDidMount';
 import roomService from '@/services/RoomService';
-import { Col, Row } from 'antd';
-import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import styled from 'styled-components';
-import { IRoom } from 'room';
-import Room from '@/components/Card/Room';
-import { AxiosError } from 'axios';
 import { logError } from '@/utils/constants';
 
 const RoomDetailContentStyled = styled.div`
@@ -37,7 +36,8 @@ const RoomDetailTitle = styled.h2`
   color: black;
   display: flex;
   justify-content: center;
-  font-family: 'DM Serif Display', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
   font-weight: 500;
   margin-bottom: 20px;
 `;

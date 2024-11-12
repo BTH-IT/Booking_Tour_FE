@@ -20,7 +20,7 @@ const InformationTour = ({
 
   useEffect(() => {
     const storedTourPayment = JSON.parse(
-      localStorage.getItem('tour_payment') || 'null'
+      localStorage.getItem('tour_payment') || 'null',
     );
     setTourPayment(storedTourPayment);
 
@@ -47,12 +47,12 @@ const InformationTour = ({
         <span>{moment(dateStart).format('ll')}</span>
         {current > 1 && current < maxStep - 2 && (
           <ButtonLink
-            href='/'
+            href="/"
             icon={false}
-            $fontSize='1.4rem'
+            $fontSize="1.4rem"
             $borderBottom={false}
-            color='#5c98f2'
-            $hoverColor='#5c98f2'
+            color="#5c98f2"
+            $hoverColor="#5c98f2"
           >
             edit
           </ButtonLink>
@@ -80,7 +80,7 @@ const InformationTour = ({
               <p>Coupon Code:</p>
               <div>
                 <span>Apply</span>
-                <input type='text' />
+                <input type="text" />
               </div>
             </Styles.InformationCouponContent>
           </>

@@ -32,6 +32,7 @@ export interface ISchedule {
   dateStart: Date;
   dateEnd: Date;
   availableSeats: number;
+  tour: ITour;
 }
 
 export interface ITourItem {

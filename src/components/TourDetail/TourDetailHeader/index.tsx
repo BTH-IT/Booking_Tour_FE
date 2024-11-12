@@ -1,10 +1,10 @@
+import { BsClockHistory, BsWifi } from 'react-icons/bs';
+import { IoCalendarNumberOutline } from 'react-icons/io5';
+import { MdPeopleOutline } from 'react-icons/md';
 import { ITour } from 'tour';
 import * as Styles from './styles';
-import { BsClockHistory, BsWifi } from 'react-icons/bs';
-import { MdPeopleOutline } from 'react-icons/md';
-import { IoCalendarNumberOutline } from 'react-icons/io5';
 
-const formatter = new Intl.DateTimeFormat('en', { month: 'short' });
+const formatter = new Intl.DateTimeFormat('vi', { month: 'short' });
 
 const TourDetailHeader = (props: ITour) => {
   console.log(props);

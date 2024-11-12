@@ -23,7 +23,7 @@ const ServicesTitle = styled.h2`
   margin-bottom: 30px;
 `;
 
-const Services = ({
+const TourServices = ({
   setTotalPay,
 }: {
   setTotalPay: Dispatch<SetStateAction<number>>;
@@ -74,4 +74,4 @@ const Services = ({
   );
 };
 
-export default Services;
+export default TourServices;

@@ -1,20 +1,23 @@
+import { LogOut } from 'lucide-react';
+
+import TabSection from '@/components/DashboardTabSection';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import TabSection from '@/components/DashboardTabSection';
-import useActiveDashboardTab from '@/hooks/useActiveDashboardTab';
-import { authActions } from '@/redux/features/auth/authSlice';
-import { useAppDispatch } from '@/redux/hooks';
 import {
   myAccountTabs,
   roomBookingTabs,
   tourBookingTabs,
 } from '@/constants/sidebarItem';
-import { LogOut } from 'lucide-react';
+import useActiveDashboardTab from '@/hooks/useActiveDashboardTab';
+import { authActions } from '@/redux/features/auth/authSlice';
+import { useAppDispatch } from '@/redux/hooks';
 
 export default function DashboardSidebar() {
   const dispatch = useAppDispatch();
 
   const { activeTab, setActiveTab } = useActiveDashboardTab();
+
+  console.log('activeTab', activeTab);
 
   return (
     <aside className="w-[300px] bg-white shadow-md">

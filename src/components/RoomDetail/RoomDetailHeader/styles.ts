@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { Row, Col } from 'antd';
+import { Col, Row } from 'antd';
 import { UsersRound } from 'lucide-react';
+import styled from 'styled-components';
 
 export const RoomDetailHeaderWrapper = styled.div`
   display: flex;
@@ -67,7 +67,8 @@ export const RoomDetailHeaderTitle = styled.div`
   color: inherit;
   font-weight: inherit;
   font-size: inherit;
-  font-family: 'DM Serif Display', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
 `;
 
 export const RoomDetailHeaderRate = styled.div`

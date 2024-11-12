@@ -1,20 +1,13 @@
-import useActiveDashboardTab from '@/hooks/useActiveDashboardTab';
-import DashboardProfile from './DashboardProfile';
-import DashboardEdit from './DashboardEdit';
 import DashboardChangePassword from './DashboardChangePassword';
-import DashboardTourBooking from './DashboardTourBooking';
-import DashboardTourInvoice from './DashboardTourInvoice';
-import DashboardTourReview from './DashboardTourReview';
-import DashboardWishList from './DashboardWishList';
+import DashboardEdit from './DashboardEdit';
+import DashboardProfile from './DashboardProfile';
 import DashboardRoomBooking from './DashboardRoomBooking';
 import DashboardRoomInvoice from './DashboardRoomInvoice';
-import DashboardRoomReview from './DashboardRoomReview';
+import DashboardRoomWishList from './DashboardRoomWishList';
+import DashboardTourBooking from './DashboardTourBooking';
+import DashboardTourInvoice from './DashboardTourInvoice';
+import DashboardTourWishList from './DashboardTourWishList';
 
-import {
-  myAccountTabs,
-  roomBookingTabs,
-  tourBookingTabs,
-} from '@/constants/sidebarItem';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -23,6 +16,12 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+import {
+  myAccountTabs,
+  roomBookingTabs,
+  tourBookingTabs,
+} from '@/constants/sidebarItem';
+import useActiveDashboardTab from '@/hooks/useActiveDashboardTab';
 
 const tabComponents = {
   dashboard: <DashboardProfile />,
@@ -30,11 +29,10 @@ const tabComponents = {
   'change-password': <DashboardChangePassword />,
   'tour-my-bookings': <DashboardTourBooking />,
   'tour-invoices': <DashboardTourInvoice />,
-  'tour-reviewList': <DashboardTourReview />,
-  'wish-list': <DashboardWishList />,
+  'tour-wish-list': <DashboardTourWishList />,
   'room-my-bookings': <DashboardRoomBooking />,
   'room-invoices': <DashboardRoomInvoice />,
-  'room-reviewList': <DashboardRoomReview />,
+  'room-wish-list': <DashboardRoomWishList />,
 };
 
 export default function DashboardMainContent() {
@@ -50,21 +48,21 @@ export default function DashboardMainContent() {
   };
 
   return (
-    <main className='flex-1 py-20'>
+    <main className="flex-1 py-20">
       {activeTab && activeTab !== 'dashboard' && (
-        <Breadcrumb className='mx-14 mb-6 font-semibold'>
+        <Breadcrumb className="mx-14 mb-6 font-semibold">
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink
-                className='text-2xl text-gray-400'
-                href='/dashboard'
+                className="text-2xl text-gray-400"
+                href="/dashboard"
               >
                 Dashboard
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className='text-2xl text-blue-600'>
+              <BreadcrumbPage className="text-2xl text-blue-600">
                 {tabs[activeTab as keyof typeof tabs]}
               </BreadcrumbPage>
             </BreadcrumbItem>
