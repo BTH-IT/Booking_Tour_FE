@@ -7,7 +7,8 @@ export const TourSearchContentWrapper = styled.section`
   padding-top: 70px;
   margin: 0 auto;
   color: black;
-  font-family: 'DM Serif Display', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
   overflow: hidden;
 `;
 
@@ -21,5 +22,6 @@ export const TourSearchContentRight = styled.div`
 export const TourSearchContentResult = styled.h3`
   font-size: 2rem;
   font-weight: 600;
-  font-family: 'DM Serif Display', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
 `;

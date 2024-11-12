@@ -1,26 +1,27 @@
-import { ISchedule, ITour } from 'tour';
-import * as Styles from './styles';
+import { Form } from 'antd';
+import { RuleObject } from 'antd/es/form';
+import { CalendarChangeEvent } from 'primereact/calendar';
+import { useCallback, useEffect, useState } from 'react';
 import {
-  AiOutlineHeart,
   AiOutlineLike,
   AiOutlinePhone,
   AiOutlineStar,
   AiOutlineTag,
 } from 'react-icons/ai';
-import CalendarInput from '@/components/CalendarInput';
-import { useCallback, useState } from 'react';
-import { Form } from 'antd';
-import { CalendarChangeEvent } from 'primereact/calendar';
-import CustomButton from '@/components/CustomButton';
-import { TbFreeRights } from 'react-icons/tb';
 import { MdOutlineMailOutline } from 'react-icons/md';
-import InputFormItem from '@/components/Input/InputFormItem';
-import useDidMount from '@/hooks/useDidMount';
-import tourService from '@/services/TourService';
-import { RuleObject } from 'antd/es/form';
+import { TbFreeRights } from 'react-icons/tb';
 import { useNavigate } from 'react-router';
-import { useAppSelector } from '@/redux/hooks';
 import { toast } from 'react-toastify';
+import { ISchedule, ITour } from 'tour';
+
+import * as Styles from './styles';
+
+import tourService from '@/services/TourService';
+import { useAppSelector } from '@/redux/hooks';
+import useDidMount from '@/hooks/useDidMount';
+import InputFormItem from '@/components/Input/InputFormItem';
+import CustomButton from '@/components/CustomButton';
+import CalendarInput from '@/components/CalendarInput';
 
 const TourDetailRight = (props: ITour) => {
   const [dates, setDates] = useState<Date[] | null>(null);
@@ -31,7 +32,34 @@ const TourDetailRight = (props: ITour) => {
   const user = useAppSelector((state) => state.auth.user);
   const [form] = Form.useForm();
   const [seatsAvailable, setSeatsAvailable] = useState(maxGuests);
+  const [inWishList, setInWishList] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const tourJSON = localStorage.getItem('tour-wish-list');
+    if (tourJSON) {
+      const tourList: ITour[] = JSON.parse(tourJSON);
+      setInWishList(tourList.some((tour) => tour.id === props.id));
+    }
+    setMounted(true);
+  }, [props.id]);
+
+  const addToWishListHandler = () => {
+    const tourJSON = localStorage.getItem('tour-wish-list');
+    if (tourJSON) {
+      const tourList: ITour[] = JSON.parse(tourJSON);
+      if (tourList.some((tour) => tour.id === props.id)) {
+        return;
+      }
+      tourList.push(props);
+      localStorage.setItem('tour-wish-list', JSON.stringify(tourList));
+    } else {
+      localStorage.setItem('tour-wish-list', JSON.stringify([props]));
+    }
+    setInWishList(true);
+  };
 
   useDidMount(async () => {
     const res = await tourService.getSchedulesOfTour(id);
@@ -69,9 +97,9 @@ const TourDetailRight = (props: ITour) => {
               allowedDate.getTime() === date.getTime() ||
               data.some(
                 (schedule) =>
-                  new Date(schedule.dateEnd).getTime() === date.getTime(),
-              ),
-          ),
+                  new Date(schedule.dateEnd).getTime() === date.getTime()
+              )
+          )
       );
 
     setDisabledDates(disabledDatesArray); // Finalized disabled dates
@@ -84,10 +112,10 @@ const TourDetailRight = (props: ITour) => {
         return callback();
       }
       return callback(
-        `Only ${seatsAvailable} seats left and seats must be greater than 0`,
+        `Only ${seatsAvailable} seats left and seats must be greater than 0`
       );
     },
-    [seatsAvailable],
+    [seatsAvailable]
   );
 
   const onFinish = (values: any) => {
@@ -103,7 +131,7 @@ const TourDetailRight = (props: ITour) => {
           schedule,
           seats: values.numOfPeople,
           ...props,
-        }),
+        })
       );
 
       navigate('/tour-payment');
@@ -206,12 +234,7 @@ const TourDetailRight = (props: ITour) => {
             PROCEED BOOKING
           </CustomButton>
         </Styles.TourDetailRightBookingForm>
-        <Styles.TourDetailRightBookingInfo>
-          <Styles.TourDetailRightWishList>
-            <AiOutlineHeart />
-            <span>Save To Wish List</span>
-          </Styles.TourDetailRightWishList>
-        </Styles.TourDetailRightBookingInfo>
+        <Styles.TourDetailRightBookingInfo></Styles.TourDetailRightBookingInfo>
       </Styles.TourDetailRightBooking>
       <Styles.TourDetailRightBookingWithConfidence>
         <Styles.TourDetailRightBookingTitle>

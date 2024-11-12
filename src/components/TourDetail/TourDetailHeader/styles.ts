@@ -52,7 +52,8 @@ export const TourDetailHeaderTitle = styled.div`
   color: inherit;
   font-weight: inherit;
   font-size: inherit;
-  font-family: 'DM Serif Display', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
 `;
 
 export const TourDetailHeaderRate = styled.div`

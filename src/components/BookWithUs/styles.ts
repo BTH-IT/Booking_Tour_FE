@@ -40,7 +40,8 @@ export const BookWithUsTitle = styled.h3`
   line-height: 1.2;
   font-size: 7.4rem;
   color: black;
-  font-family: 'DM Serif Display', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
   font-weight: 400;
 
   span {

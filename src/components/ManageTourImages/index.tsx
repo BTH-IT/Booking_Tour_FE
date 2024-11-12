@@ -1,10 +1,10 @@
+import { ITourFile } from 'file';
 import { Trash2, Upload } from 'lucide-react';
-import { v4 as uuidv4 } from 'uuid';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { ReactSortable } from 'react-sortablejs';
-import { ITourFile } from 'file';
+
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 const ManageTourImages = ({
   files,
@@ -150,7 +150,7 @@ const ManageTourImages = ({
                       setEditId(editId === file.id ? -1 : file.id);
                       (
                         document.querySelector(
-                          '.edit_image',
+                          '.edit_image'
                         ) as HTMLInputElement
                       )?.click();
                     }}

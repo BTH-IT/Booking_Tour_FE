@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const TourSearchTitleWrapper = styled.div`
   text-align: center;
@@ -6,7 +6,8 @@ export const TourSearchTitleWrapper = styled.div`
   font-weight: 500;
   color: black;
   letter-spacing: 2px;
-  font-family: 'DM Serif Display', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
 `;
 
 export const BackgroundWrapper = styled.div<{ $backgroundImg: string }>`

@@ -3,11 +3,10 @@ import DashboardEdit from './DashboardEdit';
 import DashboardProfile from './DashboardProfile';
 import DashboardRoomBooking from './DashboardRoomBooking';
 import DashboardRoomInvoice from './DashboardRoomInvoice';
-import DashboardRoomReview from './DashboardRoomReview';
+import DashboardRoomWishList from './DashboardRoomWishList';
 import DashboardTourBooking from './DashboardTourBooking';
 import DashboardTourInvoice from './DashboardTourInvoice';
-import DashboardTourReview from './DashboardTourReview';
-import DashboardWishList from './DashboardWishList';
+import DashboardTourWishList from './DashboardTourWishList';
 
 import {
   Breadcrumb,
@@ -30,11 +29,10 @@ const tabComponents = {
   'change-password': <DashboardChangePassword />,
   'tour-my-bookings': <DashboardTourBooking />,
   'tour-invoices': <DashboardTourInvoice />,
-  'tour-reviewList': <DashboardTourReview />,
-  'wish-list': <DashboardWishList />,
+  'tour-wish-list': <DashboardTourWishList />,
   'room-my-bookings': <DashboardRoomBooking />,
   'room-invoices': <DashboardRoomInvoice />,
-  'room-reviewList': <DashboardRoomReview />,
+  'room-wish-list': <DashboardRoomWishList />,
 };
 
 export default function DashboardMainContent() {

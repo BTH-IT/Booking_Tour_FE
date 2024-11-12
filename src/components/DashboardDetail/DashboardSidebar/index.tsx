@@ -17,6 +17,8 @@ export default function DashboardSidebar() {
 
   const { activeTab, setActiveTab } = useActiveDashboardTab();
 
+  console.log('activeTab', activeTab);
+
   return (
     <aside className="w-[300px] bg-white shadow-md">
       <div className="p-6">

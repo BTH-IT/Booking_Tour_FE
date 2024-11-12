@@ -1,14 +1,14 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import dayjs, { type Dayjs } from 'dayjs';
+import { ITourFile } from 'file';
+import { Dispatch, SetStateAction, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import * as z from 'zod';
+
+import ManageTourImages from '@/components/ManageTourImages';
+import ManageTourItems from '@/components/ManageTourItems';
+import ManageTourVideo from '@/components/ManageTourVideo';
+import TourForm from '@/components/TourForm';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -16,17 +16,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import dayjs, { type Dayjs } from 'dayjs';
 import { Form } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
-import { IDestination, ITour, ITourItem } from '@/types';
 import tourService from '@/services/TourService';
-import { ITourFile } from 'file';
 import uploadService from '@/services/UploadService';
-import ManageTourItems from '@/components/ManageTourItems';
-import ManageTourImages from '@/components/ManageTourImages';
-import ManageTourVideo from '@/components/ManageTourVideo';
-import TourForm from '@/components/TourForm';
+import { IDestination, ITour, ITourItem } from '@/types';
 
 interface CreateTourModalProps {
   isCreateModalOpen: boolean;
@@ -60,7 +54,7 @@ const CreateTourModal = ({
         (name) => {
           return !tours.find((tour) => tour.name === name);
         },
-        { message: 'Tour name already exists' },
+        { message: 'Tour name already exists' }
       ),
     maxGuests: z.string().min(1, { message: 'Max guests is required' }),
     isWifi: z.boolean({ required_error: 'Wifi is required' }),

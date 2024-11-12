@@ -9,4 +9,5 @@ export interface IUser extends BaseModel {
   gender: string;
   accountId: string;
   account: IAccount;
+  avatar?: string;
 }

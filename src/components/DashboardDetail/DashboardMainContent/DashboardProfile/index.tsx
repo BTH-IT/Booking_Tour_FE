@@ -1,9 +1,17 @@
 import { UserRound } from 'lucide-react';
+import { useNavigate } from 'react-router';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
+import { selectAuth } from '@/redux/features/auth/authSlice';
+import { useAppSelector } from '@/redux/hooks';
+import { formatDate } from '@/utils/constants';
 
 export default function DashboardProfile() {
+  const navigate = useNavigate();
+
+  const user = useAppSelector(selectAuth).user;
+
   return (
     <section className="mx-16">
       <div className="bg-gray-100 p-14 rounded-2xl shadow-sm">
@@ -12,6 +20,7 @@ export default function DashboardProfile() {
           <Button
             variant="outline"
             className="text-xl py-6 text-blue-500 border-blue-600 hover:bg-blue-50 hover:text-blue-600"
+            onClick={() => navigate('/dashboard?tab=edit-profile')}
           >
             Edit Profile
           </Button>
@@ -28,19 +37,21 @@ export default function DashboardProfile() {
           <div className="flex-1 grid grid-cols-2 gap-4">
             <div className="mb-2">
               <p className="text-2xl text-gray-500 pb-1">Name</p>
-              <p className="text-xl text-gray-800">a b</p>
+              <p className="text-xl text-gray-800">{user.fullname}</p>
             </div>
             <div className="mb-2">
               <p className="text-xl text-gray-500 pb-1">Gender</p>
-              <p className="text-xl text-gray-800">-</p>
+              <p className="text-xl text-gray-800">{user.gender}</p>
             </div>
             <div className="mb-2">
               <p className="text-xl text-gray-500 pb-1">Birth Date</p>
-              <p className="text-xl text-gray-800">December 3, 2003</p>
+              <p className="text-xl text-gray-800">
+                {formatDate(user.birthDate)}
+              </p>
             </div>
             <div className="mb-2">
               <p className="text-xl text-gray-500 pb-1">Country</p>
-              <p className="text-xl text-gray-800">Vietnam</p>
+              <p className="text-xl text-gray-800">{user.country}</p>
             </div>
             <div className="mb-2">
               <p className="text-xl text-gray-500 pb-1">Email</p>
@@ -48,26 +59,10 @@ export default function DashboardProfile() {
             </div>
             <div className="mb-2">
               <p className="text-2xl text-gray-500 pb-1">Phone</p>
-              <p className="text-xl text-gray-800">123</p>
-            </div>
-            <div className="col-span-2">
-              <p className="text-2xl text-gray-600 pb-1">Contact Address</p>
-              <p className="text-xl text-gray-800">-</p>
+              <p className="text-xl text-gray-800">{user.phone}</p>
             </div>
           </div>
         </div>
-      </div>
-      <div className="mt-16">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-3xl font-semibold text-blue-600">Room Reviews</h2>
-          <Button
-            variant="link"
-            className="text-2xl text-gray-400 hover:no-underline"
-          >
-            View All Reviews
-          </Button>
-        </div>
-        {/* Add room reviewList content here */}
       </div>
     </section>
   );

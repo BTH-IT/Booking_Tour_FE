@@ -15,7 +15,8 @@ export const FreshlyAddedContainer = styled.div`
 export const FreshlyAddedTitle = styled.h3`
   color: black;
   font-size: 5rem;
-  font-family: 'DM Serif Display', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
   font-weight: 400;
   text-align: center;
 

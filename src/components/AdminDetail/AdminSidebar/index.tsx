@@ -1,9 +1,3 @@
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { adminTabs } from '@/constants/sidebarItem';
-import useActiveAdminTab from '@/hooks/useActiveAdminTab';
-import { authActions } from '@/redux/features/auth/authSlice';
-import { useAppDispatch } from '@/redux/hooks';
 import {
   ConciergeBell,
   Hotel,
@@ -14,13 +8,21 @@ import {
   UserRound,
 } from 'lucide-react';
 
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { adminTabs } from '@/constants/sidebarItem';
+import useActiveAdminTab from '@/hooks/useActiveAdminTab';
+import { authActions } from '@/redux/features/auth/authSlice';
+import { useAppDispatch } from '@/redux/hooks';
+
 const iconMap = {
   user: UserRound,
   tour: TramFront,
   room: Lamp,
   hotel: Hotel,
   destination: MapPin,
-  booking: ConciergeBell,
+  'tour-booking': ConciergeBell,
+  'room-booking': ConciergeBell,
 };
 
 export default function AdminSidebar() {

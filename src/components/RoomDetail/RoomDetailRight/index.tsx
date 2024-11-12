@@ -1,18 +1,16 @@
-import { IRoom } from 'room';
+import { DatePickerProps, Form } from 'antd';
+import { RuleObject } from 'antd/es/form';
 import dayjs, { Dayjs } from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
-import * as Styles from './styles';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { DatePickerProps, Form } from 'antd';
-import InputFormItem from '@/components/Input/InputFormItem';
-import roomService from '@/services/RoomService';
-import { getDaysInMonth, logError } from '@/utils/constants';
-import { RuleObject } from 'antd/es/form';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { CalendarChangeEvent } from 'primereact/calendar';
-import CalendarInput from '@/components/CalendarInput';
+import { toast } from 'react-toastify';
+import { IRoom } from 'room';
+
+import * as Styles from './styles';
+
 import bookingService from '@/services/BookingService';
-import { eachDayOfInterval, isWithinInterval } from 'date-fns';
+import { logError } from '@/utils/constants';
 
 dayjs.extend(isBetween);
 
@@ -68,7 +66,7 @@ const RoomDetailRight = (props: IRoom) => {
   const handleDateChange = (
     dates: [Dayjs | null, Dayjs | null],
     dateStrings: [string, string],
-    info: any,
+    info: any
   ) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -108,16 +106,16 @@ const RoomDetailRight = (props: IRoom) => {
   // Function to check if a date range contains any dates from the schedules array
   const isRangeOverlappingDisabled = (
     startDate: Dayjs,
-    endDate: Dayjs,
+    endDate: Dayjs
   ): boolean => {
     return disabledDayList.some((d) =>
-      d.isBetween(startDate, endDate, 'day', '[]'),
+      d.isBetween(startDate, endDate, 'day', '[]')
     );
   };
 
   const calculateDisabledDayRange: DatePickerProps['disabledDate'] = (
     current,
-    { from },
+    { from }
   ) => {
     if (from) {
       return (
@@ -128,6 +126,13 @@ const RoomDetailRight = (props: IRoom) => {
   };
 
   const onFinish = (values: any) => {
+    if (
+      formData.schedule &&
+      formData.schedule[0].isSame(formData.schedule[1])
+    ) {
+      toast.warning('Check in and Check out date cannot be the same');
+      return;
+    }
     localStorage.setItem(
       'room_payment',
       JSON.stringify({
@@ -135,7 +140,7 @@ const RoomDetailRight = (props: IRoom) => {
         adults: formData.adults,
         children: formData.children,
         ...props,
-      }),
+      })
     );
     navigate('/room-payment');
   };

@@ -1,14 +1,15 @@
-import { Button } from '@/components/ui/button';
 import {
-  LayoutDashboard,
-  Edit,
-  Key,
   BookOpen,
+  Edit,
   FileText,
-  Star,
   Heart,
+  Key,
+  LayoutDashboard,
   Phone,
+  Star,
 } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
 
 const iconMap = {
   dashboard: LayoutDashboard,
@@ -16,11 +17,12 @@ const iconMap = {
   'change-password': Key,
   'tour-my-bookings': BookOpen,
   'tour-invoices': FileText,
-  'tour-reviewList': Star,
-  'wish-list': Heart,
+  'tour-review-list': Star,
+  'tour-wish-list': Heart,
   'room-my-bookings': BookOpen,
   'room-invoices': FileText,
-  'room-reviewList': Star,
+  'room-review-list': Star,
+  'room-wish-list': Heart,
   help: Phone,
 };
 
@@ -38,14 +40,14 @@ const TabSection: React.FC<TabSectionProps> = ({
   setActiveTab,
 }) => (
   <>
-    <h2 className='text-3xl font-serif text-gray-800 font-bold'>{title}</h2>
-    <div className='my-6'>
+    <h2 className="text-3xl font-serif text-gray-800 font-bold">{title}</h2>
+    <div className="my-6">
       {Object.keys(tabs).map((tab) => {
         const Icon = iconMap[tab as keyof typeof iconMap];
         return (
           <li key={tab}>
             <Button
-              variant='ghost'
+              variant="ghost"
               className={`flex gap-3 text-2xl py-8 w-full my-1 justify-start bg-white ${
                 activeTab === tab
                   ? 'text-blue-600 bg-blue-50 hover:text-blue-600 hover:bg-blue-50'
@@ -53,7 +55,7 @@ const TabSection: React.FC<TabSectionProps> = ({
               }`}
               onClick={() => setActiveTab(tab)}
             >
-              <Icon className='mr-2 h-6 w-6' />
+              <Icon className="mr-2 h-6 w-6" />
               {tabs[tab as keyof typeof tabs]}
             </Button>
           </li>

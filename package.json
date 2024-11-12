@@ -114,7 +114,6 @@
   "license": "MIT",
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown",
-    "*.{ts,tsx}": "eslint --cache --fix",
     "*.--write": "prettier --write"
   }
 }

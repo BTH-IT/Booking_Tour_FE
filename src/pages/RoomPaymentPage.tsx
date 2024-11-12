@@ -1,21 +1,22 @@
-import ContactDetails from '@/components/RoomContactDetails';
-import RoomContactAndGuestDetails from '@/components/RoomContactDetails/RoomContactAndGuestDetails';
-import CustomButton from '@/components/CustomButton';
-import InformationRoom from '@/components/InformationRoom';
-import RoomSearchTitle from '@/components/RoomSearchTitle';
-import RoomServices from '@/components/RoomServices';
-import { Container } from '@/constants';
-import { authActions, selectAuth } from '@/redux/features/auth/authSlice';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import bookingService from '@/services/BookingService';
 import { Col, Form, Row, Steps } from 'antd';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
-import { logError, totalDates } from '@/utils/constants';
+
+import CustomButton from '@/components/CustomButton';
 import GuestDetails from '@/components/GuestDetails';
+import InformationRoom from '@/components/InformationRoom';
+import ContactDetails from '@/components/RoomContactDetails';
+import RoomContactAndGuestDetails from '@/components/RoomContactDetails/RoomContactAndGuestDetails';
+import RoomSearchTitle from '@/components/RoomSearchTitle';
+import RoomServices from '@/components/RoomServices';
+import { Container } from '@/constants';
 import useDidMount from '@/hooks/useDidMount';
+import { authActions, selectAuth } from '@/redux/features/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import bookingService from '@/services/BookingService';
+import { logError, totalDates } from '@/utils/constants';
 
 const PaymentWrapper = styled.section`
   width: 100%;
@@ -94,7 +95,7 @@ const RoomPaymentPage = () => {
 
   useDidMount(() => {
     const storedRoomPayment = JSON.parse(
-      localStorage.getItem('room_payment') || 'null',
+      localStorage.getItem('room_payment') || 'null'
     );
     console.log(localStorage.getItem('room_payment'));
 
@@ -102,7 +103,7 @@ const RoomPaymentPage = () => {
       setRoomPayment(storedRoomPayment);
       const totalDate = totalDates(
         new Date(storedRoomPayment.schedule[0]),
-        new Date(storedRoomPayment.schedule[1]),
+        new Date(storedRoomPayment.schedule[1])
       );
       setTotalPay(storedRoomPayment.price * totalDate);
       setIsMounted(true);
@@ -224,6 +225,8 @@ const RoomPaymentPage = () => {
                                 });
 
                               res && toast.success('Payment successfully');
+
+                              localStorage.removeItem('room_payment');
 
                               next();
                             } catch (error) {

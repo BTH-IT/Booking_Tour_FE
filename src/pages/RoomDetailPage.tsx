@@ -36,7 +36,8 @@ const RoomDetailTitle = styled.h2`
   color: black;
   display: flex;
   justify-content: center;
-  font-family: 'DM Serif Display', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
   font-weight: 500;
   margin-bottom: 20px;
 `;

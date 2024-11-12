@@ -319,7 +319,7 @@ export function formatDate(date: Date) {
 export function totalDates(start: Date, end: Date) {
   return Math.ceil(
     (new Date(end).getTime() - new Date(start).getTime()) /
-      (1000 * 60 * 60 * 24),
+      (1000 * 60 * 60 * 24)
   );
 }
 
@@ -338,6 +338,10 @@ export function logError(error: any) {
     console.log(error);
     toast.error(error.response?.data.message || error.message);
   }
+}
+
+export function capitalizeFirstLetter(val: string) {
+  return String(val).charAt(0).toUpperCase() + String(val).slice(1);
 }
 
 export const faqList = [

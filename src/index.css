@@ -93,7 +93,10 @@ video {
   padding: 0;
   border: 0;
   font-size: 12px;
-  font-family: 'DM Sans', 'DM Serif Display', sans-serif;
+  /* San Francisco */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   vertical-align: baseline;
   box-sizing: border-box;
   scroll-behavior: smooth;

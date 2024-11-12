@@ -5,7 +5,8 @@ export const adminTabs = {
   room: 'Rooms',
   hotel: 'Hotels',
   destination: 'Destinations',
-  booking: 'Bookings',
+  'tour-booking': 'Tour Bookings',
+  'room-booking': 'Room Bookings',
 };
 
 /*DASHBOARD*/
@@ -16,14 +17,13 @@ export const myAccountTabs = {
 };
 
 export const tourBookingTabs = {
-  'tour-my-bookings': 'My Bookings',
-  'tour-invoices': 'Invoices',
-  'tour-reviewList': 'Reviews',
-  'wish-list': 'Wish List',
+  'tour-my-bookings': 'My Tour Bookings',
+  'tour-invoices': 'Tour Invoices',
+  'tour-wish-list': 'Tour Wish List',
 };
 
 export const roomBookingTabs = {
-  'room-my-bookings': 'My Bookings',
-  'room-invoices': 'Invoices',
-  'room-reviewList': 'Reviews',
+  'room-my-bookings': 'My Room Bookings',
+  'room-invoices': 'Room Invoices',
+  'room-wish-list': 'Room Wish List',
 };

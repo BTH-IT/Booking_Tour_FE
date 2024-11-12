@@ -1,4 +1,4 @@
-import { IBookingRoom } from 'booking';
+import { IBookingRoom, IBookingTour } from 'booking';
 import { ApiResponse } from 'index';
 
 import configService from './ConfigService';
@@ -24,23 +24,32 @@ const bookingService = {
   ): Promise<ApiResponse<IBookingRoom>> {
     return configService.post(`${API_URL.SAGA_ROOM}`, data);
   },
+  cancelBookingRoom(bookingId: string): Promise<ApiResponse<boolean>> {
+    return configService.delete(`${API_URL.BOOKING_ROOM}/${bookingId}/cancel`);
+  },
+
   /* TOUR */
-  getABooking(bookingId: string): Promise<ApiResponse<any>> {
-    const url = `${API_URL.BOOKING_TOURS}/${bookingId}`;
-    return configService.get(url);
-  },
-  getAllBooking(params?: any): Promise<ApiResponse<any[]>> {
-    return configService.get(`${API_URL.BOOKING_TOURS}`, { params: params });
-  },
-  createBooking(data: any) {
+  createBooking(data: any): Promise<ApiResponse<IBookingTour>> {
     return configService.post(`${API_URL.SAGAS + API_URL.BOOKING_TOURS}`, data);
   },
-  updateBooking(data: any) {
+  updateBooking(data: any): Promise<ApiResponse<IBookingTour>> {
     return configService.patch(`${API_URL.BOOKING_TOURS}`, data);
   },
-  deleteBooking(BookingId: string) {
+  deleteBooking(BookingId: string): Promise<ApiResponse<boolean>> {
     const url = `${API_URL.BOOKING_TOURS}/${BookingId}`;
     return configService.delete(url);
+  },
+  getAllBookingTours(): Promise<ApiResponse<IBookingTour[]>> {
+    return configService.get(`${API_URL.BOOKING_TOUR}`);
+  },
+  getBookingTour(bookingId: string): Promise<ApiResponse<IBookingTour>> {
+    return configService.get(`${API_URL.BOOKING_TOUR}/${bookingId}`);
+  },
+  getCurrentUserBookingTours(): Promise<ApiResponse<IBookingTour[]>> {
+    return configService.get(`${API_URL.BOOKING_TOUR}/current-user`);
+  },
+  cancelBookingTour(bookingId: string): Promise<ApiResponse<boolean>> {
+    return configService.delete(`${API_URL.BOOKING_TOUR}/${bookingId}/cancel`);
   },
 };
 

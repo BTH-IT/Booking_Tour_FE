@@ -7,7 +7,8 @@ export const AccordionWrap = styled.div`
 
 export const AccordionTitle = styled.h4<{ $isShow: boolean }>`
   font-size: 1.6rem;
-  font-family: 'DM Serif Display', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
   font-weight: 600;
   color: ${({ $isShow }) => ($isShow ? '#5c98f2' : 'black')};
   transition: all 0.2s ease;

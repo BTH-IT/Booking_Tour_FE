@@ -1,8 +1,10 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
+import { IUser } from 'user';
+
 import { authActions } from './authSlice';
+
 import authService from '@/services/AuthService';
 import { CLEAR_LOCALSTORAGE, SET_LOCALSTORAGE } from '@/utils/constants';
-import { IUser } from 'user';
 
 export interface ResponseGenerator {
   config?: Record<string, any>;
@@ -24,7 +26,7 @@ export interface ActionParams<T> {
 }
 
 export function* handleLogin(
-  action: ActionParams<LoginFormType & { actionSuccess: () => void }>,
+  action: ActionParams<LoginFormType & { actionSuccess: () => void }>
 ) {
   const { actionSuccess, ...rest } = action.payload;
   try {
@@ -46,7 +48,7 @@ export function* handleLogin(
         ...data.result,
         isLoggedIn: true,
         actionSuccess,
-      }),
+      })
     );
   } catch (error) {
     yield put(authActions.loginFailed());

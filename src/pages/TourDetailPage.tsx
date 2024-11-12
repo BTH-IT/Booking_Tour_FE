@@ -1,21 +1,22 @@
+import { Col, Row } from 'antd';
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import { ITour } from 'tour';
+
 import FreshlyAdded from '@/components/Card/FreshlyAdded';
-import TourSearchTitle from '@/components/TourSearchTitle';
+import { TourReviews } from '@/components/Reviews';
 import SliderBase from '@/components/Slider/SliderBase';
 import TourDetailGallery from '@/components/TourDetail/TourDetailGallery';
 import TourDetailHeader from '@/components/TourDetail/TourDetailHeader';
 import TourDetailLeft from '@/components/TourDetail/TourDetailLeft';
 import TourDetailNav from '@/components/TourDetail/TourDetailNav';
 import TourDetailRight from '@/components/TourDetail/TourDetailRight';
+import TourSearchTitle from '@/components/TourSearchTitle';
 import { Container } from '@/constants';
 import useDidMount from '@/hooks/useDidMount';
 import tourService from '@/services/TourService';
-import { Col, Row } from 'antd';
-import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import { ITour } from 'tour';
 import { logError } from '@/utils/constants';
-import { TourReviews } from '@/components/Reviews';
 
 const TourDetailContentStyled = styled.div`
   margin: 0 auto;
@@ -35,7 +36,8 @@ const TourDetailTitle = styled.h2`
   line-height: 1.2;
   font-size: 2.3rem;
   color: black;
-  font-family: 'DM Serif Display', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
   font-weight: 500;
   margin-bottom: 20px;
 `;
@@ -45,8 +47,6 @@ const TourDetailPage = () => {
   const [tourList, setTourList] = useState<ITour[]>([]);
   const { tourId } = useParams();
   const navigate = useNavigate();
-
-  console.log(tourId);
 
   if (!tourId) {
     navigate('/');
@@ -121,7 +121,7 @@ const TourDetailPage = () => {
               ]}
             >
               {tourList.map((freshlyAdded, idx) => (
-                <FreshlyAdded {...freshlyAdded} maxWidth='325px' key={idx} />
+                <FreshlyAdded {...freshlyAdded} maxWidth="325px" key={idx} />
               ))}
             </SliderBase>
           </TourDetailContent>
