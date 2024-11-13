@@ -1,7 +1,10 @@
 import { IBookingTour } from 'booking';
+import { Ban } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import Pagination from '@/components/Pagination';
+import { Button } from '@/components/ui/button';
 import {
   Table,
   TableBody,
@@ -40,12 +43,35 @@ export default function DashboardTourBooking() {
   }, []);
   console.log(bookings);
 
-  const totalPages = Math.ceil(bookings.length / ITEMS_PER_PAGE);
+  const filteredBookings = bookings.filter(
+    (booking) => activeStatus === 'all' || booking.status === activeStatus
+  );
 
-  const paginatedUsers = bookings.slice(
+  const totalPages = Math.ceil(filteredBookings.length / ITEMS_PER_PAGE);
+
+  const paginatedBookings = filteredBookings.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
+
+  const cancelBookingHandler = async (bookingId: string) => {
+    try {
+      const res = await bookingService.cancelBookingTour(bookingId);
+      if (res) {
+        toast.success('Cancel booking successfully');
+
+        setBookings((prevBookings) =>
+          prevBookings.map((booking) =>
+            booking.id === bookingId
+              ? { ...booking, status: 'cancelled' }
+              : booking
+          )
+        );
+      }
+    } catch (error) {
+      logError(error);
+    }
+  };
 
   return (
     <>
@@ -82,7 +108,7 @@ export default function DashboardTourBooking() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {paginatedUsers.map((booking) => (
+                {paginatedBookings.map((booking) => (
                   <TableRow key={booking.id}>
                     <TableCell>
                       <div className="flex items-center space-x-4">
@@ -109,6 +135,40 @@ export default function DashboardTourBooking() {
                       <p className="text-xl">
                         {booking.priceTotal.toFixed(2)} $
                       </p>
+                    </TableCell>
+                    <TableCell>
+                      <div className="text-xl">
+                        {booking.status === 'pending' ? (
+                          <span className="text-xl text-yellow-500">
+                            Pending
+                          </span>
+                        ) : booking.status === 'done' ? (
+                          <span className="text-xl text-green-500">Done</span>
+                        ) : (
+                          <span className="text-xl text-red-500">
+                            Cancelled
+                          </span>
+                        )}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        variant="destructive"
+                        type="button"
+                        disabled={
+                          booking.status !== 'pending' ||
+                          new Date().getTime() -
+                            new Date(booking.createAt).getTime() >
+                            86400000
+                        }
+                        className="flex items-center space-x-2 rounded-3xl py-6"
+                        onClick={() => {
+                          cancelBookingHandler(booking.id);
+                        }}
+                      >
+                        <p className="text-xl">Cancel</p>
+                        <Ban size={15} />
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}

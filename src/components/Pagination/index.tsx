@@ -1,8 +1,10 @@
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useEffect } from 'react';
+
+import { Input } from '../ui/input';
+
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Dispatch, SetStateAction } from 'react';
-import { Input } from '../ui/input';
 
 interface PaginationProps {
   currentPage: number;
@@ -34,6 +36,12 @@ const Pagination = ({
     if (endPage < totalPages) {
       pageNumbers.push('...', totalPages);
     }
+
+    useEffect(() => {
+      if (currentPage > totalPages) {
+        setCurrentPage(totalPages);
+      }
+    }, [currentPage, totalPages]);
 
     return pageNumbers.map((page, index) => (
       <li key={index}>
@@ -72,7 +80,7 @@ const Pagination = ({
           <ul
             className={cn(
               'flex items-center gap-2 justify-center',
-              totalPages > 5 && 'w-[350px]',
+              totalPages > 5 && 'w-[350px]'
             )}
           >
             {renderPageNumbers()}

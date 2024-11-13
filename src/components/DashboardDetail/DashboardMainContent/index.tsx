@@ -2,10 +2,8 @@ import DashboardChangePassword from './DashboardChangePassword';
 import DashboardEdit from './DashboardEdit';
 import DashboardProfile from './DashboardProfile';
 import DashboardRoomBooking from './DashboardRoomBooking';
-import DashboardRoomInvoice from './DashboardRoomInvoice';
 import DashboardRoomWishList from './DashboardRoomWishList';
 import DashboardTourBooking from './DashboardTourBooking';
-import DashboardTourInvoice from './DashboardTourInvoice';
 import DashboardTourWishList from './DashboardTourWishList';
 
 import {
@@ -28,10 +26,8 @@ const tabComponents = {
   'edit-profile': <DashboardEdit />,
   'change-password': <DashboardChangePassword />,
   'tour-my-bookings': <DashboardTourBooking />,
-  'tour-invoices': <DashboardTourInvoice />,
   'tour-wish-list': <DashboardTourWishList />,
   'room-my-bookings': <DashboardRoomBooking />,
-  'room-invoices': <DashboardRoomInvoice />,
   'room-wish-list': <DashboardRoomWishList />,
 };
 
