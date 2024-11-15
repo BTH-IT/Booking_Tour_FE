@@ -41,7 +41,6 @@ export default function DashboardRoomBooking() {
 
     fetchBookings();
   }, []);
-  console.log(bookings);
 
   const filteredBookings = bookings.filter(
     (booking) => activeStatus === 'all' || booking.status === activeStatus

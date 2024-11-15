@@ -82,9 +82,9 @@ const TourDetailLeft = (props: ITour) => {
                 </>
               </Styles.WishListButton>
             </Styles.HeaderWrapper>
-            <Styles.TourDetailLeftParagraph>
-              {props.detail}
-            </Styles.TourDetailLeftParagraph>
+            <Styles.TourDetailLeftParagraph
+              dangerouslySetInnerHTML={{ __html: props.detail }}
+            />
             <Row gutter={[20, 20]}>
               <Col xs={12}>
                 <Styles.TourDetailLeftpriceIncludeListTitle>

@@ -1,8 +1,12 @@
+import { Plus, Search } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
+
+import CreateTourModal from './CreateTourModal';
+import TourTableRow from './TourTableRow';
+
+import Pagination from '@/components/Pagination';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import tourService from '@/services/TourService';
-import { IDestination, IHotel, ITour } from '@/types';
 import {
   Table,
   TableBody,
@@ -10,11 +14,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Plus, Search } from 'lucide-react';
-import Pagination from '@/components/Pagination';
-import TourTableRow from './TourTableRow';
-import CreateTourModal from './CreateTourModal';
 import destinationService from '@/services/DestinationService';
+import tourService from '@/services/TourService';
+import { IDestination, ITour } from '@/types';
 
 const ITEMS_PER_PAGE = 6;
 
@@ -43,22 +45,22 @@ const AdminTour = () => {
     }
   };
 
-  console.log(tours);
-
   useEffect(() => {
     fetchData();
   }, []);
 
   const filteredTours = useMemo(() => {
     return tours.filter((tour) =>
-      tour.name.toLowerCase().includes(searchTerm.toLowerCase()),
+      tour.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [tours, searchTerm]);
 
   const paginatedTours = filteredTours.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
   );
+
+  console.log('tours:', currentPage, totalPages);
 
   return (
     <main className="flex-1 mx-10 overflow-x-hidden overflow-y-auto">
