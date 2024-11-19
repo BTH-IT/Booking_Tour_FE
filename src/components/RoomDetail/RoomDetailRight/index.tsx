@@ -125,6 +125,10 @@ const RoomDetailRight = (props: IRoom) => {
     return isDateInDisabled(current);
   };
 
+  const addHours = (day: Dayjs, hours: number) => {
+    return day.add(hours, 'hour');
+  };
+
   const onFinish = (values: any) => {
     if (
       formData.schedule &&
@@ -133,16 +137,23 @@ const RoomDetailRight = (props: IRoom) => {
       toast.warning('Check in and Check out date cannot be the same');
       return;
     }
-    localStorage.setItem(
-      'room_payment',
-      JSON.stringify({
-        schedule: formData.schedule,
-        adults: formData.adults,
-        children: formData.children,
-        ...props,
-      })
-    );
-    navigate('/room-payment');
+
+    if (formData.schedule && formData.schedule[0] && formData.schedule[1]) {
+      const adjustedSchedule = formData.schedule.map((date) =>
+        addHours(date, 7)
+      );
+
+      localStorage.setItem(
+        'room_payment',
+        JSON.stringify({
+          schedule: adjustedSchedule,
+          adults: formData.adults,
+          children: formData.children,
+          ...props,
+        })
+      );
+      navigate('/room-payment');
+    }
   };
 
   const validationAdult = (rule: RuleObject, value: Number): Promise<void> => {

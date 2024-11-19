@@ -1,12 +1,7 @@
-import { countryList } from '@/utils/constants';
 import { Col, FormInstance, Row } from 'antd';
-import React, {
-  Dispatch,
-  SetStateAction,
-  useLayoutEffect,
-  useState,
-} from 'react';
 import styled from 'styled-components';
+
+import { countryList } from '@/utils/constants';
 
 const ContactAndGuestDetailsWrapper = styled.div`
   box-shadow: 0px 20px 45px rgb(0 0 0 / 10%);
@@ -62,7 +57,7 @@ const RoomContactAndGuestDetails = ({
       <ContactAndGuestDetailsTitle>Contact Details</ContactAndGuestDetailsTitle>
       <ContactAndGuestDetailsItem>
         <ContactAndGuestDetailsItemLabel>
-          Full Name : {JSON.stringify(form.getFieldsValue())}
+          Full Name :
         </ContactAndGuestDetailsItemLabel>
         <ContactAndGuestDetailsItemValue>
           {form.getFieldValue('fullName')}
@@ -91,7 +86,7 @@ const RoomContactAndGuestDetails = ({
         <ContactAndGuestDetailsItemValue>
           {
             countryList.find(
-              (item) => item.value === form.getFieldValue('country'),
+              (item) => item.value === form.getFieldValue('country')
             )?.label
           }
         </ContactAndGuestDetailsItemValue>

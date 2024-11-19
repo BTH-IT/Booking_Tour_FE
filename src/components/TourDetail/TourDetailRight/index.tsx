@@ -16,12 +16,12 @@ import { ISchedule, ITour } from 'tour';
 
 import * as Styles from './styles';
 
-import tourService from '@/services/TourService';
-import { useAppSelector } from '@/redux/hooks';
-import useDidMount from '@/hooks/useDidMount';
-import InputFormItem from '@/components/Input/InputFormItem';
-import CustomButton from '@/components/CustomButton';
 import CalendarInput from '@/components/CalendarInput';
+import CustomButton from '@/components/CustomButton';
+import InputFormItem from '@/components/Input/InputFormItem';
+import useDidMount from '@/hooks/useDidMount';
+import { useAppSelector } from '@/redux/hooks';
+import tourService from '@/services/TourService';
 
 const TourDetailRight = (props: ITour) => {
   const [dates, setDates] = useState<Date[] | null>(null);
@@ -172,9 +172,12 @@ const TourDetailRight = (props: ITour) => {
 
                 const matchingSchedule = schedules.find((value) => {
                   const newDate = new Date(value.dateStart);
-                  selectedDate.setHours(10, 0, 0, 0);
+                  newDate.setHours(0, 0, 0, 0);
+                  selectedDate.setHours(0, 0, 0, 0);
                   return newDate.getTime() === selectedDate.getTime();
                 });
+
+                console.log(matchingSchedule);
 
                 if (matchingSchedule) {
                   const newEndDate = new Date(matchingSchedule.dateEnd);
