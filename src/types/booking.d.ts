@@ -7,6 +7,7 @@ export interface IBookingRoom extends BaseModel {
   numberOfPeople: number;
   priceTotal: number;
   detailBookingRooms: IDetailBookingRoom[];
+  bookingRoomDetails?: any;
   status: string;
   user: IUser;
 }

@@ -1,9 +1,10 @@
 import { IBookingTour } from 'booking';
-import { Ban } from 'lucide-react';
+import { Ban, Printer } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import Pagination from '@/components/Pagination';
+import PrintTourModal from '@/components/PrintTourModal';
 import { Button } from '@/components/ui/button';
 import {
   Table,
@@ -25,13 +26,15 @@ export default function DashboardTourBooking() {
   const [isMounted, setIsMounted] = useState(false);
   const [activeStatus, setActiveStatus] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [booking, setBooking] = useState<IBookingTour | null>(null);
 
   useEffect(() => {
     const fetchBookings = async () => {
       try {
         const res = await bookingService.getCurrentUserBookingTours();
         if (res) {
-          setBookings(res.result);
+          setBookings(res.result.reverse());
         }
         setIsMounted(true);
       } catch (error) {
@@ -152,23 +155,36 @@ export default function DashboardTourBooking() {
                       </div>
                     </TableCell>
                     <TableCell>
-                      <Button
-                        variant="destructive"
-                        type="button"
-                        disabled={
-                          booking.status !== 'pending' ||
-                          new Date().getTime() -
-                            new Date(booking.createAt).getTime() >
-                            86400000
-                        }
-                        className="flex items-center space-x-2 rounded-3xl py-6"
-                        onClick={() => {
-                          cancelBookingHandler(booking.id);
-                        }}
-                      >
-                        <p className="text-xl">Cancel</p>
-                        <Ban size={15} />
-                      </Button>
+                      <div className="flex gap-4">
+                        <Button
+                          variant="outline"
+                          type="button"
+                          className="text-white rounded-full w-12 h-12 p-3 bg-green-400 hover:bg-green-500 hover:text-white"
+                          onClick={() => {
+                            setIsModalOpen(true);
+                            setBooking(booking);
+                          }}
+                        >
+                          <Printer className="w-8 h-8" />
+                        </Button>
+                        <Button
+                          variant="destructive"
+                          type="button"
+                          disabled={
+                            booking.status !== 'pending' ||
+                            new Date().getTime() -
+                              new Date(booking.createAt).getTime() >
+                              86400000
+                          }
+                          className="flex items-center space-x-2 rounded-3xl py-6"
+                          onClick={() => {
+                            cancelBookingHandler(booking.id);
+                          }}
+                        >
+                          <p className="text-xl">Cancel</p>
+                          <Ban size={15} />
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -179,6 +195,11 @@ export default function DashboardTourBooking() {
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             totalPages={totalPages}
+          />
+          <PrintTourModal
+            isOpen={isModalOpen}
+            setIsOpen={setIsModalOpen}
+            booking={booking}
           />
         </section>
       )}

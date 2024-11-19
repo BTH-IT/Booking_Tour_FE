@@ -13,7 +13,7 @@ import RoomSearchTitle from '@/components/RoomSearchTitle';
 import RoomServices from '@/components/RoomServices';
 import { Container } from '@/constants';
 import useDidMount from '@/hooks/useDidMount';
-import { authActions, selectAuth } from '@/redux/features/auth/authSlice';
+import { selectAuth } from '@/redux/features/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import bookingService from '@/services/BookingService';
 import { logError, totalDates } from '@/utils/constants';
@@ -231,7 +231,6 @@ const RoomPaymentPage = () => {
                               next();
                             } catch (error) {
                               logError(error);
-                              dispatch(authActions.logout());
                             }
                             return;
                           }
