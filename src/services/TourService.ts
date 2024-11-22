@@ -1,7 +1,9 @@
 import { ApiResponse } from 'index';
-import { ITour, ISchedule, IReview } from '@/types';
+
 import configService from './ConfigService';
+
 import { API_URL } from '@/constants/endpoints';
+import { IReview, ISchedule, ITour } from '@/types';
 
 const PREFIX = '/tour';
 
@@ -17,9 +19,7 @@ const tourService = {
   getAllTours(params?: any): Promise<ApiResponse<ITour[]>> {
     return configService.get(`${API_URL.TOURS}`, { params: params });
   },
-  getTourSearch(
-    params?: any
-  ): Promise<
+  getTourSearch(params?: any): Promise<
     ApiResponse<{
       tours: ITour[];
       maxPrice: number;
@@ -42,6 +42,9 @@ const tourService = {
   },
   deleteTour(tourId: string): Promise<ApiResponse<boolean>> {
     return configService.delete(`${API_URL.TOURS}/${tourId}`);
+  },
+  createReview(data: Partial<IReview>): Promise<IReview> {
+    return configService.post('/tour/ReviewTour', data);
   },
 };
 

@@ -1,50 +1,16 @@
-import * as Styles from './styles';
-import CustomerReview from '../Card/CustomerReview';
-import SliderBase from '../Slider/SliderBase';
-import Slider from 'react-slick';
 import { useState } from 'react';
-import tourService from '@/services/TourService';
-import { toast } from 'react-toastify';
-import useDidMount from '@/hooks/useDidMount';
-import { ITour } from 'tour';
-import { IUser } from 'user';
+import Slider from 'react-slick';
 import { IReview } from 'review';
-import { logError } from '@/utils/constants';
+import { IUser } from 'user';
 
-const customerReviews = [
-  {
-    avatar:
-      'https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2022/07/P01-150x150.jpg',
-    rate: 5,
-    fullname: 'David',
-    content:
-      'The tours in this website are great. I had been really enjoy with my family! The team is very professional and taking care of the customers. Will surely recommend to my freind to join this company!',
-  },
-  {
-    avatar:
-      'https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2022/07/P02-150x150.jpg',
-    rate: 5,
-    fullname: 'Brittany Clark',
-    content:
-      'The tours in this website are great. I had been really enjoy with my family! The team is very professional and taking care of the customers. Will surely recommend to my freind to join this company!',
-  },
-  {
-    avatar:
-      'https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2022/07/P07-150x150.jpg',
-    rate: 5,
-    fullname: 'Frances Hill',
-    content:
-      'The tours in this website are great. I had been really enjoy with my family! The team is very professional and taking care of the customers. Will surely recommend to my freind to join this company!',
-  },
-  {
-    avatar:
-      'https://demo.goodlayers.com/traveltour/homepages/main5/wp-content/uploads/sites/6/2022/07/P04-150x150.jpg',
-    rate: 5,
-    fullname: 'Jennth Norz',
-    content:
-      'The tours in this website are great. I had been really enjoy with my family! The team is very professional and taking care of the customers. Will surely recommend to my freind to join this company!',
-  },
-];
+import CustomerReview from '../Card/CustomerReview';
+
+import * as Styles from './styles';
+
+import { logError } from '@/utils/constants';
+import userService from '@/services/UserService';
+import tourService from '@/services/TourService';
+import useDidMount from '@/hooks/useDidMount';
 
 const settings = {
   className: 'center',
@@ -91,7 +57,14 @@ const CustomerReviews = () => {
   async function handleFetchReviews() {
     try {
       const res = await tourService.getAllReviews();
-      setReviews(res.result);
+      const customerReviews: CustomerReviews[] = await Promise.all(
+        res.result.map(async (review: IReview) => {
+          const user = await userService.getUser(review.userId);
+          return { ...review, user: user.result };
+        })
+      );
+
+      setReviews(customerReviews);
     } catch (error) {
       logError(error);
     }

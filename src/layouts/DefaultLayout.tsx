@@ -1,22 +1,22 @@
-import { Outlet } from 'react-router';
-import styled from 'styled-components';
-import { useState } from 'react';
-
-import Header from './Header';
-import Footer from './Footer';
-import Sidebar from './Sidebar';
-import Overlay from './Overlay';
 import { Col, Modal, Row } from 'antd';
-import useLoginForm from '@/hooks/useLoginForm';
-import InputFormItem from '@/components/Input/InputFormItem';
-import CustomButton from '@/components/CustomButton';
-import ButtonLink from '@/components/ButtonLink';
-import { useAppDispatch } from '@/redux/hooks';
-import { authActions } from '@/redux/features/auth/authSlice';
-import { LoginFormType } from '@/redux/features/auth/authSaga';
-import { BE_URL } from '@/utils/constants';
-import { Toaster } from '@/components/ui/toaster';
+import { useState } from 'react';
+import { Outlet } from 'react-router';
 import { toast } from 'react-toastify';
+import styled from 'styled-components';
+
+import Footer from './Footer';
+import Header from './Header';
+import Overlay from './Overlay';
+import Sidebar from './Sidebar';
+
+import ButtonLink from '@/components/ButtonLink';
+import CustomButton from '@/components/CustomButton';
+import InputFormItem from '@/components/Input/InputFormItem';
+import { Toaster } from '@/components/ui/toaster';
+import useLoginForm from '@/hooks/useLoginForm';
+import { LoginFormType } from '@/redux/features/auth/authSaga';
+import { authActions } from '@/redux/features/auth/authSlice';
+import { useAppDispatch } from '@/redux/hooks';
 
 interface IDefaultStyledProps {
   $isShow: boolean;
@@ -90,6 +90,18 @@ const FooterBottomLinkStyled = styled.a`
   }
 `;
 
+const FormInputStyled = styled(InputFormItem)`
+  padding-block: 10px;
+
+  svg {
+    font-size: 1.6rem;
+  }
+`;
+
+const ButtonStyled = styled(CustomButton)`
+  margin-top: 20px;
+`;
+
 const DefaultLayout = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -124,21 +136,20 @@ const DefaultLayout = () => {
       {showSidebar && <Sidebar onClose={() => setShowSidebar(false)}></Sidebar>}
       <ModalStyled
         footer={null}
-        title='Login'
+        title="Login"
         open={isModalOpen}
         centered
         onCancel={() => setIsModalOpen(false)}
         width={800}
       >
-        <Form form={form} layout='vertical' onFinish={onFinish}>
+        <Form form={form} layout="vertical" onFinish={onFinish}>
           <Row gutter={[20, 20]}>
             <Col xs={24}>
-              <InputFormItem
-                name='email'
-                label='Email'
-                placeholder='email'
+              <FormInputStyled
+                name="email"
+                label="Email"
+                placeholder="email"
                 bordered
-                allowClear
                 rules={[
                   {
                     required: true,
@@ -152,13 +163,12 @@ const DefaultLayout = () => {
               />
             </Col>
             <Col xs={24}>
-              <InputFormItem
-                name='password'
-                label='Password'
-                placeholder='password'
-                type='password'
+              <FormInputStyled
+                name="password"
+                label="Password"
+                placeholder="password"
+                type="password"
                 bordered
-                allowClear
                 isPassword
                 rules={[
                   {
@@ -168,26 +178,20 @@ const DefaultLayout = () => {
               />
             </Col>
           </Row>
-          <CustomButton width='100%' height='50px' htmlType='submit'>
+          <ButtonStyled width="100%" height="50px" htmlType="submit">
             Sign In!
-          </CustomButton>
+          </ButtonStyled>
           <FooterStyled>
             <FooterTopStyled>
               <h4>DO NOT HAVE AN ACCOUNT?</h4>
               <ButtonLink
-                href='/register'
-                color='#5c98f2'
-                $hoverColor='#5c98f2'
+                href="/register"
+                color="#5c98f2"
+                $hoverColor="#5c98f2"
               >
                 CREATE AN ACCOUNT
               </ButtonLink>
-              <p>Or</p>
             </FooterTopStyled>
-            <FooterBottomStyled>
-              <FooterBottomLinkStyled href={`${BE_URL}/auth/google`}>
-                <img src='./google.png' alt='google' />
-              </FooterBottomLinkStyled>
-            </FooterBottomStyled>
           </FooterStyled>
         </Form>
       </ModalStyled>

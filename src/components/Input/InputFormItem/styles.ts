@@ -11,22 +11,22 @@ export const InputFormItemStyled = styled(Form.Item)`
 
 export const InputStyled = styled(Input)`
   font-size: 1.5rem;
-  margin-left: 10px;
+  /* margin-left: 10px; */
 `;
 
 export const InputTextAreaStyled = styled(Input.TextArea)`
   font-size: 1.5rem;
-  margin-left: 10px;
+  /* margin-left: 10px; */
 `;
 
 export const InputSelectStyled = styled(Select)`
   .ant-select-selection-item {
     font-size: 1.5rem;
   }
-  margin-left: 10px;
+  /* margin-left: 10px; */
 `;
 
 export const InputPasswordStyled = styled(Input.Password)`
   font-size: 1.5rem;
-  margin-left: 10px;
+  /* margin-left: 10px; */
 `;

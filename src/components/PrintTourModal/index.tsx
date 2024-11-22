@@ -156,7 +156,7 @@ const PrintTourModal = ({
                   <TableRow className="!border-solid !border-b-[1px] border-gray-200">
                     <TableCell>Guide Tip</TableCell>
                     <TableCell className="text-right">
-                      {booking.isTips ? 'Included' : 'Not Included'}
+                      {booking.isTip ? 'Included' : 'Not Included'}
                     </TableCell>
                   </TableRow>
                   <TableRow>

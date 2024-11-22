@@ -1,7 +1,7 @@
-import { ApiResponse, IRoom } from '@/types';
-
 import configService from './ConfigService';
+
 import { API_URL } from '@/constants/endpoints';
+import { ApiResponse, IReview, IRoom } from '@/types';
 
 const roomService = {
   getRoom(roomId: string): Promise<ApiResponse<IRoom>> {
@@ -15,7 +15,7 @@ const roomService = {
   },
   updateRoom(
     roomId: string,
-    data: Partial<IRoom>,
+    data: Partial<IRoom>
   ): Promise<ApiResponse<IRoom>> {
     return configService.put(`${API_URL.ROOMS}/${roomId}`, data);
   },
@@ -39,8 +39,8 @@ const roomService = {
       },
     });
   },
-  getAllReviews(): Promise<any> {
-    return configService.get('/rooms/reviewList');
+  createReview(data: Partial<IReview>): Promise<IReview> {
+    return configService.post('/room/ReviewRoom', data);
   },
 };
 
