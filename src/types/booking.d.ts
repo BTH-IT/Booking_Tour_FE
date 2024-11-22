@@ -26,7 +26,7 @@ export interface IBookingTour extends BaseModel {
   scheduleId: string;
   seats: number;
   isLunch: boolean;
-  isTips: boolean;
+  isTip: boolean;
   isEntranceTicket: boolean;
   status: string;
   priceTotal: number;

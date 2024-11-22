@@ -78,8 +78,27 @@ const RoomDetailPage = () => {
     return <></>;
   }
 
+  async function fetchRoomList() {
+    try {
+      const params = {
+        locationCode: [room?.hotel.locationCode],
+      };
+
+      const data = await roomService.getRoomSearch(params);
+
+      // Remove the current room from the list and set the first 20 rooms
+      setRoomList(
+        data.result.rooms.filter((r) => r.id !== roomId).slice(0, 20)
+      );
+    } catch (error) {
+      logError(error);
+    }
+  }
+
   useDidMount(async () => {
     try {
+      fetchRoomList();
+
       const data = await roomService.getRoom(roomId);
       setRoom(data.result);
     } catch (error) {
@@ -87,15 +106,7 @@ const RoomDetailPage = () => {
     }
   });
 
-  async function fetchRoomList() {
-    try {
-      const data = await roomService.getAllRooms();
-
-      setRoomList(data.result);
-    } catch (error) {
-      logError(error);
-    }
-  }
+  console.log(roomList);
 
   return (
     room && (
@@ -113,11 +124,6 @@ const RoomDetailPage = () => {
               </Col>
             </Row>
           </RoomDetailContentStyled>
-          <OtherimageListWrapper>
-            {room.images?.map((img, idx) => {
-              return <img key={idx} src={img} alt="Other Image" />;
-            })}
-          </OtherimageListWrapper>
           <Separator />
           <RoomDetailContent>
             <RoomDetailTitle>More Rooms</RoomDetailTitle>

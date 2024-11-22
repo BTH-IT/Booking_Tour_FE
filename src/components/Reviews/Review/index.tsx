@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import * as Styles from './styles';
 import { Rate } from 'antd';
+import { useState } from 'react';
 import { IReview } from 'review';
-import useDidMount from '@/hooks/useDidMount';
 import { IUser } from 'user';
+
+import * as Styles from './styles';
+
+import useDidMount from '@/hooks/useDidMount';
 import userService from '@/services/UserService';
-import { toast } from 'react-toastify';
-import moment from 'moment';
-import { logError } from '@/utils/constants';
+import { formatDate, logError } from '@/utils/constants';
 
 const Review = ({
   userId,
@@ -34,7 +34,7 @@ const Review = ({
   return user ? (
     <Styles.ReviewsContentItem>
       <Styles.ReviewsContentItemImg>
-        <img src={user?.fullname || '/avatar.png'} alt="avatar" />
+        <img src={user?.avatar || '/avatar.png'} alt="avatar" />
       </Styles.ReviewsContentItemImg>
       <Styles.ReviewsContentItemName>
         {user?.fullname}
@@ -42,7 +42,7 @@ const Review = ({
       <Styles.ReviewsContentItemInfo>
         <p>{content}</p>
         <Rate allowHalf defaultValue={rating} disabled />
-        <p>{moment(createdAt).format('L')}</p>
+        <p>{formatDate(createdAt)}</p>
       </Styles.ReviewsContentItemInfo>
     </Styles.ReviewsContentItem>
   ) : (

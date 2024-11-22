@@ -40,7 +40,7 @@ const RoomDetailLeft = (props: IRoom) => {
               <Styles.RoomDetailLeftFirstTitle>
                 From
                 <Styles.ActualPrice>
-                  {props.price.toFixed(0)} VND
+                  {props.price.toFixed(0)} $
                 </Styles.ActualPrice>
               </Styles.RoomDetailLeftFirstTitle>
               <Styles.RoomDetailLeftSecondTitle>

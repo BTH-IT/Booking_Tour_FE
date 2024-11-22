@@ -1,4 +1,12 @@
-import { TableCell, TableRow } from '@/components/ui/table';
+import { IDestination } from 'destination';
+import { ListCollapse, MoreHorizontal, Trash } from 'lucide-react';
+import { Dispatch, SetStateAction, useState } from 'react';
+import { ITour } from 'tour';
+
+import DetailTourModal from '../DetailTourModal';
+
+import CommonModal from '@/components/CommonModal';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,18 +14,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { average, formatDate } from '@/utils/constants';
-import { ITour } from 'tour';
 import { Ratings } from '@/components/ui/rating';
-import { Button } from '@/components/ui/button';
-import { ListCollapse, MoreHorizontal, Trash } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
-import DetailTourModal from '../DetailTourModal';
-import CommonModal from '@/components/CommonModal';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { TableCell, TableRow } from '@/components/ui/table';
 import { useToast } from '@/hooks/use-toast';
 import tourService from '@/services/TourService';
-import { IDestination } from 'destination';
+import { average, formatDate } from '@/utils/constants';
 
 const TourTableRow = ({
   tour,
@@ -72,7 +74,7 @@ const TourTableRow = ({
           {tour.maxGuests + ' People'}
         </TableCell>
         <TableCell className="w-[15%] text-xl text-gray-600">
-          {tour.price + ' VND'}
+          {tour.price + '$'}
         </TableCell>
         <TableCell className="w-[20%] text-xl text-gray-600">
           {formatDate(tour.dateFrom) + ' - ' + formatDate(tour.dateTo)}

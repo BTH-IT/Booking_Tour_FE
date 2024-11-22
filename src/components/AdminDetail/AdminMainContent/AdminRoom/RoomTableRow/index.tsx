@@ -1,4 +1,12 @@
-import { TableCell, TableRow } from '@/components/ui/table';
+import { IHotel } from 'hotel';
+import { ListCollapse, MoreHorizontal, Trash } from 'lucide-react';
+import { Dispatch, SetStateAction, useState } from 'react';
+import { IRoom } from 'room';
+
+import DetailRoomModal from '../DetailRoomModal';
+
+import CommonModal from '@/components/CommonModal';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,19 +14,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { average, formatPhoneNumber } from '@/utils/constants';
-import { ILocation } from 'destination';
-import { IRoom } from 'room';
 import { Ratings } from '@/components/ui/rating';
-import { Button } from '@/components/ui/button';
-import { ListCollapse, MoreHorizontal, Trash } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
-import DetailRoomModal from '../DetailRoomModal';
-import CommonModal from '@/components/CommonModal';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { TableCell, TableRow } from '@/components/ui/table';
 import { useToast } from '@/hooks/use-toast';
 import roomService from '@/services/RoomService';
-import { IHotel } from 'hotel';
+import { average } from '@/utils/constants';
 
 const RoomTableRow = ({
   room,
@@ -68,7 +69,7 @@ const RoomTableRow = ({
           <span className="w-full text-xl line-clamp-1">{room.hotel.name}</span>
         </TableCell>
         <TableCell className="w-[15%] text-xl text-gray-600">
-          {room.price + ' VND'}
+          {room.price + '$'}
         </TableCell>
         <TableCell className="w-[13%] text-xl text-gray-600">
           {room.isAvailable ? 'Available' : 'Not Available'}

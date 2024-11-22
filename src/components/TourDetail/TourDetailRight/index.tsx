@@ -20,10 +20,13 @@ import CalendarInput from '@/components/CalendarInput';
 import CustomButton from '@/components/CustomButton';
 import InputFormItem from '@/components/Input/InputFormItem';
 import useDidMount from '@/hooks/useDidMount';
+import useSignalR from '@/hooks/useSignalR';
 import { useAppSelector } from '@/redux/hooks';
 import tourService from '@/services/TourService';
 
 const TourDetailRight = (props: ITour) => {
+  const signalSchedule = useSignalR('ScheduleUpdateEvent');
+
   const [dates, setDates] = useState<Date[] | null>(null);
   const [schedules, setSchedules] = useState<ISchedule[]>([]);
   const [schedule, setSchedule] = useState<ISchedule | null>(null);
@@ -108,14 +111,19 @@ const TourDetailRight = (props: ITour) => {
 
   const validationSeats = useCallback(
     (rule: RuleObject, value: any, callback: (error?: string) => void) => {
-      if (value <= seatsAvailable && value > 0) {
+      const available = signalSchedule
+        ? signalSchedule.scheduleId == schedule?.id
+          ? signalSchedule.availableSeats
+          : seatsAvailable
+        : seatsAvailable;
+      if (value <= available && value > 0) {
         return callback();
       }
       return callback(
-        `Only ${seatsAvailable} seats left and seats must be greater than 0`
+        `Only ${available} seats left and seats must be greater than 0`
       );
     },
-    [seatsAvailable]
+    [seatsAvailable, signalSchedule, schedule]
   );
 
   const onFinish = (values: any) => {
@@ -204,14 +212,32 @@ const TourDetailRight = (props: ITour) => {
             />
           </Styles.TourDetailRightBookingFormDate>
           <Styles.TourDetailRightBookingFormAvailable>
-            Available: {seatsAvailable} seats
+            {schedule ? (
+              <div className="text-xl">
+                Available:{' '}
+                {signalSchedule
+                  ? signalSchedule.scheduleId == schedule.id
+                    ? signalSchedule.availableSeats
+                    : seatsAvailable
+                  : seatsAvailable}{' '}
+                seats
+              </div>
+            ) : (
+              <div className="text-xl">Please select a schedule</div>
+            )}
           </Styles.TourDetailRightBookingFormAvailable>
           <InputFormItem
             name="numOfPeople"
             label="Number of people"
             type="number"
             min="0"
-            max={seatsAvailable}
+            max={
+              signalSchedule
+                ? signalSchedule.scheduleId == schedule?.id
+                  ? signalSchedule.availableSeats
+                  : seatsAvailable
+                : seatsAvailable
+            }
             rules={[{ validator: validationSeats }]}
             onKeyDown={(e) => {
               if (

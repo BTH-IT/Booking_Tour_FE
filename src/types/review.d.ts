@@ -6,5 +6,5 @@ export interface IReview {
   content: string;
   rating: number;
   createdAt: Date;
-  updatedAt: Date | null;
+  UpdatedAt: Date | null;
 }

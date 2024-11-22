@@ -1,3 +1,4 @@
+import { Tooltip } from 'antd';
 import { IBookingTour } from 'booking';
 import { Ban, Printer } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -5,6 +6,7 @@ import { toast } from 'react-toastify';
 
 import Pagination from '@/components/Pagination';
 import PrintTourModal from '@/components/PrintTourModal';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
   Table,
@@ -16,6 +18,7 @@ import {
 } from '@/components/ui/table';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { bookingStatuses } from '@/constants/bookingStatus';
+import { cn } from '@/lib/utils';
 import bookingService from '@/services/BookingService';
 import { formatDate, logError } from '@/utils/constants';
 
@@ -140,50 +143,65 @@ export default function DashboardTourBooking() {
                       </p>
                     </TableCell>
                     <TableCell>
-                      <div className="text-xl">
-                        {booking.status === 'pending' ? (
-                          <span className="text-xl text-yellow-500">
-                            Pending
-                          </span>
-                        ) : booking.status === 'done' ? (
-                          <span className="text-xl text-green-500">Done</span>
-                        ) : (
-                          <span className="text-xl text-red-500">
-                            Cancelled
-                          </span>
+                      <Badge
+                        variant="outline"
+                        className={cn(
+                          'py-2 px-5',
+                          booking.status === 'pending'
+                            ? 'bg-yellow-50'
+                            : booking.status === 'done'
+                              ? 'bg-green-50'
+                              : 'bg-red-50'
                         )}
-                      </div>
+                      >
+                        <div className="text-lg">
+                          {booking.status === 'pending' ? (
+                            <span className="text-lg text-yellow-500">
+                              Pending
+                            </span>
+                          ) : booking.status === 'done' ? (
+                            <span className="text-lg text-green-500">Done</span>
+                          ) : (
+                            <span className="text-lg text-red-500">
+                              Cancelled
+                            </span>
+                          )}
+                        </div>
+                      </Badge>
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-4">
-                        <Button
-                          variant="outline"
-                          type="button"
-                          className="text-white rounded-full w-12 h-12 p-3 bg-green-400 hover:bg-green-500 hover:text-white"
-                          onClick={() => {
-                            setIsModalOpen(true);
-                            setBooking(booking);
-                          }}
-                        >
-                          <Printer className="w-8 h-8" />
-                        </Button>
-                        <Button
-                          variant="destructive"
-                          type="button"
-                          disabled={
-                            booking.status !== 'pending' ||
-                            new Date().getTime() -
-                              new Date(booking.createAt).getTime() >
-                              86400000
-                          }
-                          className="flex items-center space-x-2 rounded-3xl py-6"
-                          onClick={() => {
-                            cancelBookingHandler(booking.id);
-                          }}
-                        >
-                          <p className="text-xl">Cancel</p>
-                          <Ban size={15} />
-                        </Button>
+                        <Tooltip title="Print invoice" placement="bottom">
+                          <Button
+                            variant="outline"
+                            type="button"
+                            className="text-white rounded-full w-12 h-12 p-3 bg-green-400 hover:bg-green-500 hover:text-white"
+                            onClick={() => {
+                              setIsModalOpen(true);
+                              setBooking(booking);
+                            }}
+                          >
+                            <Printer className="w-8 h-8" />
+                          </Button>
+                        </Tooltip>
+                        <Tooltip title="Cancel booking" placement="bottom">
+                          <Button
+                            variant="destructive"
+                            type="button"
+                            disabled={
+                              booking.status !== 'pending' ||
+                              new Date().getTime() -
+                                new Date(booking.createAt).getTime() >
+                                86400000
+                            }
+                            className="flex items-center space-x-2 rounded-3xl py-6"
+                            onClick={() => {
+                              cancelBookingHandler(booking.id);
+                            }}
+                          >
+                            <Ban size={15} />
+                          </Button>
+                        </Tooltip>
                       </div>
                     </TableCell>
                   </TableRow>

@@ -1,23 +1,27 @@
-import { Col, Form, Rate, Row } from 'antd';
-import * as Styles from './styles';
-import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
-import InputFormItem from '../Input/InputFormItem';
-import CustomButton from '../CustomButton';
-import { ITour } from 'tour';
-import { toast } from 'react-toastify';
-import tourService from '@/services/TourService';
-import { v4 as uuidv4 } from 'uuid';
-import { KEY_LOCALSTORAGE, logError } from '@/utils/constants';
-import { useAppSelector } from '@/redux/hooks';
-import { selectAuth } from '@/redux/features/auth/authSlice';
-import Review from './Review';
+import { Form, Rate } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
 import { useState } from 'react';
-import { IRoom } from 'room';
-import roomService from '@/services/RoomService';
+import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
+import { toast } from 'react-toastify';
 import { IReview } from 'review';
+import { IRoom } from 'room';
+import { ITour } from 'tour';
+import { v4 as uuidv4 } from 'uuid';
+
+import CustomButton from '../CustomButton';
+
+import Review from './Review';
+import * as Styles from './styles';
+
+import { selectAuth } from '@/redux/features/auth/authSlice';
+import { useAppSelector } from '@/redux/hooks';
+import roomService from '@/services/RoomService';
+import tourService from '@/services/TourService';
+import { KEY_LOCALSTORAGE, logError } from '@/utils/constants';
 
 export const TourReviews = (props: ITour) => {
   const [reviewList, setReviews] = useState<IReview[]>(props.reviewList);
+
   const isLogged = Boolean(localStorage.getItem(KEY_LOCALSTORAGE.CURRENT_USER));
   const [ratingOrderAsc, setRatingOrderAsc] = useState(true); // State cho hướng sắp xếp rating
   const [dateOrderAsc, setDateOrderAsc] = useState(false);
@@ -45,25 +49,16 @@ export const TourReviews = (props: ITour) => {
     }
   };
 
-  const onFinish = async (values: { rating: number; content: string }) => {
+  const onFinish = async (values: any) => {
     try {
-      await tourService.updateTour(
-        {
-          ...props,
-          reviewList: [
-            {
-              ...values,
-              id: uuidv4(),
-              userId: user.id,
-              createdAt: new Date(),
-              tourId: props.id,
-              updatedAt: null,
-            },
-            ...reviewList,
-          ],
-        },
-        props.id
-      );
+      await tourService.createReview({
+        ...values,
+        id: uuidv4(),
+        userId: user.id,
+        createdAt: new Date(),
+        tourId: props.id,
+        UpdatedAt: null,
+      });
 
       setReviews([
         {
@@ -72,7 +67,7 @@ export const TourReviews = (props: ITour) => {
           userId: user.id,
           createdAt: new Date(),
           tourId: props.id,
-          updatedAt: null,
+          UpdatedAt: null,
         },
         ...reviewList,
       ]);
@@ -83,7 +78,7 @@ export const TourReviews = (props: ITour) => {
     }
   };
   return (
-    <Styles.ReviewsWrapper id='reviewList'>
+    <Styles.ReviewsWrapper id="reviewList">
       <Styles.ReviewsHeader>
         <Styles.ReviewsCount>{reviewList.length} Reviews</Styles.ReviewsCount>
         <Styles.ReviewsHeaderSort>
@@ -102,28 +97,25 @@ export const TourReviews = (props: ITour) => {
             rating: 0,
             content: '',
           }}
-          onFinish={() => onFinish}
+          onFinish={onFinish}
         >
-          <Row gutter={[20, 20]}>
-            <Col xs={24} sm={12} md={8} xl={6}>
-              <Form.Item name='rating' rules={[{ required: true }]}>
-                <Rate allowHalf />
-              </Form.Item>
-            </Col>
-            <Col xs={24} sm={12} md={16} xl={18}>
-              <InputFormItem
-                label=''
-                name='content'
-                placeholder='Enter your review...'
-                rules={[{ required: true }]}
-              />
-            </Col>
-          </Row>
+          <section className="mb-16">
+            <Form.Item
+              className="w-fit"
+              name="rating"
+              rules={[{ required: true }]}
+            >
+              <Rate allowHalf className="[&_.anticon-star]:text-[2.5rem]" />
+            </Form.Item>
+            <Form.Item name="content" rules={[{ required: true }]}>
+              <TextArea rows={5} placeholder="Enter your review..." />
+            </Form.Item>
+          </section>
           <CustomButton
-            htmlType='submit'
-            type='primary'
-            width='100%'
-            height='60px'
+            htmlType="submit"
+            type="primary"
+            width="100%"
+            height="60px"
           >
             Submit
           </CustomButton>
@@ -131,8 +123,8 @@ export const TourReviews = (props: ITour) => {
       )}
 
       <Styles.ReviewsContent>
-        {reviewList.map((review) => (
-          <Review {...review} key={review.id} />
+        {reviewList.map((review, idx) => (
+          <Review {...review} key={`${review.id} - ${idx}`} />
         ))}
       </Styles.ReviewsContent>
     </Styles.ReviewsWrapper>
@@ -141,24 +133,44 @@ export const TourReviews = (props: ITour) => {
 
 export const RoomReviews = (props: IRoom) => {
   const [reviews, setReviews] = useState<IReview[]>(props.reviews);
+  const [ratingOrderAsc, setRatingOrderAsc] = useState(true); // State cho hướng sắp xếp rating
+  const [dateOrderAsc, setDateOrderAsc] = useState(false);
   const isLogged = Boolean(localStorage.getItem(KEY_LOCALSTORAGE.CURRENT_USER));
   const user = useAppSelector(selectAuth).user;
+  console.log('createdAt', reviews[0].createdAt);
 
-  const onFinish = async (values: { rating: number; content: string }) => {
+  const sortReviews = (order: 'rating' | 'date') => {
+    const sortedReviews = [...reviews].sort((a, b) => {
+      if (order === 'rating') {
+        return ratingOrderAsc ? a.rating - b.rating : b.rating - a.rating; // Sắp xếp theo rating
+      } else {
+        return dateOrderAsc
+          ? new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          : new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(); // Sắp xếp theo date
+      }
+    });
+    setReviews(sortedReviews);
+
+    // Cập nhật trạng thái thứ tự
+    if (order === 'rating') {
+      setRatingOrderAsc(!ratingOrderAsc); // Chuyển đổi hướng sắp xếp
+      setDateOrderAsc(false); // Đặt hướng sắp xếp ngày về mặc định
+    } else {
+      setDateOrderAsc(!dateOrderAsc); // Chuyển đổi hướng sắp xếp
+      setRatingOrderAsc(false); // Đặt hướng sắp xếp rating về mặc định
+    }
+  };
+
+  const onFinish = async (values: any) => {
     try {
-      await roomService.updateRoom(props.id, {
-        ...props,
-        reviews: [
-          {
-            ...values,
-            id: uuidv4(),
-            userId: user.id,
-            createdAt: new Date(),
-            roomId: props.id,
-            updatedAt: null,
-          },
-          ...reviews,
-        ],
+      await roomService.createReview({
+        id: uuidv4(),
+        userId: user.id,
+        createdAt: new Date(),
+        roomId: props.id,
+        UpdatedAt: null,
+        deletedAt: null,
+        ...values,
       });
 
       setReviews([
@@ -168,7 +180,8 @@ export const RoomReviews = (props: IRoom) => {
           userId: user.id,
           createdAt: new Date(),
           roomId: props.id,
-          updatedAt: null,
+          UpdatedAt: null,
+          deletedAt: null,
         },
         ...reviews,
       ]);
@@ -179,16 +192,16 @@ export const RoomReviews = (props: IRoom) => {
     }
   };
   return (
-    <Styles.RoomReviewsWrapper id='reviews'>
+    <Styles.RoomReviewsWrapper id="reviews">
       <Styles.ReviewsHeader>
         <Styles.ReviewsCount>{reviews.length} Reviews</Styles.ReviewsCount>
         <Styles.ReviewsHeaderSort>
           <span>Sort By:</span>
-          <Styles.ReviewsHeaderSortRating>
-            Rating <BiSolidDownArrow />
+          <Styles.ReviewsHeaderSortRating onClick={() => sortReviews('rating')}>
+            Rating {ratingOrderAsc ? <BiSolidUpArrow /> : <BiSolidDownArrow />}
           </Styles.ReviewsHeaderSortRating>
-          <Styles.ReviewsHeaderSortDate>
-            Date <BiSolidUpArrow />
+          <Styles.ReviewsHeaderSortDate onClick={() => sortReviews('date')}>
+            Date {dateOrderAsc ? <BiSolidUpArrow /> : <BiSolidDownArrow />}
           </Styles.ReviewsHeaderSortDate>
         </Styles.ReviewsHeaderSort>
       </Styles.ReviewsHeader>
@@ -198,28 +211,25 @@ export const RoomReviews = (props: IRoom) => {
             rating: 0,
             content: '',
           }}
-          onFinish={() => onFinish}
+          onFinish={onFinish}
         >
-          <Row gutter={[20, 20]}>
-            <Col xs={24} sm={12} md={8} xl={6}>
-              <Form.Item name='rating' rules={[{ required: true }]}>
-                <Rate allowHalf />
-              </Form.Item>
-            </Col>
-            <Col xs={24} sm={12} md={16} xl={18}>
-              <InputFormItem
-                label=''
-                name='content'
-                placeholder='Enter your review...'
-                rules={[{ required: true }]}
-              />
-            </Col>
-          </Row>
+          <section className="mb-16">
+            <Form.Item
+              className="w-fit"
+              name="rating"
+              rules={[{ required: true }]}
+            >
+              <Rate allowHalf className="[&_.anticon-star]:text-[2.5rem]" />
+            </Form.Item>
+            <Form.Item name="content" rules={[{ required: true }]}>
+              <TextArea rows={5} placeholder="Enter your review..." />
+            </Form.Item>
+          </section>
           <CustomButton
-            htmlType='submit'
-            type='primary'
-            width='100%'
-            height='60px'
+            htmlType="submit"
+            type="primary"
+            width="100%"
+            height="60px"
           >
             Submit
           </CustomButton>
@@ -227,8 +237,8 @@ export const RoomReviews = (props: IRoom) => {
       )}
 
       <Styles.ReviewsContent>
-        {reviews.map((review) => (
-          <Review {...review} key={review.id} />
+        {reviews.map((review, idx) => (
+          <Review {...review} key={`${review.id} - ${idx}`} />
         ))}
       </Styles.ReviewsContent>
     </Styles.RoomReviewsWrapper>

@@ -125,9 +125,9 @@ const TourDetailLeft = (props: ITour) => {
             <Styles.TourDetailLeftTitle>
               What to Expect
             </Styles.TourDetailLeftTitle>
-            <Styles.TourDetailLeftParagraph>
-              {props.expect}
-            </Styles.TourDetailLeftParagraph>
+            <Styles.TourDetailLeftParagraph
+              dangerouslySetInnerHTML={{ __html: props.expect }}
+            />
             <Styles.TourDetailLeftactivityList>
               {props.activityList.map((activity, idx) => (
                 <Styles.TourDetailLeftpriceIncludeListItem key={activity + idx}>

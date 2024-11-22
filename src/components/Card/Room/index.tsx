@@ -1,26 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
 import { Rate } from 'antd';
-import * as RoomStyled from '../Room/style';
-import * as Styles from './style';
-
+import React, { useEffect, useRef, useState } from 'react';
 import { IRoom } from 'room';
+
+import * as Styles from './style';
 
 interface IRoomProps extends IRoom {
   descriptionHeight?: string;
 }
 
 const Room: React.FC<IRoomProps> = ({ descriptionHeight, ...props }) => {
-  const {
-    name,
-    roomimageList,
-    price,
-    reviewList,
-    rate,
-    description,
-    salePercent,
-    id,
-  } = props;
+  const { name, images, price, reviews, detail, id } = props;
   const [isLazyLoad, setIsLazyLoad] = useState(false);
+
+  const rate =
+    reviews.length > 0
+      ? reviews.reduce((acc, cur) => acc + cur.rating, 0) / reviews.length
+      : 5;
 
   const elementRef = useRef<HTMLDivElement | null>(null);
 
@@ -45,26 +40,17 @@ const Room: React.FC<IRoomProps> = ({ descriptionHeight, ...props }) => {
       {isLazyLoad ? (
         <Styles.CardWrapper href={`/room/${id}`}>
           <Styles.ImgWrapper>
-            <Styles.Img src={roomimageList[0]} alt={name} />
-            {salePercent > 0 && (
-              <Styles.SaleOff>{salePercent}% Off</Styles.SaleOff>
-            )}
-            <Styles.Price>
-              From&nbsp;
-              {salePercent > 0 && (
-                <span> ${price - (price * salePercent) / 100} </span>
-              )}
-              &nbsp;${price}
-            </Styles.Price>
+            <Styles.Img src={images[0]} alt={name} />
+            <Styles.Price>From&nbsp; &nbsp;${price}</Styles.Price>
           </Styles.ImgWrapper>
           <Styles.CardInfo>
             <Styles.CardInfoTitle>{name}</Styles.CardInfoTitle>
             <Styles.CardInfoDescription descriptionHeight={descriptionHeight}>
-              {description}
+              {detail}
             </Styles.CardInfoDescription>
             <Styles.CardInfoReviews>
               <Rate allowHalf disabled defaultValue={rate} />
-              <span>({reviewList.length} Reviews)</span>
+              <span>({reviews.length} Reviews)</span>
             </Styles.CardInfoReviews>
             <Styles.CardInfoBookNow>
               <span>

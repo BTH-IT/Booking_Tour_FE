@@ -1,4 +1,4 @@
-import { BaseModel, IRoomFile, IHotel, IReview } from 'index';
+import { BaseModel, IHotel, IReview } from 'index';
 
 export interface IRoom extends BaseModel {
   name: string;
@@ -6,7 +6,6 @@ export interface IRoom extends BaseModel {
   video: string;
   detail: string;
   price: number;
-  imageList: string[];
   isAvailable: boolean;
   maxGuests: number;
   reviews: IReview[];
