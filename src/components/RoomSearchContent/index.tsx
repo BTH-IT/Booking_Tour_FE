@@ -1,21 +1,26 @@
-import * as Styles from './styles';
-import { Container } from '@/constants';
 import { Col, Row } from 'antd';
-import RoomSearchContentForm from './RoomSearchContentForm';
-import RoomSearchContentSort from './RoomSearchContentSort';
-import RoomFreshlyAdded from '../Card/RoomFreshlyAdded';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import RoomFreshlyAddedV2 from '../Card/RoomFreshlyAddedV2';
-import roomService from '@/services/RoomService';
-import { IRoom } from 'room';
 import { useLocation, useSearchParams } from 'react-router-dom';
+import { IRoom } from 'room';
+
 import * as FreshlyAddedStyled from '../Card/FreshlyAdded/style';
 import * as FreshlyAddedStyledV2 from '../Card/FreshlyAddedV2/style';
-import { toast } from 'react-toastify';
+import RoomFreshlyAdded from '../Card/RoomFreshlyAdded';
+import RoomFreshlyAddedV2 from '../Card/RoomFreshlyAddedV2';
 import Pagination from '../Pagination';
+
+import RoomSearchContentForm from './RoomSearchContentForm';
+import RoomSearchContentSort from './RoomSearchContentSort';
+import * as Styles from './styles';
+
+import { Container } from '@/constants';
+import useSignalR from '@/hooks/useSignalR';
+import roomService from '@/services/RoomService';
 import { logError } from '@/utils/constants';
 
 const RoomSearchContent = () => {
+  const signalRoom = useSignalR('RoomEvent');
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [layout, setLayout] = useState(false);

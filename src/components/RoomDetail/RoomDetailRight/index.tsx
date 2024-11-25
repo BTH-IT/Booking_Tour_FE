@@ -9,6 +9,7 @@ import { IRoom } from 'room';
 
 import * as Styles from './styles';
 
+import useSignalR from '@/hooks/useSignalR';
 import bookingService from '@/services/BookingService';
 import { logError } from '@/utils/constants';
 
@@ -20,6 +21,8 @@ interface ISchedule {
 }
 
 const RoomDetailRight = (props: IRoom) => {
+  const signalBookingRoom = useSignalR('BookingRoomEvent');
+
   const [schedules, setSchedules] = useState<ISchedule[]>([]);
   const [adults, setAdults] = useState<number>(1);
   const [children, setChildren] = useState<number>(0);
@@ -62,6 +65,35 @@ const RoomDetailRight = (props: IRoom) => {
       formData.adults + formData.children <= maxGuests;
     setIsFormValid(isValid);
   }, [formData]);
+
+  useEffect(() => {
+    if (signalBookingRoom) {
+      setSchedules((prev) => {
+        switch (signalBookingRoom.type) {
+          case 'CREATE':
+            const newSchedule: ISchedule = {
+              checkIn: signalBookingRoom.data.checkIn.toDate(),
+              checkOut: signalBookingRoom.data.checkOut.toDate(),
+            };
+            return [newSchedule, ...prev];
+          case 'UPDATE':
+            return signalBookingRoom.data.status === 'cancelled'
+              ? prev.filter(
+                  (schedule) =>
+                    !(
+                      schedule.checkIn ===
+                        signalBookingRoom.data.checkIn.toDate() &&
+                      schedule.checkOut ===
+                        signalBookingRoom.data.checkOut.toDate()
+                    )
+                )
+              : prev;
+          default:
+            return prev;
+        }
+      });
+    }
+  }, [signalBookingRoom]);
 
   const handleDateChange = (
     dates: [Dayjs | null, Dayjs | null],

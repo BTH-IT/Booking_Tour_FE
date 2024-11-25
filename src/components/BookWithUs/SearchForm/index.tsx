@@ -1,17 +1,21 @@
-import { useState } from 'react';
-import * as Styles from './styles';
 import { Col, Form, Input, Row, Select } from 'antd';
-import { AiOutlineSearch } from 'react-icons/ai';
-import CalendarInput from '@/components/CalendarInput';
-import { CalendarChangeEvent } from 'primereact/calendar';
-import useDidMount from '@/hooks/useDidMount';
 import { IDestination } from 'destination';
-import destinationService from '@/services/DestinationService';
-import { toast } from 'react-toastify';
+import { CalendarChangeEvent } from 'primereact/calendar';
+import { useEffect, useState } from 'react';
+import { AiOutlineSearch } from 'react-icons/ai';
 import { useNavigate } from 'react-router';
+
+import * as Styles from './styles';
+
+import CalendarInput from '@/components/CalendarInput';
+import useDidMount from '@/hooks/useDidMount';
+import useSignalR from '@/hooks/useSignalR';
+import destinationService from '@/services/DestinationService';
 import { logError } from '@/utils/constants';
 
 const SearchForm = () => {
+  const signalDestination = useSignalR('DestinationEvent');
+
   const [form] = Form.useForm();
   const [date, setDate] = useState<Date[]>([]);
   const [destinations, setDestinations] = useState<IDestination[]>([]);
@@ -30,6 +34,27 @@ const SearchForm = () => {
   useDidMount(() => {
     handleFetchDestinations();
   });
+
+  useEffect(() => {
+    if (signalDestination) {
+      setDestinations((prev) => {
+        switch (signalDestination.type) {
+          case 'CREATE':
+            return [signalDestination.data, ...prev];
+          case 'UPDATE':
+            return prev.map((tour) =>
+              tour.id === signalDestination.data.id
+                ? signalDestination.data
+                : tour
+            );
+          case 'DELETE':
+            return prev.filter((tour) => tour.id !== signalDestination.data.id);
+          default:
+            return prev;
+        }
+      });
+    }
+  }, [signalDestination]);
 
   const onFinish = (values: any) => {
     let state = {};

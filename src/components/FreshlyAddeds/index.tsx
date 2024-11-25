@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ITour } from 'tour';
 
 import ButtonLink from '../ButtonLink';
@@ -9,10 +9,13 @@ import * as Styles from './styles';
 
 import { Container } from '@/constants';
 import useDidMount from '@/hooks/useDidMount';
+import useSignalR from '@/hooks/useSignalR';
 import tourService from '@/services/TourService';
 import { logError } from '@/utils/constants';
 
 const FreshlyAddeds = () => {
+  const signalTour = useSignalR('TourEvent');
+
   const [tourList, setTourList] = useState<ITour[]>([]);
 
   async function fetchTourList() {
@@ -28,6 +31,23 @@ const FreshlyAddeds = () => {
   useDidMount(() => {
     fetchTourList();
   });
+
+  useEffect(() => {
+    if (signalTour) {
+      setTourList((prev) => {
+        switch (signalTour.type) {
+          case 'CREATE':
+            return [signalTour.data, ...prev];
+          case 'UPDATE':
+            return prev.map((tour) =>
+              tour.id === signalTour.data.id ? signalTour.data : tour
+            );
+          default:
+            return prev;
+        }
+      });
+    }
+  }, [signalTour]);
 
   return (
     <Container>
