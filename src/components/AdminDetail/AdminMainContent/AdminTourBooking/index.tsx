@@ -12,12 +12,15 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import useSignalR from '@/hooks/useSignalR';
 import bookingService from '@/services/BookingService';
 import { IBookingTour } from '@/types';
 
 const ITEMS_PER_PAGE = 6;
 
 const AdminTourBooking = () => {
+  const signalBookingTour = useSignalR('BookingTourEvent');
+
   const [bookings, setBookings] = useState<IBookingTour[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,11 +35,28 @@ const AdminTourBooking = () => {
     }
   };
 
-  console.log(bookings);
-
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (signalBookingTour) {
+      setBookings((prev) => {
+        switch (signalBookingTour.type) {
+          case 'CREATE':
+            return [signalBookingTour.data, ...prev];
+          case 'UPDATE':
+            return prev.map((booking) =>
+              booking.id === signalBookingTour.data.id
+                ? signalBookingTour.data
+                : booking
+            );
+          default:
+            return prev;
+        }
+      });
+    }
+  }, [signalBookingTour]);
 
   const filteredBookings = useMemo(() => {
     return bookings.filter((booking) => {

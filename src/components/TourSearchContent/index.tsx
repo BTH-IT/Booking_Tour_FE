@@ -1,21 +1,28 @@
-import * as Styles from './styles';
-import { Container } from '@/constants';
 import { Col, Row } from 'antd';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { ITour } from 'tour';
+
+import FreshlyAdded from '../Card/FreshlyAdded';
+import * as FreshlyAddedStyled from '../Card/FreshlyAdded/style';
+import FreshlyAddedV2 from '../Card/FreshlyAddedV2';
+import * as FreshlyAddedStyledV2 from '../Card/FreshlyAddedV2/style';
+
+import * as Styles from './styles';
 import TourSearchContentForm from './TourSearchContentForm';
 import TourSearchContentSort from './TourSearchContentSort';
-import FreshlyAdded from '../Card/FreshlyAdded';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import FreshlyAddedV2 from '../Card/FreshlyAddedV2';
-import tourService from '@/services/TourService';
-import { ITour } from 'tour';
-import { useLocation, useSearchParams } from 'react-router-dom';
-import * as FreshlyAddedStyled from '../Card/FreshlyAdded/style';
-import * as FreshlyAddedStyledV2 from '../Card/FreshlyAddedV2/style';
-import { logError } from '@/utils/constants';
+
+import { Container } from '@/constants';
+import useSignalR from '@/hooks/useSignalR';
 import { capitalize } from '@/lib/utils';
+import tourService from '@/services/TourService';
+import { logError } from '@/utils/constants';
 
 const TourSearchContent = () => {
+  const signalTour = useSignalR('TourEvent');
   const [searchParams, setSearchParams] = useSearchParams();
+  console.log(signalTour);
+
   const [isLoading, setIsLoading] = useState(false);
   const [layout, setLayout] = useState(false);
   const [tourList, setTourList] = useState<ITour[]>([]);
@@ -53,6 +60,25 @@ const TourSearchContent = () => {
       }
     };
   }, [tourList]);
+
+  useEffect(() => {
+    if (signalTour) {
+      setTourList((prev) => {
+        switch (signalTour.type) {
+          case 'CREATE':
+            return [signalTour.data, ...prev];
+          case 'UPDATE':
+            return prev.map((tour) =>
+              tour.id === signalTour.data.id ? signalTour.data : tour
+            );
+          case 'DELETE':
+            return prev.filter((tour) => tour.id !== signalTour.data.id);
+          default:
+            return prev;
+        }
+      });
+    }
+  }, [signalTour]);
 
   useLayoutEffect(() => {
     setTourList([]);

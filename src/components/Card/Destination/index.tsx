@@ -1,13 +1,14 @@
-import * as Styles from './style';
-import React, { useState } from 'react';
-import ButtonLink from '@/components/ButtonLink';
 import { IDestination } from 'destination';
+import React, { useState } from 'react';
+
+import * as Styles from './style';
+
+import ButtonLink from '@/components/ButtonLink';
 import useDidMount from '@/hooks/useDidMount';
 import tourService from '@/services/TourService';
-import { toast } from 'react-toastify';
 import { logError } from '@/utils/constants';
 
-const Destination: React.FC<IDestination> = ({ id, name, desc, image }) => {
+const Destination: React.FC<IDestination> = ({ id, name }) => {
   const [tours, setTours] = useState<number>(0);
 
   async function handleFetchTourLength() {
@@ -25,11 +26,9 @@ const Destination: React.FC<IDestination> = ({ id, name, desc, image }) => {
   });
   return (
     <Styles.CardWrapper>
-      <Styles.Img src={image} alt={name} />
       <Styles.Tours>{tours} Tours</Styles.Tours>
       <Styles.CardInfo>
         <Styles.Title>{name}</Styles.Title>
-        <Styles.subTitle>{desc}</Styles.subTitle>
         <ButtonLink
           href={'/search?destination=' + id}
           icon={false}

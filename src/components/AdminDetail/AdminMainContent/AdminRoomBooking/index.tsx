@@ -12,12 +12,15 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import useSignalR from '@/hooks/useSignalR';
 import bookingService from '@/services/BookingService';
 import { IBookingRoom } from '@/types';
 
 const ITEMS_PER_PAGE = 6;
 
 const AdminRoomBooking = () => {
+  const signalBookingRoom = useSignalR('BookingRoomEvent');
+
   const [bookings, setBookings] = useState<IBookingRoom[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,6 +40,25 @@ const AdminRoomBooking = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (signalBookingRoom) {
+      setBookings((prev) => {
+        switch (signalBookingRoom.type) {
+          case 'CREATE':
+            return [signalBookingRoom.data, ...prev];
+          case 'UPDATE':
+            return prev.map((booking) =>
+              booking.id === signalBookingRoom.data.id
+                ? signalBookingRoom.data
+                : booking
+            );
+          default:
+            return prev;
+        }
+      });
+    }
+  }, [signalBookingRoom]);
 
   const filteredBookings = useMemo(() => {
     return bookings.filter((booking) => {

@@ -1,18 +1,20 @@
 import { Form, Slider } from 'antd';
-import * as Styles from './styles';
-import { BsSearch } from 'react-icons/bs';
-import { useEffect, useState } from 'react';
-import CalendarInput from '@/components/CalendarInput';
-import { AiOutlineClose } from 'react-icons/ai';
-import Filter from './Filter';
-import CustomButton from '@/components/CustomButton';
-import { CalendarChangeEvent } from 'primereact/calendar';
-import { toast } from 'react-toastify';
-import { debounce } from 'lodash';
-import { useSearchParams } from 'react-router-dom';
 import { ILocation } from 'destination';
-import destinationService from '@/services/DestinationService';
+import { debounce } from 'lodash';
+import { CalendarChangeEvent } from 'primereact/calendar';
+import { useEffect, useState } from 'react';
+import { AiOutlineClose } from 'react-icons/ai';
+import { BsSearch } from 'react-icons/bs';
+import { useSearchParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+import Filter from './Filter';
+import * as Styles from './styles';
+
 import tourService from '@/services/TourService';
+import destinationService from '@/services/DestinationService';
+import CustomButton from '@/components/CustomButton';
+import CalendarInput from '@/components/CalendarInput';
 
 const TourSearchContentForm = ({
   meta,
@@ -91,10 +93,10 @@ const TourSearchContentForm = ({
   return (
     <Styles.TourSearchContentForm
       form={form}
-      layout='vertical'
+      layout="vertical"
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
-      autoComplete='off'
+      autoComplete="off"
       initialValues={{
         keywords: '',
         date: [],
@@ -108,24 +110,24 @@ const TourSearchContentForm = ({
         <BsSearch />
         <span>Tour Search</span>
       </Styles.TourSearchContentTitle>
-      <Styles.TourSearchContentFormItem name='keywords' label='Keywords'>
+      <Styles.TourSearchContentFormItem name="keywords" label="Keywords">
         <Styles.TourSearchContentFormInput
-          placeholder='input search text'
+          placeholder="input search text"
           suffix={<BsSearch />}
           bordered={false}
           allowClear
         />
       </Styles.TourSearchContentFormItem>
-      <Styles.TourSearchContentFormDate name='date' label='Date'>
+      <Styles.TourSearchContentFormDate name="date" label="Date">
         <CalendarInput
           value={date}
           onChange={(e: CalendarChangeEvent) => setDate(e.value as Date[])}
           minDate={new Date()}
-          selectionMode='range'
+          selectionMode="range"
           numberOfMonths={2}
         />
       </Styles.TourSearchContentFormDate>
-      <Styles.TourSearchContentFormItem name='price' label='Price'>
+      <Styles.TourSearchContentFormItem name="price" label="Price">
         <Slider
           range
           max={defaultValuePriceRange[1]}
@@ -140,7 +142,7 @@ const TourSearchContentForm = ({
       </Styles.TourSearchContentFormItem>
       <Styles.TourSearchContentFormButton
         onClick={handleResetFilter}
-        type='button'
+        type="button"
       >
         <AiOutlineClose />
         <span>Clear Filter</span>
@@ -153,11 +155,11 @@ const TourSearchContentForm = ({
         activities={activities}
       />
       <CustomButton
-        type='primary'
-        border_radius='0px'
-        width='100%'
-        height='50px'
-        htmlType='submit'
+        type="primary"
+        border_radius="0px"
+        width="100%"
+        height="50px"
+        htmlType="submit"
       >
         SEARCH
       </CustomButton>
