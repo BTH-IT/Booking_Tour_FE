@@ -1,6 +1,6 @@
 <img alt="React Badge" src="https://img.shields.io/badge/React-18.2.0-blue"> <img alt="Shadcn/ui Badge" src="https://img.shields.io/badge/Shadcn--ui-0.9.1-blue"> <img alt="Antd Badge" src="https://img.shields.io/badge/antd-5.9.2-blue">
 
-Link Booking_Tour_API: [https://github.com/BTH-IT/Booking_Tour_API.git](https://github.com/BTH-IT/Booking_Tour_API.git)
+Link Booking_Tour_API: [https://github.com/BTH-IT/Booking_Tour_FE.git](https://github.com/BTH-IT/Booking_Tour_FE.git)
 
 Link thuyết trình: [Báo cáo .Net](https://www.canva.com/design/DAGXLw-JdZk/wPuk0vujq8fvU64592dFoQ/edit?utm_content=DAGXLw-JdZk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
