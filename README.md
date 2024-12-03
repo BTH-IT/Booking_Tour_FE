@@ -10,7 +10,7 @@ Link thuyết trình: [Báo cáo .Net](https://www.canva.com/design/DAGXLw-JdZk/
     <table border="1">
         <thead>
             <tr>
-                <th style="text-align: center;">Orde</th>
+                <th style="text-align: center;">Order</th>
                 <th style="text-align: center;">Student ID</th>
                 <th style="text-align: center;">Full Name</th>
             </tr>
