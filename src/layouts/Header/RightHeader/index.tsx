@@ -41,9 +41,6 @@ const RightHeader = ({ handleShowModal }: { handleShowModal: () => void }) => {
             <Styles.UserInfoDropdownItem href="/dashboard?tab=edit-profile">
               Edit Profile
             </Styles.UserInfoDropdownItem>
-            <Styles.UserInfoDropdownItem href="/dashboard?tab=wish-list">
-              Wish List
-            </Styles.UserInfoDropdownItem>
             <Styles.UserInfoDropdownLogout
               onClick={() => {
                 dispatch(authActions.logout());
