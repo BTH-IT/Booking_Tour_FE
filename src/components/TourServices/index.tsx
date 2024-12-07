@@ -1,5 +1,4 @@
 import { Checkbox } from 'antd';
-import { debounce } from 'lodash';
 import { Dispatch, SetStateAction, useState } from 'react';
 import styled from 'styled-components';
 
@@ -29,7 +28,7 @@ const TourServices = ({
   setTotalPay: Dispatch<SetStateAction<number>>;
 }) => {
   const [tourPayment, setTourPayment] = useState(
-    JSON.parse(localStorage.getItem('tour_payment') || ''),
+    JSON.parse(localStorage.getItem('tour_payment') || '')
   );
 
   if (!tourPayment) {
