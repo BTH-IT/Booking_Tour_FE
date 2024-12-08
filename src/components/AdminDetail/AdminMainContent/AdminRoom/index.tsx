@@ -1,8 +1,12 @@
+import { Plus, Search } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
+
+import CreateRoomModal from './CreateRoomModal';
+import RoomTableRow from './RoomTableRow';
+
+import Pagination from '@/components/Pagination';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import roomService from '@/services/RoomService';
-import { IHotel, IRoom } from '@/types';
 import {
   Table,
   TableBody,
@@ -10,11 +14,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Plus, Search } from 'lucide-react';
-import Pagination from '@/components/Pagination';
-import RoomTableRow from './RoomTableRow';
-import CreateRoomModal from './CreateRoomModal';
 import hotelService from '@/services/HotelService';
+import roomService from '@/services/RoomService';
+import { IHotel, IRoom } from '@/types';
 
 const ITEMS_PER_PAGE = 6;
 
@@ -50,13 +52,13 @@ const AdminRoom = () => {
 
   const filteredRooms = useMemo(() => {
     return rooms.filter((room) =>
-      room.name.toLowerCase().includes(searchTerm.toLowerCase()),
+      room.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [rooms, searchTerm]);
 
   const paginatedRooms = filteredRooms.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
   );
 
   return (

@@ -88,6 +88,7 @@ export default function DashboardEdit() {
       if (res) {
         toast.success('Update profile success!!');
         dispatch(authActions.updateUser({ user: res.result }));
+        localStorage.setItem('current_user', JSON.stringify(res.result));
       }
     } catch (error) {
       logError(error);
@@ -241,8 +242,8 @@ export default function DashboardEdit() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem className="py-4" value="vietnam">
-                      Vietnam
+                    <SelectItem className="py-4" value="Vietnam">
+                      Viet Nam
                     </SelectItem>
                   </SelectContent>
                 </Select>

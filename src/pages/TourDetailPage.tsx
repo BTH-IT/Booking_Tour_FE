@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { ITour } from 'tour';
 
 import FreshlyAdded from '@/components/Card/FreshlyAdded';
+import Loading from '@/components/Loading';
 import { TourReviews } from '@/components/Reviews';
 import SliderBase from '@/components/Slider/SliderBase';
 import TourDetailGallery from '@/components/TourDetail/TourDetailGallery';
@@ -72,63 +73,63 @@ const TourDetailPage = () => {
     }
   }
 
-  return (
-    tour && (
-      <>
-        <TourSearchTitle>{'Tour Detail'}</TourSearchTitle>
-        <Container>
-          <TourDetailNav />
-          <TourDetailHeader {...tour} />
-          <TourDetailGallery {...tour} />
-          <TourDetailContentStyled>
-            <Row gutter={[10, 10]}>
-              <Col xs={24} md={16}>
-                <TourDetailLeft {...tour} />
-              </Col>
-              <Col xs={24} md={8}>
-                <TourDetailRight {...tour} />
-              </Col>
-            </Row>
-          </TourDetailContentStyled>
-          <TourDetailContent>
-            <TourDetailTitle>Related Tours</TourDetailTitle>
-            <SliderBase
-              config={{
-                slidesToShow: 3,
-              }}
-              configResponsive={[
-                {
-                  breakpoint: 1500,
-                  settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                  },
+  return tour ? (
+    <>
+      <TourSearchTitle>{'Tour Detail'}</TourSearchTitle>
+      <Container>
+        <TourDetailNav />
+        <TourDetailHeader {...tour} />
+        <TourDetailGallery {...tour} />
+        <TourDetailContentStyled>
+          <Row gutter={[10, 10]}>
+            <Col xs={24} md={16}>
+              <TourDetailLeft {...tour} />
+            </Col>
+            <Col xs={24} md={8}>
+              <TourDetailRight {...tour} />
+            </Col>
+          </Row>
+        </TourDetailContentStyled>
+        <TourDetailContent>
+          <TourDetailTitle>Related Tours</TourDetailTitle>
+          <SliderBase
+            config={{
+              slidesToShow: 3,
+            }}
+            configResponsive={[
+              {
+                breakpoint: 1500,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
                 },
-                {
-                  breakpoint: 1150,
-                  settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                  },
+              },
+              {
+                breakpoint: 1150,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 1,
                 },
-                {
-                  breakpoint: 1000,
-                  settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                  },
+              },
+              {
+                breakpoint: 1000,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
                 },
-              ]}
-            >
-              {tourList.map((freshlyAdded, idx) => (
-                <FreshlyAdded {...freshlyAdded} maxWidth="325px" key={idx} />
-              ))}
-            </SliderBase>
-          </TourDetailContent>
-          <TourReviews {...tour} />
-        </Container>
-      </>
-    )
+              },
+            ]}
+          >
+            {tourList.map((freshlyAdded, idx) => (
+              <FreshlyAdded {...freshlyAdded} maxWidth="325px" key={idx} />
+            ))}
+          </SliderBase>
+        </TourDetailContent>
+        <TourReviews {...tour} />
+      </Container>
+    </>
+  ) : (
+    <Loading />
   );
 };
 

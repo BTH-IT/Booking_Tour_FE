@@ -4,7 +4,8 @@ import { Dispatch, SetStateAction } from 'react';
 import { toast } from 'react-toastify';
 
 import { TableCell, TableRow } from '@/components/ui/table';
-import { formatDate } from '@/utils/constants';
+import bookingService from '@/services/BookingService';
+import { formatDate, logError } from '@/utils/constants';
 
 const BookingTableRow = ({
   booking,
@@ -13,10 +14,15 @@ const BookingTableRow = ({
   booking: IBookingTour;
   setBookings: Dispatch<SetStateAction<IBookingTour[]>>;
 }) => {
-  const handleChangeStatus = (e: any) => {
-    console.log(e);
-
-    toast.success('Status updated successfully');
+  const handleChangeStatus = async (id: string) => {
+    try {
+      const res = await bookingService.cancelBookingTour(id);
+      if (res) {
+        toast.success('Cancel booking successfully');
+      }
+    } catch (error) {
+      logError(error);
+    }
   };
 
   return (
@@ -47,7 +53,9 @@ const BookingTableRow = ({
           <Select
             className="w-[100px]"
             defaultValue={'pending'}
-            onChange={handleChangeStatus}
+            onChange={() => {
+              handleChangeStatus(booking.id);
+            }}
           >
             <Select.Option value="pending">Pending</Select.Option>
             {new Date(booking.schedule.dateEnd) < new Date() && (
