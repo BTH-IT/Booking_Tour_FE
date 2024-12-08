@@ -5,6 +5,7 @@ import { IRoom } from 'room';
 import styled from 'styled-components';
 
 import Room from '@/components/Card/Room';
+import Loading from '@/components/Loading';
 import { RoomReviews } from '@/components/Reviews';
 import RoomDetailGallery from '@/components/RoomDetail/RoomDetailGallery';
 import RoomDetailHeader from '@/components/RoomDetail/RoomDetailHeader';
@@ -108,66 +109,62 @@ const RoomDetailPage = () => {
 
   console.log(roomList);
 
-  return (
-    room && (
-      <>
-        <Container className="container">
-          <RoomDetailHeader {...room} />
-          <RoomDetailGallery {...room} />
-          <RoomDetailContentStyled>
-            <Row gutter={[10, 10]}>
-              <Col md={24} xl={17}>
-                <RoomDetailLeft {...room} />
-              </Col>
-              <Col md={24} xl={7}>
-                <RoomDetailRight {...room} />
-              </Col>
-            </Row>
-          </RoomDetailContentStyled>
-          <Separator />
-          <RoomDetailContent>
-            <RoomDetailTitle>More Rooms</RoomDetailTitle>
-            <SliderBase
-              config={{
-                slidesToShow: 3,
-              }}
-              configResponsive={[
-                {
-                  breakpoint: 1500,
-                  settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                  },
+  return room ? (
+    <>
+      <Container className="container">
+        <RoomDetailHeader {...room} />
+        <RoomDetailGallery {...room} />
+        <RoomDetailContentStyled>
+          <Row gutter={[10, 10]}>
+            <Col md={24} xl={17}>
+              <RoomDetailLeft {...room} />
+            </Col>
+            <Col md={24} xl={7}>
+              <RoomDetailRight {...room} />
+            </Col>
+          </Row>
+        </RoomDetailContentStyled>
+        <Separator />
+        <RoomDetailContent>
+          <RoomDetailTitle>More Rooms</RoomDetailTitle>
+          <SliderBase
+            config={{
+              slidesToShow: 3,
+            }}
+            configResponsive={[
+              {
+                breakpoint: 1500,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
                 },
-                {
-                  breakpoint: 1150,
-                  settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                  },
+              },
+              {
+                breakpoint: 1150,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 1,
                 },
-                {
-                  breakpoint: 1000,
-                  settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                  },
+              },
+              {
+                breakpoint: 1000,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
                 },
-              ]}
-            >
-              {roomList.map((room) => (
-                <Room
-                  {...room}
-                  descriptionHeight={'40px'}
-                  key={room.images[0]}
-                />
-              ))}
-            </SliderBase>
-          </RoomDetailContent>
-          <RoomReviews {...room} />
-        </Container>
-      </>
-    )
+              },
+            ]}
+          >
+            {roomList.map((room) => (
+              <Room {...room} descriptionHeight={'40px'} key={room.images[0]} />
+            ))}
+          </SliderBase>
+        </RoomDetailContent>
+        <RoomReviews {...room} />
+      </Container>
+    </>
+  ) : (
+    <Loading />
   );
 };
 

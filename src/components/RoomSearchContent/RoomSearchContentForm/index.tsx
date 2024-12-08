@@ -1,19 +1,21 @@
 import { Form, Slider } from 'antd';
-import * as Styles from './styles';
-import { BsPeople, BsSearch } from 'react-icons/bs';
-import { useLayoutEffect, useState } from 'react';
-import CalendarInput from '@/components/CalendarInput';
-import { AiOutlineClose } from 'react-icons/ai';
-import Filter from './Filter';
-import CustomButton from '@/components/CustomButton';
-import { CalendarChangeEvent } from 'primereact/calendar';
-import { toast } from 'react-toastify';
-import { debounce } from 'lodash';
-import { useSearchParams } from 'react-router-dom';
 import { ILocation } from 'destination';
-import destinationService from '@/services/DestinationService';
-import roomService from '@/services/RoomService';
+import { debounce } from 'lodash';
+import { CalendarChangeEvent } from 'primereact/calendar';
+import { useLayoutEffect, useState } from 'react';
+import { AiOutlineClose } from 'react-icons/ai';
+import { BsPeople, BsSearch } from 'react-icons/bs';
+import { useSearchParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+import Filter from './Filter';
+import * as Styles from './styles';
+
 import { logError } from '@/utils/constants';
+import roomService from '@/services/RoomService';
+import destinationService from '@/services/DestinationService';
+import CustomButton from '@/components/CustomButton';
+import CalendarInput from '@/components/CalendarInput';
 
 interface IData {
   roomAmenities: string[];
@@ -56,7 +58,7 @@ const RoomSearchContentForm = ({
           ],
           hotelAmenities: [
             ...new Set(
-              roomRes.result.map((r) => r.hotel.hotelAmenities).flat(),
+              roomRes.result.map((r) => r.hotel.hotelAmenities).flat()
             ),
           ],
           hotelRules: [
