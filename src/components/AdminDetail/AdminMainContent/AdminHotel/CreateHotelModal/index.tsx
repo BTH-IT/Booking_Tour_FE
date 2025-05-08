@@ -107,12 +107,7 @@ const CreateHotelModal = ({
     try {
       const res = await hotelService.updateHotel(data);
       if (res) {
-        setHotels([...hotels, res.      const res = await hotelService.updateHotel(data);
-     title: 'Hotel created successfully!',
-        });
-        closeModal();
-      } else {
-        console.error('Failed to create hotel');
+        setHotels([...hotels, res.result]);
         toast({
           variant: 'destructive',
           duration: 2000,
