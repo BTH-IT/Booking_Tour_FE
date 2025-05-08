@@ -105,7 +105,7 @@ const CreateHotelModal = ({
 
   const handleCreateHotel = async (data: any) => {
     try {
-      const res = await hotelService.updateHotel(data);
+      const res = await hotelService.createHotel(data);
       if (res) {
         setHotels([...hotels, res.result]);
         toast({
