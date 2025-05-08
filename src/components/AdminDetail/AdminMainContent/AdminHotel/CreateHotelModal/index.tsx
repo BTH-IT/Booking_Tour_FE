@@ -1,13 +1,4 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
+import ManageHotelItems from '@/components/ManageHotelItems';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -15,7 +6,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import Select from 'react-select';
 import {
   Form,
   FormControl,
@@ -26,11 +16,14 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { IHotel, IHotelItem, ILocation, IRoom } from '@/types';
-import ReactQuill from 'react-quill';
 import hotelService from '@/services/HotelService';
-import destinationService from '@/services/DestinationService';
-import ManageHotelItems from '@/components/ManageHotelItems';
+import { IHotel, IHotelItem, ILocation } from '@/types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import ReactQuill from 'react-quill';
+import Select from 'react-select';
+import * as z from 'zod';
 
 const phoneRegex =
   /^(\+84|84|0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[1-5]|9[0-9])[0-9]{7}$/;
@@ -68,7 +61,7 @@ const CreateHotelModal = ({
         (name) => {
           return !hotels.find((hotel) => hotel.name === name);
         },
-        { message: 'Hotel name already exists' },
+        { message: 'Hotel name already exists' }
       ),
     location: z.string().min(1, { message: 'Location is required' }),
     locationDetail: z.object({
@@ -83,7 +76,7 @@ const CreateHotelModal = ({
         (phone) => {
           return !hotels.find((hotel) => hotel.contactInfo === phone);
         },
-        { message: 'Phone number already exists' },
+        { message: 'Phone number already exists' }
       ),
   });
 
@@ -112,7 +105,7 @@ const CreateHotelModal = ({
 
   const handleCreateHotel = async (data: any) => {
     try {
-      const res = await hotelService.createHotel(data);
+      const res = await hotelService.updateHotel(data);
       if (res) {
         setHotels([...hotels, res.result]);
         toast({
